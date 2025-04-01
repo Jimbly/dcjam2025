@@ -1357,7 +1357,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "spireish_open_nopillar",
       "walls": [
         "open",
         "open",
@@ -1503,16 +1503,10 @@
         "door",
         "open",
         "open"
-      ],
-      "events": [
-        {
-          "id": "dialog",
-          "param": "sign *Hullo there!*  This is a test of [c=1]Mark[/c][c=2]down[/c], including [img=brick_brown0]images[img=crystal_wall11], line wrapping, and **bold**. Also [img=tall]tall and [img=wide]wide."
-        }
       ]
     },
     {
-      "id": "demo_shopkeeper_static",
+      "id": "open",
       "walls": [
         "solid",
         "solid",
@@ -2083,7 +2077,7 @@
       "id": "open",
       "walls": [
         "open",
-        "demo_walldetail2",
+        "solid",
         "open",
         "open"
       ]
@@ -2100,7 +2094,7 @@
     {
       "id": "open",
       "walls": [
-        "open",
+        "solid",
         "solid",
         "open",
         "open"
@@ -2111,7 +2105,7 @@
       "walls": [
         "solid",
         "solid",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -2367,16 +2361,24 @@
       ]
     },
     {
-      "type": "demo_shopkeeper",
+      "type": "spireish_critter",
       "pos": [
         1,
         10,
-        3
+        0
+      ]
+    },
+    {
+      "type": "spireish_critter",
+      "pos": [
+        3,
+        10,
+        2
       ]
     }
   ],
   "state": {},
-  "vstyle": "demo",
+  "vstyle": "spireish",
   "seed": "32845502",
   "props": {},
   "paths": {}
