@@ -63,19 +63,19 @@ corners: # pillars and floor/ceiling details
       scale: 1
       atlas: spireish
       tile: pillar_floor3
-  # four:
-  # - pass: details
-  #   type: simple_pillar
-  #   opts:
-  #     quadrants: 4
-  #     atlas: spireish
-  #     tile: pillar4
-  #     height: 1
-  #     offs: [0,0,0]
-  # - pass: details
-  #   type: simple_corner_floor
-  #   opts:
-  #     quadrants: 4
-  #     scale: 1
-  #     atlas: spireish
-  #     tile: pillar_floor4
+  four:
+  - pass: details
+    type: simple_pillar
+    opts:
+      quadrants: 4
+      atlas: spireish
+      tile: pillar4
+      height: 1
+      offs: [0,0,0]
+  - pass: details
+    type: simple_corner_floor
+    opts:
+      quadrants: 4
+      scale: 1
+      atlas: spireish
+      tile: pillar_floor4

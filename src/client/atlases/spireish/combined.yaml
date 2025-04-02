@@ -21,3 +21,8 @@ tiles:
   detail2: [1.25, 3.5]
   detail3: [2.375, 3.5]
   detail4: [3.5, 3.5]
+
+  pillar_floor1: [0.125, 4.625]
+  pillar_floor2: [1.25, 4.625]
+  pillar_floor3: [2.375, 4.625]
+  pillar_floor4: [3.5, 4.625]
