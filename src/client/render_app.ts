@@ -56,7 +56,7 @@ export function renderAppStartup(): void {
     },
     split_dist: 2.8,
     angle_offs: 0, // 9.5,
-    pos_offs: vec2(0/*0.3*/, -0.95),
+    pos_offs: vec2(0/*0.3*/, -0.85),
   });
 
   crawlerOnFilterChange(renderResetFilter);
