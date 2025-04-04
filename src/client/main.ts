@@ -17,7 +17,6 @@ import { netInit } from 'glov/client/net';
 import * as settings from 'glov/client/settings';
 import { settingsSet } from 'glov/client/settings';
 import { shadersSetInternalDefines } from 'glov/client/shaders';
-import { spriteSetGet } from 'glov/client/sprite_sets';
 import { textureDefaultFilters } from 'glov/client/textures';
 import { uiSetPanelColor } from 'glov/client/ui';
 import * as ui from 'glov/client/ui';
@@ -130,6 +129,7 @@ export function main(): void {
   const font_info_04b03x2 = require('./img/font/04b03_8x2.json');
   const font_info_04b03x1 = require('./img/font/04b03_8x1.json');
   const font_info_palanquin32 = require('./img/font/palanquin32.json');
+  const font_info_ink = require('./img/font/ink.json');
   let pixely = settings.pixely === 2 ? 'strict' : settings.pixely ? 'on' : false;
   let font;
   if (pixely === 'strict') {
@@ -139,6 +139,7 @@ export function main(): void {
   } else {
     font = { info: font_info_palanquin32, texture: 'font/palanquin32' };
   }
+  font = { info: font_info_ink, texture: 'font/ink' };
   settingsSet('use_fbos', use_fbos); // Needed for our effects
 
   autoAtlasTextureOpts('whitebox', { force_mipmaps: true });
@@ -156,7 +157,7 @@ export function main(): void {
     do_borders: false,
     show_fps: false,
     ui_sprites: {
-      ...spriteSetGet('pixely'),
+      // ...spriteSetGet('pixely'),
       // color_set_shades: [1, 1, 1],
       // button: { name: 'button', ws: [3, 20, 3], hs: [26] },
       // button_rollover: { name: 'button_rollover', ws: [3, 20, 3], hs: [26] },
@@ -213,7 +214,7 @@ export function main(): void {
   ui.scaleSizes(13 / 32);
   ui.setModalSizes(0, round(game_width * 0.8), round(game_height * 0.23), 0, 0);
   ui.setFontHeight(8);
-  ui.setPanelPixelScale(1);
+  // ui.setPanelPixelScale(1);
   uiSetPanelColor([1, 1, 1, 1]);
   // ui.uiSetFontStyleFocused(fontStyle(ui.uiGetFontStyleFocused(), {
   //   outline_width: 2.5,

@@ -18,4 +18,5 @@ GLOV.js is MIT licensed.
 Credits
 =======
 
+* Font - https://www.dafontfree.co/ink-free-font/
 
