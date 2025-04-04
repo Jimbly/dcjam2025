@@ -3,9 +3,9 @@ fog_color: '#fff'
 background_color: '#fff'
 # background_img: backdrop_demo
 fog_params:
+- 0.0025
 - 0.003
-- 0.004
-- 400.0
+- 450.0
 cell_swaps:
   open: spireish_open
 wall_swaps:
