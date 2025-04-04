@@ -2336,11 +2336,11 @@
   ],
   "initial_entities": [
     {
-      "type": "spireish_critter1",
+      "type": "spireish_critter7",
       "pos": [
-        3,
-        13,
-        3
+        5,
+        14,
+        2
       ]
     },
     {
@@ -2368,11 +2368,11 @@
       ]
     },
     {
-      "type": "spireish_critter3",
+      "type": "spireish_critter8",
       "pos": [
         4,
         14,
-        3
+        2
       ]
     },
     {
@@ -2392,11 +2392,19 @@
       ]
     },
     {
-      "type": "spireish_critter5",
+      "type": "spireish_critter6",
       "pos": [
         3,
         12,
         1
+      ]
+    },
+    {
+      "type": "spireish_critter1",
+      "pos": [
+        2,
+        13,
+        3
       ]
     }
   ],
