@@ -324,7 +324,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -458,27 +458,28 @@
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
         "solid",
         "open",
+        "open",
         "open"
       ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "solid"
+      ],
+      "h": 0.25
     },
     {
       "id": "solid",
       "walls": [
         "open",
         "open",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -614,7 +615,7 @@
         "solid",
         "open",
         "solid",
-        "solid"
+        "open"
       ],
       "h": 0.25
     },
@@ -1931,7 +1932,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "open",
         "open",
         "open"
       ]
@@ -2065,19 +2066,10 @@
     {
       "id": "spireish_detail1",
       "walls": [
-        "spireish_solid2",
+        "open",
         "solid",
         "spireish_solid3",
         "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "solid",
-        "open",
-        "solid",
-        "solid"
       ]
     },
     {
@@ -2085,7 +2077,16 @@
       "walls": [
         "open",
         "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
         "solid",
+        "open",
         "open"
       ]
     },
@@ -2221,7 +2222,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2340,6 +2341,62 @@
         3,
         13,
         3
+      ]
+    },
+    {
+      "type": "demo_wander",
+      "pos": [
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "type": "spireish_critter2",
+      "pos": [
+        2,
+        8,
+        3
+      ]
+    },
+    {
+      "type": "spireish_critter3",
+      "pos": [
+        4,
+        15,
+        3
+      ]
+    },
+    {
+      "type": "spireish_critter3",
+      "pos": [
+        4,
+        14,
+        3
+      ]
+    },
+    {
+      "type": "spireish_critter4",
+      "pos": [
+        3,
+        14,
+        3
+      ]
+    },
+    {
+      "type": "spireish_critter5",
+      "pos": [
+        3,
+        11,
+        1
+      ]
+    },
+    {
+      "type": "spireish_critter5",
+      "pos": [
+        3,
+        12,
+        1
       ]
     }
   ],
