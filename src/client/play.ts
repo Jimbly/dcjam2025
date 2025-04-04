@@ -7,7 +7,6 @@ import {
 } from 'glov/client/font';
 import * as input from 'glov/client/input';
 import {
-  keyDown,
   keyDownEdge,
   KEYS,
   keyUpEdge,
@@ -603,16 +602,16 @@ export function play(dt: number): void {
   if (keyDownEdge(KEYS.F3)) {
     settingsSet('show_fps', 1 - settings.show_fps);
   }
-  if (keyDownEdge(KEYS.F)) {
-    settingsSet('filter', 1 - settings.filter);
-  }
-  if (keyDownEdge(KEYS.G)) {
-    const types = ['instant', 'instantblend', 'queued', 'queued2'];
-    let type_idx = types.indexOf(controller.getControllerType());
-    type_idx = (type_idx + (keyDown(KEYS.SHIFT) ? -1 : 1) + types.length) % types.length;
-    controller.setControllerType(types[type_idx]);
-    statusPush(`Controller: ${types[type_idx]}`);
-  }
+  // if (keyDownEdge(KEYS.F)) {
+  //   settingsSet('filter', 1 - settings.filter);
+  // }
+  // if (keyDownEdge(KEYS.G)) {
+  //   const types = ['instant', 'instantblend', 'queued', 'queued2'];
+  //   let type_idx = types.indexOf(controller.getControllerType());
+  //   type_idx = (type_idx + (keyDown(KEYS.SHIFT) ? -1 : 1) + types.length) % types.length;
+  //   controller.setControllerType(types[type_idx]);
+  //   statusPush(`Controller: ${types[type_idx]}`);
+  // }
 
   playCrawl();
 
