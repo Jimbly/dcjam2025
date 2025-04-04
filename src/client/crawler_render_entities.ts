@@ -27,11 +27,14 @@ import { EntityID } from 'glov/common/types';
 import {
   clamp,
   easeIn,
+  easeInOut,
   easeOut,
   ridx,
   sign,
 } from 'glov/common/util';
 import {
+  JSVec2,
+  JSVec4,
   ROVec2,
   ROVec3,
   ROVec4,
@@ -46,7 +49,6 @@ import {
   vec3,
   vec4,
 } from 'glov/common/vmath';
-import type { JSVec4 } from '../common/crawler_state';
 import {
   billboardBias,
   BillboardBiasOpts,
@@ -115,6 +117,11 @@ export type DrawableSpriteOpts = {
   scale: number;
   do_alpha?: boolean;
   tint_colors?: [JSVec4, JSVec4, JSVec4][];
+  scale_anim?: {
+    scale: JSVec2;
+    period: number;
+    easing?: number;
+  };
 };
 
 export type DrawableSpriteState = {
@@ -122,6 +129,7 @@ export type DrawableSpriteState = {
   anim_update_frame: number;
   grow_at?: number;
   grow_time?: number;
+  anim_offs: number; // random offset assigned at creation
   sprite: Sprite;
   sprite_near?: Sprite;
   sprite_hybrid?: Sprite;
@@ -203,8 +211,8 @@ export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityD
     draw_pos,
     color,
   } = param;
-  let { grow_at, grow_time, sprite, sprite_near, sprite_hybrid } = ent.drawable_sprite_state;
-  let { scale } = ent.drawable_sprite_opts;
+  let { grow_at, grow_time, sprite, sprite_near, sprite_hybrid, anim_offs } = ent.drawable_sprite_state;
+  let { scale, scale_anim } = ent.drawable_sprite_opts;
   if (grow_at) {
     assert(typeof grow_time === 'number');
     let t = getFrameTimestamp() - grow_at;
@@ -212,6 +220,15 @@ export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityD
       t /= grow_time;
       scale *= 1 + easeIn(1 - t, 2) * 0.5;
     }
+  }
+  let vscale = scale;
+  let hscale = scale;
+  if (scale_anim) {
+    let t = (getFrameTimestamp() + anim_offs) / scale_anim.period % 1;
+    t = 2 * (t > 0.5 ? 1 - t : t);
+    let easing = scale_anim.easing || 2.25;
+    hscale *= 1 + easeInOut(t, easing) * (scale_anim.scale[0] - 1);
+    vscale *= 1 + easeInOut(t, easing) * (scale_anim.scale[1] - 1);
   }
   if (sprite_near && (use_near ||
     !settings.entity_split && settings.entity_nosplit_use_near)
@@ -246,7 +263,7 @@ export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityD
     pos: draw_pos,
     frame,
     color,
-    size: [scale * DIM * aspect, scale * DIM],
+    size: [hscale * DIM * aspect, vscale * DIM],
     bucket: ent.drawable_sprite_opts.do_alpha === false ? BUCKET_OPAQUE : BUCKET_ALPHA,
     facing: FACE_XY,
     vshader: crawlerRenderGetShader(ShaderType.SpriteVertex),
