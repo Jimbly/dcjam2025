@@ -1048,7 +1048,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "test_walldetail1",
         "open"
       ]
     },
@@ -2323,6 +2323,15 @@
         "open",
         "open"
       ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
     }
   ],
   "initial_entities": [
@@ -2394,14 +2403,6 @@
       "type": "critter1",
       "pos": [
         2,
-        13,
-        3
-      ]
-    },
-    {
-      "type": "spireish_critter9",
-      "pos": [
-        1,
         13,
         3
       ]
