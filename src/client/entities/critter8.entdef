@@ -13,5 +13,5 @@ traits:
     atlas: critters
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
-    origin: [0.5, 1]
+    origin: [0.5, 1.2]
   scale: 0.62
