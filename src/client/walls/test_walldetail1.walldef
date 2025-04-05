@@ -10,7 +10,7 @@ visuals:
   type: simple_wall
   opts:
     atlas: test
-    tile: detail2
-    scale: 1
-    offs: [0,0.25]
+    tile: direction
+    scale: 0.7
+    offs: [0,0]
     detail_layer: 1 # Use a different value for each detail, if more than 1 detail here

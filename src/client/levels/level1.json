@@ -479,7 +479,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "solid",
         "open"
       ]
@@ -488,7 +488,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -497,7 +497,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -621,38 +621,38 @@
       "h": 0.9375
     },
     {
-      "id": "solid",
+      "id": "test_detail3",
       "walls": [
         "open",
+        "open",
         "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "test_detail1",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "test_detail3",
+      "walls": [
         "solid",
-        "open"
+        "open",
+        "open",
+        "solid"
       ]
     },
     {
       "id": "solid",
       "walls": [
         "open",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "open",
         "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
         "open"
       ]
     },
@@ -771,7 +771,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "open"
       ]
     },
     {
@@ -780,16 +780,16 @@
         "open",
         "open",
         "open",
-        "solid"
+        "open"
       ]
     },
     {
-      "id": "open",
+      "id": "test_detail4",
       "walls": [
         "solid",
         "open",
         "open",
-        "solid"
+        "open"
       ]
     },
     {
@@ -1220,7 +1220,7 @@
       "id": "test_detail4",
       "walls": [
         "open",
-        "solid",
+        "test_walldetail1",
         "open",
         "open"
       ]
@@ -1247,7 +1247,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -1338,7 +1338,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "test_walldetail1",
         "open"
       ]
     },
@@ -1388,6 +1388,16 @@
         "solid",
         "solid",
         "open",
+        "solid"
+      ],
+      "h": 0.3125
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "solid",
         "solid"
       ],
       "h": 0.3125
@@ -1458,15 +1468,6 @@
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
         "open",
         "open",
@@ -1474,7 +1475,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "test_detail4",
       "walls": [
         "open",
         "solid",
@@ -1543,7 +1544,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2403,7 +2404,7 @@
       ]
     },
     {
-      "type": "critter9",
+      "type": "critter10",
       "pos": [
         0,
         8,

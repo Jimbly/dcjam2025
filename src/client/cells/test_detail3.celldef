@@ -6,7 +6,7 @@ visuals:
   type: simple_floor
   opts:
     atlas: test
-    tile: floor_tree
+    tile: floor_pillar
 - pass: bg
   type: simple_ceiling
   opts:
@@ -18,6 +18,6 @@ visuals:
     atlas: test
     tile: detail3
     width: 0.8
-    height: 1
+    height: 1.04
     offs: [0, 0, 0]
     face_camera: true # Otherwise faces frustum
