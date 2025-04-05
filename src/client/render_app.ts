@@ -25,6 +25,8 @@ function renderResetFilter(): void {
     filter_mag: gl.NEAREST,
   });
   autoAtlasTextureOpts('spireish', ss);
+  autoAtlasTextureOpts('test', ss);
+  autoAtlasTextureOpts('critters', ss);
 }
 
 export function renderAppStartup(): void {
