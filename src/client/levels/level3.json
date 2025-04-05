@@ -891,7 +891,7 @@
       ]
     },
     {
-      "id": "spireish_detail1",
+      "id": "test_detail1",
       "walls": [
         "open",
         "solid",
@@ -1348,7 +1348,7 @@
       "walls": [
         "door",
         "open",
-        "spireish_solid3",
+        "test_solid3",
         "open"
       ]
     },
@@ -1492,7 +1492,7 @@
       "walls": [
         "solid",
         "open",
-        "spireish_solid3",
+        "test_solid3",
         "open"
       ]
     },
@@ -1634,9 +1634,9 @@
     {
       "id": "open",
       "walls": [
+        "solid",
         "open",
-        "open",
-        "spireish_solid3",
+        "test_solid3",
         "open"
       ]
     },
@@ -1771,16 +1771,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "test_solid3",
         "open"
       ]
     },
@@ -1790,11 +1781,20 @@
         "open",
         "open",
         "open",
+        "test_solid3"
+      ]
+    },
+    {
+      "id": "test_detail2",
+      "walls": [
+        "open",
+        "open",
+        "open",
         "open"
       ]
     },
     {
-      "id": "open",
+      "id": "test_detail4",
       "walls": [
         "solid",
         "open",
@@ -1929,16 +1929,7 @@
       ]
     },
     {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
+      "id": "test_detail3",
       "walls": [
         "door",
         "open",
@@ -2064,11 +2055,11 @@
       ]
     },
     {
-      "id": "open",
+      "id": "test_detail1",
       "walls": [
         "open",
         "solid",
-        "open",
+        "test_solid3",
         "open"
       ]
     },
@@ -2336,7 +2327,7 @@
   ],
   "initial_entities": [
     {
-      "type": "spireish_critter5",
+      "type": "critter7",
       "pos": [
         5,
         14,
@@ -2352,7 +2343,7 @@
       ]
     },
     {
-      "type": "spireish_critter5",
+      "type": "critter2",
       "pos": [
         5,
         12,
@@ -2360,7 +2351,7 @@
       ]
     },
     {
-      "type": "spireish_critter3",
+      "type": "critter3",
       "pos": [
         4,
         15,
@@ -2368,7 +2359,7 @@
       ]
     },
     {
-      "type": "spireish_critter8",
+      "type": "critter8",
       "pos": [
         4,
         14,
@@ -2376,7 +2367,7 @@
       ]
     },
     {
-      "type": "spireish_critter4",
+      "type": "critter4",
       "pos": [
         3,
         14,
@@ -2384,7 +2375,7 @@
       ]
     },
     {
-      "type": "spireish_critter7",
+      "type": "critter5",
       "pos": [
         3,
         13,
@@ -2392,7 +2383,7 @@
       ]
     },
     {
-      "type": "spireish_critter2",
+      "type": "critter6",
       "pos": [
         2,
         14,
@@ -2400,7 +2391,7 @@
       ]
     },
     {
-      "type": "spireish_critter6",
+      "type": "critter1",
       "pos": [
         2,
         13,
@@ -2417,7 +2408,7 @@
     }
   ],
   "state": {},
-  "vstyle": "spireish",
+  "vstyle": "test",
   "seed": "32845502",
   "props": {},
   "paths": {}

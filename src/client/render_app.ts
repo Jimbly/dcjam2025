@@ -25,6 +25,8 @@ function renderResetFilter(): void {
     filter_mag: gl.NEAREST,
   });
   autoAtlasTextureOpts('spireish', ss);
+  autoAtlasTextureOpts('test', ss);
+  autoAtlasTextureOpts('critters', ss);
 }
 
 export function renderAppStartup(): void {
@@ -52,7 +54,7 @@ export function renderAppStartup(): void {
       alpha_blend: true,
     }],
     atlas_aliases: {
-      default: 'demo',
+      default: 'test',
     },
     split_dist: 2.8,
     angle_offs: 0, // 9.5,

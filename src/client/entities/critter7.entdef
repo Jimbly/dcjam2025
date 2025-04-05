@@ -7,10 +7,10 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [critter2]
+      frames: [critter7]
       times: 10000
   sprite_data:
-    atlas: spireish
+    atlas: critters
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
     origin: [0.5, 1]
