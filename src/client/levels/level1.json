@@ -1356,7 +1356,7 @@
       ]
     },
     {
-      "id": "spireish_open_nopillar",
+      "id": "open",
       "walls": [
         "open",
         "open",
@@ -2360,7 +2360,7 @@
       ]
     },
     {
-      "type": "spireish_critter1",
+      "type": "critter1",
       "pos": [
         1,
         10,
@@ -2368,7 +2368,7 @@
       ]
     },
     {
-      "type": "spireish_critter1",
+      "type": "critter1",
       "pos": [
         3,
         10,
@@ -2377,7 +2377,7 @@
     }
   ],
   "state": {},
-  "vstyle": "spireish",
+  "vstyle": "test",
   "seed": "32845502",
   "props": {},
   "paths": {}

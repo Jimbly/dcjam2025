@@ -1,0 +1,23 @@
+---
+fog_color: '#fff'
+background_color: '#fff'
+# background_img: backdrop_demo
+fog_params:
+- 0.0025
+- 0.003
+- 450.0
+cell_swaps:
+  open: test_open
+wall_swaps:
+  open: test_open
+  door: test_door
+  door_oneway: test_door
+  # door_locked: demo_door_locked
+  # door_locked_unlocked: demo_door_locked_unlocked
+  entrance: test_stairs_in
+  # secret_door: demo_secret_door
+  # secret_door_unvisited: demo_secret_door
+  solid: test_solid1
+  stairs_in: test_stairs_in
+  stairs_out: test_stairs_out
+  # floorswitch: demo_floorswitch
