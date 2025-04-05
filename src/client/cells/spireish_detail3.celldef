@@ -17,7 +17,7 @@ visuals:
   opts:
     atlas: spireish
     tile: detail3
-    width: 0.5
-    height: 0.5
+    width: 0.75
+    height: 0.75
     offs: [0, 0, 0]
     face_camera: true # Otherwise faces frustum

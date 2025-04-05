@@ -6,7 +6,7 @@ visuals:
   type: simple_floor
   opts:
     atlas: spireish
-    tile: floor
+    tile: floor_tree
 - pass: bg
   type: simple_ceiling
   opts:
@@ -17,7 +17,7 @@ visuals:
   opts:
     atlas: spireish
     tile: detail4
-    width: 0.5
-    height: 0.5
+    width: 1
+    height: 1
     offs: [0, 0, 0]
     face_camera: true # Otherwise faces frustum
