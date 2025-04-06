@@ -6,7 +6,7 @@ visuals:
   type: simple_floor
   opts:
     atlas: spireish
-    tile: floor
+    tile: floor_tree
 - pass: bg
   type: simple_ceiling
   opts:

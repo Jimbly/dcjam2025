@@ -16,7 +16,7 @@ visuals:
   type: simple_billboard
   opts:
     atlas: test
-    tile: detail2
+    tile: chest
     width: 0.5
     height: 0.5
     offs: [0, 0, 0]
