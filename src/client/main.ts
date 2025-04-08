@@ -83,6 +83,7 @@ export function main(): void {
     settingsSet('filter', 1);
     settingsSet('entity_split', 0);
     settingsSet('entity_nosplit_use_near', 0);
+    crawlerRenderSetLODBiasRange(0, 0);
   // @ts-expect-error truthy
   } else if (!'simple lowres') {
     settingsSet('pixely', 1);
