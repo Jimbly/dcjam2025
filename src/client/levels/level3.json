@@ -1518,7 +1518,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "door",
         "open",
         "solid"
       ]
@@ -1664,6 +1664,15 @@
         "open",
         "solid",
         "solid",
+        "door"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
         "solid"
       ]
     },
@@ -1671,17 +1680,8 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
         "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "solid",
-        "solid",
-        "solid",
+        "open",
         "solid"
       ]
     },
@@ -1820,25 +1820,25 @@
         "test_decal_6",
         "open",
         "solid",
-        "test_decal_4"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "solid",
-        "solid",
         "solid"
       ]
     },
     {
       "id": "open",
       "walls": [
+        "open",
+        "open",
         "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
         "solid",
-        "solid",
-        "solid"
+        "open",
+        "open",
+        "open"
       ]
     },
     {
@@ -1970,10 +1970,19 @@
     {
       "id": "open",
       "walls": [
+        "open",
         "solid",
         "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
         "solid",
-        "solid"
+        "solid",
+        "open",
+        "open"
       ]
     },
     {
@@ -1982,15 +1991,6 @@
         "open",
         "solid",
         "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "solid",
-        "open",
         "open"
       ]
     },
@@ -2361,6 +2361,30 @@
         3,
         13,
         3
+      ]
+    },
+    {
+      "type": "critter11",
+      "pos": [
+        7,
+        11,
+        2
+      ]
+    },
+    {
+      "type": "critter12",
+      "pos": [
+        7,
+        12,
+        2
+      ]
+    },
+    {
+      "type": "critter13",
+      "pos": [
+        7,
+        13,
+        2
       ]
     }
   ],
