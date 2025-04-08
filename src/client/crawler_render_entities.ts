@@ -23,12 +23,14 @@ import type { spineCreate } from 'glov/client/spine';
 import type { SpriteAnimation, SpriteAnimationParam } from 'glov/client/sprite_animation';
 import type { Sprite, SpriteParamBase, TextureOptions } from 'glov/client/sprites';
 import { uiTextHeight } from 'glov/client/ui';
+import { dataErrorEx } from 'glov/common/data_error';
 import { EntityID } from 'glov/common/types';
 import {
   clamp,
   easeIn,
   easeInOut,
   easeOut,
+  lerp,
   ridx,
   sign,
 } from 'glov/common/util';
@@ -42,6 +44,7 @@ import {
   v2dist,
   v2distSq,
   v2scale,
+  v2set,
   v3set,
   v4set,
   Vec2,
@@ -117,11 +120,12 @@ export type DrawableSpriteOpts = {
   scale: number;
   do_alpha?: boolean;
   tint_colors?: [JSVec4, JSVec4, JSVec4][];
-  scale_anim?: {
-    scale: JSVec2;
+  simple_anim?: {
+    scale?: JSVec2;
+    offs?: [JSVec2, JSVec2];
     period: number;
     easing?: number;
-  };
+  }[];
 };
 
 export type DrawableSpriteState = {
@@ -202,6 +206,7 @@ export function drawableSpriteDraw2D(this: EntityDrawableSprite, param: EntityDr
   });
 }
 
+let offs_temp = vec2();
 export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityDrawSubOpts): void {
   let ent = this;
   let frame = ent.updateAnim(param.dt);
@@ -212,7 +217,7 @@ export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityD
     color,
   } = param;
   let { grow_at, grow_time, sprite, sprite_near, sprite_hybrid, anim_offs } = ent.drawable_sprite_state;
-  let { scale, scale_anim } = ent.drawable_sprite_opts;
+  let { scale, simple_anim } = ent.drawable_sprite_opts;
   if (grow_at) {
     assert(typeof grow_time === 'number');
     let t = getFrameTimestamp() - grow_at;
@@ -223,12 +228,47 @@ export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityD
   }
   let vscale = scale;
   let hscale = scale;
-  if (scale_anim) {
-    let t = (getFrameTimestamp() + anim_offs) / scale_anim.period % 1;
-    t = 2 * (t > 0.5 ? 1 - t : t);
-    let easing = scale_anim.easing || 2.25;
-    hscale *= 1 + easeInOut(t, easing) * (scale_anim.scale[0] - 1);
-    vscale *= 1 + easeInOut(t, easing) * (scale_anim.scale[1] - 1);
+  v2set(offs_temp, 0, 0);
+  if (simple_anim && Array.isArray(simple_anim)) {
+    for (let ii = 0; ii < simple_anim.length; ++ii) {
+      let anim = simple_anim[ii];
+      let t = (getFrameTimestamp() + anim_offs) / anim.period % 1;
+      t = 2 * (t > 0.5 ? 1 - t : t);
+      let easing = anim.easing || 2.25;
+      let p = easeInOut(t, easing);
+      if (anim.scale) {
+        if (Array.isArray(anim.scale) && anim.scale.length === 2) {
+          hscale *= 1 + p * (anim.scale[0] - 1);
+          vscale *= 1 + p * (anim.scale[1] - 1);
+        } else {
+          dataErrorEx({
+            msg: `${ent.type_id}: simple_anim[n].scale must be an array of 2 numbers`,
+            per_frame: true,
+          });
+        }
+      }
+      let { offs } = anim;
+      if (offs) {
+        if (Array.isArray(offs) && offs.length === 2) {
+          let offs0 = offs[0];
+          let offs1 = offs[1];
+          if (Array.isArray(offs0) && offs0.length === 2 && Array.isArray(offs1) && offs1.length === 2) {
+            offs_temp[0] += lerp(p, offs0[0], offs1[0]);
+            offs_temp[1] += lerp(p, offs0[1], offs1[1]);
+          } else {
+            dataErrorEx({
+              msg: `${ent.type_id}: simple_anim[n].offs[n] must be an array of 2 numbers`,
+              per_frame: true,
+            });
+          }
+        } else {
+          dataErrorEx({
+            msg: `${ent.type_id}: simple_anim[n].offs must be an array of 2 arrays`,
+            per_frame: true,
+          });
+        }
+      }
+    }
   }
   if (sprite_near && (use_near ||
     !settings.entity_split && settings.entity_nosplit_use_near)
@@ -261,6 +301,7 @@ export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityD
   let aspect = sprite.uidata && sprite.uidata.aspect ? sprite.uidata.aspect[frame] : 1;
   sprite.draw3D({
     pos: draw_pos,
+    offs: v2scale(offs_temp, offs_temp, DIM),
     frame,
     color,
     size: [hscale * DIM * aspect, vscale * DIM],
@@ -290,7 +331,6 @@ export function drawableSpineDraw2D(this: EntityDrawableSpine, param: EntityDraw
   });
 }
 
-let offs_temp = vec2();
 export function drawableSpineDrawSub(this: EntityDrawableSpine, param: EntityDrawSubOpts): void {
   let ent = this;
   let { spine } = ent.drawable_spine_state;
