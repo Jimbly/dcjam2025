@@ -1,7 +1,9 @@
 TODO
-* Crash if trying to move floors too quickly in the editor
+* animate just position for floating entities
 * Experiment with fog color ("color" blend in Krita) - https://discord.com/channels/@me/1356019711694995527/1357753451941204200
+* Set up a test with a background image
 * keep screen black while textures are still loading
+* pillar/floor decals + height differences
 * auto-unload auto-atlases that are no longer in use
 
 
