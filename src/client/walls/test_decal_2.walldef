@@ -1,0 +1,16 @@
+---
+open_move: false
+open_vis: false
+visuals:
+- type: simple_wall
+  opts:
+    atlas: test
+    tile: solid1
+- pass: celldetails
+  type: simple_wall
+  opts:
+    atlas: decals
+    tile: poster-1
+    scale: 0.7
+    offs: [0,0]
+    detail_layer: 1 # Use a different value for each detail, if more than 1 detail here

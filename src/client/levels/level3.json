@@ -768,7 +768,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "solid",
         "open"
       ]
@@ -902,10 +902,19 @@
     {
       "id": "open",
       "walls": [
-        "test_walldetail1",
+        "test_decal_1",
         "open",
         "open",
         "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "test_decal_1",
+        "solid"
       ]
     },
     {
@@ -914,15 +923,6 @@
         "open",
         "open",
         "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
         "open"
       ]
     },
@@ -1058,7 +1058,7 @@
         "open",
         "solid",
         "solid",
-        "open"
+        "solid"
       ]
     },
     {
@@ -1509,7 +1509,7 @@
       "id": "open",
       "walls": [
         "open",
-        "test_walldetail1",
+        "test_decal_1",
         "open",
         "open"
       ]
@@ -1662,7 +1662,7 @@
       "id": "open",
       "walls": [
         "open",
-        "open",
+        "solid",
         "solid",
         "solid"
       ]
@@ -1671,7 +1671,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "open",
+        "solid",
         "open",
         "solid"
       ]
@@ -1680,7 +1680,7 @@
       "id": "solid",
       "walls": [
         "solid",
-        "open",
+        "solid",
         "solid",
         "solid"
       ]
@@ -1817,19 +1817,28 @@
     {
       "id": "open",
       "walls": [
-        "open",
+        "test_decal_6",
         "open",
         "solid",
-        "open"
+        "test_decal_4"
       ]
     },
     {
       "id": "open",
       "walls": [
         "solid",
-        "open",
-        "open",
-        "open"
+        "solid",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "solid",
+        "solid"
       ]
     },
     {
@@ -1838,15 +1847,6 @@
         "open",
         "open",
         "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
         "solid"
       ]
     },
@@ -1952,7 +1952,7 @@
     {
       "id": "open",
       "walls": [
-        "open",
+        "solid",
         "solid",
         "solid",
         "solid"
@@ -1961,9 +1961,9 @@
     {
       "id": "open",
       "walls": [
+        "test_decal_3",
         "open",
         "solid",
-        "open",
         "open"
       ]
     },
@@ -1972,16 +1972,25 @@
       "walls": [
         "solid",
         "solid",
-        "open",
-        "open"
+        "solid",
+        "solid"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "open",
         "open",
         "solid",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "solid",
+        "open",
         "open"
       ]
     },
@@ -1989,16 +1998,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -2096,18 +2096,54 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "door",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
         "open",
         "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "test_decal_2",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "test_decal_1",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "solid",
         "solid"
       ]
     },
@@ -2116,43 +2152,7 @@
       "walls": [
         "open",
         "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -2243,7 +2243,16 @@
         "solid",
         "solid",
         "solid",
-        "door"
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "test_decal_1",
+        "test_decal_5",
+        "test_decal_7",
+        "open"
       ]
     },
     {
@@ -2252,7 +2261,7 @@
         "open",
         "open",
         "solid",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2261,7 +2270,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2270,7 +2279,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2279,16 +2288,7 @@
         "open",
         "open",
         "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2348,11 +2348,11 @@
   ],
   "initial_entities": [
     {
-      "type": "critter7",
+      "type": "critter2",
       "pos": [
-        5,
-        14,
-        2
+        2,
+        12,
+        3
       ]
     },
     {
@@ -2360,30 +2360,6 @@
       "pos": [
         3,
         13,
-        3
-      ]
-    },
-    {
-      "type": "critter2",
-      "pos": [
-        5,
-        12,
-        1
-      ]
-    },
-    {
-      "type": "critter3",
-      "pos": [
-        4,
-        15,
-        3
-      ]
-    },
-    {
-      "type": "critter2",
-      "pos": [
-        2,
-        12,
         3
       ]
     }

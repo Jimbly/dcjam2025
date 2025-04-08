@@ -1220,7 +1220,7 @@
       "id": "test_detail4",
       "walls": [
         "open",
-        "test_walldetail1",
+        "test_decal_1",
         "open",
         "open"
       ]
@@ -1338,7 +1338,7 @@
       "walls": [
         "open",
         "open",
-        "test_walldetail1",
+        "test_decal_1",
         "open"
       ]
     },
