@@ -87,8 +87,9 @@ export type VstyleDesc = {
   id: string;
   cell_swaps: Partial<Record<string, string>>;
   wall_swaps: Partial<Record<string, string>>;
-  fog_params: Vec3;
+  fog_params: Vec3; // extinction rate, inscattering rate, initial distance
   fog_color: Vec3;
+  fog_ex_color?: Vec4; // extinction color, default black; [3] is a scalar multiplier
   background_color: Vec3;
   background_img?: string;
 };
@@ -136,6 +137,7 @@ import {
   vec2,
   Vec3,
   vec3,
+  Vec4,
 } from 'glov/common/vmath';
 import { CrawlerScriptAPI, getEffCell, getEffWall } from './crawler_script';
 

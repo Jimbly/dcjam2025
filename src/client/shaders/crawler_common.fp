@@ -25,9 +25,25 @@ vec3 unit_vec = vec3(1.0, 1.0, 1.0);
 #ifndef NOFOG
 varying vec2 interp_fog_param;
 uniform vec3 fog_color;
+uniform vec3 fog_ex_color;
 vec3 applyFogVS(in vec3 albedo) {
-  return fog_color * interp_fog_param.x + albedo * interp_fog_param.y;
-  // return albedo * interp_fog_param.y;
+  // float fog_bright = dot(fog_color, vec3(0.2, 0.5, 0.3));
+  albedo = mix(albedo, fog_color, interp_fog_param.x);
+  float albedo_bright = dot(albedo, vec3(0.2, 0.5, 0.3));
+  // return fog_color * value;
+  //return /*fog_color * interp_fog_param.x + */mix(fog_color / fog_bright * albedo_bright, albedo, interp_fog_param.y);
+  //return fog_color * interp_fog_param.x * albedo_bright; // + mix(fog_color / fog_bright * albedo_bright, albedo, interp_fog_param.y);
+  // vec3 fogged = vec3(1.0, 1.0, 1.0) * interp_fog_param.x + albedo * interp_fog_param.y;
+  // float fogged_bright = dot(fogged, vec3(0.2, 0.5, 0.3));
+  //return mix(fog_color / fog_bright * fogged_bright, albedo, interp_fog_param.y);
+  //return fog_ex_color * albedo_bright;
+  //return albedo;
+  // vec3 extiction_term = albedo * interp_fog_param.y;
+  // extinct to a color-tinted version of the albedo, same brightness
+  vec3 extiction_term = mix(fog_ex_color * albedo_bright, albedo, interp_fog_param.y);
+  return extiction_term;
+  return fog_color * interp_fog_param.x + extiction_term;
+  //return albedo * interp_fog_param.y;
 }
 #endif
 

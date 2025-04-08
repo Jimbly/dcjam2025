@@ -54,6 +54,7 @@ import {
   vec3,
   Vec4,
   vec4,
+  zero_vec,
 } from 'glov/common/vmath';
 import '../common/crawler_events'; // side effects: register events
 import {
@@ -102,6 +103,7 @@ import {
   crawlerRenderGameViewAngle,
   crawlerRenderViewportGet,
   crawlerSetFogColor,
+  crawlerSetFogExColor,
   crawlerSetFogParams,
   FOV,
   render,
@@ -873,6 +875,7 @@ export function crawlerRenderFramePrep(): void {
   let { level } = game_state;
   let clear = default_bg_color;
   let fog = default_bg_color;
+  let fog_ex_color = zero_vec;
   let fog_params = default_fog_params;
   let vstyle: VstyleDesc | null = null;
   if (level) {
@@ -881,10 +884,12 @@ export function crawlerRenderFramePrep(): void {
   if (vstyle) {
     clear = vstyle.background_color;
     fog = vstyle.fog_color;
+    fog_ex_color = vstyle.fog_ex_color || fog_ex_color;
     fog_params = vstyle.fog_params;
   }
   gl.clearColor(clear[0], clear[1], clear[2], 0);
   crawlerSetFogColor(fog);
+  crawlerSetFogExColor(fog_ex_color);
   crawlerSetFogParams(fog_params);
   engine.start3DRendering(opts_3d);
   if (vstyle && vstyle.background_img) {

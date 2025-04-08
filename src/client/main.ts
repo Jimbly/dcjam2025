@@ -154,7 +154,7 @@ export function main(): void {
     viewport_postprocess: true,
     antialias,
     znear: 11,
-    zfar: 2000,
+    zfar: 4000,
     do_borders: false,
     show_fps: false,
     ui_sprites: {

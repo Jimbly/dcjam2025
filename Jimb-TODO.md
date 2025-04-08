@@ -1,6 +1,5 @@
 TODO
-* animate just position for floating entities
-* Experiment with fog color ("color" blend in Krita) - https://discord.com/channels/@me/1356019711694995527/1357753451941204200
+* billboadred cell details (floor 3) are not getting alpha sorted?
 * Set up a test with a background image
 * keep screen black while textures are still loading
 * pillar/floor decals + height differences
