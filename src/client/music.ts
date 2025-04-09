@@ -20,6 +20,9 @@ export function tickMusic(music_name: string | null): void {
   if (!settings.volume || !settings.volume_music || isInBackground()) {
     music_name = null;
   }
+  if (music_name) {
+    music_name = `music/${music_name}`;
+  }
   if (music_name && !loading_music[music_name]) {
     loading_music[music_name] = true;
     soundLoad(music_name, { loop: true }, function () {

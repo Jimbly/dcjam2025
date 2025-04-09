@@ -33,7 +33,7 @@ type AccountUI = ReturnType<typeof createAccountUI>;
 let account_ui: AccountUI;
 
 function title(dt: number): void {
-  tickMusic('music_menu');
+  tickMusic('menu');
   main.chat_ui.run({
     hide: true,
   });
