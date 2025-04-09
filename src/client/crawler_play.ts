@@ -100,7 +100,6 @@ import { mapViewActive } from './crawler_map_view';
 import {
   crawlerCalc3DViewport,
   crawlerRenderDoSplit,
-  crawlerRenderGameViewAngle,
   crawlerRenderViewportGet,
   crawlerSetFogColor,
   crawlerSetFogExColor,
@@ -904,7 +903,7 @@ export function crawlerRenderFramePrep(): void {
     if (tex.loaded) {
       gl.disable(gl.DEPTH_TEST);
       gl.depthMask(false);
-      let voffs = mod(-crawlerRenderGameViewAngle() / PI * 2, 1);
+      let voffs = mod(-game_state.angle / PI * 2, 1);
       applyCopy({ source: tex, no_framebuffer: true, params: {
         copy_uv_scale: [tex.src_width / tex.width, -tex.src_height / tex.height, voffs, tex.src_height / tex.height],
       } });
