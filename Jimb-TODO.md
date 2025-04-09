@@ -1,9 +1,8 @@
 TODO
-* billboadred cell details (floor 3) are not getting alpha sorted?
-* Set up a test with a background image
-* keep screen black while textures are still loading
+* put placeholder footsteps
+* keep screen black while textures are still loading after floor transition
 * pillar/floor decals + height differences
-* auto-unload auto-atlases that are no longer in use
+* auto-unload auto-atlases that are no longer in use?
 
 
 Sound FX / music people
