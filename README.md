@@ -18,5 +18,6 @@ GLOV.js is MIT licensed.
 Credits
 =======
 
-* Font - https://www.dafontfree.co/ink-free-font/
+* Ink Font - https://www.dafontfree.co/ink-free-font/
 * Placeholder music - Cursed Kingdoms Twisted Forest Music Pack
+* Placeholder footstep sounds by Alex Hamadey - https://alexhamadey.itch.io/

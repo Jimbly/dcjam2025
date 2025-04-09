@@ -1,5 +1,4 @@
 TODO
-* put placeholder footsteps
 * keep screen black while textures are still loading after floor transition
 * pillar/floor decals + height differences
 * auto-unload auto-atlases that are no longer in use?
