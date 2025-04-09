@@ -21,3 +21,4 @@ visuals:
     height: 0.85
     offs: [0, 0, 0.1]
     face_camera: true # Otherwise faces frustum
+    do_alpha: true
