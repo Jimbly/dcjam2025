@@ -124,6 +124,12 @@ enum BuildTab {
   Config = 'Cnfg',
 }
 
+const BUILD_TAB_LONG = {
+  [BuildTab.Paint]: 'Paint',
+  [BuildTab.Path]: 'Path',
+  [BuildTab.Config]: 'Config',
+};
+
 function validBuildTab(str: string | undefined): BuildTab | null {
   for (let key in BuildTab) {
     if (BuildTab[key as keyof typeof BuildTab] === str) {
@@ -1485,7 +1491,7 @@ export function crawlerBuildModeUI(frame: Box & { map_view: boolean }): void {
       h: button_height,
       disabled: build_tab === tab,
       base_name: build_tab === tab ? 'buttonselected' : 'button',
-      text: tab,
+      text: font.integral ? tab : BUILD_TAB_LONG[tab],
       hotkey: show_palette_config && build_tab === BuildTab.Paint ? undefined :
         keyDown(KEYS.ALT) ? KEYS['1'] + idx : undefined,
       font,
