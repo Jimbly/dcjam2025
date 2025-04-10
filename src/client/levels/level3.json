@@ -2348,11 +2348,11 @@
   ],
   "initial_entities": [
     {
-      "type": "critter2",
+      "type": "critter13",
       "pos": [
-        2,
-        12,
-        3
+        7,
+        13,
+        2
       ]
     },
     {
@@ -2380,11 +2380,59 @@
       ]
     },
     {
+      "type": "critter10",
+      "pos": [
+        1,
+        13,
+        3
+      ]
+    },
+    {
+      "type": "critter10",
+      "pos": [
+        3,
+        15,
+        3
+      ]
+    },
+    {
       "type": "critter13",
       "pos": [
-        7,
-        13,
+        2,
+        15,
+        3
+      ]
+    },
+    {
+      "type": "critter15",
+      "pos": [
+        5,
+        14,
         2
+      ]
+    },
+    {
+      "type": "critter11",
+      "pos": [
+        7,
+        10,
+        2
+      ]
+    },
+    {
+      "type": "critter11",
+      "pos": [
+        6,
+        10,
+        2
+      ]
+    },
+    {
+      "type": "critter14",
+      "pos": [
+        2,
+        3,
+        1
       ]
     }
   ],
