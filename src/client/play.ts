@@ -127,7 +127,7 @@ declare module 'glov/client/settings' {
 
 // const ATTACK_WINDUP_TIME = 1000;
 const MINIMAP_RADIUS = 3;
-const MINIMAP_X = 261;
+const MINIMAP_X = game_width - 85; // 261;
 const MINIMAP_Y = 3;
 const MINIMAP_W = 5+7*(MINIMAP_RADIUS*2 + 1);
 const COMPASS_X = MINIMAP_X;
@@ -357,7 +357,7 @@ function moveBlockDead(): boolean {
 const BUTTON_W = 26;
 
 const MOVE_BUTTONS_X0 = MINIMAP_X;
-const MOVE_BUTTONS_Y0 = 179;
+const MOVE_BUTTONS_Y0 = game_height - 57;
 
 
 function useNoText(): boolean {
@@ -477,7 +477,7 @@ function playCrawl(): void {
 
 
   // Escape / open/close menu button - *before* pauseMenu()
-  button_x0 = 317;
+  button_x0 = game_width - 30;
   button_y0 = 3;
   let menu_up = frame_map_view || build_mode || overlay_menu_up;
   let menu_keys = [KEYS.ESC];
