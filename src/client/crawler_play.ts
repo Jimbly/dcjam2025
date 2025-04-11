@@ -51,6 +51,7 @@ import {
 } from 'glov/common/util';
 import {
   v3copy,
+  v3lerp,
   v4copy,
   vec3,
   Vec4,
@@ -944,6 +945,9 @@ export function crawlerRenderFramePrep(): void {
   controller.flushMapUpdate();
 }
 
+let fade_color = vec4();
+let last_frame_did_fade = false;
+
 export function crawlerRenderFrame(): void {
   let cv = crawlerRenderViewportGet();
   if (setting_pixely) {
@@ -1010,16 +1014,26 @@ export function crawlerRenderFrame(): void {
   }
 
   if (controller.getFadeAlpha()) {
-    let fade_v = controller.getFadeColor();
+    // TODO: maybe grab a different fade color for doors than stairs? Spire needs something like that
+    // let fade_v = controller.getFadeColor();
+    let desired_fade_color = game_state.level?.vstyle.background_color || zero_vec;
+    if (!last_frame_did_fade) {
+      v3copy(fade_color, desired_fade_color);
+      last_frame_did_fade = true;
+    } else {
+      v3lerp(fade_color, engine.getFrameDt() * 0.001, fade_color, desired_fade_color);
+    }
+    fade_color[3] = controller.getFadeAlpha();
+
     if (settings.pixely) {
-      ui.drawRect(cv.x, cv.y, cv.x + cv.w + 0.07, cv.y + cv.h + 0.07, 2,
-        [fade_v, fade_v, fade_v, controller.getFadeAlpha()]);
+      ui.drawRect(cv.x, cv.y, cv.x + cv.w + 0.07, cv.y + cv.h + 0.07, 2, fade_color);
     } else {
       // Expand by half a pixel to deal with antialiasing, rounding, something?
       const expand = max(camera2d.wReal()/engine.width, camera2d.hReal()/engine.height) / 2;
-      ui.drawRect(cv.x - expand, cv.y - expand, cv.x + cv.w + expand, cv.y + cv.h + expand, 2,
-        [fade_v, fade_v, fade_v, controller.getFadeAlpha()]);
+      ui.drawRect(cv.x - expand, cv.y - expand, cv.x + cv.w + expand, cv.y + cv.h + expand, 2, fade_color);
     }
+  } else {
+    last_frame_did_fade = false;
   }
 }
 
