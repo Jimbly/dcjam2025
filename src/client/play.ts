@@ -95,6 +95,7 @@ import {
   crawlerRenderViewportSet,
 } from './crawler_render';
 import {
+  crawlerEntInFront,
   crawlerRenderEntitiesStartup,
 } from './crawler_render_entities';
 import { crawlerScriptAPIDummyServer } from './crawler_script_api_client';
@@ -108,6 +109,7 @@ import {
   render_height,
   render_width,
 } from './globals';
+import { appTraitsStartup } from './jam_traits';
 import { levelGenTest } from './level_gen_test';
 import { tickMusic } from './music';
 import { renderAppStartup } from './render_app';
@@ -353,6 +355,32 @@ function moveBlockDead(): boolean {
   }
 
   return true;
+}
+
+const HP_BAR_W = 82;
+const HP_BAR_H = 13;
+const ENEMY_HP_BAR_X = (game_width - HP_BAR_W)/2;
+const ENEMY_HP_BAR_Y = 20;
+const ENEMY_HP_BAR_H = 7;
+function drawEnemyStats(ent: Entity): void {
+  let stats: { hp: number; hp_max: number } = ent.data.stats;
+  if (!stats) {
+    stats = { hp: 1, hp_max: 99 };
+  }
+  let { hp, hp_max } = stats;
+  let bar_h = ENEMY_HP_BAR_H;
+  let show_text = false;
+  if (input.mouseOver({
+    x: ENEMY_HP_BAR_X, y: ENEMY_HP_BAR_Y,
+    w: HP_BAR_W, h: bar_h,
+  })) {
+    bar_h = HP_BAR_H;
+    show_text = true;
+  }
+  drawHealthBar(ENEMY_HP_BAR_X, ENEMY_HP_BAR_Y, Z.UI, HP_BAR_W, bar_h, hp, hp_max, show_text);
+  // if (ent.getData('ready') && ent.isAlive()) {
+  //   let start = ent.getData('ready_start');
+  //   let dur = ent.getData('action_dur');
 }
 
 const BUTTON_W = 26;
@@ -631,6 +659,15 @@ export function play(dt: number): void {
 
   crawlerPrepAndRenderFrame();
 
+  if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
+    let spire_entities = entityManager().entities;
+    let ent_in_front = crawlerEntInFront();
+    if (ent_in_front && myEnt().isAlive()) {
+      let target_ent = spire_entities[ent_in_front]!;
+      drawEnemyStats(target_ent);
+    }
+  }
+
   if (!loading_level && !buildModeActive()) {
     let script_api = crawlerScriptAPI();
     script_api.is_visited = true; // Always visited for AI
@@ -731,7 +768,7 @@ export function playStartup(): void {
   });
   crawlerEntityClientStartupEarly();
   aiTraitsClientStartup();
-  // appTraitsStartup();
+  appTraitsStartup();
   crawlerEntityTraitsClientStartup({
     name: 'EntityDemoClient',
     Ctor: EntityDemoClient,

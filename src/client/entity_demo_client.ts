@@ -40,7 +40,13 @@ export function entityManager(): ClientEntityManagerInterface<Entity> {
 
 export type StatsData = {
   hp: number;
+  hp_max: number;
+  attack: number;
+  defense: number;
+  accuracy: number;
+  dodge: number;
 };
+
 
 export type EntityDataClient = {
   type: string;
@@ -48,6 +54,8 @@ export type EntityDataClient = {
   state: string;
   floor: number;
   stats: StatsData;
+  // Player:
+  // money: number;
 } & EntityCrawlerDataCommon;
 
 
@@ -83,6 +91,20 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
     while (data.pos.length < 3) {
       data.pos.push(0);
     }
+
+    if (this.is_player) {
+      if (!data.stats) {
+        data.stats = {
+          hp: 10,
+          hp_max: 10,
+          attack: 4,
+          defense: 4,
+          accuracy: 0,
+          dodge: 0,
+        };
+      }
+    }
+
     this.floaters = [];
     this.aiResetMoveTime(true);
   }

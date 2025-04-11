@@ -2355,10 +2355,11 @@
   ],
   "initial_entities": [
     {
-      "type": "demo_shopkeeper",
+      "type": "enemy0",
       "pos": [
         5,
-        12
+        12,
+        2
       ]
     },
     {

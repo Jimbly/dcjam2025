@@ -1,23 +1,31 @@
 ---
 traits:
 - id: enemy
-# - id: stats_default
-#   hp: 10
-#   level: 1
-#   attack: 4
-#   defense: 4
+- id: stats_default
+  hp: 10
+  attack: 4
+  defense: 4
+  accuracy: 0
+  dodge: 0
 - id: drawable
-  biasL: [-0.25, 0.3]
+  biasL: [-0.35, 0.32]
   biasF: [0, -0.25]
   biasR: [-0.25, 0.5]
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [crystalwing]
+      frames: [critter10]
       times: 10000
   sprite_data:
-    atlas: utumno
+    atlas: critters
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
-    origin: [0.5, 0.9]
+    origin: [0.5, 1.2]
   scale: 0.75
+  simple_anim:
+    - period: 5000
+      # scale: [1, 1]
+      # easing: 2
+      offs:
+        - [0, -0.15]
+        - [0, 0]

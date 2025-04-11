@@ -1,7 +1,7 @@
 TODO
-* add basic stats
+* show enemy health bars
 * add bump-attack combat
-  * enemy health bards
+* show player hp bars
 * add enemy turns / attacks
 
 PLAYER'S PLANNING

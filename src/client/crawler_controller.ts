@@ -146,7 +146,7 @@ interface PlayerController {
   effRot(): DirType;
   effPos(): ROVec2;
   isMoving(): boolean;
-  isAnimating(): boolean;
+  isAnimating(threshold: number): boolean;
   startTurn(rot: DirType, double_time?: number): void;
   startMove(dir: DirType, double_time?: number): void;
   initPosSub(): void;
@@ -370,7 +370,7 @@ class CrawlerControllerQueued implements PlayerController {
     return true;
   }
 
-  isAnimating(): boolean {
+  isAnimating(threshold: number): boolean {
     return this.queueLength() > 1;
   }
 
@@ -583,7 +583,7 @@ class CrawlerControllerInstantStep implements PlayerController {
   isMoving(): boolean {
     return false;
   }
-  isAnimating(): boolean {
+  isAnimating(threshold: number): boolean {
     return false;
   }
   startTurn(rot: DirType): void {
@@ -645,8 +645,8 @@ class CrawlerControllerInstantBlend extends CrawlerControllerInstantStep {
   isMoving(): boolean {
     return false;
   }
-  isAnimating(): boolean {
-    return this.blends.length > 0;
+  isAnimating(threshold: number): boolean {
+    return this.blends.length > 0 && this.blends[this.blends.length - 1].t <= threshold;
   }
   tickMovement(param: TickParam): TickPositions {
     let { dt } = param;
@@ -814,8 +814,8 @@ class CrawlerControllerQueued2 extends CrawlerControllerInstantStep {
   isMoving(): boolean {
     return this.is_blend_stopped;
   }
-  isAnimating(): boolean {
-    return this.blends.length > 0;
+  isAnimating(threshold: number): boolean {
+    return this.blends.length > 0 && this.blends[this.blends.length - 1].t <= threshold;
   }
   startQueuedMove(blend: Blend2): boolean {
     if (blend.action_type === ACTION_MOVE) {
@@ -1218,11 +1218,11 @@ export class CrawlerController {
     return this.fade_v;
   }
 
-  controllerIsAnimating(): boolean {
+  controllerIsAnimating(threshold?: number): boolean {
     if (this.mode !== 'modeCrawl') {
       return false;
     }
-    return this.player_controller.isAnimating();
+    return this.player_controller.isAnimating(threshold || 1);
   }
 
   getControllerType(): string {
@@ -1873,8 +1873,8 @@ export class CrawlerController {
 
     // Check for intentional events
     // v2add(temp_pos, last_dest_pos, DXY[this.last_dest_rot]);
-    // Old: forward attacks: let forward_frame = entityBlocks(game_state.floor_id, temp_pos, true) ? 11 : 1;
-    let forward_frame = 1;
+    let forward_frame = entityBlocks(game_state.floor_id, temp_pos, true) ? 11 : 1; // DCJAM
+    // let forward_frame = 1; // DCJAM
     if (show_buttons) {
       let keys_turn_left = [KEYS.Q];
       let keys_forward = [KEYS.W];
