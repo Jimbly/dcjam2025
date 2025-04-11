@@ -1,14 +1,14 @@
 {
   "special_pos": {
     "stairs_in": [
-      1,
-      8,
-      0
+      0,
+      10,
+      3
     ],
     "stairs_out": [
-      3,
-      8,
-      2
+      0,
+      4,
+      1
     ]
   },
   "w": 16,
@@ -451,7 +451,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -593,12 +593,18 @@
       ]
     },
     {
-      "id": "solid",
+      "id": "stairs_out",
       "walls": [
-        "open",
         "solid",
-        "open",
-        "open"
+        "door",
+        "solid",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -606,7 +612,7 @@
       "walls": [
         "solid",
         "solid",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -743,7 +749,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "stairs_out"
       ]
     },
     {
@@ -1319,7 +1325,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "stairs_in",
         "solid",
         "open"
       ]
@@ -1466,12 +1472,18 @@
       ]
     },
     {
-      "id": "solid",
+      "id": "stairs_in",
       "walls": [
         "solid",
-        "open",
-        "open",
-        "solid"
+        "solid",
+        "solid",
+        "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "-1"
+        }
       ]
     },
     {
@@ -1616,7 +1628,7 @@
         "open",
         "solid",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
