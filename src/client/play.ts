@@ -743,10 +743,10 @@ export function playStartup(): void {
   // crawlerRenderSetUIClearColor(dawnbringer.colors[14]);
 
   let button_param = {
-    filter_min: gl.NEAREST,
-    filter_mag: gl.NEAREST,
-    ws: [26, 26, 26],
-    hs: [26, 26, 26, 26],
+    // filter_min: gl.NEAREST,
+    // filter_mag: gl.NEAREST,
+    ws: [128, 128, 128],
+    hs: [128, 128, 128, 128],
   };
   button_sprites = {
     regular: spriteCreate({
