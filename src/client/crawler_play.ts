@@ -1,5 +1,6 @@
 /* eslint comma-spacing:error */
 import assert from 'assert';
+import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
 import {
   applyCopy,
@@ -121,7 +122,7 @@ import {
 } from './crawler_script_api_client';
 import { dialogReset } from './dialog_system';
 
-const { PI, floor } = Math;
+const { PI, max, floor } = Math;
 
 type Entity = EntityCrawlerClient;
 
@@ -1010,7 +1011,15 @@ export function crawlerRenderFrame(): void {
 
   if (controller.getFadeAlpha()) {
     let fade_v = controller.getFadeColor();
-    ui.drawRect(cv.x, cv.y, cv.x + cv.w, cv.y + cv.h, 2, [fade_v, fade_v, fade_v, controller.getFadeAlpha()]);
+    if (settings.pixely) {
+      ui.drawRect(cv.x, cv.y, cv.x + cv.w + 0.07, cv.y + cv.h + 0.07, 2,
+        [fade_v, fade_v, fade_v, controller.getFadeAlpha()]);
+    } else {
+      // Expand by half a pixel to deal with antialiasing, rounding, something?
+      const expand = max(camera2d.wReal()/engine.width, camera2d.hReal()/engine.height) / 2;
+      ui.drawRect(cv.x - expand, cv.y - expand, cv.x + cv.w + expand, cv.y + cv.h + expand, 2,
+        [fade_v, fade_v, fade_v, controller.getFadeAlpha()]);
+    }
   }
 }
 

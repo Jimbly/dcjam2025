@@ -1,5 +1,4 @@
 TODO
-* fade while transitioning floor doesn't quite cover 3d viewport
 * pillar/floor decals + height differences
 * auto-unload auto-atlases that are no longer in use?
 
