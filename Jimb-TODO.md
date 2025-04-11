@@ -4,7 +4,6 @@ TODO
 * add bump-attack combat
   * enemy health bards
 * add enemy turns / attacks
-* clicking map is doing movement when overlaid
 
 PLAYER'S PLANNING
 [ ] Find where the mark is docked

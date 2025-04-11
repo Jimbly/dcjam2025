@@ -509,20 +509,6 @@ function playCrawl(): void {
   //   inventory_up = !inventory_up;
   // }
 
-  controller.doPlayerMotion({
-    dt,
-    button_x0: MOVE_BUTTONS_X0,
-    button_y0: build_mode ? game_height - 16 : MOVE_BUTTONS_Y0,
-    no_visible_ui: frame_map_view,
-    button_w: build_mode ? 6 : BUTTON_W,
-    button_sprites: useNoText() ? button_sprites_notext : button_sprites,
-    disable_move: moveBlocked() || overlay_menu_up,
-    disable_player_impulse: Boolean(locked_dialog),
-    show_buttons: !locked_dialog,
-    do_debug_move: engine.defines.LEVEL_GEN || build_mode,
-    show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
-  });
-
   button_x0 = MOVE_BUTTONS_X0;
   button_y0 = MOVE_BUTTONS_Y0;
 
@@ -583,6 +569,21 @@ function playCrawl(): void {
       false, script_api, overlay_menu_up,
       COMPASS_X, COMPASS_Y);
   }
+
+  controller.doPlayerMotion({
+    dt,
+    button_x0: MOVE_BUTTONS_X0,
+    button_y0: build_mode ? game_height - 16 : MOVE_BUTTONS_Y0,
+    no_visible_ui: frame_map_view,
+    button_w: build_mode ? 6 : BUTTON_W,
+    button_sprites: useNoText() ? button_sprites_notext : button_sprites,
+    disable_move: moveBlocked() || overlay_menu_up,
+    disable_player_impulse: Boolean(locked_dialog),
+    show_buttons: !locked_dialog,
+    do_debug_move: engine.defines.LEVEL_GEN || build_mode,
+    show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
+  });
+
 
   statusTick(dialog_viewport);
 

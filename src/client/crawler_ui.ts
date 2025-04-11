@@ -87,12 +87,14 @@ export function crawlerOnScreenButton(param: {
       }
     }
     if (touch_hotzone) {
-      if (input.mouseDownEdge(touch_hotzone)) {
-        playUISound('button_click');
-        nav_ret.down_edge++;
-        nav_ret.down++;
-      } else if (input.mouseDownMidClick(touch_hotzone)) {
-        nav_ret.down++;
+      if (input.mouseOver(touch_hotzone)) {
+        if (input.mouseDownEdge(touch_hotzone)) {
+          playUISound('button_click');
+          nav_ret.down_edge++;
+          nav_ret.down++;
+        } else if (input.mouseDownMidClick(touch_hotzone)) {
+          nav_ret.down++;
+        }
       }
     }
     for (let ii = 0; ii < keys.length; ++ii) {
