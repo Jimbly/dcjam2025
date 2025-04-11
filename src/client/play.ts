@@ -1,3 +1,4 @@
+import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
 import {
@@ -595,6 +596,13 @@ export function play(dt: number): void {
     crawlerCommStart();
     return;
   }
+
+  crawlerRenderViewportSet({
+    x: camera2d.x0Real(),
+    y: camera2d.y0Real(),
+    w: camera2d.wReal(),
+    h: camera2d.hReal(),
+  });
 
   let overlay_menu_up = pause_menu_up || dialogMoveLocked(); // || inventory_up
 
