@@ -144,6 +144,7 @@ let loading_level = false;
 let controller: CrawlerController;
 
 let pause_menu_up = false;
+let inventory_up = false;
 
 let button_sprites: Record<ButtonStateString, Sprite>;
 let button_sprites_down: Record<ButtonStateString, Sprite>;
@@ -377,10 +378,12 @@ function playCrawl(): void {
 
   let down = {
     menu: 0,
+    inventory: 0,
   };
   type ValidKeys = keyof typeof down;
   let up_edge = {
     menu: 0,
+    inventory: 0,
   } as Record<ValidKeys, number>;
 
   let dt = getScaledFrameDt();
@@ -406,7 +409,7 @@ function playCrawl(): void {
 
   const build_mode = buildModeActive();
   let locked_dialog = dialogMoveLocked();
-  const overlay_menu_up = pause_menu_up; // || inventory_up
+  const overlay_menu_up = pause_menu_up || inventory_up;
   let minimap_display_h = build_mode ? BUTTON_W : MINIMAP_W;
   let show_compass = !build_mode;
   let compass_h = show_compass ? 11 : 0;
@@ -486,12 +489,12 @@ function playCrawl(): void {
     menu_pads.push(PAD.B, PAD.BACK);
   }
   button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads);
-  // if (!build_mode) {
-  //   button(0, 1, 7, 'inv', [KEYS.I], [PAD.Y], inventory_up);
-  //   if (up_edge.inv) {
-  //     inventory_up = !inventory_up;
-  //   }
-  // }
+  if (!build_mode) {
+    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up);
+    if (up_edge.inventory) {
+      inventory_up = !inventory_up;
+    }
+  }
 
   if (pause_menu_up) {
     pauseMenu();
@@ -517,7 +520,7 @@ function playCrawl(): void {
     if (crawlerCommWant()) {
       return profilerStopFunc();
     }
-    // inventory_up = false;
+    inventory_up = false;
   }
 
   if (up_edge.menu) {
@@ -530,7 +533,7 @@ function playCrawl(): void {
       } else {
         // close everything
         mapViewSetActive(false);
-        // inventory_up = false;
+        inventory_up = false;
       }
       pause_menu_up = false;
     } else {
@@ -605,7 +608,7 @@ export function play(dt: number): void {
     h: camera2d.hReal(),
   });
 
-  let overlay_menu_up = pause_menu_up || dialogMoveLocked(); // || inventory_up
+  let overlay_menu_up = pause_menu_up || dialogMoveLocked() || inventory_up;
 
   tickMusic(game_state.level?.props.music || 'dungeon1');
   crawlerPlayTopOfFrame(overlay_menu_up);
@@ -655,7 +658,7 @@ function playInitShared(online: boolean): void {
   controller.setOnInitPos(onInitPos);
 
   pause_menu_up = false;
-  // inventory_up = false;
+  inventory_up = false;
 }
 
 

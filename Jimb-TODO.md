@@ -1,5 +1,4 @@
 TODO
-* rework to 1920x1080 virtual coords?
 * add basic stats
 * add bump-attack combat
   * enemy health bards
