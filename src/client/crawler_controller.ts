@@ -16,6 +16,7 @@ import {
 } from 'glov/client/input';
 import * as settings from 'glov/client/settings';
 import { Sprite } from 'glov/client/sprites';
+import { textureLoadCount } from 'glov/client/textures';
 import * as ui from 'glov/client/ui';
 import {
   ButtonStateString,
@@ -902,7 +903,9 @@ class CrawlerControllerQueued2 extends CrawlerControllerInstantStep {
           }
         }
       }
-      if (!blend.started && (!last_blend || last_blend.finished)) {
+      // !textureLoadCount() is maybe a hack - it ensures we don't step out of the stairs while
+      //   the level art is still loading
+      if (!blend.started && (!last_blend || last_blend.finished) && !textureLoadCount()) {
         if (did_start_finish) {
           this.is_blend_stopped = true;
           break;
