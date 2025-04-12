@@ -1035,6 +1035,7 @@ export type PlayerMotionParam = {
   button_sprites: Record<ButtonStateString, Sprite>;
   dt: number;
   do_debug_move: boolean;
+  show_hotkeys: boolean;
 };
 
 function controllerFromType(type: string, parent: CrawlerController): PlayerController {
@@ -1805,6 +1806,7 @@ export class CrawlerController {
       show_buttons,
       disable_move,
       disable_player_impulse,
+      show_hotkeys,
     } = param;
     let dt = param.dt;
     const {
@@ -1850,6 +1852,13 @@ export class CrawlerController {
       touch_hotzone?: Box,
     ): void {
       let z;
+      let visible_hotkey: string | undefined;
+      if (keys.length) {
+        let idx = keys[0];
+        if (idx >= KEYS.A && idx <= KEYS.Z) {
+          visible_hotkey = String.fromCharCode(idx);
+        }
+      }
       let ret = crawlerOnScreenButton({
         x: button_x0 + (button_w + 2) * rx,
         y: button_y0 + (button_w + 2) * ry,
@@ -1863,6 +1872,7 @@ export class CrawlerController {
         disabled,
         button_sprites,
         touch_hotzone,
+        visible_hotkey: show_hotkeys ? visible_hotkey : undefined,
       });
       down_edge[key] += ret.down_edge;
       down[key] += ret.down;

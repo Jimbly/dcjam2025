@@ -408,7 +408,7 @@ const BUTTON_W = 26;
 
 
 function useNoText(): boolean {
-  return input.inputTouchMode() || input.inputPadMode() || settings.turn_toggle;
+  return input.inputTouchMode() || input.inputPadMode()/* || settings.turn_toggle*/; // DCJAM
 }
 
 const HUD_PAD = 8;
@@ -422,6 +422,11 @@ const MOVE_BUTTONS_Y0 = game_height - 71;
 
 const LEVEL_NAME_W = 100;
 
+let style_hud_value = fontStyle(null, {
+  color: 0x000000ff,
+  outline_width: 0.25,
+  outline_color: 0x000000ff,
+});
 function displayHUD(): void {
 
   let game_state = crawlerGameState();
@@ -466,12 +471,54 @@ function displayHUD(): void {
     }
   }
 
+  let y = 108;
+  function statsLine(label: string, value: string | number): void {
+    const STATSPAD = 8;
+    let x = HUD_X0 + STATSPAD;
+    let text_w = font.draw({
+      color: 0x000000ff,
+      x,
+      y,
+      size: text_height * 0.75,
+      text: label,
+    });
+    let left = HUD_W - text_w - STATSPAD * 2;
+    font.draw({
+      color: 0x000000ff,
+      x: x + text_w,
+      w: left,
+      y: y,
+      size: text_height * 0.75,
+      align: ALIGN.HRIGHT,
+      text: new Array(floor(left / text_height*6.2)).join('.'),
+    });
+    font.draw({
+      x,
+      y: y - 3,
+      w: HUD_W - STATSPAD * 2,
+      align: ALIGN.HRIGHT,
+      style: style_hud_value,
+      size: text_height,
+      text: String(value),
+    });
+    y += text_height * 1.5;
+  }
+
+  let me = myEnt();
+  statsLine('HIT POINTS', `${me.data.stats.hp}/${me.data.stats.hp_max}`);
+  statsLine('ATTACK', me.data.stats.attack);
+  statsLine('DEFENSE', me.data.stats.defense);
+  statsLine('ACCURACY', me.data.stats.accuracy);
+  statsLine('DODGE', me.data.stats.dodge);
+  statsLine('FUNDS', me.data.money);
+
   panel({
     x: HUD_X0,
     y: HUD_Y0,
     z: 2,
     w: HUD_W,
     h: game_height - HUD_PAD * 2,
+    color: [0.988, 0.976, 0.973, 1],
   });
 }
 
@@ -547,7 +594,8 @@ function playCrawl(): void {
     key: ValidKeys,
     keys: number[],
     pads: number[],
-    toggled_down?: boolean
+    toggled_down: boolean,
+    visible_hotkey: string,
   ): void {
     let z;
     let no_visible_ui = frame_map_view;
@@ -582,6 +630,7 @@ function playCrawl(): void {
       button_sprites: useNoText() ?
         toggled_down ? button_sprites_notext_down : button_sprites_notext :
         toggled_down ? button_sprites_down : button_sprites,
+      visible_hotkey: useNoText() ? undefined : visible_hotkey,
     });
     // down_edge[key] += ret.down_edge;
     down[key] += ret.down;
@@ -598,9 +647,9 @@ function playCrawl(): void {
   if (menu_up) {
     menu_pads.push(PAD.B, PAD.BACK);
   }
-  button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads);
+  button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads, false, 'ESC');
   if (!build_mode) {
-    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up);
+    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up, 'I');
     if (up_edge.inventory) {
       inventory_up = !inventory_up;
     }
@@ -697,6 +746,7 @@ function playCrawl(): void {
     show_buttons: !locked_dialog,
     do_debug_move: engine.defines.LEVEL_GEN || build_mode,
     show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
+    show_hotkeys: !useNoText(),
   });
 
 
@@ -885,30 +935,30 @@ export function playStartup(): void {
     ws: [128, 128, 128],
     hs: [128, 128, 128, 128],
   };
-  button_sprites = {
-    regular: spriteCreate({
-      name: 'crawler_buttons/buttons',
-      ...button_param,
-    }),
-    down: spriteCreate({
-      name: 'crawler_buttons/buttons_down',
-      ...button_param,
-    }),
-    rollover: spriteCreate({
-      name: 'crawler_buttons/buttons_rollover',
-      ...button_param,
-    }),
-    disabled: spriteCreate({
-      name: 'crawler_buttons/buttons_disabled',
-      ...button_param,
-    }),
-  };
-  button_sprites_down = {
-    regular: button_sprites.down,
-    down: button_sprites.regular,
-    rollover: button_sprites.rollover,
-    disabled: button_sprites.disabled,
-  };
+  // button_sprites = {
+  //   regular: spriteCreate({
+  //     name: 'crawler_buttons/buttons',
+  //     ...button_param,
+  //   }),
+  //   down: spriteCreate({
+  //     name: 'crawler_buttons/buttons_down',
+  //     ...button_param,
+  //   }),
+  //   rollover: spriteCreate({
+  //     name: 'crawler_buttons/buttons_rollover',
+  //     ...button_param,
+  //   }),
+  //   disabled: spriteCreate({
+  //     name: 'crawler_buttons/buttons_disabled',
+  //     ...button_param,
+  //   }),
+  // };
+  // button_sprites_down = {
+  //   regular: button_sprites.down,
+  //   down: button_sprites.regular,
+  //   rollover: button_sprites.rollover,
+  //   disabled: button_sprites.disabled,
+  // };
   button_sprites_notext = {
     regular: spriteCreate({
       name: 'crawler_buttons/buttons_notext',
@@ -933,6 +983,9 @@ export function playStartup(): void {
     rollover: button_sprites_notext.rollover,
     disabled: button_sprites_notext.disabled,
   };
+
+  button_sprites = button_sprites_notext; // DCJAM
+  button_sprites_down = button_sprites_notext_down; // DCJAM
 
   // let bar_param = {
   //   filter_min: gl.NEAREST,
