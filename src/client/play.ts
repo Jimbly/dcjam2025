@@ -363,7 +363,7 @@ function moveBlockDead(): boolean {
 
 const HP_BAR_W = 82;
 const HP_BAR_H = 13;
-const ENEMY_HP_BAR_X = (game_width - HP_BAR_W)/2;
+const ENEMY_HP_BAR_X = VIEWPORT_X0 + (render_width - HP_BAR_W)/2;
 const ENEMY_HP_BAR_Y = 20;
 const ENEMY_HP_BAR_H = 12;
 function drawEnemyStats(ent: Entity): void {
