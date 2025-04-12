@@ -1,3 +1,4 @@
+import { autoAtlas } from 'glov/client/autoatlas';
 import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
@@ -29,7 +30,8 @@ import {
 import {
   ButtonStateString,
   buttonText,
-  drawBox,
+  drawBoxTiled,
+  drawHBox,
   menuUp,
   playUISound,
   uiButtonWidth,
@@ -155,8 +157,8 @@ let button_sprites_notext: Record<ButtonStateString, Sprite>;
 let button_sprites_notext_down: Record<ButtonStateString, Sprite>;
 type BarSprite = {
   bg: Sprite;
-  hp: Sprite;
-  empty: Sprite;
+  filled: Sprite;
+  //empty: Sprite;
 };
 let bar_sprites: {
   healthbar: BarSprite;
@@ -271,30 +273,30 @@ function drawBar(
   if (p > 0 && p < 1) {
     full_w = clamp(full_w, MIN_VIS_W, w - MIN_VIS_W/2);
   }
-  let empty_w = w - full_w;
-  drawBox({
+  // let empty_w = w - full_w;
+  drawHBox({
     x, y, z,
     w, h,
-  }, bar.bg, 1);
+  }, bar.bg);
   if (full_w) {
-    drawBox({
+    drawBoxTiled({
       x, y,
       w: full_w, h,
       z: z + 1,
-    }, bar.hp, 1);
+    }, bar.filled, h/100);
   }
-  if (empty_w) {
-    let temp_x = x + full_w;
-    if (full_w) {
-      temp_x -= 2;
-      empty_w += 2;
-    }
-    drawBox({
-      x: temp_x, y,
-      w: empty_w, h,
-      z: z + 1,
-    }, bar.empty, 1);
-  }
+  // if (empty_w) {
+  //   let temp_x = x + full_w;
+  //   if (full_w) {
+  //     temp_x -= 2;
+  //     empty_w += 2;
+  //   }
+  //   drawBox({
+  //     x: temp_x, y,
+  //     w: empty_w, h,
+  //     z: z + 1,
+  //   }, bar.empty, 1);
+  // }
 }
 
 export function drawHealthBar(
@@ -361,7 +363,7 @@ const HP_BAR_W = 82;
 const HP_BAR_H = 13;
 const ENEMY_HP_BAR_X = (game_width - HP_BAR_W)/2;
 const ENEMY_HP_BAR_Y = 20;
-const ENEMY_HP_BAR_H = 7;
+const ENEMY_HP_BAR_H = 12;
 function drawEnemyStats(ent: Entity): void {
   let stats: { hp: number; hp_max: number } = ent.data.stats;
   if (!stats) {
@@ -853,27 +855,29 @@ export function playStartup(): void {
     disabled: button_sprites_notext.disabled,
   };
 
-  let bar_param = {
-    filter_min: gl.NEAREST,
-    filter_mag: gl.NEAREST,
-    ws: [2, 4, 2],
-    hs: [2, 4, 2],
-  };
-  let healthbar_bg = spriteCreate({
-    name: 'crawler_healthbar_bg',
-    ...bar_param,
-  });
+  // let bar_param = {
+  //   filter_min: gl.NEAREST,
+  //   filter_mag: gl.NEAREST,
+  //   ws: [2, 4, 2],
+  //   hs: [2, 4, 2],
+  // };
+  // let healthbar_bg = spriteCreate({
+  //   name: 'crawler_healthbar_bg',
+  //   ...bar_param,
+  // });
   bar_sprites = {
     healthbar: {
-      bg: healthbar_bg,
-      hp: spriteCreate({
-        name: 'crawler_healthbar_hp',
-        ...bar_param,
-      }),
-      empty: spriteCreate({
-        name: 'crawler_healthbar_empty',
-        ...bar_param,
-      }),
+      bg: autoAtlas('default', 'crawler_healthbar_bg'),
+      filled: autoAtlas('default', 'crawler_healthbar_filled'),
+      // bg: healthbar_bg,
+      // hp: spriteCreate({
+      //   name: 'crawler_healthbar_hp',
+      //   ...bar_param,
+      // }),
+      // empty: spriteCreate({
+      //   name: 'crawler_healthbar_empty',
+      //   ...bar_param,
+      // }),
     },
   };
 
