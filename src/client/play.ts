@@ -446,6 +446,7 @@ function displayHUD(): void {
       z: 3,
       w: LEVEL_NAME_W,
       h: 20,
+      eat_clicks: false,
     };
     panel(name_panel);
     font.draw({
@@ -463,6 +464,7 @@ function displayHUD(): void {
         y: name_panel.y + name_panel.h - 4,
         h: name_panel.h * 0.5,
         z: name_panel.z + 0.1,
+        eat_clicks: false,
       };
       panel(subtitle_panel);
       font.draw({
@@ -524,6 +526,7 @@ function displayHUD(): void {
     w: HUD_W,
     h: game_height - HUD_PAD * 2,
     color: [0.988, 0.976, 0.973, 1],
+    eat_clicks: false,
   });
 }
 
