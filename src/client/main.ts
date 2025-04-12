@@ -131,7 +131,7 @@ export function main(): void {
   const font_info_04b03x2 = require('./img/font/04b03_8x2.json');
   const font_info_04b03x1 = require('./img/font/04b03_8x1.json');
   const font_info_palanquin32 = require('./img/font/palanquin32.json');
-  const font_info_ink = require('./img/font/ink.json');
+  const font_info_kalam = require('./img/font/kalam.json');
   let pixely = settings.pixely === 2 ? 'strict' : settings.pixely ? 'on' : false;
   let font;
   if (pixely === 'strict') {
@@ -141,7 +141,7 @@ export function main(): void {
   } else {
     font = { info: font_info_palanquin32, texture: 'font/palanquin32' };
   }
-  font = { info: font_info_ink, texture: 'font/ink' };
+  font = { info: font_info_kalam, texture: 'font/kalam' };
   settingsSet('use_fbos', use_fbos); // Needed for our effects
 
   autoAtlasTextureOpts('whitebox', { force_mipmaps: true });
