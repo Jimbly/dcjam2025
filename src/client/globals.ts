@@ -3,5 +3,5 @@ export const game_width = 448;
 export const game_height = 252;
 // export const game_width = 256;
 // export const game_height = 192;
-export const render_width = 256;
-export const render_height = 192;
+export const render_width = 328;
+export const render_height = 238;

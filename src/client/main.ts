@@ -195,7 +195,7 @@ export function main(): void {
 
   let build_font = fonts[0];
 
-  gl.clearColor(0, 0, 0, 1);
+  gl.clearColor(1, 1, 1, 1);
 
   // Actually not too bad:
   if (settings.filter === 1) {

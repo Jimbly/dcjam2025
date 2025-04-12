@@ -1,5 +1,4 @@
 import { autoAtlas } from 'glov/client/autoatlas';
-import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
 import {
@@ -90,6 +89,7 @@ import {
   crawlerPlayTopOfFrame,
   crawlerPlayWantMode,
   crawlerPrepAndRenderFrame,
+  crawlerRenderSetUIClearColor,
   crawlerSaveGame,
   crawlerScriptAPI,
   getScaledFrameDt,
@@ -137,8 +137,8 @@ const MINIMAP_Y = 3;
 const MINIMAP_W = 5+7*(MINIMAP_RADIUS*2 + 1);
 const COMPASS_X = MINIMAP_X;
 const COMPASS_Y = MINIMAP_Y + MINIMAP_W;
-const VIEWPORT_X0 = 3;
-const VIEWPORT_Y0 = 3;
+const VIEWPORT_X0 = 5;
+const VIEWPORT_Y0 = 5;
 
 type Entity = EntityDemoClient;
 
@@ -163,6 +163,8 @@ type BarSprite = {
 let bar_sprites: {
   healthbar: BarSprite;
 };
+
+let viewport_frame: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -647,12 +649,24 @@ export function play(dt: number): void {
     return;
   }
 
-  crawlerRenderViewportSet({
-    x: camera2d.x0Real(),
-    y: camera2d.y0Real(),
-    w: camera2d.wReal(),
-    h: camera2d.hReal(),
+  viewport_frame.draw({
+    x: 0,
+    y: 0,
+    w: game_height * 1957/1440,
+    h: game_height,
   });
+  crawlerRenderViewportSet({
+    x: VIEWPORT_X0,
+    y: VIEWPORT_Y0,
+    w: render_width,
+    h: render_height,
+  });
+  // crawlerRenderViewportSet({
+  //   x: camera2d.x0Real(),
+  //   y: camera2d.y0Real(),
+  //   w: camera2d.wReal(),
+  //   h: camera2d.hReal(),
+  // });
 
   let overlay_menu_up = pause_menu_up || dialogMoveLocked() || inventory_up;
 
@@ -798,7 +812,7 @@ export function playStartup(): void {
     w: render_width,
     h: render_height,
   });
-  // crawlerRenderSetUIClearColor(dawnbringer.colors[14]);
+  crawlerRenderSetUIClearColor([1,1,1,1]);
 
   let button_param = {
     // filter_min: gl.NEAREST,
@@ -880,6 +894,10 @@ export function playStartup(): void {
       // }),
     },
   };
+
+  viewport_frame = spriteCreate({
+    name: 'viewport_frame',
+  });
 
   controllerOnBumpEntity(bumpEntityCallback);
 
