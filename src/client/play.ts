@@ -32,6 +32,7 @@ import {
   drawBoxTiled,
   drawHBox,
   menuUp,
+  panel,
   playUISound,
   uiButtonWidth,
   uiGetFont,
@@ -132,8 +133,8 @@ declare module 'glov/client/settings' {
 
 // const ATTACK_WINDUP_TIME = 1000;
 const MINIMAP_RADIUS = 3;
-const MINIMAP_X = game_width - 85; // 261;
-const MINIMAP_Y = 3;
+const MINIMAP_X = 340 + 8;
+const MINIMAP_Y = 8 + 8;
 const MINIMAP_W = 5+7*(MINIMAP_RADIUS*2 + 1);
 const COMPASS_X = MINIMAP_X;
 const COMPASS_Y = MINIMAP_Y + MINIMAP_W;
@@ -405,12 +406,73 @@ function bumpEntityCallback(ent_id: EntityID): void {
 
 const BUTTON_W = 26;
 
-const MOVE_BUTTONS_X0 = MINIMAP_X;
-const MOVE_BUTTONS_Y0 = game_height - 57;
-
 
 function useNoText(): boolean {
   return input.inputTouchMode() || input.inputPadMode() || settings.turn_toggle;
+}
+
+const HUD_PAD = 8;
+const HUD_W_FULL = game_width - (VIEWPORT_X0 + render_width + VIEWPORT_X0); // 110
+const HUD_X0 = game_width - HUD_W_FULL + 2; // 340
+const HUD_W = game_width - HUD_PAD - HUD_X0; // 100
+const HUD_Y0 = HUD_PAD;
+
+const MOVE_BUTTONS_X0 = HUD_X0 + (HUD_W - BUTTON_W * 3) / 2 - 1;
+const MOVE_BUTTONS_Y0 = game_height - 71;
+
+const LEVEL_NAME_W = 100;
+
+function displayHUD(): void {
+
+  let game_state = crawlerGameState();
+  let level = game_state.level;
+  let text_height = uiTextHeight();
+  if (level) {
+    let floor_title = level.props.title || `Floor ${game_state.floor_id}`;
+    let floor_subtitle = level.props.subtitle || '';
+    let name_panel = {
+      x: VIEWPORT_X0 + render_width - LEVEL_NAME_W,
+      y: VIEWPORT_Y0,
+      z: 3,
+      w: LEVEL_NAME_W,
+      h: 20,
+    };
+    panel(name_panel);
+    font.draw({
+      ...name_panel,
+      color: 0x000000ff,
+      size: text_height,
+      z: name_panel.z + 0.3,
+      align: ALIGN.HVCENTERFIT,
+      text: floor_title,
+    });
+    if (floor_subtitle) {
+      let subtitle_panel = {
+        x: name_panel.x + name_panel.w * 0.25,
+        w: name_panel.w * 0.5,
+        y: name_panel.y + name_panel.h - 4,
+        h: name_panel.h * 0.5,
+        z: name_panel.z + 0.1,
+      };
+      panel(subtitle_panel);
+      font.draw({
+        ...subtitle_panel,
+        color: 0x000000ff,
+        size: text_height * 0.75,
+        z: name_panel.z + 0.3,
+        align: ALIGN.HVCENTERFIT,
+        text: floor_subtitle,
+      });
+    }
+  }
+
+  panel({
+    x: HUD_X0,
+    y: HUD_Y0,
+    z: 2,
+    w: HUD_W,
+    h: game_height - HUD_PAD * 2,
+  });
 }
 
 function playCrawl(): void {
@@ -528,8 +590,8 @@ function playCrawl(): void {
 
 
   // Escape / open/close menu button - *before* pauseMenu()
-  button_x0 = game_width - 30;
-  button_y0 = 3;
+  button_x0 = MOVE_BUTTONS_X0 + (BUTTON_W + 2) * 2;
+  button_y0 = 15;
   let menu_up = frame_map_view || build_mode || overlay_menu_up;
   let menu_keys = [KEYS.ESC];
   let menu_pads = [PAD.START];
@@ -592,6 +654,7 @@ function playCrawl(): void {
   if (!frame_map_view) {
     if (!build_mode) {
       // Do game UI/stats here
+      displayHUD();
     }
     // Do modal UIs here
   } else {
@@ -604,6 +667,7 @@ function playCrawl(): void {
     mapViewToggle();
   }
   // inventoryMenu();
+
   let game_state = crawlerGameState();
   let script_api = crawlerScriptAPI();
   if (frame_map_view) {
@@ -652,6 +716,7 @@ export function play(dt: number): void {
   viewport_frame.draw({
     x: 0,
     y: 0,
+    z: 0.1,
     w: game_height * 1957/1440,
     h: game_height,
   });
@@ -913,5 +978,6 @@ export function playStartup(): void {
     build_mode_entity_icons: {},
     // style_map_name: fontStyle(...)
     compass_border_w: 6,
+    hide_name_on_minimap: true,
   });
 }

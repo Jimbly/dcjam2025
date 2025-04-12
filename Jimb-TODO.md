@@ -1,6 +1,6 @@
 TODO
-* show player hp bars
-* add enemy turns / attacks
+* display hp and funds on right
+* use Uncharted Wanders pattern - enemies move, auto-combat if adjacent
 * tap-to-move (forward) is immediately starting repeat, no delay
 
 PLAYER'S PLANNING
