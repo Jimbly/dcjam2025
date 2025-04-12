@@ -132,12 +132,15 @@ declare module 'glov/client/settings' {
 }
 
 // const ATTACK_WINDUP_TIME = 1000;
-const MINIMAP_RADIUS = 3;
-const MINIMAP_X = 340 + 8;
-const MINIMAP_Y = 8 + 8;
-const MINIMAP_W = 5+7*(MINIMAP_RADIUS*2 + 1);
-const COMPASS_X = MINIMAP_X;
-const COMPASS_Y = MINIMAP_Y + MINIMAP_W;
+const MINIMAP_RADIUS = 4;
+const MINIMAP_X = 6;
+const MINIMAP_Y = 6;
+const MINIMAP_W = 5+7*(MINIMAP_RADIUS*2 + 1) + 7 * 2;
+const MINIMAP_H = MINIMAP_W - 7 * 2;
+const COMPASS_W = 50;
+const COMPASS_H = 12.5;
+const COMPASS_X = MINIMAP_X + (MINIMAP_W - COMPASS_W)/2;
+const COMPASS_Y = MINIMAP_Y + MINIMAP_H - 3;
 const VIEWPORT_X0 = 5;
 const VIEWPORT_Y0 = 5;
 
@@ -166,6 +169,8 @@ let bar_sprites: {
 };
 
 let viewport_frame: Sprite;
+let minimap_bg: Sprite;
+let minimap_overlay: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -567,16 +572,19 @@ function playCrawl(): void {
   const build_mode = buildModeActive();
   let locked_dialog = dialogMoveLocked();
   const overlay_menu_up = pause_menu_up || inventory_up;
-  let minimap_display_h = build_mode ? BUTTON_W : MINIMAP_W;
+  let minimap_display_x = MINIMAP_X;
+  let minimap_display_h = build_mode ? BUTTON_W : MINIMAP_H;
   let show_compass = !build_mode;
-  let compass_h = show_compass ? 11 : 0;
+  let compass_h = show_compass ? COMPASS_H : 0;
 
   if (build_mode && !controller.ignoreGameplay()) {
     let build_y = MINIMAP_Y + minimap_display_h + 2;
+    let build_x = VIEWPORT_X0 + render_width + 2;
+    minimap_display_x = build_x;
     crawlerBuildModeUI({
-      x: MINIMAP_X,
+      x: build_x,
       y: build_y,
-      w: game_width - MINIMAP_X - 2,
+      w: game_width - build_x - 2,
       h: MOVE_BUTTONS_Y0 - build_y - 2,
       map_view: frame_map_view,
     });
@@ -639,8 +647,8 @@ function playCrawl(): void {
 
 
   // Escape / open/close menu button - *before* pauseMenu()
-  button_x0 = MOVE_BUTTONS_X0 + (BUTTON_W + 2) * 2;
-  button_y0 = 15;
+  button_x0 = build_mode ? game_width - BUTTON_W - 1 : MOVE_BUTTONS_X0 + (BUTTON_W + 2) * 2;
+  button_y0 = build_mode ? 1 : 15;
   let menu_up = frame_map_view || build_mode || overlay_menu_up;
   let menu_keys = [KEYS.ESC];
   let menu_pads = [PAD.START];
@@ -725,11 +733,30 @@ function playCrawl(): void {
         controller.initPosFromLevelDebug();
       }
     }
-    crawlerMapViewDraw(game_state, 0, 0, game_width, game_height, 0, Z.MAP,
+    crawlerMapViewDraw(game_state, 0, 0, game_width, game_height, 0, 0, Z.MAP,
       engine.defines.LEVEL_GEN, script_api, overlay_menu_up,
       floor((game_width - MINIMAP_W)/2), 2); // note: compass ignored, compass_h = 0 above
   } else {
-    crawlerMapViewDraw(game_state, MINIMAP_X, MINIMAP_Y, MINIMAP_W, minimap_display_h, compass_h, Z.MAP,
+    if (!build_mode) {
+      const OVERLAY_PAD = 1;
+      let minimap_rect = {
+        x: minimap_display_x - OVERLAY_PAD,
+        y: MINIMAP_Y - OVERLAY_PAD,
+        w: MINIMAP_W + OVERLAY_PAD * 2,
+        h: minimap_display_h + OVERLAY_PAD * 2,
+      };
+      minimap_bg.draw({
+        ...minimap_rect,
+        z: Z.MAP - 1,
+      });
+      minimap_overlay.draw({
+        ...minimap_rect,
+        z: Z.MAP + 1,
+      });
+    }
+    crawlerMapViewDraw(game_state,
+      minimap_display_x, MINIMAP_Y,
+      MINIMAP_W, minimap_display_h, compass_h, COMPASS_W, Z.MAP,
       false, script_api, overlay_menu_up,
       COMPASS_X, COMPASS_Y);
   }
@@ -1014,7 +1041,13 @@ export function playStartup(): void {
   };
 
   viewport_frame = spriteCreate({
-    name: 'viewport_frame',
+    name: 'viewport-frame',
+  });
+  minimap_bg = spriteCreate({
+    name: 'minimap-bg',
+  });
+  minimap_overlay = spriteCreate({
+    name: 'minimap-overlay',
   });
 
   controllerOnBumpEntity(bumpEntityCallback);
@@ -1030,7 +1063,7 @@ export function playStartup(): void {
     // color_rollover: dawnbringer.colors[8],
     build_mode_entity_icons: {},
     // style_map_name: fontStyle(...)
-    compass_border_w: 6,
+    // compass_border_w: 6,
     hide_name_on_minimap: true,
   });
 }

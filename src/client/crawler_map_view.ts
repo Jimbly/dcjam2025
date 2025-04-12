@@ -162,6 +162,7 @@ export function crawlerMapViewDraw(
   w: number,
   h: number,
   compass_h: number,
+  compass_w: number,
   z: number,
   level_gen_test: boolean,
   script_api: CrawlerScriptAPIClient,
@@ -244,44 +245,47 @@ export function crawlerMapViewDraw(
   if (compass_h) {
     moved_since_fullscreen = false;
     // draw compass rose underneath
-    let compass_w = w;
-    let uoffs = (-game_state.angle / (2*PI)) * 92/256;
+    compass_w = compass_w || w;
+    // DCJAM compass drawing
+    let uoffs = (-game_state.angle / (2*PI)) * 270/1024;
     while (uoffs < 0) {
-      uoffs += 92/256;
+      uoffs += 270/1024;
     }
-    uoffs = round(uoffs * 256) / 256;
+    // uoffs = round(uoffs * 256) / 256;
     // overlays
-    compass_sprite.draw({
-      x: compass_x, y: compass_y, z: z+3,
-      w: compass_border_w, h: compass_h,
-      frame: 1,
-    });
-    compass_sprite.draw({
-      x: compass_x + compass_w - compass_border_w,
-      y: compass_y,
-      z: z+3,
-      w: compass_border_w,
-      h: compass_h,
-      frame: 2,
-    });
+    if (0) {
+      compass_sprite.draw({
+        x: compass_x, y: compass_y, z: z+4,
+        w: compass_border_w, h: compass_h,
+        frame: 1,
+      });
+      compass_sprite.draw({
+        x: compass_x + compass_w - compass_border_w,
+        y: compass_y,
+        z: z+4,
+        w: compass_border_w,
+        h: compass_h,
+        frame: 2,
+      });
+    }
     // background
     compass_sprite.draw({
       x: compass_x,
       y: compass_y,
-      z,
+      z: z + 2,
       w: compass_w,
       h: compass_h,
-      uvs: [uoffs, compass_h/32, compass_w/256+uoffs, compass_h*2/32],
+      uvs: [0, 56/256, 228/1024, 112/256],
     });
     // text
     compass_sprite.draw({
-      x: compass_x, y: compass_y, z: z + 2,
+      x: compass_x, y: compass_y, z: z + 3,
       w: compass_w,
-      h: compass_h - 1,
-      uvs: [0, compass_h*2/32, compass_w/256, 1],
+      h: compass_h,
+      uvs: [0, 112/256, 228/1024, 168/256],
       shader: sprite_mult,
       shader_params: {
-        tex_offs: vec2(uoffs, -compass_h*2/32),
+        tex_offs: vec2(uoffs, -112/256),
       },
     });
   }
@@ -658,11 +662,11 @@ export function crawlerMapViewStartup(param: {
     filter_min: gl.NEAREST,
     filter_mag: gl.NEAREST,
   });
-  compass_border_w = param.compass_border_w || 6;
+  compass_border_w = param.compass_border_w || 31; // DCJAM here and below
   compass_sprite = spriteCreate({
     name: 'crawler_compass',
-    ws: [160,compass_border_w,compass_border_w,256-compass_border_w-compass_border_w-160],
-    hs: [11,11,10],
+    ws: [827,compass_border_w,compass_border_w,256-compass_border_w-compass_border_w-827],
+    hs: [56,56,56],
     filter_min: gl.NEAREST,
     filter_mag: gl.NEAREST,
   });
