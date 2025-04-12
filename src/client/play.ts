@@ -392,6 +392,10 @@ function bumpEntityCallback(ent_id: EntityID): void {
     let enemy_stats = target_ent.data.stats;
     let { dam, style } = damage(my_stats, enemy_stats);
     addFloater(ent_id, `${style === 'miss' ? 'WHIFF!\n' : style === 'crit' ? 'CRIT!' : ''}\n-${dam}`, '');
+    enemy_stats.hp = max(0, enemy_stats.hp - dam);
+    if (!enemy_stats.hp) {
+      crawlerEntityManager().deleteEntity(ent_id, 'killed');
+    }
   }
 }
 
