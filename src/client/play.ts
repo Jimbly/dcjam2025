@@ -5,6 +5,7 @@ import {
   ALIGN,
   Font,
   fontStyle,
+  fontStyleColored,
 } from 'glov/client/font';
 import * as input from 'glov/client/input';
 import {
@@ -1065,7 +1066,7 @@ export function playStartup(): void {
     allow_pathfind: true,
     // color_rollover: dawnbringer.colors[8],
     build_mode_entity_icons: {},
-    // style_map_name: fontStyle(...)
+    style_map_name: fontStyleColored(null, 0x000000ff),
     // compass_border_w: 6,
     hide_name_on_minimap: true,
   });

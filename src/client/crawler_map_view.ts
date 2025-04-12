@@ -143,7 +143,7 @@ export function mapViewLastProgress(): number {
 
 let mouse_pos = vec2();
 let moved_since_fullscreen = false;
-let color_rollover = rovec4(1,1,1,1);
+let color_rollover = rovec4(0,0,0,0.25);
 let color_path = rovec4(1,0.5,0,1);
 
 let hide_name_on_minimap = false;
@@ -199,7 +199,7 @@ export function crawlerMapViewDraw(
       ui.drawRect(hover_area.x - 1, hover_area.y - 1,
         hover_area.x + hover_area.w + 1,
         hover_area.y + hover_area.h + 1,
-        Z.MAP - 1, color_rollover);
+        Z.MAP + 2, color_rollover);
     }
     if (ret) {
       mapViewToggle();
