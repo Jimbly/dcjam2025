@@ -2446,6 +2446,9 @@
   "state": {},
   "vstyle": "test",
   "seed": "32845502",
-  "props": {},
+  "props": {
+    "subtitle": "MIDDLE DECK",
+    "title": "STATION OMEGA-B12"
+  },
   "paths": {}
 }
