@@ -51,6 +51,7 @@ import {
 import {
   aiDoFloor, aiTraitsClientStartup,
 } from './ai';
+import { damage } from './combat';
 // import './client_cmds';
 import {
   buildModeActive,
@@ -60,7 +61,7 @@ import {
   crawlerCommStart,
   crawlerCommWant,
 } from './crawler_comm';
-import { CrawlerController } from './crawler_controller';
+import { controllerOnBumpEntity, CrawlerController } from './crawler_controller';
 import {
   crawlerEntityClientStartupEarly,
   crawlerEntityManager,
@@ -314,7 +315,6 @@ function moveBlocked(): boolean {
 }
 
 // TODO: move into crawler_play?
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addFloater(ent_id: EntityID, message: string | null, anim: string): void {
   let ent = crawlerEntityManager().getEnt(ent_id);
   if (ent) {
@@ -381,6 +381,18 @@ function drawEnemyStats(ent: Entity): void {
   // if (ent.getData('ready') && ent.isAlive()) {
   //   let start = ent.getData('ready_start');
   //   let dur = ent.getData('action_dur');
+}
+
+function bumpEntityCallback(ent_id: EntityID): void {
+  let me = myEnt();
+  let all_entities = entityManager().entities;
+  let target_ent = all_entities[ent_id]!;
+  if (target_ent && target_ent.isAlive() && me.isAlive()) {
+    let my_stats = me.data.stats;
+    let enemy_stats = target_ent.data.stats;
+    let { dam, style } = damage(my_stats, enemy_stats);
+    addFloater(ent_id, `${style === 'miss' ? 'WHIFF!\n' : style === 'crit' ? 'CRIT!' : ''}\n-${dam}`, '');
+  }
 }
 
 const BUTTON_W = 26;
@@ -660,10 +672,10 @@ export function play(dt: number): void {
   crawlerPrepAndRenderFrame();
 
   if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
-    let spire_entities = entityManager().entities;
+    let all_entities = entityManager().entities;
     let ent_in_front = crawlerEntInFront();
     if (ent_in_front && myEnt().isAlive()) {
-      let target_ent = spire_entities[ent_in_front]!;
+      let target_ent = all_entities[ent_in_front]!;
       drawEnemyStats(target_ent);
     }
   }
@@ -860,6 +872,8 @@ export function playStartup(): void {
       }),
     },
   };
+
+  controllerOnBumpEntity(bumpEntityCallback);
 
   renderAppStartup();
   dialogStartup({

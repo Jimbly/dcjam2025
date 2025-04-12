@@ -1,8 +1,7 @@
 TODO
-* show enemy health bars
-* add bump-attack combat
 * show player hp bars
 * add enemy turns / attacks
+* tap-to-move (forward) is immediately starting repeat, no delay
 
 PLAYER'S PLANNING
 [ ] Find where the mark is docked

@@ -93,7 +93,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
     }
 
     if (this.is_player) {
-      if (!data.stats) {
+      if (!data.stats || !data.stats.attack) {
         data.stats = {
           hp: 10,
           hp_max: 10,
