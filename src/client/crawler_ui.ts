@@ -1,4 +1,5 @@
 import * as engine from 'glov/client/engine';
+import { fontStyle } from 'glov/client/font';
 import { Box } from 'glov/client/geom_types';
 import * as input from 'glov/client/input';
 import {
@@ -29,6 +30,7 @@ import {
   ButtonParam,
   ButtonStateString,
   playUISound,
+  uiGetFont,
 } from 'glov/client/ui';
 
 const SPOT_STATE_TO_UI_BUTTON_STATE: Record<SpotStateEnum, ButtonStateString> = {
@@ -38,6 +40,13 @@ const SPOT_STATE_TO_UI_BUTTON_STATE: Record<SpotStateEnum, ButtonStateString> = 
   [SPOT_STATE_DISABLED]: 'disabled',
 };
 
+// TODO: allow overriding
+let hotkey_font_style = fontStyle(null, {
+  color: 0x000000ff,
+});
+let hotkey_font_size = 6;
+let hotkey_font_pad_h = 2;
+let hotkey_font_pad_v = 2.8;
 
 export type CrawlerNavButtonRet = {
   down_edge: number;
@@ -55,8 +64,17 @@ export function crawlerOnScreenButton(param: {
   disabled: boolean;
   button_sprites: Record<ButtonStateString, Sprite>;
   touch_hotzone?: Box;
+  visible_hotkey: string | undefined;
 }): CrawlerNavButtonRet {
-  const { x, y, z, w, h, frame, keys, pads, no_visible_ui, do_up_edge, disabled, touch_hotzone } = param;
+  const {
+    x, y, z, w, h,
+    frame, keys, pads,
+    no_visible_ui,
+    do_up_edge,
+    disabled,
+    touch_hotzone,
+    visible_hotkey,
+  } = param;
   let button_param: SpotParam & ButtonParam & SpriteDrawParams = {
     def: disabled ? SPOT_DEFAULT_BUTTON_DISABLED : SPOT_DEFAULT_BUTTON,
     // pad_focusable: false,
@@ -138,6 +156,10 @@ export function crawlerOnScreenButton(param: {
   }
   if (!no_visible_ui) {
     param.button_sprites[SPOT_STATE_TO_UI_BUTTON_STATE[state]].draw(button_param);
+    if (visible_hotkey) {
+      uiGetFont().drawSized(hotkey_font_style, x + hotkey_font_pad_h, y + hotkey_font_pad_v,
+        (z || Z.UI) + 0.1, hotkey_font_size, visible_hotkey);
+    }
   }
   return nav_ret;
 }

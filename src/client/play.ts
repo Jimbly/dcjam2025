@@ -408,7 +408,7 @@ const BUTTON_W = 26;
 
 
 function useNoText(): boolean {
-  return input.inputTouchMode() || input.inputPadMode() || settings.turn_toggle;
+  return input.inputTouchMode() || input.inputPadMode()/* || settings.turn_toggle*/; // DCJAM
 }
 
 const HUD_PAD = 8;
@@ -594,7 +594,8 @@ function playCrawl(): void {
     key: ValidKeys,
     keys: number[],
     pads: number[],
-    toggled_down?: boolean
+    toggled_down: boolean,
+    visible_hotkey: string,
   ): void {
     let z;
     let no_visible_ui = frame_map_view;
@@ -629,6 +630,7 @@ function playCrawl(): void {
       button_sprites: useNoText() ?
         toggled_down ? button_sprites_notext_down : button_sprites_notext :
         toggled_down ? button_sprites_down : button_sprites,
+      visible_hotkey: useNoText() ? undefined : visible_hotkey,
     });
     // down_edge[key] += ret.down_edge;
     down[key] += ret.down;
@@ -645,9 +647,9 @@ function playCrawl(): void {
   if (menu_up) {
     menu_pads.push(PAD.B, PAD.BACK);
   }
-  button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads);
+  button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads, false, 'ESC');
   if (!build_mode) {
-    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up);
+    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up, 'I');
     if (up_edge.inventory) {
       inventory_up = !inventory_up;
     }
@@ -744,6 +746,7 @@ function playCrawl(): void {
     show_buttons: !locked_dialog,
     do_debug_move: engine.defines.LEVEL_GEN || build_mode,
     show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
+    show_hotkeys: !useNoText(),
   });
 
 
@@ -932,30 +935,30 @@ export function playStartup(): void {
     ws: [128, 128, 128],
     hs: [128, 128, 128, 128],
   };
-  button_sprites = {
-    regular: spriteCreate({
-      name: 'crawler_buttons/buttons',
-      ...button_param,
-    }),
-    down: spriteCreate({
-      name: 'crawler_buttons/buttons_down',
-      ...button_param,
-    }),
-    rollover: spriteCreate({
-      name: 'crawler_buttons/buttons_rollover',
-      ...button_param,
-    }),
-    disabled: spriteCreate({
-      name: 'crawler_buttons/buttons_disabled',
-      ...button_param,
-    }),
-  };
-  button_sprites_down = {
-    regular: button_sprites.down,
-    down: button_sprites.regular,
-    rollover: button_sprites.rollover,
-    disabled: button_sprites.disabled,
-  };
+  // button_sprites = {
+  //   regular: spriteCreate({
+  //     name: 'crawler_buttons/buttons',
+  //     ...button_param,
+  //   }),
+  //   down: spriteCreate({
+  //     name: 'crawler_buttons/buttons_down',
+  //     ...button_param,
+  //   }),
+  //   rollover: spriteCreate({
+  //     name: 'crawler_buttons/buttons_rollover',
+  //     ...button_param,
+  //   }),
+  //   disabled: spriteCreate({
+  //     name: 'crawler_buttons/buttons_disabled',
+  //     ...button_param,
+  //   }),
+  // };
+  // button_sprites_down = {
+  //   regular: button_sprites.down,
+  //   down: button_sprites.regular,
+  //   rollover: button_sprites.rollover,
+  //   disabled: button_sprites.disabled,
+  // };
   button_sprites_notext = {
     regular: spriteCreate({
       name: 'crawler_buttons/buttons_notext',
@@ -980,6 +983,9 @@ export function playStartup(): void {
     rollover: button_sprites_notext.rollover,
     disabled: button_sprites_notext.disabled,
   };
+
+  button_sprites = button_sprites_notext; // DCJAM
+  button_sprites_down = button_sprites_notext_down; // DCJAM
 
   // let bar_param = {
   //   filter_min: gl.NEAREST,
