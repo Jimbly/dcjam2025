@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { autoAtlas, autoAtlasTextureOpts } from 'glov/client/autoatlas';
+import { autoAtlas } from 'glov/client/autoatlas';
 import * as engine from 'glov/client/engine';
 import {
   FontStyle,
@@ -658,17 +658,17 @@ export function crawlerMapViewStartup(param: {
   if (param.build_mode_entity_icons) {
     merge(build_mode_entity_icons, param.build_mode_entity_icons);
   }
-  autoAtlasTextureOpts('map', {
-    filter_min: gl.NEAREST,
-    filter_mag: gl.NEAREST,
-  });
+  // autoAtlasTextureOpts('map', { // DCJAM
+  //   filter_min: gl.NEAREST,
+  //   filter_mag: gl.NEAREST,
+  // });
   compass_border_w = param.compass_border_w || 31; // DCJAM here and below
   compass_sprite = spriteCreate({
     name: 'crawler_compass',
     ws: [827,compass_border_w,compass_border_w,256-compass_border_w-compass_border_w-827],
     hs: [56,56,56],
-    filter_min: gl.NEAREST,
-    filter_mag: gl.NEAREST,
+    // filter_min: gl.NEAREST, // DCJAM
+    // filter_mag: gl.NEAREST,
   });
   sprite_mult = shaderCreate('shaders/sprite_mult.fp');
 }
