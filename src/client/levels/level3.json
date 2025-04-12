@@ -2105,7 +2105,7 @@
     {
       "id": "open",
       "walls": [
-        "test_decal_2",
+        "entrance",
         "open",
         "open",
         "open"
@@ -2404,11 +2404,11 @@
       ]
     },
     {
-      "type": "critter15",
+      "type": "critter14",
       "pos": [
-        5,
-        14,
-        2
+        2,
+        3,
+        1
       ]
     },
     {
@@ -2425,14 +2425,6 @@
         6,
         10,
         2
-      ]
-    },
-    {
-      "type": "critter14",
-      "pos": [
-        2,
-        3,
-        1
       ]
     }
   ],
