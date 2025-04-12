@@ -422,6 +422,11 @@ const MOVE_BUTTONS_Y0 = game_height - 71;
 
 const LEVEL_NAME_W = 100;
 
+let style_hud_value = fontStyle(null, {
+  color: 0x000000ff,
+  outline_width: 0.25,
+  outline_color: 0x000000ff,
+});
 function displayHUD(): void {
 
   let game_state = crawlerGameState();
@@ -466,12 +471,54 @@ function displayHUD(): void {
     }
   }
 
+  let y = 108;
+  function statsLine(label: string, value: string | number): void {
+    const STATSPAD = 8;
+    let x = HUD_X0 + STATSPAD;
+    let text_w = font.draw({
+      color: 0x000000ff,
+      x,
+      y,
+      size: text_height * 0.75,
+      text: label,
+    });
+    let left = HUD_W - text_w - STATSPAD * 2;
+    font.draw({
+      color: 0x000000ff,
+      x: x + text_w,
+      w: left,
+      y: y,
+      size: text_height * 0.75,
+      align: ALIGN.HRIGHT,
+      text: new Array(floor(left / text_height*6.2)).join('.'),
+    });
+    font.draw({
+      x,
+      y: y - 3,
+      w: HUD_W - STATSPAD * 2,
+      align: ALIGN.HRIGHT,
+      style: style_hud_value,
+      size: text_height,
+      text: String(value),
+    });
+    y += text_height * 1.5;
+  }
+
+  let me = myEnt();
+  statsLine('HIT POINTS', `${me.data.stats.hp}/${me.data.stats.hp_max}`);
+  statsLine('ATTACK', me.data.stats.attack);
+  statsLine('DEFENSE', me.data.stats.defense);
+  statsLine('ACCURACY', me.data.stats.accuracy);
+  statsLine('DODGE', me.data.stats.dodge);
+  statsLine('FUNDS', me.data.money);
+
   panel({
     x: HUD_X0,
     y: HUD_Y0,
     z: 2,
     w: HUD_W,
     h: game_height - HUD_PAD * 2,
+    color: [0.988, 0.976, 0.973, 1],
   });
 }
 

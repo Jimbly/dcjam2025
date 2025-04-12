@@ -55,7 +55,7 @@ export type EntityDataClient = {
   floor: number;
   stats: StatsData;
   // Player:
-  // money: number;
+  money: number;
 } & EntityCrawlerDataCommon;
 
 
@@ -102,6 +102,9 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
           accuracy: 0,
           dodge: 0,
         };
+      }
+      if (!data.money) {
+        data.money = 0;
       }
     }
 
