@@ -1,6 +1,7 @@
 TODO
 * use Uncharted Wanders pattern - enemies move, auto-combat if adjacent
 * tap-to-move (forward) is immediately starting repeat, no delay
+* don't load sprite_near (shouldn't show up in /texmem)
 
 CORE GAMEPLAY
 * inventory screen, click things to select, click Equip to equip, see stats, use consumables

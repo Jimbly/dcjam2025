@@ -164,7 +164,7 @@ const ENEMY_AVATAR_X = 10;
 const FLOATER_W = 60;
 const FLOATER_FONT_SIZE = 14;
 
-function drawCombatant(dt: number, ent_in: Entity, x: number, y: number, scale: number): void {
+function drawCombatant(dt: number, ent_in: Entity, x: number, y: number, scale: number, dead: boolean): void {
   let ent = ent_in as unknown as EntityDrawableSprite;
   let frame = ent.updateAnim(dt);
   let { sprite } = ent.drawable_sprite_state;
@@ -177,6 +177,7 @@ function drawCombatant(dt: number, ent_in: Entity, x: number, y: number, scale: 
     h = abs(w / aspect);
   }
   sprite.draw({
+    color: dead ? [0,0,0,1] : undefined,
     w, h,
     x: x + FRAME_W * 0.5,
     y: y + FRAME_H + FRAME_H * (ENT_SCALE*scale - 1)/2,
@@ -246,12 +247,24 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   let dye = 0;
   let dxh_noframe = 0;
   let dxe_noframe = 0;
-  if (state === 'fadein') {
+  if (state === 'fadein' || state === 'fadeout') {
     let p = t / 500;
     // p = mousePos()[0] / game_width;
     if (p >= 1) {
-      startState(random() < 0.5 ? 'hero' : 'enemy');
+      if (state === 'fadein') {
+        startState(random() < 0.5 ? 'hero' : 'enemy');
+      } else {
+        me.data.stats.hp = combat_state.player_hp;
+        target.data.stats.hp = combat_state.target_hp;
+        if (!target.data.stats.hp) {
+          entityManager().deleteEntity(target.id, 'killed');
+        }
+        return;
+      }
     } else {
+      if (state === 'fadeout') {
+        p = 1 - p;
+      }
       p = easeOut(p, 2);
       dxh = lerp(p, -FRAME_W, 0);
       dyh = lerp(p, FRAME_W * FRAME_SLOPE, 0);
@@ -307,14 +320,6 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
         }
       }
     }
-  } else if (state === 'fadeout') {
-    if (t >= 500) {
-      me.data.stats.hp = combat_state.player_hp;
-      target.data.stats.hp = combat_state.target_hp;
-      if (!target.data.stats.hp) {
-        entityManager().deleteEntity(target.id, 'killed');
-      }
-    }
   }
   let z = Z.COMBAT;
   let viewport = crawlerRenderViewportGet();
@@ -339,12 +344,14 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
 
   if (FRAME_Y + 3 + dyh < game_height) {
     spriteClipPush(z + 0.2, 0, FRAME_Y + 3 + dyh, game_width, FRAME_H - 6);
-    drawCombatant(dt, me, FRAME_HERO_X + HERO_AVATAR_X + dxh_noframe, FRAME_Y, pscale);
+    drawCombatant(dt, me, FRAME_HERO_X + HERO_AVATAR_X + dxh_noframe, FRAME_Y, pscale,
+      combat_state.player_hp === 0);
     spriteClipPop();
   }
   if (abs(dye) < game_height) {
     spriteClipPush(z + 0.2, 0, FRAME_Y + 3 + dye, game_width, FRAME_H - 6);
-    drawCombatant(dt, target, FRAME_ENEMY_X + ENEMY_AVATAR_X + dxe_noframe, FRAME_Y, escale);
+    drawCombatant(dt, target, FRAME_ENEMY_X + ENEMY_AVATAR_X + dxe_noframe, FRAME_Y, escale,
+      combat_state.target_hp === 0);
     spriteClipPop();
   }
 
