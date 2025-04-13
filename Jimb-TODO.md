@@ -1,5 +1,6 @@
 TODO
-* use Uncharted Wanders pattern - enemies move, auto-combat if adjacent
+* inventory
+* change combat to happen when you step onto their square; show enemy stats when looking at them
 * tap-to-move (forward) is immediately starting repeat, no delay
 * don't load sprite_near (shouldn't show up in /texmem)
 

@@ -46,7 +46,7 @@ let hotkey_font_style = fontStyle(null, {
 });
 let hotkey_font_size = 6;
 let hotkey_font_pad_h = 2;
-let hotkey_font_pad_v = 2.8;
+let hotkey_font_pad_v = 3.2;
 
 export type CrawlerNavButtonRet = {
   down_edge: number;

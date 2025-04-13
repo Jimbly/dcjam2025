@@ -1,4 +1,5 @@
 import { autoAtlas } from 'glov/client/autoatlas';
+// import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
 import {
@@ -18,7 +19,7 @@ import {
   padButtonUpEdge,
 } from 'glov/client/input';
 import { ClientChannelWorker } from 'glov/client/net';
-import { MenuItem } from 'glov/client/selection_box';
+import { MenuItem, SelectionBoxDisplay } from 'glov/client/selection_box';
 import * as settings from 'glov/client/settings';
 import {
   settingsRegister,
@@ -26,6 +27,8 @@ import {
 } from 'glov/client/settings';
 import { SimpleMenu, simpleMenuCreate } from 'glov/client/simple_menu';
 import {
+  BLEND_ADDITIVE,
+  BLEND_MULTIPLY,
   Sprite,
   spriteCreate,
 } from 'glov/client/sprites';
@@ -38,6 +41,8 @@ import {
   menuUp,
   panel,
   playUISound,
+  // sprites as ui_sprites,
+  uiButtonHeight,
   uiButtonWidth,
   uiGetFont,
   uiTextHeight,
@@ -179,6 +184,9 @@ let bar_sprites: {
 let viewport_frame: Sprite;
 let minimap_bg: Sprite;
 let minimap_overlay: Sprite;
+let modal_frame: Sprite;
+let modal_bg_bottom_add: Sprite;
+let modal_bg_top_mult: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -198,7 +206,14 @@ export function myEntOptional(): Entity | undefined {
 //   return crawlerEntityManager() as ClientEntityManagerInterface<Entity>;
 // }
 
-const PAUSE_MENU_W = 160;
+const selbox_display: Partial<SelectionBoxDisplay> = {
+  style_default: fontStyleColored(null, 0x000000ff),
+  style_selected: fontStyleColored(null, 0x000000ff),
+  style_disabled: fontStyleColored(null, 0x404040ff),
+  style_down: fontStyleColored(null, 0x000000ff),
+};
+
+const PAUSE_MENU_W = 120;
 let pause_menu: SimpleMenu;
 function pauseMenu(): void {
   if (!pause_menu) {
@@ -207,6 +222,7 @@ function pauseMenu(): void {
       y: 50,
       z: Z.MODAL + 2,
       width: PAUSE_MENU_W,
+      display: selbox_display,
     });
   }
   let items: MenuItem[] = [{
@@ -267,13 +283,39 @@ function pauseMenu(): void {
   volume_item.value = settings.volume_music;
   volume_item.name = `Mus Vol: ${(settings.volume_music * 100).toFixed(0)}`;
 
+  let modal_contents_h = items.length * uiButtonHeight();
+
   pause_menu.run({
-    slider_w: 80,
+    y: (game_height - modal_contents_h) / 2,
+    slider_w: 58,
     items,
   });
 
   settingsSet('volume_sound', pause_menu.getItem(1).value as number);
   settingsSet('volume_music', pause_menu.getItem(2).value as number);
+
+  let modal_frame_h = modal_contents_h * 825/605;
+  let modal_frame_w = max(modal_frame_h / 825 * 657,
+    PAUSE_MENU_W * 657/483);
+  modal_frame_h = modal_frame_w / 657 * 825;
+  let box = {
+    x: (game_width - modal_frame_w) / 2,
+    y: (game_height - modal_frame_h) / 2,
+    w: modal_frame_w,
+    h: modal_frame_h,
+    z: Z.MODAL + 0.3,
+  };
+  modal_frame.draw(box);
+  modal_bg_bottom_add.draw({
+    ...box,
+    z: Z.MODAL + 0.1,
+    blend: BLEND_ADDITIVE,
+  });
+  modal_bg_top_mult.draw({
+    ...box,
+    z: Z.MODAL + 0.2,
+    blend: BLEND_MULTIPLY,
+  });
 
   menuUp();
 }
@@ -854,6 +896,14 @@ export function play(dt: number): void {
     return;
   }
 
+  // ui_sprites.white.draw({
+  //   x: camera2d.x0Real(),
+  //   y: camera2d.y0Real(),
+  //   z: 0.0001,
+  //   w: camera2d.wReal(),
+  //   h: camera2d.hReal(),
+  // });
+
   viewport_frame.draw({
     x: 0,
     y: 0,
@@ -1112,6 +1162,21 @@ export function playStartup(): void {
   });
   minimap_overlay = spriteCreate({
     name: 'minimap-overlay',
+  });
+  modal_frame = spriteCreate({
+    name: 'modal-frame',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  modal_bg_bottom_add = spriteCreate({
+    name: 'modal-bg-bottom-add',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  modal_bg_top_mult = spriteCreate({
+    name: 'modal-bg-top-mult',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
   });
 
   controllerOnBumpEntity(bumpEntityCallback);

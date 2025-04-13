@@ -111,7 +111,7 @@ let PAD;
 let ui_style_current;
 
 const menu_fade_params_default = {
-  blur: [0.125, 0.865],
+  blur: [0.125, 0.5], // 0.865], // DCJAM
   saturation: [0.5, 0.1],
   brightness: [1, 1 - MODAL_DARKEN],
   fallback_darken: vec4(0, 0, 0, MODAL_DARKEN),
@@ -1782,10 +1782,12 @@ function uiTick(dt) {
       if (blur_factor) {
         effectsQueue(params.z - 2, doBlurEffect.bind(null, blur_factor));
       }
-      let saturation = lerp(factor, params.saturation[0], params.saturation[1]);
-      let brightness = lerp(factor, params.brightness[0], params.brightness[1]);
-      if (saturation !== 1 || brightness !== 1) {
-        effectsQueue(params.z - 1, doDesaturateEffect.bind(null, saturation, brightness));
+      if (0) { // DCJAM
+        let saturation = lerp(factor, params.saturation[0], params.saturation[1]);
+        let brightness = lerp(factor, params.brightness[0], params.brightness[1]);
+        if (saturation !== 1 || brightness !== 1) {
+          effectsQueue(params.z - 1, doDesaturateEffect.bind(null, saturation, brightness));
+        }
       }
       pp_this_frame = true;
     } else {

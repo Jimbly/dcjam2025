@@ -8,7 +8,7 @@ import { autoAtlas, autoAtlasTextureOpts } from 'glov/client/autoatlas';
 import { chatUICreate } from 'glov/client/chat_ui';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
-import { Font, fontCreate } from 'glov/client/font';
+import { Font, fontCreate, fontStyle, fontStyleColored } from 'glov/client/font';
 import {
   markdown_default_renderables,
   markdownImageRegisterAutoAtlas,
@@ -20,9 +20,10 @@ import { shadersSetInternalDefines } from 'glov/client/shaders';
 import { textureDefaultFilters } from 'glov/client/textures';
 import { uiSetPanelColor } from 'glov/client/ui';
 import * as ui from 'glov/client/ui';
+import { v4set } from 'glov/common/vmath';
 // import './client_cmds.js'; // for side effects
 import { crawlerBuildModeStartup } from './crawler_build_mode';
-import { crawlerOnPixelyChange } from './crawler_play.js';
+import { crawlerOnPixelyChange, crawlerRenderSetUIClearColor } from './crawler_play.js';
 import { crawlerRenderSetLODBiasRange } from './crawler_render';
 import { game_height, game_width } from './globals';
 import { playStartup } from './play';
@@ -198,6 +199,9 @@ export function main(): void {
   let build_font = fonts[0];
 
   gl.clearColor(1, 1, 1, 1);
+  v4set(engine.border_clear_color, 1, 1, 1, 1);
+  v4set(engine.border_color, 1, 1, 1, 1);
+  crawlerRenderSetUIClearColor([1, 1, 1, 1]);
 
   // Actually not too bad:
   if (settings.filter === 1) {
@@ -215,6 +219,16 @@ export function main(): void {
   //   outline_width: 2.5,
   //   outline_color: dawnbringer.font_colors[8],
   // }));
+  ui.setFontStyles(
+    fontStyleColored(null, 0x000000ff),
+    fontStyle(null, {
+      color: 0x000000ff,
+      outline_width: 2.5,
+      outline_color: 0xFFFFFFff,
+    }),
+    fontStyleColored(null, 0x000000ff),
+    fontStyleColored(null, 0x202020ff),
+  );
 
   chat_ui = chatUICreate({
     max_len: 1000,

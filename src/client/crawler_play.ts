@@ -845,13 +845,15 @@ export function crawlerRenderFramePrep(): void {
   let opts_3d: {
     fov: number;
     clear_all: boolean;
+    clear_all_color?: Vec4;
     width?: number;
     height?: number;
     viewport?: Vec4;
     need_depth?: string;
   } = {
     fov: FOV,
-    clear_all: false,
+    clear_all: true,
+    clear_all_color: ui_clear_color,
   };
   entity_split = setting_pixely === 1 &&
     settings.entity_split && crawlerRenderDoSplit() &&
