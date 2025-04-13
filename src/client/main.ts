@@ -33,6 +33,8 @@ const { round } = Math;
 
 window.Z = window.Z || {};
 Z.BACKGROUND = 1;
+Z.COMBAT = 2;
+Z.VIEWPORT_FRAME = 3;
 Z.SPRITES = 10;
 Z.PARTICLES = 20;
 Z.CHAT = 60;

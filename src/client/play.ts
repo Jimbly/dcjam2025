@@ -9,10 +9,12 @@ import {
 } from 'glov/client/font';
 import * as input from 'glov/client/input';
 import {
+  keyDown,
   keyDownEdge,
   KEYS,
   keyUpEdge,
   PAD,
+  padButtonDown,
   padButtonUpEdge,
 } from 'glov/client/input';
 import { ClientChannelWorker } from 'glov/client/net';
@@ -32,6 +34,7 @@ import {
   buttonText,
   drawBoxTiled,
   drawHBox,
+  isMenuUp,
   menuUp,
   panel,
   playUISound,
@@ -46,15 +49,19 @@ import {
 } from 'glov/common/types';
 import { clamp } from 'glov/common/util';
 import {
+  v2sub,
+  vec2,
   Vec2,
 } from 'glov/common/vmath';
 import {
   crawlerLoadData,
+  dirFromDelta,
 } from '../common/crawler_state';
 import {
   aiDoFloor, aiTraitsClientStartup,
+  entitiesAdjacentTo,
 } from './ai';
-import { damage } from './combat';
+import { cleanupCombat, combatStartup, damage, doCombat } from './combat';
 // import './client_cmds';
 import {
   buildModeActive,
@@ -271,6 +278,10 @@ function pauseMenu(): void {
   menuUp();
 }
 
+function shift(): boolean {
+  return keyDown(KEYS.SHIFT) || padButtonDown(PAD.LEFT_TRIGGER) || padButtonDown(PAD.RIGHT_TRIGGER);
+}
+
 function drawBar(
   bar: BarSprite,
   x: number, y: number, z: number,
@@ -321,6 +332,26 @@ export function drawHealthBar(
       w, h, `${hp}`);
   }
 }
+
+function engagedEnemy(): Entity | null {
+  if (buildModeActive() || engine.defines.PEACE) {
+    return null;
+  }
+  let game_state = crawlerGameState();
+  let me = crawlerMyEnt();
+  // search, needs game_state, returns list of foes
+  let ents: Entity[] = entitiesAdjacentTo(game_state,
+    entityManager(),
+    me.data.floor, me.data.pos, crawlerScriptAPI());
+  ents = ents.filter((ent: Entity) => {
+    return ent.is_enemy && ent.isAlive();
+  });
+  if (ents.length) {
+    return ents[0];
+  }
+  return null;
+}
+
 function moveBlocked(): boolean {
   return false;
 }
@@ -373,6 +404,7 @@ const HP_BAR_H = 13;
 const ENEMY_HP_BAR_X = VIEWPORT_X0 + (render_width - HP_BAR_W)/2;
 const ENEMY_HP_BAR_Y = 20;
 const ENEMY_HP_BAR_H = 12;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function drawEnemyStats(ent: Entity): void {
   let stats: { hp: number; hp_max: number } = ent.data.stats;
   if (!stats) {
@@ -433,12 +465,12 @@ let style_hud_value = fontStyle(null, {
   outline_width: 0.25,
   outline_color: 0x000000ff,
 });
-function displayHUD(): void {
+function displayHUD(frame_combat: Entity | null): void {
 
   let game_state = crawlerGameState();
   let level = game_state.level;
   let text_height = uiTextHeight();
-  if (level) {
+  if (level && !frame_combat) {
     let floor_title = level.props.title || `Floor ${game_state.floor_id}`;
     let floor_subtitle = level.props.subtitle || '';
     let name_panel = {
@@ -531,6 +563,7 @@ function displayHUD(): void {
   });
 }
 
+let temp_delta = vec2();
 function playCrawl(): void {
   profilerStartFunc();
 
@@ -554,6 +587,10 @@ function playCrawl(): void {
 
   let dt = getScaledFrameDt();
 
+  let frame_combat = engagedEnemy();
+  if (frame_combat && mapViewActive()) {
+    mapViewSetActive(false);
+  }
   const frame_map_view = mapViewActive();
   const is_fullscreen_ui = false; // any game-mode fullscreen UIs up?
   let dialog_viewport = {
@@ -671,8 +708,30 @@ function playCrawl(): void {
     pauseMenu();
   }
 
+  if (frame_combat && engagedEnemy() !== crawlerEntInFront()) {
+    // turn to face
+    let me = crawlerMyEnt();
+    let dir = dirFromDelta(v2sub(temp_delta, frame_combat.data.pos, me.data.pos));
+    controller.forceFaceDir(dir);
+  } else {
+    controller.forceFaceDir(null);
+  }
+
+
   button_x0 = MOVE_BUTTONS_X0;
   button_y0 = MOVE_BUTTONS_Y0;
+
+  if (frame_combat) {
+    // let is_boss = frame_combat.data.stats.hp_max > 30; // boss
+    // if (!is_boss) {
+    //   button(1, 1, 8, 'flee', [KEYS.S, KEYS.NUMPAD2, KEYS.NUMPAD5], [PAD.B, PAD.DOWN]);
+    // }
+
+    doCombat(frame_combat, dt * (shift() ? 3 : 1), menu_up || isMenuUp());
+  } else {
+    cleanupCombat(dt * (shift() ? 3 : 1));
+  }
+
 
   // Check for intentional events
   // if (!build_mode) {
@@ -715,7 +774,7 @@ function playCrawl(): void {
   if (!frame_map_view) {
     if (!build_mode) {
       // Do game UI/stats here
-      displayHUD();
+      displayHUD(frame_combat);
     }
     // Do modal UIs here
   } else {
@@ -723,7 +782,7 @@ function playCrawl(): void {
       mapViewToggle();
     }
   }
-  if (!overlay_menu_up && (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))) {
+  if (!overlay_menu_up && !frame_combat && (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))) {
     playUISound('button_click');
     mapViewToggle();
   }
@@ -740,7 +799,7 @@ function playCrawl(): void {
     crawlerMapViewDraw(game_state, 0, 0, game_width, game_height, 0, 0, Z.MAP,
       engine.defines.LEVEL_GEN, script_api, overlay_menu_up,
       floor((game_width - MINIMAP_W)/2), 2); // note: compass ignored, compass_h = 0 above
-  } else {
+  } else if (!frame_combat) {
     if (!build_mode) {
       const OVERLAY_PAD = 1;
       let minimap_rect = {
@@ -773,8 +832,8 @@ function playCrawl(): void {
     button_w: build_mode ? 6 : BUTTON_W,
     button_sprites: useNoText() ? button_sprites_notext : button_sprites,
     disable_move: moveBlocked() || overlay_menu_up,
-    disable_player_impulse: Boolean(locked_dialog),
-    show_buttons: !locked_dialog,
+    disable_player_impulse: Boolean(frame_combat || locked_dialog),
+    show_buttons: !frame_combat && !locked_dialog,
     do_debug_move: engine.defines.LEVEL_GEN || build_mode,
     show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
     show_hotkeys: !useNoText(),
@@ -797,7 +856,7 @@ export function play(dt: number): void {
   viewport_frame.draw({
     x: 0,
     y: 0,
-    z: 0.1,
+    z: Z.VIEWPORT_FRAME,
     w: game_height * 1957/1440,
     h: game_height,
   });
@@ -837,14 +896,14 @@ export function play(dt: number): void {
 
   crawlerPrepAndRenderFrame();
 
-  if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
-    let all_entities = entityManager().entities;
-    let ent_in_front = crawlerEntInFront();
-    if (ent_in_front && myEnt().isAlive()) {
-      let target_ent = all_entities[ent_in_front]!;
-      drawEnemyStats(target_ent);
-    }
-  }
+  // if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
+  //   let all_entities = entityManager().entities;
+  //   let ent_in_front = crawlerEntInFront();
+  //   if (ent_in_front && myEnt().isAlive()) {
+  //     let target_ent = all_entities[ent_in_front]!;
+  //     drawEnemyStats(target_ent);
+  //   }
+  // }
 
   if (!loading_level && !buildModeActive()) {
     let script_api = crawlerScriptAPI();
@@ -1070,4 +1129,5 @@ export function playStartup(): void {
     // compass_border_w: 6,
     hide_name_on_minimap: true,
   });
+  combatStartup();
 }
