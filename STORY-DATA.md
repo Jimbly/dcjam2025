@@ -1,12 +1,15 @@
-PLAYER'S PLANNING
-[ ] Find where THE ASCENDING RESEARCHER is docked
+INTRO
+* Hear rumor that THE ASCENDING RESEARCHER is transporting SUPERVALUABLEITEM (military tech?) through the station
+
+PLAYER'S PLANNING LIST
+- [ ] Find where THE ASCENDING RESEARCHER is docked
   * via bribe [stretch: or by following him around the station from a big enough distance]
-[ ] Get past the guard
+- [ ] Get past the guard
   * via bribe or very hard combat (requires best gear in shops and locations and a lot of consumables)
-[ ] Open the safe
-  * via Safe Combination obtained via bribe (stretch: or a very hard, timed lockpicking minigame)
-[ ] Disappear into the black
-  * via cash paid to the appropriate captain
+- [ ] Open the safe and grab the SUPERVALUABLEITEM
+  * via SAFE COMBINATION obtained via bribe (stretch: or a very hard, timed lockpicking minigame)
+- [ ] Disappear into the black
+  * via cash paid to the SHADY CAPTAIN (stretch: or a second escape option? hotwire a ship ahead of time?)
 
 LOCATIONS
 * space station
@@ -28,6 +31,6 @@ LOCATIONS
 * docked ship (same map for all ships, probably)
 * danger locations (ideally each a separate style/environment, can all be similar if we run out of time):
   * probably they're all similar in flow with enemies protecting a treasure
-  # find the KEYITEM1
-  # find the KEYITEM2
-  # find the DAZZLING GIFT
+  1. find the KEYITEM1
+  2. find the KEYITEM2
+  3. find the DAZZLING GIFT
