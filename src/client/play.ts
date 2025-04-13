@@ -5,13 +5,16 @@ import {
   ALIGN,
   Font,
   fontStyle,
+  fontStyleColored,
 } from 'glov/client/font';
 import * as input from 'glov/client/input';
 import {
+  keyDown,
   keyDownEdge,
   KEYS,
   keyUpEdge,
   PAD,
+  padButtonDown,
   padButtonUpEdge,
 } from 'glov/client/input';
 import { ClientChannelWorker } from 'glov/client/net';
@@ -31,6 +34,7 @@ import {
   buttonText,
   drawBoxTiled,
   drawHBox,
+  isMenuUp,
   menuUp,
   panel,
   playUISound,
@@ -45,15 +49,19 @@ import {
 } from 'glov/common/types';
 import { clamp } from 'glov/common/util';
 import {
+  v2sub,
+  vec2,
   Vec2,
 } from 'glov/common/vmath';
 import {
   crawlerLoadData,
+  dirFromDelta,
 } from '../common/crawler_state';
 import {
   aiDoFloor, aiTraitsClientStartup,
+  entitiesAdjacentTo,
 } from './ai';
-import { damage } from './combat';
+import { cleanupCombat, combatStartup, damage, doCombat } from './combat';
 // import './client_cmds';
 import {
   buildModeActive,
@@ -132,12 +140,15 @@ declare module 'glov/client/settings' {
 }
 
 // const ATTACK_WINDUP_TIME = 1000;
-const MINIMAP_RADIUS = 3;
-const MINIMAP_X = 340 + 8;
-const MINIMAP_Y = 8 + 8;
-const MINIMAP_W = 5+7*(MINIMAP_RADIUS*2 + 1);
-const COMPASS_X = MINIMAP_X;
-const COMPASS_Y = MINIMAP_Y + MINIMAP_W;
+const MINIMAP_RADIUS = 4;
+const MINIMAP_X = 6;
+const MINIMAP_Y = 6;
+const MINIMAP_W = 5+7*(MINIMAP_RADIUS*2 + 1) + 7 * 2;
+const MINIMAP_H = MINIMAP_W - 7 * 2;
+const COMPASS_W = 50;
+const COMPASS_H = 12.5;
+const COMPASS_X = MINIMAP_X + (MINIMAP_W - COMPASS_W)/2;
+const COMPASS_Y = MINIMAP_Y + MINIMAP_H - 3;
 const VIEWPORT_X0 = 5;
 const VIEWPORT_Y0 = 5;
 
@@ -166,6 +177,8 @@ let bar_sprites: {
 };
 
 let viewport_frame: Sprite;
+let minimap_bg: Sprite;
+let minimap_overlay: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -265,6 +278,10 @@ function pauseMenu(): void {
   menuUp();
 }
 
+function shift(): boolean {
+  return keyDown(KEYS.SHIFT) || padButtonDown(PAD.LEFT_TRIGGER) || padButtonDown(PAD.RIGHT_TRIGGER);
+}
+
 function drawBar(
   bar: BarSprite,
   x: number, y: number, z: number,
@@ -315,6 +332,26 @@ export function drawHealthBar(
       w, h, `${hp}`);
   }
 }
+
+function engagedEnemy(): Entity | null {
+  if (buildModeActive() || engine.defines.PEACE) {
+    return null;
+  }
+  let game_state = crawlerGameState();
+  let me = crawlerMyEnt();
+  // search, needs game_state, returns list of foes
+  let ents: Entity[] = entitiesAdjacentTo(game_state,
+    entityManager(),
+    me.data.floor, me.data.pos, crawlerScriptAPI());
+  ents = ents.filter((ent: Entity) => {
+    return ent.is_enemy && ent.isAlive();
+  });
+  if (ents.length) {
+    return ents[0];
+  }
+  return null;
+}
+
 function moveBlocked(): boolean {
   return false;
 }
@@ -347,15 +384,16 @@ function moveBlockDead(): boolean {
   let h = render_height;
   let z = Z.UI;
 
-  font.drawSizedAligned(null,
+  font.drawSizedAligned(fontStyleColored(null, 0x000000ff),
     x + floor(w/2), y + floor(h/2) - 16, z,
     uiTextHeight(), ALIGN.HCENTER|ALIGN.VBOTTOM,
     0, 0, 'You have died.');
 
   if (buttonText({
     x: x + floor(w/2 - uiButtonWidth()/2), y: y + floor(h/2), z,
-    text: 'Respawn',
+    text: 'Unimplemented',
   })) {
+    // TODO: reload from save
     controller.goToFloor(0, 'stairs_in', 'respawn');
   }
 
@@ -367,6 +405,7 @@ const HP_BAR_H = 13;
 const ENEMY_HP_BAR_X = VIEWPORT_X0 + (render_width - HP_BAR_W)/2;
 const ENEMY_HP_BAR_Y = 20;
 const ENEMY_HP_BAR_H = 12;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function drawEnemyStats(ent: Entity): void {
   let stats: { hp: number; hp_max: number } = ent.data.stats;
   if (!stats) {
@@ -427,12 +466,12 @@ let style_hud_value = fontStyle(null, {
   outline_width: 0.25,
   outline_color: 0x000000ff,
 });
-function displayHUD(): void {
+function displayHUD(frame_combat: Entity | null): void {
 
   let game_state = crawlerGameState();
   let level = game_state.level;
   let text_height = uiTextHeight();
-  if (level) {
+  if (level && !frame_combat) {
     let floor_title = level.props.title || `Floor ${game_state.floor_id}`;
     let floor_subtitle = level.props.subtitle || '';
     let name_panel = {
@@ -441,6 +480,7 @@ function displayHUD(): void {
       z: 3,
       w: LEVEL_NAME_W,
       h: 20,
+      eat_clicks: false,
     };
     panel(name_panel);
     font.draw({
@@ -458,6 +498,7 @@ function displayHUD(): void {
         y: name_panel.y + name_panel.h - 4,
         h: name_panel.h * 0.5,
         z: name_panel.z + 0.1,
+        eat_clicks: false,
       };
       panel(subtitle_panel);
       font.draw({
@@ -519,9 +560,11 @@ function displayHUD(): void {
     w: HUD_W,
     h: game_height - HUD_PAD * 2,
     color: [0.988, 0.976, 0.973, 1],
+    eat_clicks: false,
   });
 }
 
+let temp_delta = vec2();
 function playCrawl(): void {
   profilerStartFunc();
 
@@ -545,6 +588,10 @@ function playCrawl(): void {
 
   let dt = getScaledFrameDt();
 
+  let frame_combat = myEnt().isAlive() && engagedEnemy() || null;
+  if (frame_combat && mapViewActive()) {
+    mapViewSetActive(false);
+  }
   const frame_map_view = mapViewActive();
   const is_fullscreen_ui = false; // any game-mode fullscreen UIs up?
   let dialog_viewport = {
@@ -567,16 +614,19 @@ function playCrawl(): void {
   const build_mode = buildModeActive();
   let locked_dialog = dialogMoveLocked();
   const overlay_menu_up = pause_menu_up || inventory_up;
-  let minimap_display_h = build_mode ? BUTTON_W : MINIMAP_W;
+  let minimap_display_x = MINIMAP_X;
+  let minimap_display_h = build_mode ? BUTTON_W : MINIMAP_H;
   let show_compass = !build_mode;
-  let compass_h = show_compass ? 11 : 0;
+  let compass_h = show_compass ? COMPASS_H : 0;
 
   if (build_mode && !controller.ignoreGameplay()) {
     let build_y = MINIMAP_Y + minimap_display_h + 2;
+    let build_x = VIEWPORT_X0 + render_width + 2;
+    minimap_display_x = build_x;
     crawlerBuildModeUI({
-      x: MINIMAP_X,
+      x: build_x,
       y: build_y,
-      w: game_width - MINIMAP_X - 2,
+      w: game_width - build_x - 2,
       h: MOVE_BUTTONS_Y0 - build_y - 2,
       map_view: frame_map_view,
     });
@@ -639,8 +689,8 @@ function playCrawl(): void {
 
 
   // Escape / open/close menu button - *before* pauseMenu()
-  button_x0 = MOVE_BUTTONS_X0 + (BUTTON_W + 2) * 2;
-  button_y0 = 15;
+  button_x0 = build_mode ? game_width - BUTTON_W - 1 : MOVE_BUTTONS_X0 + (BUTTON_W + 2) * 2;
+  button_y0 = build_mode ? 1 : 15;
   let menu_up = frame_map_view || build_mode || overlay_menu_up;
   let menu_keys = [KEYS.ESC];
   let menu_pads = [PAD.START];
@@ -659,8 +709,30 @@ function playCrawl(): void {
     pauseMenu();
   }
 
+  if (frame_combat && engagedEnemy() !== crawlerEntInFront()) {
+    // turn to face
+    let me = crawlerMyEnt();
+    let dir = dirFromDelta(v2sub(temp_delta, frame_combat.data.pos, me.data.pos));
+    controller.forceFaceDir(dir);
+  } else {
+    controller.forceFaceDir(null);
+  }
+
+
   button_x0 = MOVE_BUTTONS_X0;
   button_y0 = MOVE_BUTTONS_Y0;
+
+  if (frame_combat) {
+    // let is_boss = frame_combat.data.stats.hp_max > 30; // boss
+    // if (!is_boss) {
+    //   button(1, 1, 8, 'flee', [KEYS.S, KEYS.NUMPAD2, KEYS.NUMPAD5], [PAD.B, PAD.DOWN]);
+    // }
+
+    doCombat(frame_combat, dt * (shift() ? 3 : 1), menu_up || isMenuUp());
+  } else {
+    cleanupCombat(dt * (shift() ? 3 : 1));
+  }
+
 
   // Check for intentional events
   // if (!build_mode) {
@@ -703,7 +775,7 @@ function playCrawl(): void {
   if (!frame_map_view) {
     if (!build_mode) {
       // Do game UI/stats here
-      displayHUD();
+      displayHUD(frame_combat);
     }
     // Do modal UIs here
   } else {
@@ -711,7 +783,7 @@ function playCrawl(): void {
       mapViewToggle();
     }
   }
-  if (!overlay_menu_up && (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))) {
+  if (!overlay_menu_up && !frame_combat && (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))) {
     playUISound('button_click');
     mapViewToggle();
   }
@@ -725,11 +797,30 @@ function playCrawl(): void {
         controller.initPosFromLevelDebug();
       }
     }
-    crawlerMapViewDraw(game_state, 0, 0, game_width, game_height, 0, Z.MAP,
+    crawlerMapViewDraw(game_state, 0, 0, game_width, game_height, 0, 0, Z.MAP,
       engine.defines.LEVEL_GEN, script_api, overlay_menu_up,
       floor((game_width - MINIMAP_W)/2), 2); // note: compass ignored, compass_h = 0 above
-  } else {
-    crawlerMapViewDraw(game_state, MINIMAP_X, MINIMAP_Y, MINIMAP_W, minimap_display_h, compass_h, Z.MAP,
+  } else if (!frame_combat) {
+    if (!build_mode) {
+      const OVERLAY_PAD = 1;
+      let minimap_rect = {
+        x: minimap_display_x - OVERLAY_PAD,
+        y: MINIMAP_Y - OVERLAY_PAD,
+        w: MINIMAP_W + OVERLAY_PAD * 2,
+        h: minimap_display_h + OVERLAY_PAD * 2,
+      };
+      minimap_bg.draw({
+        ...minimap_rect,
+        z: Z.MAP - 1,
+      });
+      minimap_overlay.draw({
+        ...minimap_rect,
+        z: Z.MAP + 1,
+      });
+    }
+    crawlerMapViewDraw(game_state,
+      minimap_display_x, MINIMAP_Y,
+      MINIMAP_W, minimap_display_h, compass_h, COMPASS_W, Z.MAP,
       false, script_api, overlay_menu_up,
       COMPASS_X, COMPASS_Y);
   }
@@ -742,8 +833,8 @@ function playCrawl(): void {
     button_w: build_mode ? 6 : BUTTON_W,
     button_sprites: useNoText() ? button_sprites_notext : button_sprites,
     disable_move: moveBlocked() || overlay_menu_up,
-    disable_player_impulse: Boolean(locked_dialog),
-    show_buttons: !locked_dialog,
+    disable_player_impulse: Boolean(frame_combat || locked_dialog),
+    show_buttons: !frame_combat && !locked_dialog,
     do_debug_move: engine.defines.LEVEL_GEN || build_mode,
     show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
     show_hotkeys: !useNoText(),
@@ -766,7 +857,7 @@ export function play(dt: number): void {
   viewport_frame.draw({
     x: 0,
     y: 0,
-    z: 0.1,
+    z: Z.VIEWPORT_FRAME,
     w: game_height * 1957/1440,
     h: game_height,
   });
@@ -806,14 +897,14 @@ export function play(dt: number): void {
 
   crawlerPrepAndRenderFrame();
 
-  if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
-    let all_entities = entityManager().entities;
-    let ent_in_front = crawlerEntInFront();
-    if (ent_in_front && myEnt().isAlive()) {
-      let target_ent = all_entities[ent_in_front]!;
-      drawEnemyStats(target_ent);
-    }
-  }
+  // if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
+  //   let all_entities = entityManager().entities;
+  //   let ent_in_front = crawlerEntInFront();
+  //   if (ent_in_front && myEnt().isAlive()) {
+  //     let target_ent = all_entities[ent_in_front]!;
+  //     drawEnemyStats(target_ent);
+  //   }
+  // }
 
   if (!loading_level && !buildModeActive()) {
     let script_api = crawlerScriptAPI();
@@ -1014,7 +1105,13 @@ export function playStartup(): void {
   };
 
   viewport_frame = spriteCreate({
-    name: 'viewport_frame',
+    name: 'viewport-frame',
+  });
+  minimap_bg = spriteCreate({
+    name: 'minimap-bg',
+  });
+  minimap_overlay = spriteCreate({
+    name: 'minimap-overlay',
   });
 
   controllerOnBumpEntity(bumpEntityCallback);
@@ -1029,8 +1126,9 @@ export function playStartup(): void {
     allow_pathfind: true,
     // color_rollover: dawnbringer.colors[8],
     build_mode_entity_icons: {},
-    // style_map_name: fontStyle(...)
-    compass_border_w: 6,
+    style_map_name: fontStyleColored(null, 0x000000ff),
+    // compass_border_w: 6,
     hide_name_on_minimap: true,
   });
+  combatStartup();
 }

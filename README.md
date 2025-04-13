@@ -1,4 +1,4 @@
-DCJam2025 - Themes: TBD
+DCJam2025 - Themes: Heist, Treasure Hunting, Genre Fusion, Sinking Ship
 ============================
 
 Dungeon Crawler Jam 2025 Entry by Jimbly and Team - "Title TBD"
@@ -18,6 +18,6 @@ GLOV.js is MIT licensed.
 Credits
 =======
 
-* Ink Font - https://www.dafontfree.co/ink-free-font/
+* Kalam Font - https://fonts.google.com/specimen/Kalam
 * Placeholder music - Cursed Kingdoms Twisted Forest Music Pack
 * Placeholder footstep sounds by Alex Hamadey - https://alexhamadey.itch.io/

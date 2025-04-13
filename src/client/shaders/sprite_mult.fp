@@ -12,5 +12,5 @@ varying vec2 interp_texcoord;
 void main(void) {
   vec4 texA = texture2D(tex0,interp_texcoord + tex_offs);
   vec4 texB = texture2D(tex0,interp_texcoord);
-  gl_FragColor = vec4(texA.rgb * texB.rgb, texA.a * interp_color.a);
+  gl_FragColor = vec4(texA.rgb * texB.rgb, texA.a * texB.a * interp_color.a);
 }

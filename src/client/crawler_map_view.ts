@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { autoAtlas, autoAtlasTextureOpts } from 'glov/client/autoatlas';
+import { autoAtlas } from 'glov/client/autoatlas';
 import * as engine from 'glov/client/engine';
 import {
   FontStyle,
@@ -143,7 +143,7 @@ export function mapViewLastProgress(): number {
 
 let mouse_pos = vec2();
 let moved_since_fullscreen = false;
-let color_rollover = rovec4(1,1,1,1);
+let color_rollover = rovec4(0,0,0,0.25);
 let color_path = rovec4(1,0.5,0,1);
 
 let hide_name_on_minimap = false;
@@ -162,6 +162,7 @@ export function crawlerMapViewDraw(
   w: number,
   h: number,
   compass_h: number,
+  compass_w: number,
   z: number,
   level_gen_test: boolean,
   script_api: CrawlerScriptAPIClient,
@@ -175,6 +176,7 @@ export function crawlerMapViewDraw(
     // still loading
     return;
   }
+  script_api.setLevel(level);
   let entity_manager = crawlerEntityManager();
   if (engine.DEBUG && input.keyDownEdge(input.KEYS.F4)) {
     engine.defines.FULL_VIS = !engine.defines.FULL_VIS;
@@ -198,7 +200,7 @@ export function crawlerMapViewDraw(
       ui.drawRect(hover_area.x - 1, hover_area.y - 1,
         hover_area.x + hover_area.w + 1,
         hover_area.y + hover_area.h + 1,
-        Z.MAP - 1, color_rollover);
+        Z.MAP + 2, color_rollover);
     }
     if (ret) {
       mapViewToggle();
@@ -244,44 +246,47 @@ export function crawlerMapViewDraw(
   if (compass_h) {
     moved_since_fullscreen = false;
     // draw compass rose underneath
-    let compass_w = w;
-    let uoffs = (-game_state.angle / (2*PI)) * 92/256;
+    compass_w = compass_w || w;
+    // DCJAM compass drawing
+    let uoffs = (-game_state.angle / (2*PI)) * 270/1024;
     while (uoffs < 0) {
-      uoffs += 92/256;
+      uoffs += 270/1024;
     }
-    uoffs = round(uoffs * 256) / 256;
+    // uoffs = round(uoffs * 256) / 256;
     // overlays
-    compass_sprite.draw({
-      x: compass_x, y: compass_y, z: z+3,
-      w: compass_border_w, h: compass_h,
-      frame: 1,
-    });
-    compass_sprite.draw({
-      x: compass_x + compass_w - compass_border_w,
-      y: compass_y,
-      z: z+3,
-      w: compass_border_w,
-      h: compass_h,
-      frame: 2,
-    });
+    if (0) {
+      compass_sprite.draw({
+        x: compass_x, y: compass_y, z: z+4,
+        w: compass_border_w, h: compass_h,
+        frame: 1,
+      });
+      compass_sprite.draw({
+        x: compass_x + compass_w - compass_border_w,
+        y: compass_y,
+        z: z+4,
+        w: compass_border_w,
+        h: compass_h,
+        frame: 2,
+      });
+    }
     // background
     compass_sprite.draw({
       x: compass_x,
       y: compass_y,
-      z,
+      z: z + 2,
       w: compass_w,
       h: compass_h,
-      uvs: [uoffs, compass_h/32, compass_w/256+uoffs, compass_h*2/32],
+      uvs: [0, 56/256, 228/1024, 112/256],
     });
     // text
     compass_sprite.draw({
-      x: compass_x, y: compass_y, z: z + 2,
+      x: compass_x, y: compass_y, z: z + 3,
       w: compass_w,
-      h: compass_h - 1,
-      uvs: [0, compass_h*2/32, compass_w/256, 1],
+      h: compass_h,
+      uvs: [0, 112/256, 228/1024, 168/256],
       shader: sprite_mult,
       shader_params: {
-        tex_offs: vec2(uoffs, -compass_h*2/32),
+        tex_offs: vec2(uoffs, -112/256),
       },
     });
   }
@@ -654,17 +659,17 @@ export function crawlerMapViewStartup(param: {
   if (param.build_mode_entity_icons) {
     merge(build_mode_entity_icons, param.build_mode_entity_icons);
   }
-  autoAtlasTextureOpts('map', {
-    filter_min: gl.NEAREST,
-    filter_mag: gl.NEAREST,
-  });
-  compass_border_w = param.compass_border_w || 6;
+  // autoAtlasTextureOpts('map', { // DCJAM
+  //   filter_min: gl.NEAREST,
+  //   filter_mag: gl.NEAREST,
+  // });
+  compass_border_w = param.compass_border_w || 31; // DCJAM here and below
   compass_sprite = spriteCreate({
     name: 'crawler_compass',
-    ws: [160,compass_border_w,compass_border_w,256-compass_border_w-compass_border_w-160],
-    hs: [11,11,10],
-    filter_min: gl.NEAREST,
-    filter_mag: gl.NEAREST,
+    ws: [827,compass_border_w,compass_border_w,256-compass_border_w-compass_border_w-827],
+    hs: [56,56,56],
+    // filter_min: gl.NEAREST, // DCJAM
+    // filter_mag: gl.NEAREST,
   });
   sprite_mult = shaderCreate('shaders/sprite_mult.fp');
 }

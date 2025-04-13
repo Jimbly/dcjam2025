@@ -4,7 +4,7 @@ import * as local_storage from 'glov/client/local_storage.js'; // eslint-disable
 local_storage.setStoragePrefix('dcj25'); // Before requiring anything else that might load from this
 
 import assert from 'assert';
-import { autoAtlasTextureOpts } from 'glov/client/autoatlas';
+import { autoAtlas, autoAtlasTextureOpts } from 'glov/client/autoatlas';
 import { chatUICreate } from 'glov/client/chat_ui';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
@@ -33,6 +33,8 @@ const { round } = Math;
 
 window.Z = window.Z || {};
 Z.BACKGROUND = 1;
+Z.COMBAT = 2;
+Z.VIEWPORT_FRAME = 3;
 Z.SPRITES = 10;
 Z.PARTICLES = 20;
 Z.CHAT = 60;
@@ -233,4 +235,7 @@ export function main(): void {
   playStartup();
   engine.setState(titleInit);
   titleStartup();
+  // Preload some atlases
+  autoAtlas('test', 'solid1');
+  autoAtlas('critters', 'critter-11');
 }

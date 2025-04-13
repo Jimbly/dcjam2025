@@ -97,15 +97,19 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
         data.stats = {
           hp: 10,
           hp_max: 10,
-          attack: 4,
+          attack: 8,
           defense: 4,
-          accuracy: 0,
-          dodge: 0,
+          accuracy: 4,
+          dodge: 4,
         };
       }
       if (!data.money) {
         data.money = 0;
       }
+      data.stats.attack = 8;
+      data.stats.defense = 4;
+      data.stats.accuracy = 4;
+      data.stats.dodge = 4;
     }
 
     this.floaters = [];

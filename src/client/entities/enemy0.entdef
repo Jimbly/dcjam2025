@@ -5,8 +5,8 @@ traits:
   hp: 10
   attack: 4
   defense: 4
-  accuracy: 0
-  dodge: 0
+  accuracy: 3
+  dodge: 3
 - id: drawable
   biasL: [-0.35, 0.32]
   biasF: [0, -0.25]
@@ -14,18 +14,18 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [critter10]
+      frames: [critter-11]
       times: 10000
   sprite_data:
     atlas: critters
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
-    origin: [0.5, 1.2]
+    origin: [0.5, 1]
   scale: 0.75
   simple_anim:
     - period: 5000
-      # scale: [1, 1]
+      scale: [1, 1.15]
       # easing: 2
-      offs:
-        - [0, -0.15]
-        - [0, 0]
+      # offs:
+      #   - [0, -0.15]
+      #   - [0, 0]

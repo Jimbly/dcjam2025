@@ -184,7 +184,7 @@ export function drawableSpriteDraw2D(this: EntityDrawableSprite, param: EntityDr
   let ent = this;
   let frame = ent.updateAnim(getFrameDt());
   let { sprite, sprite_near } = ent.drawable_sprite_state;
-  let use_near = true; // slightly better for 2D
+  let use_near = false; // true; // slightly better for 2D // DCJAM
   if (sprite_near && (use_near ||
     !settings.entity_split && settings.entity_nosplit_use_near)
   ) {
