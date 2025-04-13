@@ -384,15 +384,16 @@ function moveBlockDead(): boolean {
   let h = render_height;
   let z = Z.UI;
 
-  font.drawSizedAligned(null,
+  font.drawSizedAligned(fontStyleColored(null, 0x000000ff),
     x + floor(w/2), y + floor(h/2) - 16, z,
     uiTextHeight(), ALIGN.HCENTER|ALIGN.VBOTTOM,
     0, 0, 'You have died.');
 
   if (buttonText({
     x: x + floor(w/2 - uiButtonWidth()/2), y: y + floor(h/2), z,
-    text: 'Respawn',
+    text: 'Unimplemented',
   })) {
+    // TODO: reload from save
     controller.goToFloor(0, 'stairs_in', 'respawn');
   }
 
@@ -587,7 +588,7 @@ function playCrawl(): void {
 
   let dt = getScaledFrameDt();
 
-  let frame_combat = engagedEnemy();
+  let frame_combat = myEnt().isAlive() && engagedEnemy() || null;
   if (frame_combat && mapViewActive()) {
     mapViewSetActive(false);
   }
