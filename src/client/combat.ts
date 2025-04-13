@@ -412,13 +412,13 @@ const half_vec = vec2(0.5, 0.5);
 export function combatStartup(): void {
   font = uiGetFont();
   battle_frame = spriteCreate({
-    name: 'ui/battle-frame',
+    name: 'battle-frame',
   });
   battle_frame_hero_bg = spriteCreate({
-    name: 'ui/battle-frame-hero-bg',
+    name: 'battle-frame-hero-bg',
   });
   battle_frame_enemy_bg = spriteCreate({
-    name: 'ui/battle-frame-enemy-bg',
+    name: 'battle-frame-enemy-bg',
   });
   sprite_pow = {
     normal: spriteCreate({
