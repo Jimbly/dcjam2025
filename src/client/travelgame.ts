@@ -8,15 +8,33 @@ import { markdownAuto } from 'glov/client/markdown';
 import { spot, SPOT_DEFAULT_BUTTON } from 'glov/client/spot';
 import { buttonText, drawLine, panel, uiButtonHeight, uiGetFont, uiTextHeight } from 'glov/client/ui';
 import { randCreate, shuffleArray } from 'glov/common/rand_alea';
-import { clamp, ridx } from 'glov/common/util';
+import { clamp, plural, ridx } from 'glov/common/util';
 import { crawlerGameState } from './crawler_play';
-import { render_width, VIEWPORT_X0 } from './globals';
-import { drawHealthBar } from './play';
+import { game_height, HUD_PAD, HUD_W, HUD_X0, HUD_Y0, render_width, VIEWPORT_X0 } from './globals';
+import { drawHealthBar, drawHUDPanel } from './play';
 
 export const HAND_SIZE = 6;
 export const MAX_HEAT = 7;
 
 const { max, min } = Math;
+
+const RULES = `Rules:
+  Play your current **Gear** -1/+0/+1
+     **SPEED** cards to set new Gear.
+  Exceeding **Safe Speed** generates
+     **Heat** and puts **COOLANT**
+     cards into your deck.
+  **Gear** 1/2 automatically uses 3/1
+     **COOLANT** at end of turn, if
+     they're in your hand.
+` +
+`  Don't overheat and crash.
+  Get through all asteroids to
+     safety.`;
+// `  Don't overheat and crash or let
+//      THE PURSUER catch you.
+//   Get through all asteroids to
+//      safety or outrun your pursuer`;
 
 type Asteroid = {
   pos: number;
@@ -43,6 +61,9 @@ class TravelGameState {
   hand: number[];
   discard: number[];
   selected: boolean[];
+  log: string[] = [];
+  done = false;
+  won = false;
   constructor() {
     this.asteroids = [];
     this.deck = [];
@@ -82,6 +103,9 @@ class TravelGameState {
       this.selected[3] = true;
       this.selected[4] = true;
     }
+
+    this.log.push('THE PURSUER is after me.  It\'ll get messy if they catch me,' +
+      ' let\'s dodge through this asteroid field to lose them.');
   }
 
   draw(): void {
@@ -138,6 +162,19 @@ class TravelGameState {
     return selected_count === 1 ? 3 : selected_count === 2 ? 1 : 0;
   }
 
+  logAsteroid(idx: number, log: string[]): void {
+    let next = this.asteroids[idx];
+    if (!next) {
+      return;
+    }
+    if (next.goal) {
+      log.push('**SAFETY** is in sight.');
+    } else {
+      log.push('', '! ASTEROID collision imminent !', `  Maximum Safe Speed: ${next.max_speed}`);
+    }
+    log.push(`  Distance: ${next.pos - this.pos}`);
+  }
+
   willOverheat(): null | [number, number, number] {
     let speed = this.speed();
     let selected_count = this.numSelected();
@@ -179,7 +216,13 @@ class TravelGameState {
     let selected_count = this.numSelected();
     let cooling = this.predCooling();
     let eff_cooling = 0;
-    let { discard, hand, selected } = this;
+    let { discard, hand, selected, log } = this;
+    log.length = 0;
+    log.push('**EXECUTE MANEUVER**','');
+    if (selected_count !== this.gear) {
+      log.push(`Changed to **Gear ${selected_count}**.`);
+    }
+    log.push(`Played ${selected_count} **SPEED** ${plural(selected_count, 'card')} for **${speed} speed**.`);
     for (let ii = hand.length - 1; ii >= 0; --ii) {
       if (selected[ii]) {
         discard.push(hand[ii]);
@@ -193,6 +236,9 @@ class TravelGameState {
       }
     }
     this.gear = selected_count;
+    if (eff_cooling) {
+      log.push(`Played **${eff_cooling} COOLANT** ${plural(eff_cooling, 'card')}, reducing heat to ${this.heat}.`);
+    }
     let start_pos = this.pos;
     let end_pos = this.pos + speed;
     let dheat = 0;
@@ -204,13 +250,20 @@ class TravelGameState {
         break;
       } else if (speed > asteroid.max_speed) {
         dheat += speed - asteroid.max_speed;
+        log.push(`Generated **${dheat} Heat** avoiding ASTEROID (speed` +
+          ` ${speed} above Safe Speed of ${asteroid.max_speed})`);
+      } else {
+        log.push(`ASTEROID avoided safely (speed ${speed} under Safe Speed of ${asteroid.max_speed})`);
       }
     }
     this.heat += dheat;
     if (this.heat > MAX_HEAT) {
-      assert(0, 'crash!');
+      log.push('**OVERHEATING!  LOSING CONTROL!  CRASH!**');
+      this.done = true;
     } else if (win) {
-      assert(0, 'win!');
+      log.push('**SAFETY** reached.');
+      this.done = true;
+      this.won = true;
     }
     for (let ii = 0; ii < dheat; ++ii) {
       this.discard.push(-1);
@@ -306,7 +359,7 @@ export function doTravelGame(): void {
       h: rect.h - PAD * 2,
       z,
       line_height: text_height * 0.667,
-      text: `${next.goal ? 'SAFETY' : 'NEXT ASTEROID'}\n
+      text: `${next.goal ? '**SAFETY**' : 'NEXT ASTEROID'}\n
 Distance: **${next.pos - travel_state.pos}**\n
 ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
       align: ALIGN.HWRAP|ALIGN.VCENTER,
@@ -315,67 +368,69 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
   }
 
 
-  let num_selected = travel_state.numSelected();
-  for (let ii = 0; ii < hand.length; ++ii) {
-    let card = hand[ii];
-    let tile = card === -1 ? 'cooling' : `card${card}`;
-    let x = CARDSX0 + (CARDW + CARDSPAD) * ii;
-    let y = selected[ii] ? CARDSYSEL : CARDSYUNSEL;
-    let rect = {
-      x,
-      y,
-      z,
-      w: CARDW,
-      h: CARDH,
-    };
-    let spot_ret = spot({
-      def: SPOT_DEFAULT_BUTTON,
-      disabled: !selected[ii] && num_selected >= min(4, travel_state.gear + 1) || card === -1,
-      disabled_focusable: false,
-      key: `card${ii}`,
-      ...rect,
-    });
-    if (spot_ret.ret) {
-      selected[ii] = !selected[ii];
-    } else if (spot_ret.focused) {
-      if (selected[ii]) {
-        rect.y -= CARDH * 0.05;
-      } else {
-        rect.y -= CARDH * 0.15;
+  if (!travel_state.done) {
+    let num_selected = travel_state.numSelected();
+    for (let ii = 0; ii < hand.length; ++ii) {
+      let card = hand[ii];
+      let tile = card === -1 ? 'cooling' : `card${card}`;
+      let x = CARDSX0 + (CARDW + CARDSPAD) * ii;
+      let y = selected[ii] ? CARDSYSEL : CARDSYUNSEL;
+      let rect = {
+        x,
+        y,
+        z,
+        w: CARDW,
+        h: CARDH,
+      };
+      let spot_ret = spot({
+        def: SPOT_DEFAULT_BUTTON,
+        disabled: !selected[ii] && num_selected >= min(4, travel_state.gear + 1) || card === -1,
+        disabled_focusable: false,
+        key: `card${ii}`,
+        ...rect,
+      });
+      if (spot_ret.ret) {
+        selected[ii] = !selected[ii];
+      } else if (spot_ret.focused) {
+        if (selected[ii]) {
+          rect.y -= CARDH * 0.05;
+        } else {
+          rect.y -= CARDH * 0.15;
+        }
       }
+      autoAtlas('cards', tile).draw(rect);
     }
-    autoAtlas('cards', tile).draw(rect);
-  }
 
-  let overheat = travel_state.willOverheat();
-  if (overheat) {
-    let rect = {
-      x: WARNINGX,
-      y: WARNINGY,
-      w: WARNINGW,
-      h: WARNINGH,
-      z,
-    };
+    let overheat = travel_state.willOverheat();
+    if (overheat) {
+      let rect = {
+        x: WARNINGX,
+        y: WARNINGY,
+        w: WARNINGW,
+        h: WARNINGH,
+        z,
+      };
 
-    markdownAuto({
-      font_style: style,
-      x: rect.x + PAD,
-      y: rect.y,
-      w: rect.w - PAD * 2,
-      h: rect.h,
-      z,
-      // eslint-disable-next-line prefer-template
-      text: '**WARNING**: Will reach ASTEROID exceeding safe speed' +
-        ` (${overheat[2]}), generating **${overheat[0]}** excess heat!` +
-        (overheat[1] ? ' (You will crash)' : ''),
-      align: ALIGN.HVCENTER | ALIGN.HWRAP,
-    });
-    panel(rect);
+      markdownAuto({
+        font_style: style,
+        x: rect.x + PAD,
+        y: rect.y,
+        w: rect.w - PAD * 2,
+        h: rect.h,
+        z,
+        // eslint-disable-next-line prefer-template
+        text: '**WARNING**: Will reach ASTEROID exceeding safe speed' +
+          ` (${overheat[2]}), generating **${overheat[0]}** excess heat!` +
+          (overheat[1] ? ' (You will crash)' : ''),
+        align: ALIGN.HVCENTER | ALIGN.HWRAP,
+      });
+      panel(rect);
+    }
   }
 
   const font = uiGetFont();
 
-  {
+  if (!travel_state.done) {
     let rect = {
       x: GEARX,
       y: GEARY,
@@ -403,7 +458,7 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     panel(rect);
   }
 
-  {
+  if (!travel_state.won) {
     let rect = {
       x: HEATX,
       y: HEATY,
@@ -424,7 +479,7 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     panel(rect);
   }
 
-  {
+  if (!travel_state.done) {
     const BAR_MAX_DIST = 24;
     function drawLabel(style_use: FontStyle, value: number, y: number, text: string): void {
       value = clamp(value, 0, BAR_MAX_DIST);
@@ -475,7 +530,7 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     }
   }
 
-  {
+  if (!travel_state.done) {
     let rect = {
       x: STATUSX,
       y: STATUSY,
@@ -547,4 +602,43 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     panel(rect);
   }
 
+  {
+    let box = {
+      x: HUD_X0 + PAD,
+      y: HUD_Y0 + PAD,
+      z,
+      w: HUD_W - PAD * 2,
+      h: game_height - HUD_PAD * 2 - PAD * 3,
+    };
+
+    let rules_dims = markdownAuto({
+      ...box,
+      text_height: text_height * 0.7,
+      align: ALIGN.HWRAP | ALIGN.VBOTTOM,
+      text: RULES,
+    });
+
+    let { log } = travel_state;
+    log = ['[**SHIP\'S LOG**]', ''].concat(log);
+    markdownAuto({
+      ...box,
+      text_height: text_height * 0.7,
+      align: ALIGN.HWRAP,
+      text: log.join('\n'),
+    });
+
+    log = [];
+    travel_state.logAsteroid(0, log);
+    travel_state.logAsteroid(1, log);
+    box.y += box.h * 0.39;
+    markdownAuto({
+      ...box,
+      text_height: text_height * 0.7,
+      align: ALIGN.HWRAP,
+      text: log.join('\n'),
+    });
+
+  }
+
+  drawHUDPanel();
 }

@@ -7,3 +7,9 @@ export const render_width = 332;
 export const render_height = 238;
 export const VIEWPORT_X0 = 5;
 export const VIEWPORT_Y0 = 5;
+
+export const HUD_PAD = 8;
+export const HUD_W_FULL = game_width - (VIEWPORT_X0 + render_width + VIEWPORT_X0);
+export const HUD_X0 = game_width - HUD_W_FULL + 2;
+export const HUD_W = game_width - HUD_PAD - HUD_X0;
+export const HUD_Y0 = HUD_PAD;

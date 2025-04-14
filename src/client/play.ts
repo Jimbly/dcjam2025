@@ -132,6 +132,10 @@ import { EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_
 import {
   game_height,
   game_width,
+  HUD_PAD,
+  HUD_W,
+  HUD_X0,
+  HUD_Y0,
   render_height,
   render_width,
   VIEWPORT_X0,
@@ -750,16 +754,22 @@ function inventoryMenu(): void {
   modalBackground(INVENTORY_W, INVENTORY_H, modal_label_inventory);
 }
 
-const HUD_PAD = 8;
-const HUD_W_FULL = game_width - (VIEWPORT_X0 + render_width + VIEWPORT_X0); // 110
-const HUD_X0 = game_width - HUD_W_FULL + 2; // 340
-const HUD_W = game_width - HUD_PAD - HUD_X0; // 100
-const HUD_Y0 = HUD_PAD;
-
 const MOVE_BUTTONS_X0 = HUD_X0 + (HUD_W - BUTTON_W * 3) / 2 - 1;
 const MOVE_BUTTONS_Y0 = game_height - 71;
 
 const LEVEL_NAME_W = 100;
+
+export function drawHUDPanel(): void {
+  panel({
+    x: HUD_X0,
+    y: HUD_Y0,
+    z: 2,
+    w: HUD_W,
+    h: game_height - HUD_PAD * 2,
+    color: [0.988, 0.976, 0.973, 1],
+    eat_clicks: false,
+  });
+}
 
 function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): void {
 
@@ -886,16 +896,7 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
       eat_clicks: false,
     });
   }
-
-  panel({
-    x: HUD_X0,
-    y: HUD_Y0,
-    z: 2,
-    w: HUD_W,
-    h: game_height - HUD_PAD * 2,
-    color: [0.988, 0.976, 0.973, 1],
-    eat_clicks: false,
-  });
+  drawHUDPanel();
 }
 
 let temp_delta = vec2();

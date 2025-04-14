@@ -1,7 +1,5 @@
 TODO
 * prototype HEATgame
-  * display report on right
-    * also "after-action" report of last turn / action log?
   * show position in-world
   * telegraph what happens when clicking GO
     * cooling cards disappear and heat goes down
