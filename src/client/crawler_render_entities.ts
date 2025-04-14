@@ -184,7 +184,7 @@ export function drawableSpriteDraw2D(this: EntityDrawableSprite, param: EntityDr
   let ent = this;
   let frame = ent.updateAnim(getFrameDt());
   let { sprite, sprite_near } = ent.drawable_sprite_state;
-  let use_near = true; // slightly better for 2D
+  let use_near = false; // true; // slightly better for 2D // DCJAM
   if (sprite_near && (use_near ||
     !settings.entity_split && settings.entity_nosplit_use_near)
   ) {
@@ -577,12 +577,12 @@ export function crawlerRenderEntities(ent_set: SplitSet): void {
         if (elapsed < BLINK_TIME) {
           blink = min(blink, elapsed / BLINK_TIME);
         }
-        if (is_in_front) {
+        if (is_in_front && !crawlerController().controllerIsAnimating()) {
           let { x, y, w, h } = crawlerRenderViewportGet();
           let float = easeOut(elapsed / (FLOATER_TIME + FLOATER_FADE), 2) * 20;
           font.drawSizedAligned(fontStyleAlpha(style_text, alpha),
             x,
-            y + h/2 - float, Z.FLOATERS,
+            y + h*0.4 - float, Z.FLOATERS, // DCJAM
             uiTextHeight(), ALIGN.HCENTER|ALIGN.VBOTTOM,
             w, 0, floater.msg);
         }

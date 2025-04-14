@@ -239,10 +239,10 @@ export function setGameDims(w, h) {
 // Didn't need this for a while, but got slow on iOS recently :(
 // Better when using FBOs for postprocessing now, though!
 const postprocessing_reset_version = '5';
-export let postprocessing = local_storage.get('glov_no_postprocessing') !== postprocessing_reset_version;
+export let postprocessing = local_storage.get('glov_no_postprocessing') !== postprocessing_reset_version || true;
 export function postprocessingAllow(allow) {
-  local_storage.set('glov_no_postprocessing', allow ? undefined : postprocessing_reset_version);
-  postprocessing = allow;
+  //local_storage.set('glov_no_postprocessing', allow ? undefined : postprocessing_reset_version);
+  //postprocessing = allow;
 }
 
 export function glCheckError() {
@@ -845,7 +845,9 @@ export function start3DRendering(opts) {
     final: effectsIsFinal(),
     need_depth: opts.need_depth || true,
     clear: true,
+    clear_color: opts.clear_color,
     clear_all: opts.clear_all === undefined ? settings.render_scale_clear : opts.clear_all,
+    clear_all_color: opts.clear_all_color,
     viewport: opts.viewport,
   });
 

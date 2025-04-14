@@ -16,6 +16,7 @@ import {
 } from 'glov/client/input';
 import * as settings from 'glov/client/settings';
 import { Sprite } from 'glov/client/sprites';
+import { textureLoadCount } from 'glov/client/textures';
 import * as ui from 'glov/client/ui';
 import {
   ButtonStateString,
@@ -145,7 +146,7 @@ interface PlayerController {
   effRot(): DirType;
   effPos(): ROVec2;
   isMoving(): boolean;
-  isAnimating(): boolean;
+  isAnimating(threshold: number): boolean;
   startTurn(rot: DirType, double_time?: number): void;
   startMove(dir: DirType, double_time?: number): void;
   initPosSub(): void;
@@ -153,6 +154,11 @@ interface PlayerController {
   cancelAllMoves?(): void;
   cancelQueuedMoves?(): void;
   clearDoubleTime?(): void;
+}
+
+let on_bump_entity: (ent_id: EntityID) => void;
+export function controllerOnBumpEntity(cb: (ent_id: EntityID) => void): void {
+  on_bump_entity = cb;
 }
 
 type StartMoveData = {
@@ -219,14 +225,7 @@ function startMove(
     } else if (!is_facing_ent) {
       script_api.status('move_blocked', 'Something blocks your way.');
     } else {
-      // TODO: Replace this with some kind of action callback
-      // let total_attack_time = attackTime(my_ent);
-      // queued_attack = {
-      //   ent_id: blocked_ent_id,
-      //   total_attack_time,
-      //   start_time: frame_wall_time,
-      //   windup: frame_wall_time + ATTACK_WINDUP_TIME,
-      // };
+      on_bump_entity(blocked_ent_id!);
     }
   }
   return {
@@ -369,7 +368,7 @@ class CrawlerControllerQueued implements PlayerController {
     return true;
   }
 
-  isAnimating(): boolean {
+  isAnimating(threshold: number): boolean {
     return this.queueLength() > 1;
   }
 
@@ -582,7 +581,7 @@ class CrawlerControllerInstantStep implements PlayerController {
   isMoving(): boolean {
     return false;
   }
-  isAnimating(): boolean {
+  isAnimating(threshold: number): boolean {
     return false;
   }
   startTurn(rot: DirType): void {
@@ -644,8 +643,8 @@ class CrawlerControllerInstantBlend extends CrawlerControllerInstantStep {
   isMoving(): boolean {
     return false;
   }
-  isAnimating(): boolean {
-    return this.blends.length > 0;
+  isAnimating(threshold: number): boolean {
+    return this.blends.length > 0 && this.blends[this.blends.length - 1].t <= threshold;
   }
   tickMovement(param: TickParam): TickPositions {
     let { dt } = param;
@@ -813,8 +812,8 @@ class CrawlerControllerQueued2 extends CrawlerControllerInstantStep {
   isMoving(): boolean {
     return this.is_blend_stopped;
   }
-  isAnimating(): boolean {
-    return this.blends.length > 0;
+  isAnimating(threshold: number): boolean {
+    return this.blends.length > 0 && this.blends[this.blends.length - 1].t <= threshold;
   }
   startQueuedMove(blend: Blend2): boolean {
     if (blend.action_type === ACTION_MOVE) {
@@ -902,7 +901,9 @@ class CrawlerControllerQueued2 extends CrawlerControllerInstantStep {
           }
         }
       }
-      if (!blend.started && (!last_blend || last_blend.finished)) {
+      // !textureLoadCount() is maybe a hack - it ensures we don't step out of the stairs while
+      //   the level art is still loading
+      if (!blend.started && (!last_blend || last_blend.finished) && !textureLoadCount()) {
         if (did_start_finish) {
           this.is_blend_stopped = true;
           break;
@@ -1034,6 +1035,7 @@ export type PlayerMotionParam = {
   button_sprites: Record<ButtonStateString, Sprite>;
   dt: number;
   do_debug_move: boolean;
+  show_hotkeys: boolean;
 };
 
 function controllerFromType(type: string, parent: CrawlerController): PlayerController {
@@ -1215,11 +1217,11 @@ export class CrawlerController {
     return this.fade_v;
   }
 
-  controllerIsAnimating(): boolean {
+  controllerIsAnimating(threshold?: number): boolean {
     if (this.mode !== 'modeCrawl') {
       return false;
     }
-    return this.player_controller.isAnimating();
+    return this.player_controller.isAnimating(threshold || 1);
   }
 
   getControllerType(): string {
@@ -1804,6 +1806,7 @@ export class CrawlerController {
       show_buttons,
       disable_move,
       disable_player_impulse,
+      show_hotkeys,
     } = param;
     let dt = param.dt;
     const {
@@ -1849,6 +1852,13 @@ export class CrawlerController {
       touch_hotzone?: Box,
     ): void {
       let z;
+      let visible_hotkey: string | undefined;
+      if (keys.length) {
+        let idx = keys[0];
+        if (idx >= KEYS.A && idx <= KEYS.Z) {
+          visible_hotkey = String.fromCharCode(idx);
+        }
+      }
       let ret = crawlerOnScreenButton({
         x: button_x0 + (button_w + 2) * rx,
         y: button_y0 + (button_w + 2) * ry,
@@ -1862,6 +1872,7 @@ export class CrawlerController {
         disabled,
         button_sprites,
         touch_hotzone,
+        visible_hotkey: show_hotkeys ? visible_hotkey : undefined,
       });
       down_edge[key] += ret.down_edge;
       down[key] += ret.down;
@@ -1870,8 +1881,8 @@ export class CrawlerController {
 
     // Check for intentional events
     // v2add(temp_pos, last_dest_pos, DXY[this.last_dest_rot]);
-    // Old: forward attacks: let forward_frame = entityBlocks(game_state.floor_id, temp_pos, true) ? 11 : 1;
-    let forward_frame = 1;
+    let forward_frame = entityBlocks(game_state.floor_id, temp_pos, true) ? 11 : 1; // DCJAM
+    // let forward_frame = 1; // DCJAM
     if (show_buttons) {
       let keys_turn_left = [KEYS.Q];
       let keys_forward = [KEYS.W];

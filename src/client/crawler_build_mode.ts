@@ -1099,6 +1099,7 @@ let cell_prop_key_items: MenuItem[] = [
 ].map((name) => ({ name, tag: name }));
 let level_prop_key_items: MenuItem[] = [
   'title',
+  'subtitle',
   'music',
   'new',
 ].map((name) => ({ name, tag: name }));
@@ -1479,7 +1480,7 @@ export function crawlerBuildModeUI(frame: Box & { map_view: boolean }): void {
   const x1 = x + w;
   // const y0 = y;
   let z = Z.UI;
-  drawRect(x, y, x + w, y + h, z - 1, [0,0,0,0.1]);
+  drawRect(x, y, x + w, y + h, z - 1, [0,0,0,0.3]);
 
   const num_columns = 3;
   const col_width = floor((w - num_columns + 1) / num_columns);

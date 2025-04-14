@@ -1,0 +1,11 @@
+---
+open_vis: true
+default_wall: solid
+
+visuals:
+# - pass: details
+#   type: simple_floor
+#   opts:
+#     atlas: space
+#     tile: floor
+

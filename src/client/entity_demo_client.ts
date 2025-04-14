@@ -40,6 +40,17 @@ export function entityManager(): ClientEntityManagerInterface<Entity> {
 
 export type StatsData = {
   hp: number;
+  hp_max: number;
+  attack: number;
+  defense: number;
+  accuracy: number;
+  dodge: number;
+};
+
+export type Item = {
+  item_id: string;
+  count?: number;
+  equipped?: boolean;
 };
 
 export type EntityDataClient = {
@@ -48,6 +59,9 @@ export type EntityDataClient = {
   state: string;
   floor: number;
   stats: StatsData;
+  // Player:
+  money: number;
+  inventory: Item[];
 } & EntityCrawlerDataCommon;
 
 
@@ -83,6 +97,66 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
     while (data.pos.length < 3) {
       data.pos.push(0);
     }
+
+    if (this.is_player) {
+      if (!data.stats || !data.stats.attack) {
+        data.stats = {
+          hp: 10,
+          hp_max: 10,
+          attack: 8,
+          defense: 4,
+          accuracy: 4,
+          dodge: 4,
+        };
+      }
+      if (!data.money) {
+        data.money = 0;
+      }
+      if (!data.inventory) {
+        data.inventory = [];
+      }
+      data.stats.hp = 8;
+      data.stats.hp_max = 10;
+      data.stats.attack = 8;
+      data.stats.defense = 4;
+      data.stats.accuracy = 4;
+      data.stats.dodge = 4;
+      if (!data.inventory.length) {
+        data.inventory.push({
+          item_id: 'helmet1',
+        });
+        data.inventory.push({
+          item_id: 'helmet2',
+          equipped: true,
+        });
+        data.inventory.push({
+          item_id: 'helmet3',
+        });
+        data.inventory.push({
+          item_id: 'med1',
+          count: 3,
+        });
+        data.inventory.push({
+          item_id: 'torso1',
+        });
+        data.inventory.push({
+          item_id: 'shield1',
+        });
+        data.inventory.push({
+          item_id: 'weapon1',
+        });
+        data.inventory.push({
+          item_id: 'key1',
+        });
+        data.inventory.push({
+          item_id: 'key1',
+        });
+        data.inventory.push({
+          item_id: 'key1',
+        });
+      }
+    }
+
     this.floaters = [];
     this.aiResetMoveTime(true);
   }

@@ -4,11 +4,11 @@ import * as local_storage from 'glov/client/local_storage.js'; // eslint-disable
 local_storage.setStoragePrefix('dcj25'); // Before requiring anything else that might load from this
 
 import assert from 'assert';
-import { autoAtlasTextureOpts } from 'glov/client/autoatlas';
+import { autoAtlas, autoAtlasTextureOpts } from 'glov/client/autoatlas';
 import { chatUICreate } from 'glov/client/chat_ui';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
-import { Font, fontCreate } from 'glov/client/font';
+import { Font, fontCreate, fontStyle, fontStyleColored } from 'glov/client/font';
 import {
   markdown_default_renderables,
   markdownImageRegisterAutoAtlas,
@@ -20,9 +20,10 @@ import { shadersSetInternalDefines } from 'glov/client/shaders';
 import { textureDefaultFilters } from 'glov/client/textures';
 import { uiSetPanelColor } from 'glov/client/ui';
 import * as ui from 'glov/client/ui';
+import { v4set } from 'glov/common/vmath';
 // import './client_cmds.js'; // for side effects
 import { crawlerBuildModeStartup } from './crawler_build_mode';
-import { crawlerOnPixelyChange } from './crawler_play.js';
+import { crawlerOnPixelyChange, crawlerRenderSetUIClearColor } from './crawler_play.js';
 import { crawlerRenderSetLODBiasRange } from './crawler_render';
 import { game_height, game_width } from './globals';
 import { playStartup } from './play';
@@ -33,6 +34,8 @@ const { round } = Math;
 
 window.Z = window.Z || {};
 Z.BACKGROUND = 1;
+Z.COMBAT = 2;
+Z.VIEWPORT_FRAME = 3;
 Z.SPRITES = 10;
 Z.PARTICLES = 20;
 Z.CHAT = 60;
@@ -131,7 +134,7 @@ export function main(): void {
   const font_info_04b03x2 = require('./img/font/04b03_8x2.json');
   const font_info_04b03x1 = require('./img/font/04b03_8x1.json');
   const font_info_palanquin32 = require('./img/font/palanquin32.json');
-  const font_info_ink = require('./img/font/ink.json');
+  const font_info_kalam = require('./img/font/kalam.json');
   let pixely = settings.pixely === 2 ? 'strict' : settings.pixely ? 'on' : false;
   let font;
   if (pixely === 'strict') {
@@ -141,7 +144,7 @@ export function main(): void {
   } else {
     font = { info: font_info_palanquin32, texture: 'font/palanquin32' };
   }
-  font = { info: font_info_ink, texture: 'font/ink' };
+  font = { info: font_info_kalam, texture: 'font/kalam' };
   settingsSet('use_fbos', use_fbos); // Needed for our effects
 
   autoAtlasTextureOpts('whitebox', { force_mipmaps: true });
@@ -195,7 +198,10 @@ export function main(): void {
 
   let build_font = fonts[0];
 
-  gl.clearColor(0, 0, 0, 1);
+  gl.clearColor(1, 1, 1, 1);
+  v4set(engine.border_clear_color, 1, 1, 1, 1);
+  v4set(engine.border_color, 1, 1, 1, 1);
+  crawlerRenderSetUIClearColor([1, 1, 1, 1]);
 
   // Actually not too bad:
   if (settings.filter === 1) {
@@ -207,12 +213,23 @@ export function main(): void {
   ui.scaleSizes(13 / 32);
   ui.setModalSizes(0, round(game_width * 0.8), round(game_height * 0.23), 0, 0);
   ui.setFontHeight(8);
-  // ui.setPanelPixelScale(1);
+  ui.setButtonHeight(15);
+  ui.setPanelPixelScale(game_height/1080);
   uiSetPanelColor([1, 1, 1, 1]);
   // ui.uiSetFontStyleFocused(fontStyle(ui.uiGetFontStyleFocused(), {
   //   outline_width: 2.5,
   //   outline_color: dawnbringer.font_colors[8],
   // }));
+  ui.setFontStyles(
+    fontStyleColored(null, 0x000000ff),
+    fontStyle(null, {
+      color: 0x000000ff,
+      outline_width: 2.5,
+      outline_color: 0xFFFFFFff,
+    }),
+    fontStyleColored(null, 0x000000ff),
+    fontStyleColored(null, 0x808080ff),
+  );
 
   chat_ui = chatUICreate({
     max_len: 1000,
@@ -233,4 +250,7 @@ export function main(): void {
   playStartup();
   engine.setState(titleInit);
   titleStartup();
+  // Preload some atlases
+  autoAtlas('test', 'solid1');
+  autoAtlas('critters', 'critter-11');
 }
