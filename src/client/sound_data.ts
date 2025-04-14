@@ -42,8 +42,6 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
 
   // Game sounds - Done
 
-  // Game sounds - TODO
-
   footstep: [{
     file: 'footstep/metal/metal_01',
     volume: 1,
@@ -143,6 +141,27 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
     file: 'footstep/stone/stone_06',
     volume: 1,
   }],
+
+  // loaded dynamically like music:
+  // ship_engine_1: { file: 'ship/engine_1', volume: 1 },
+  // ship_engine_2: { file: 'ship/engine_2', volume: 1 },
+  // ship_engine_3: { file: 'ship/engine_3', volume: 1 },
+  // ship_engine_4: { file: 'ship/engine_4', volume: 1 },
+
+  ship_accelerate_2: { file: 'ship/ship_accelerate_2', volume: 1 },
+  ship_accelerate_3: { file: 'ship/ship_accelerate_3', volume: 1 },
+  ship_accelerate_4: { file: 'ship/ship_accelerate_5', volume: 1 },
+  ship_decelerate_1: { file: 'ship/ship_decelerate_1', volume: 1 },
+  ship_decelerate_2: { file: 'ship/ship_decelerate_2', volume: 1 },
+  ship_decelerate_3: { file: 'ship/ship_decelerate_3', volume: 1 },
+
+  // Game sounds - TODO
+
+  ship_maintain_speed: { file: 'ship/ship_accelerate_2', volume: 1 },
+  ship_asteroid_avoid: { file: 'ship/ship_accelerate_2', volume: 1 },
+  ship_asteroid_gainheat: { file: 'ship/ship_decelerate_1', volume: 1 },
+  ship_finish_failure: { file: 'ship/ship_decelerate_1', volume: 1 },
+  ship_finish_success: { file: 'ship/ship_accelerate_5', volume: 1 },
 
   combat_start: { file: 'combat/start', volume: 1 },
   combat_hero_hit_miss: { file: 'combat/hit', volume: 1 },

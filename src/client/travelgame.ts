@@ -7,13 +7,14 @@ import { ALIGN, FontStyle, fontStyleColored } from 'glov/client/font';
 import { keyDownEdge, KEYS } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
 import { spot, SPOT_DEFAULT_BUTTON } from 'glov/client/spot';
-import { buttonText, drawLine, panel, uiButtonHeight, uiGetFont, uiTextHeight } from 'glov/client/ui';
+import { buttonText, drawLine, panel, playUISound, uiButtonHeight, uiGetFont, uiTextHeight } from 'glov/client/ui';
 import { randCreate, shuffleArray } from 'glov/common/rand_alea';
 import { clamp, easeInOut, lerp, plural, ridx } from 'glov/common/util';
 import { crawlerEntityManager } from './crawler_entity_client';
 import { crawlerController, crawlerGameState } from './crawler_play';
 import { dialog } from './dialog_system';
 import { game_height, HUD_PAD, HUD_W, HUD_X0, HUD_Y0, render_width, VIEWPORT_X0 } from './globals';
+import { tickLoopingSound } from './music';
 import { drawHealthBar, drawHUDPanel, myEnt } from './play';
 
 export const HAND_SIZE = 6;
@@ -47,6 +48,10 @@ type Asteroid = {
 
 let rand = randCreate(Date.now());
 
+type AsteroidEvent = {
+  pos: number;
+  event: number;
+};
 type LastMove = {
   start_pos: number;
   end_pos: number;
@@ -54,6 +59,7 @@ type LastMove = {
   cooling: number;
   hand: number[];
   heat: number;
+  asteroid_events: AsteroidEvent[];
 };
 
 class TravelGameState {
@@ -272,7 +278,16 @@ class TravelGameState {
         ridx(hand, ii);
       }
     }
-    this.gear = selected_count;
+    if (selected_count !== this.gear) {
+      if (selected_count > this.gear) {
+        playUISound(`ship_accelerate_${selected_count}`);
+      } else {
+        playUISound(`ship_decelerate_${selected_count}`);
+      }
+      this.gear = selected_count;
+    } else {
+      playUISound('ship_maintain_speed');
+    }
     if (eff_cooling) {
       log.push(`Played **${eff_cooling} COOLANT** ${plural(eff_cooling, 'card')}, reducing heat to ${this.heat}.`);
     }
@@ -280,6 +295,7 @@ class TravelGameState {
     let end_pos = this.pos + speed;
     let dheat = 0;
     let win = false;
+    let asteroid_events: AsteroidEvent[] = [];
     while (this.asteroids[0].pos <= end_pos) {
       let asteroid = this.asteroids.shift()!;
       if (asteroid.goal) {
@@ -289,6 +305,10 @@ class TravelGameState {
         dheat += speed - asteroid.max_speed;
         log.push(`Generated **${dheat} Heat** avoiding ASTEROID (speed` +
           ` ${speed} above Safe Speed of ${asteroid.max_speed})`);
+        asteroid_events.push({
+          pos: asteroid.pos,
+          event: 1,
+        });
         if (this.heat + dheat > MAX_HEAT) {
           end_pos = asteroid.pos - 1;
           this.asteroids.unshift(asteroid);
@@ -296,6 +316,10 @@ class TravelGameState {
         }
       } else {
         log.push(`ASTEROID avoided safely (speed ${speed} under Safe Speed of ${asteroid.max_speed})`);
+        asteroid_events.push({
+          pos: asteroid.pos,
+          event: 0,
+        });
       }
     }
     this.heat += dheat;
@@ -315,6 +339,7 @@ class TravelGameState {
     }
     this.pos = end_pos;
     this.last_move = {
+      asteroid_events,
       hand: last_move_hand,
       start_pos,
       end_pos,
@@ -338,14 +363,17 @@ export function travelGameCheck(force_no: boolean): boolean {
   let { floor_id } = game_state;
   if (floor_id !== 7 || force_no) {
     travel_state = null;
+    tickLoopingSound(null);
     return false;
   }
   if (travel_state && travel_state.transitioning || crawlerController().transitioning_floor) {
+    tickLoopingSound(null);
     return false;
   }
   if (!travel_state) {
     travel_state = new TravelGameState();
   }
+  tickLoopingSound(`ship/engine_${travel_state.gear}`);
   return true;
 }
 
@@ -444,13 +472,23 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
       travel_state.animating = animating = false;
       if (travel_state.done) {
         if (travel_state.won) {
+          playUISound('ship_finish_success');
           travelGameFinish();
         } else {
+          playUISound('ship_finish_failure');
           dialog('travelfail');
         }
       }
     } else {
       game_state.pos[0] = lerp(easeInOut(p, 2), last_move.start_pos, last_move.end_pos);
+    }
+    if (last_move.asteroid_events.length && game_state.pos[0] > last_move.asteroid_events[0].pos) {
+      let event = last_move.asteroid_events.shift()!;
+      if (event.event) {
+        playUISound('ship_asteroid_gainheat');
+      } else {
+        playUISound('ship_asteroid_avoid');
+      }
     }
   } else {
     game_state.pos[0] = travel_state.pos;

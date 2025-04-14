@@ -26,7 +26,7 @@ export function tickMusic(music_name: string | null): void {
   if (music_name && !loading_music[music_name]) {
     loading_music[music_name] = true;
     soundLoad(music_name, { loop: true }, function () {
-      loaded_music[music_name!] = true; // ! is workaround TypeScript bug fixed in v5.4.0 TODO: REMOVE
+      loaded_music[music_name!] = true;
     });
   }
   if (!soundResumed()) {
@@ -69,4 +69,71 @@ export function tickMusic(music_name: string | null): void {
     }
   }
 }
-onEnterBackground(tickMusic.bind(null, null));
+
+let last_ambi_ref: GlovSoundSetUp | null;
+let last_ambi_name: string | null = null;
+let last_ambi_fading_out = false;
+let playing_ambi_name: string | null = null;
+let loading_ambi: TSMap<true> = {};
+let loaded_ambi: TSMap<true> = {};
+const FADE_OUT_CHANGE_AMBI = 100;
+const FADE_OUT_SILENCE_AMBI = 250;
+const FADE_UP_AMBI = 100;
+export function tickLoopingSound(ambi_name: string | null): void {
+  // if (!ambi_name && optionsMenuVisible()) {
+  //   ambi_name = 'ambi_menu';
+  // }
+  if (!settings.volume || !settings.volume_sound || isInBackground()) {
+    ambi_name = null;
+  }
+  if (ambi_name && !loading_ambi[ambi_name]) {
+    loading_ambi[ambi_name] = true;
+    soundLoad(ambi_name, { loop: true }, function () {
+      loaded_ambi[ambi_name!] = true;
+    });
+  }
+  if (!soundResumed()) {
+    return;
+  }
+  if (playing_ambi_name !== ambi_name) {
+    if (last_ambi_ref) {
+      if (last_ambi_ref.playing() && last_ambi_name === ambi_name) {
+        assert(playing_ambi_name === null);
+        assert(last_ambi_fading_out);
+        // already playing the right ambi, it's just fading out
+        last_ambi_ref.fade(1, FADE_UP_AMBI);
+        playing_ambi_name = last_ambi_name;
+        last_ambi_fading_out = false;
+      } else {
+        if (!last_ambi_fading_out) {
+          last_ambi_fading_out = true;
+          last_ambi_ref.fade(0, ambi_name ? FADE_OUT_CHANGE_AMBI : FADE_OUT_SILENCE_AMBI);
+          playing_ambi_name = null;
+        }
+        if (!last_ambi_ref.playing() || ambi_name) { // crossfade if new name
+          last_ambi_ref = null;
+          last_ambi_name = null;
+        }
+      }
+    }
+    if (!last_ambi_ref) { // finished fading out, can start something new
+      if (ambi_name && loaded_ambi[ambi_name]) {
+        last_ambi_ref = soundPlay(ambi_name, {
+          volume: 0.01,
+          as_music: false,
+        });
+        last_ambi_fading_out = false;
+        if (last_ambi_ref) {
+          last_ambi_ref.fade(1, FADE_UP_AMBI);
+          last_ambi_name = ambi_name;
+          playing_ambi_name = ambi_name;
+        }
+      }
+    }
+  }
+}
+
+onEnterBackground(function () {
+  tickMusic(null);
+  tickLoopingSound(null);
+});
