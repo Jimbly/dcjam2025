@@ -1,0 +1,31 @@
+---
+traits:
+- id: drawable
+  biasL: [0,0] # [-0.35, 0.32]
+  biasF: [0,0]
+  biasR: [0,0] # [-0.25, 0.5]
+- id: drawable_sprite
+  anim_data:
+    idle:
+      frames: [asteroid-1, asteroid-2, asteroid-3, asteroid-4]
+      random_init_frame: true
+      times: 10000000
+  sprite_data:
+    atlas: space
+    filter_min: LINEAR_MIPMAP_LINEAR
+    filter_mag: LINEAR
+    origin: [0.5, 0.9]
+  scale: 1.2
+  simple_anim:
+    - period: 10000
+      # scale: [1, 1]
+      easing: 2
+      offs:
+        - [-0.05, 0]
+        - [0.05, 0]
+    - period: 17000
+      # scale: [1, 1]
+      easing: 2
+      offs:
+        - [0, -0.1]
+        - [0, 0.1]

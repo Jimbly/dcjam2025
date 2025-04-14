@@ -2,21 +2,24 @@
 import assert from 'assert';
 import { autoAtlas } from 'glov/client/autoatlas';
 import { MODE_DEVELOPMENT } from 'glov/client/client_config';
+import { getFrameDt } from 'glov/client/engine';
 import { ALIGN, FontStyle, fontStyleColored } from 'glov/client/font';
-import { KEYS } from 'glov/client/input';
+import { keyDownEdge, KEYS } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
 import { spot, SPOT_DEFAULT_BUTTON } from 'glov/client/spot';
 import { buttonText, drawLine, panel, uiButtonHeight, uiGetFont, uiTextHeight } from 'glov/client/ui';
 import { randCreate, shuffleArray } from 'glov/common/rand_alea';
-import { clamp, plural, ridx } from 'glov/common/util';
-import { crawlerGameState } from './crawler_play';
+import { clamp, easeInOut, lerp, plural, ridx } from 'glov/common/util';
+import { crawlerEntityManager } from './crawler_entity_client';
+import { crawlerController, crawlerGameState } from './crawler_play';
+import { dialog } from './dialog_system';
 import { game_height, HUD_PAD, HUD_W, HUD_X0, HUD_Y0, render_width, VIEWPORT_X0 } from './globals';
-import { drawHealthBar, drawHUDPanel } from './play';
+import { drawHealthBar, drawHUDPanel, myEnt } from './play';
 
 export const HAND_SIZE = 6;
 export const MAX_HEAT = 7;
 
-const { max, min } = Math;
+const { max, min, PI } = Math;
 
 const RULES = `Rules:
   Play your current **Gear** -1/+0/+1
@@ -49,6 +52,7 @@ type LastMove = {
   end_pos: number;
   speed: number;
   cooling: number;
+  hand: number[];
   heat: number;
 };
 
@@ -64,7 +68,22 @@ class TravelGameState {
   log: string[] = [];
   done = false;
   won = false;
+  animating = false;
+  transitioning = false;
+  destination_floor = 10;
+  t = 0;
   constructor() {
+    let entity_manager = crawlerEntityManager();
+    let game_state = crawlerGameState();
+    let { floor_id } = game_state;
+    let { entities } = entity_manager;
+    for (let entity_id in entities) {
+      let ent = entities[entity_id]!;
+      if (ent.data.floor === floor_id && ent.type_id === 'asteroid_danger') {
+        entity_manager.deleteEntity(ent.id, 'reset');
+      }
+    }
+
     this.asteroids = [];
     this.deck = [];
     this.discard = [];
@@ -79,6 +98,13 @@ class TravelGameState {
         max_speed,
         goal: max_speed === -1,
       });
+      if (max_speed !== -1) {
+        entity_manager.addEntityFromSerialized({
+          type: 'asteroid_danger',
+          floor: floor_id,
+          pos: [adist - 1, 2, 0],
+        });
+      }
     }
     // USA map
     apush(12, 7);
@@ -98,28 +124,34 @@ class TravelGameState {
       }
     }
     shuffleArray(rand, deck);
-    this.draw();
-    if (MODE_DEVELOPMENT) {
-      this.selected[3] = true;
-      this.selected[4] = true;
-    }
-
     this.log.push('THE PURSUER is after me.  It\'ll get messy if they catch me,' +
       ' let\'s dodge through this asteroid field to lose them.');
+    this.draw();
   }
 
   draw(): void {
     let { deck, hand, discard } = this;
+    let new_cards: string[] = [];
+    this.log.push('');
     while (hand.length < HAND_SIZE) {
       if (!deck.length) {
         while (discard.length) {
           deck.push(discard.pop()!);
         }
+        this.log.push(`Reshuffled (${deck.length} cards)`);
         shuffleArray(rand, deck);
       }
-      hand.push(deck.pop()!);
+      let new_card = deck.pop()!;
+      if (new_card === -1) {
+        new_cards.push('COOLANT');
+      } else {
+        new_cards.push(`SPEED ${new_card}`);
+      }
+      hand.push(new_card);
     }
     hand.sort();
+    new_cards.sort();
+    this.log.push(`Drew: ${new_cards.join(', ')}`);
   }
 
   numSelected(): number {
@@ -222,13 +254,18 @@ class TravelGameState {
     if (selected_count !== this.gear) {
       log.push(`Changed to **Gear ${selected_count}**.`);
     }
+
+    let last_move_hand: number[] = hand.slice(0);
+
     log.push(`Played ${selected_count} **SPEED** ${plural(selected_count, 'card')} for **${speed} speed**.`);
     for (let ii = hand.length - 1; ii >= 0; --ii) {
       if (selected[ii]) {
+        last_move_hand[ii] = -2;
         discard.push(hand[ii]);
         selected[ii] = false;
         ridx(hand, ii);
       } else if (cooling && hand[ii] === -1) {
+        last_move_hand[ii] = -3;
         this.heat--;
         cooling--;
         ++eff_cooling;
@@ -252,31 +289,41 @@ class TravelGameState {
         dheat += speed - asteroid.max_speed;
         log.push(`Generated **${dheat} Heat** avoiding ASTEROID (speed` +
           ` ${speed} above Safe Speed of ${asteroid.max_speed})`);
+        if (this.heat + dheat > MAX_HEAT) {
+          end_pos = asteroid.pos - 1;
+          this.asteroids.unshift(asteroid);
+          break;
+        }
       } else {
         log.push(`ASTEROID avoided safely (speed ${speed} under Safe Speed of ${asteroid.max_speed})`);
       }
     }
     this.heat += dheat;
     if (this.heat > MAX_HEAT) {
-      log.push('**OVERHEATING!  LOSING CONTROL!  CRASH!**');
+      log.push('', '**OVERHEATING!  LOSING CONTROL!  CRASH!**');
       this.done = true;
     } else if (win) {
-      log.push('**SAFETY** reached.');
+      log.push('', '**SAFETY** reached.');
       this.done = true;
       this.won = true;
     }
     for (let ii = 0; ii < dheat; ++ii) {
       this.discard.push(-1);
     }
-    this.draw();
+    if (!this.done) {
+      this.draw();
+    }
     this.pos = end_pos;
     this.last_move = {
+      hand: last_move_hand,
       start_pos,
       end_pos,
       speed,
       cooling: eff_cooling,
       heat: dheat,
     };
+    this.animating = true;
+    this.t = 0;
   }
 }
 
@@ -291,6 +338,9 @@ export function travelGameCheck(force_no: boolean): boolean {
   let { floor_id } = game_state;
   if (floor_id !== 7 || force_no) {
     travel_state = null;
+    return false;
+  }
+  if (travel_state && travel_state.transitioning || crawlerController().transitioning_floor) {
     return false;
   }
   if (!travel_state) {
@@ -336,9 +386,15 @@ let style = fontStyleColored(null, 0x000000ff);
 let style_unimportant = fontStyleColored(null, 0x808080ff);
 let style_danger = fontStyleColored(null, 0xFF4040ff);
 
+export function travelGameFinish(): void {
+  assert(travel_state);
+  travel_state.transitioning = true;
+  crawlerController().goToFloor(travel_state.destination_floor);
+}
+
 export function doTravelGame(): void {
   assert(travel_state);
-  let { asteroids, hand, selected } = travel_state;
+  let { asteroids, hand, selected, done, animating } = travel_state;
   let z = Z.UI;
   let text_height = uiTextHeight();
 
@@ -367,11 +423,49 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     panel(rect);
   }
 
+  if (MODE_DEVELOPMENT && keyDownEdge(KEYS.F)) {
+    travel_state.selected[HAND_SIZE-1] = true;
+    travel_state.go();
+    travel_state.done = true;
+    travel_state.won = false;
+    travel_state.animating = true;
+    travel_state.t = 1;
+  }
 
-  if (!travel_state.done) {
+  let game_state = crawlerGameState();
+  game_state.angle = 0;
+  game_state.pos[1] = 2;
+  if (animating) {
+    travel_state.t += getFrameDt();
+    let p = travel_state.t / 1000;
+    let last_move = travel_state.last_move!;
+    if (p >= 1) {
+      game_state.pos[0] = last_move.end_pos;
+      travel_state.animating = animating = false;
+      if (travel_state.done) {
+        if (travel_state.won) {
+          travelGameFinish();
+        } else {
+          dialog('travelfail');
+        }
+      }
+    } else {
+      game_state.pos[0] = lerp(easeInOut(p, 2), last_move.start_pos, last_move.end_pos);
+    }
+  } else {
+    game_state.pos[0] = travel_state.pos;
+  }
+
+  if (!done) {
     let num_selected = travel_state.numSelected();
+    if (animating) {
+      hand = travel_state.last_move!.hand;
+    }
     for (let ii = 0; ii < hand.length; ++ii) {
       let card = hand[ii];
+      if (card < -1) {
+        continue;
+      }
       let tile = card === -1 ? 'cooling' : `card${card}`;
       let x = CARDSX0 + (CARDW + CARDSPAD) * ii;
       let y = selected[ii] ? CARDSYSEL : CARDSYUNSEL;
@@ -384,9 +478,11 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
       };
       let spot_ret = spot({
         def: SPOT_DEFAULT_BUTTON,
-        disabled: !selected[ii] && num_selected >= min(4, travel_state.gear + 1) || card === -1,
+        disabled: !selected[ii] && num_selected >= min(4, travel_state.gear + 1) || card === -1 ||
+          animating,
         disabled_focusable: false,
         key: `card${ii}`,
+        hotkey: KEYS['1'] + ii,
         ...rect,
       });
       if (spot_ret.ret) {
@@ -430,7 +526,7 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
 
   const font = uiGetFont();
 
-  if (!travel_state.done) {
+  if (!done && !animating) {
     let rect = {
       x: GEARX,
       y: GEARY,
@@ -479,7 +575,7 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     panel(rect);
   }
 
-  if (!travel_state.done) {
+  if (!done && !animating) {
     const BAR_MAX_DIST = 24;
     function drawLabel(style_use: FontStyle, value: number, y: number, text: string): void {
       value = clamp(value, 0, BAR_MAX_DIST);
@@ -530,7 +626,7 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     }
   }
 
-  if (!travel_state.done) {
+  if (!done && !animating) {
     let rect = {
       x: STATUSX,
       y: STATUSY,
