@@ -228,7 +228,7 @@ export function main(): void {
       outline_color: 0xFFFFFFff,
     }),
     fontStyleColored(null, 0x000000ff),
-    fontStyleColored(null, 0x202020ff),
+    fontStyleColored(null, 0x808080ff),
   );
 
   chat_ui = chatUICreate({

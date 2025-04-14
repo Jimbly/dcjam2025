@@ -134,6 +134,18 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
           item_id: 'med1',
           count: 3,
         });
+        data.inventory.push({
+          item_id: 'torso1',
+        });
+        data.inventory.push({
+          item_id: 'shield1',
+        });
+        data.inventory.push({
+          item_id: 'weapon1',
+        });
+        data.inventory.push({
+          item_id: 'key1',
+        });
       }
     }
 

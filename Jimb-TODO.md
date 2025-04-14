@@ -1,6 +1,4 @@
 TODO
-* inventory
-  * show info to the left with the bonuses
 * "settings" text overlay on pause menu / inventory
 * change combat to happen when you step onto their square; show enemy stats when looking at them
 * tap-to-move (forward) is immediately starting repeat, no delay

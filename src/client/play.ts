@@ -146,7 +146,7 @@ import {
 } from './status';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { floor, max, min, round, PI } = Math;
+const { ceil, floor, max, min, round, sin, PI } = Math;
 
 declare module 'glov/client/settings' {
   export let ai_pause: 0 | 1; // TODO: move to ai.ts
@@ -197,6 +197,7 @@ let minimap_overlay: Sprite;
 let modal_frame: Sprite;
 let modal_bg_bottom_add: Sprite;
 let modal_bg_top_mult: Sprite;
+let modal_inventory_descr: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -219,7 +220,7 @@ export function myEntOptional(): Entity | undefined {
 const selbox_display: Partial<SelectionBoxDisplay> = {
   style_default: fontStyleColored(null, 0x000000ff),
   style_selected: fontStyleColored(null, 0x000000ff),
-  style_disabled: fontStyleColored(null, 0x404040ff),
+  style_disabled: fontStyleColored(null, 0x808080ff),
   style_down: fontStyleColored(null, 0x000000ff),
 };
 
@@ -522,23 +523,28 @@ function useItem(index: number): void {
   let item = inventory[index];
   let item_def = ITEMS[item.item_id];
   if (item_def.item_type === 'key') {
-    // nothing to do?
+    // nothing to do
+    playUISound('item_unusable');
   } else if (item_def.item_type === 'consumable') {
     if (stats.hp === stats.hp_max) {
       // nothing
+      playUISound('item_unusable');
     } else {
       stats.hp = min(stats.hp_max, stats.hp + (item_def.stats.hp || 0));
       item.count = (item.count || 1) - 1;
       if (!item.count) {
         inventory.splice(index, 1);
       }
+      playUISound('item_heal');
     }
   } else {
     // equippable
     if (item.equipped) {
+      playUISound(`item_unequip_${item_def.item_type}`);
       equip(stats, item_def, false);
       item.equipped = false;
     } else {
+      playUISound(`item_equip_${item_def.item_type}`);
       for (let ii = 0; ii < inventory.length; ++ii) {
         let other_item = inventory[ii];
         if (other_item.equipped) {
@@ -554,6 +560,12 @@ function useItem(index: number): void {
     }
   }
 }
+
+let style_hud_value = fontStyle(null, {
+  color: 0x000000ff,
+  outline_width: 0.25,
+  outline_color: 0x000000ff,
+});
 
 let preview_stats_final: StatsData | null = null;
 let inventory_selbox: SelectionBox;
@@ -596,6 +608,11 @@ const selbox_display_inventory: Partial<SelectionBoxDisplay> = {
   draw_item_cb: inventoryDrawItemCB,
 };
 
+function itemName(item: Item): string {
+  let item_def = ITEMS[item.item_id];
+  return (item_def.item_type === 'consumable' ? `${item_def.name} (${item.count || 1})` : item_def.name).toUpperCase();
+}
+
 function inventoryMenu(): void {
   let z = Z.MODAL + 3;
   if (!inventory_selbox) {
@@ -613,12 +630,15 @@ function inventoryMenu(): void {
   let items: MenuItem[] = [];
   let me = myEnt();
   let { inventory, stats } = me.data;
+  // let at_max_hp = stats.hp === stats.hp_max;
   temp_inventory = inventory;
   for (let ii = 0; ii < inventory.length; ++ii) {
     let item = inventory[ii];
-    let item_def = ITEMS[item.item_id];
+    // let item_def = ITEMS[item.item_id];
     items.push({
-      name: item_def.item_type === 'consumable' ? `${item_def.name} (${item.count || 1})` : item_def.name,
+      name: itemName(item),
+      // disabled: item_def.item_type === 'consumable' && at_max_hp,
+      no_sound: true,
     });
   }
   inventory_selbox.run({
@@ -632,7 +652,6 @@ function inventoryMenu(): void {
   if (inventory_selbox.selected !== -1) {
     let item = inventory[inventory_selbox.selected];
     let item_def = ITEMS[item.item_id];
-    // TODO: display: preview_stats_delta = item_def.stats;
     if (!item.equipped) {
       preview_stats_final = {
         ...stats,
@@ -647,6 +666,71 @@ function inventoryMenu(): void {
         }
       }
       equip(preview_stats_final, item_def, true);
+    }
+
+    let descr_w = 328/1920*game_width;
+    let descr_h = 473/328*descr_w;
+    let descr_rot = -3.15/180*PI;
+    let descr_rot_adv = -3.2/180*PI;
+    let descr_x = INVENTORY_X - descr_w - 6.3;
+    let descr_y = (game_height - descr_h)/2;
+    modal_inventory_descr.draw({
+      x: descr_x,
+      y: descr_y,
+      z: z + 1,
+      w: descr_w,
+      h: descr_h,
+    });
+
+    descr_x += 6;
+    descr_y += 9;
+    descr_w -= 10;
+    let line_height = uiTextHeight();
+    function advLine(perc: number): void {
+      descr_y += line_height * perc;
+      descr_x -= sin(descr_rot_adv) * line_height * perc;
+    }
+    font.draw({
+      style: style_hud_value,
+      x: descr_x,
+      y: descr_y,
+      z: z + 2,
+      w: descr_w,
+      align: ALIGN.HFIT,
+      rot: descr_rot,
+      text: itemName(item),
+    });
+    advLine(1.5);
+    let key: keyof StatsData;
+    let any_stats = false;
+    for (key in item_def.stats) {
+      let value = item_def.stats[key];
+      font.draw({
+        color: 0x000000ff,
+        x: descr_x,
+        y: descr_y,
+        z: z + 2,
+        rot: descr_rot,
+        text: `${key === 'hp_max' ? 'MAX HP' : key.toUpperCase()} +${value}`,
+      });
+      advLine(1);
+      any_stats = true;
+    }
+    if (any_stats) {
+      advLine(0.5);
+    }
+    if (item_def.desc) {
+      font.draw({
+        color: 0x000000ff,
+        size: line_height * 0.75,
+        x: descr_x,
+        y: descr_y,
+        z: z + 2,
+        w: descr_w,
+        rot: descr_rot,
+        align: ALIGN.HWRAP,
+        text: item_def.desc,
+      });
     }
   }
 
@@ -664,11 +748,6 @@ const MOVE_BUTTONS_Y0 = game_height - 71;
 
 const LEVEL_NAME_W = 100;
 
-let style_hud_value = fontStyle(null, {
-  color: 0x000000ff,
-  outline_width: 0.25,
-  outline_color: 0x000000ff,
-});
 function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): void {
 
   let game_state = crawlerGameState();
@@ -1378,6 +1457,11 @@ export function playStartup(): void {
   });
   modal_bg_top_mult = spriteCreate({
     name: 'modal-bg-top-mult',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  modal_inventory_descr = spriteCreate({
+    name: 'modal-inventory-descr',
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });

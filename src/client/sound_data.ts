@@ -47,4 +47,16 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
   combat_hero_death: { file: 'combat/hero_death', volume: 1 },
   combat_enemy_death: { file: 'combat/enemy_death', volume: 1 },
+
+  item_heal: { file: 'item/heal', volume: 1 },
+  item_unusable: { file: 'item/unusable', volume: 1 },
+  item_equip_head: { file: 'item/equip', volume: 1 },
+  item_equip_torso: { file: 'item/equip', volume: 1 },
+  item_equip_offhand: { file: 'item/equip', volume: 1 },
+  item_equip_weapon: { file: 'item/equip', volume: 1 },
+  item_unequip_head: { file: 'item/unequip', volume: 1 },
+  item_unequip_torso: { file: 'item/unequip', volume: 1 },
+  item_unequip_offhand: { file: 'item/unequip', volume: 1 },
+  item_unequip_weapon: { file: 'item/unequip', volume: 1 },
+
 };
