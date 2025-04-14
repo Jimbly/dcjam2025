@@ -10,9 +10,35 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   msg_out: 'msg_out',
 
   // UI sounds
-  button_click: { file: 'button_click', volume: 1 }, // menus/general/etc
+  button_click: [{
+    file: 'ui/button_click/button_click_01',
+    volume: 1,
+  }, {
+    file: 'ui/button_click/button_click_02',
+    volume: 1,
+  }, {
+    file: 'ui/button_click/button_click_03',
+    volume: 1,
+  }, {
+    file: 'ui/button_click/button_click_04',
+    volume: 1,
+  }],
+  // menus/general/etc
   // button_click2: { file: 'button_click2', volume: 1 }, // movement controls
-  rollover: { file: 'rollover', volume: 0.25 },
+
+  rollover: [{
+    file: 'ui/rollover/rollover_01',
+    volume: 1,
+  }, {
+    file: 'ui/rollover/rollover_02',
+    volume: 1,
+  }, {
+    file: 'ui/rollover/rollover_03',
+    volume: 1,
+  }, {
+    file: 'ui/rollover/rollover_04',
+    volume: 1,
+  }],
 
   // Game sounds - Done
 
