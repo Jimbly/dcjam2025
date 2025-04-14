@@ -1,9 +1,9 @@
 {
   "special_pos": {
     "stairs_in": [
-      1,
-      8,
-      0
+      15,
+      2,
+      2
     ],
     "stairs_out": [
       3,
@@ -126,16 +126,16 @@
       "id": "solid",
       "walls": [
         "open",
+        "solid",
         "open",
-        "open",
         "open"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "open",
         "open",
+        "solid",
         "open",
         "open"
       ]
@@ -144,8 +144,8 @@
       "id": "solid",
       "walls": [
         "open",
+        "solid",
         "open",
-        "open",
         "open"
       ]
     },
@@ -260,45 +260,45 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
-        "open",
         "open",
         "open",
-        "open"
+        "solid",
+        "solid"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
         "open",
+        "solid",
+        "solid",
         "open"
       ]
     },
@@ -404,23 +404,23 @@
     {
       "id": "solid",
       "walls": [
+        "solid",
         "open",
         "open",
-        "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
         "open",
         "open",
-        "open",
+        "solid",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
         "open",
         "open",
@@ -429,21 +429,27 @@
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
+        "entrance",
         "open",
         "open",
-        "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "entrance",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
+        "solid",
+        "solid",
+        "door",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "-1"
+        }
       ]
     },
     {
@@ -548,35 +554,35 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
-        "open",
-        "open",
         "open",
+        "solid",
+        "solid",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
-        "open",
         "open",
+        "solid",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
-        "open",
-        "open",
+        "solid",
+        "solid",
         "open",
         "open"
       ]
@@ -586,8 +592,8 @@
       "walls": [
         "open",
         "open",
-        "open",
-        "open"
+        "solid",
+        "solid"
       ]
     },
     {
@@ -704,7 +710,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -713,7 +719,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -722,7 +728,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2328,6 +2334,16 @@
         "open",
         "open",
         "open"
+      ]
+    }
+  ],
+  "initial_entities": [
+    {
+      "type": "critter11",
+      "pos": [
+        12,
+        3,
+        0
       ]
     }
   ],
