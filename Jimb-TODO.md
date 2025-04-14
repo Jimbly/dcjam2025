@@ -1,8 +1,12 @@
 TODO
 * prototype HEATgame
-  * maybe different game state within play()?
-  * get mechanics working without viewing the asteroids, just numbers for next too
-    * standalone minimal test?
+  * display report on right
+    * also "after-action" report of last turn / action log?
+  * show position in-world
+  * telegraph what happens when clicking GO
+    * cooling cards disappear and heat goes down
+    * cards disappear and position changes, one step at a time, heat goes up upon hitting asteroid
+    * hand is replenished
   * still load a level, but set game_state.pos ourselves
   * asteroid entities are perhaps at half-coord positions (generally have a SQUASH param)
 * change combat to happen when you step onto their square; show enemy stats when looking at them

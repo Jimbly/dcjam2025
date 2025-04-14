@@ -134,6 +134,8 @@ import {
   game_width,
   render_height,
   render_width,
+  VIEWPORT_X0,
+  VIEWPORT_Y0,
 } from './globals';
 import { ItemDef, ITEMS } from './item_defs';
 import { appTraitsStartup } from './jam_traits';
@@ -144,7 +146,7 @@ import {
   statusPush,
   statusTick,
 } from './status';
-import { travelGameActive, travelGameCheck } from './travelgame';
+import { doTravelGame, travelGameActive, travelGameCheck } from './travelgame';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { ceil, floor, max, min, round, sin, PI } = Math;
@@ -165,8 +167,6 @@ const COMPASS_W = 50;
 const COMPASS_H = 12.5;
 const COMPASS_X = MINIMAP_X + (MINIMAP_W - COMPASS_W)/2;
 const COMPASS_Y = MINIMAP_Y + MINIMAP_H - 3;
-const VIEWPORT_X0 = 5;
-const VIEWPORT_Y0 = 5;
 
 type Entity = EntityDemoClient;
 
@@ -1129,6 +1129,9 @@ function playCrawl(): void {
   }
   if (inventory_up) {
     inventoryMenu();
+  }
+  if (travel_game) {
+    doTravelGame();
   }
 
   let game_state = crawlerGameState();
