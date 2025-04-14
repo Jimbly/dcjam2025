@@ -845,6 +845,7 @@ export function crawlerRenderFramePrep(): void {
   let opts_3d: {
     fov: number;
     clear_all: boolean;
+    clear_color?: Vec4;
     clear_all_color?: Vec4;
     width?: number;
     height?: number;
@@ -890,6 +891,7 @@ export function crawlerRenderFramePrep(): void {
     fog_ex_color = vstyle.fog_ex_color || fog_ex_color;
     fog_params = vstyle.fog_params;
   }
+  opts_3d.clear_color = [clear[0], clear[1], clear[2], 0];
   gl.clearColor(clear[0], clear[1], clear[2], 0);
   crawlerSetFogColor(fog);
   crawlerSetFogExColor(fog_ex_color);
