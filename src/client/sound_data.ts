@@ -45,17 +45,103 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   // Game sounds - TODO
 
   footstep: [{
-    file: 'footstep/footstep1',
-    volume: 0.25,
-  }, {
-    file: 'footstep/footstep2',
+    file: 'footstep/metal/metal_01',
     volume: 1,
   }, {
-    file: 'footstep/footstep3',
+    file: 'footstep/metal/metal_02',
     volume: 1,
   }, {
-    file: 'footstep/footstep4',
-    volume: 0.5,
+    file: 'footstep/metal/metal_03',
+    volume: 1,
+  }, {
+    file: 'footstep/metal/metal_04',
+    volume: 1,
+  }, {
+    file: 'footstep/metal/metal_05',
+    volume: 1,
+  }, {
+    file: 'footstep/metal/metal_06',
+    volume: 1,
+  }],
+
+  footstep_carpet: [{
+    file: 'footstep/carpet/carpet_01',
+    volume: 1,
+  }, {
+    file: 'footstep/carpet/carpet_02',
+    volume: 1,
+  }, {
+    file: 'footstep/carpet/carpet_03',
+    volume: 1,
+  }, {
+    file: 'footstep/carpet/carpet_04',
+    volume: 1,
+  }, {
+    file: 'footstep/carpet/carpet_05',
+    volume: 1,
+  }, {
+    file: 'footstep/carpet/carpet_06',
+    volume: 1,
+  }],
+
+  footstep_grass: [{
+    file: 'footstep/grass/grass_01',
+    volume: 1,
+  }, {
+    file: 'footstep/grass/grass_02',
+    volume: 1,
+  }, {
+    file: 'footstep/grass/grass_03',
+    volume: 1,
+  }, {
+    file: 'footstep/grass/grass_04',
+    volume: 1,
+  }, {
+    file: 'footstep/grass/grass_05',
+    volume: 1,
+  }, {
+    file: 'footstep/grass/grass_06',
+    volume: 1,
+  }],
+
+  footstep_gravel: [{
+    file: 'footstep/gravel/gravel_01',
+    volume: 1,
+  }, {
+    file: 'footstep/gravel/gravel_02',
+    volume: 1,
+  }, {
+    file: 'footstep/gravel/gravel_03',
+    volume: 1,
+  }, {
+    file: 'footstep/gravel/gravel_04',
+    volume: 1,
+  }, {
+    file: 'footstep/gravel/gravel_05',
+    volume: 1,
+  }, {
+    file: 'footstep/gravel/gravel_06',
+    volume: 1,
+  }],
+
+  footstep_stone: [{
+    file: 'footstep/stone/stone_01',
+    volume: 1,
+  }, {
+    file: 'footstep/stone/stone_02',
+    volume: 1,
+  }, {
+    file: 'footstep/stone/stone_03',
+    volume: 1,
+  }, {
+    file: 'footstep/stone/stone_04',
+    volume: 1,
+  }, {
+    file: 'footstep/stone/stone_05',
+    volume: 1,
+  }, {
+    file: 'footstep/stone/stone_06',
+    volume: 1,
   }],
 
   combat_start: { file: 'combat/start', volume: 1 },
