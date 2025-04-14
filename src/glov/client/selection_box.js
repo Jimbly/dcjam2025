@@ -301,6 +301,7 @@ class SelectionBoxBase {
       this.sa = scrollAreaCreate({
         //focusable_elem: this,
         background_color: null, // DCJAM
+        clip_horiz_xpad: 8, // DCJAM
       });
     }
   }

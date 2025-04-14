@@ -198,6 +198,8 @@ let modal_frame: Sprite;
 let modal_bg_bottom_add: Sprite;
 let modal_bg_top_mult: Sprite;
 let modal_inventory_descr: Sprite;
+let modal_label_inventory: Sprite;
+let modal_label_options: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -224,7 +226,7 @@ const selbox_display: Partial<SelectionBoxDisplay> = {
   style_down: fontStyleColored(null, 0x000000ff),
 };
 
-function modalBackground(min_w: number, min_h: number): void {
+function modalBackground(min_w: number, min_h: number, label: Sprite): void {
   let modal_frame_h = min_h * 825/605;
   let modal_frame_w = max(modal_frame_h / 825 * 657,
     min_w * 657/483);
@@ -246,6 +248,14 @@ function modalBackground(min_w: number, min_h: number): void {
     ...box,
     z: Z.MODAL + 0.2,
     blend: BLEND_MULTIPLY,
+  });
+  let label_w = label.texs[0].src_width / 674 * 155;
+  label.draw({
+    x: box.x - 8,
+    y: box.y - (label === modal_label_options ? 23 : 32),
+    z: Z.MODAL + 0.4,
+    w: label_w,
+    h: label_w / label.getAspect(),
   });
   menuUp();
 }
@@ -331,7 +341,7 @@ function pauseMenu(): void {
   settingsSet('volume_sound', pause_menu.getItem(1).value as number);
   settingsSet('volume_music', pause_menu.getItem(2).value as number);
 
-  modalBackground(PAUSE_MENU_W, modal_contents_h);
+  modalBackground(PAUSE_MENU_W, modal_contents_h, modal_label_options);
 }
 
 function shift(): boolean {
@@ -572,7 +582,7 @@ let inventory_selbox: SelectionBox;
 const INVENTORY_W = 110;
 const INVENTORY_H = 140;
 const INVENTORY_X = (game_width - INVENTORY_W) / 2;
-const INVENTORY_Y = (game_height - INVENTORY_H) / 2;
+const INVENTORY_Y = (game_height - INVENTORY_H) / 2 + 3;
 const INVENTORY_ENTRY_H = 15; // uiButtonHeight()
 const MARKER_W = 12;
 let temp_inventory: Item[];
@@ -673,7 +683,7 @@ function inventoryMenu(): void {
     let descr_rot = -3.15/180*PI;
     let descr_rot_adv = -3.2/180*PI;
     let descr_x = INVENTORY_X - descr_w - 6.3;
-    let descr_y = (game_height - descr_h)/2;
+    let descr_y = (game_height - descr_h)/2 + 6;
     modal_inventory_descr.draw({
       x: descr_x,
       y: descr_y,
@@ -734,7 +744,7 @@ function inventoryMenu(): void {
     }
   }
 
-  modalBackground(INVENTORY_W, INVENTORY_H);
+  modalBackground(INVENTORY_W, INVENTORY_H, modal_label_inventory);
 }
 
 const HUD_PAD = 8;
@@ -1462,6 +1472,16 @@ export function playStartup(): void {
   });
   modal_inventory_descr = spriteCreate({
     name: 'modal-inventory-descr',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  modal_label_inventory = spriteCreate({
+    name: 'modal-label-inventory',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  modal_label_options = spriteCreate({
+    name: 'modal-label-options',
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });

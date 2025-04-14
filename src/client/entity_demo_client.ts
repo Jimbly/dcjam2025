@@ -146,6 +146,12 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
         data.inventory.push({
           item_id: 'key1',
         });
+        data.inventory.push({
+          item_id: 'key1',
+        });
+        data.inventory.push({
+          item_id: 'key1',
+        });
       }
     }
 
