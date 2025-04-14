@@ -1,0 +1,8 @@
+---
+open_move: false
+open_vis: true
+# visuals:
+# - type: simple_wall
+#   opts:
+#     atlas: test
+#     tile: solid1

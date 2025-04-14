@@ -1,0 +1,25 @@
+---
+# fog_color: '#fff'
+fog_color: '#8e899a'
+fog_ex_color: [0, 0, 0, 0] # extinction color, w is a uniform scale on brightness
+background_color: '#000'
+background_img: minigame/crawler_sky
+fog_params:
+- 0 # 0.0025 # color extinction rate
+- 0.0015 # fog rate
+- 450.0
+cell_swaps:
+  open: space_open
+wall_swaps:
+  open: space_open
+  door: space_open
+  # door_oneway: test_door
+  # door_locked: demo_door_locked
+  # door_locked_unlocked: demo_door_locked_unlocked
+  entrance: space_open
+  # secret_door: demo_secret_door
+  # secret_door_unvisited: demo_secret_door
+  solid: space_invis
+  stairs_in: space_open
+  stairs_out: space_open
+  # floorswitch: demo_floorswitch
