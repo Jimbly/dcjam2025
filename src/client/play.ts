@@ -144,6 +144,7 @@ import {
   statusPush,
   statusTick,
 } from './status';
+import { travelGameActive, travelGameCheck } from './travelgame';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { ceil, floor, max, min, round, sin, PI } = Math;
@@ -262,7 +263,7 @@ function modalBackground(min_w: number, min_h: number, label: Sprite): void {
 
 const PAUSE_MENU_W = 120;
 let pause_menu: SimpleMenu;
-function pauseMenu(): void {
+function pauseMenu(disable_saving: boolean): void {
   if (!pause_menu) {
     pause_menu = simpleMenuCreate({
       x: floor((game_width - PAUSE_MENU_W)/2),
@@ -298,6 +299,7 @@ function pauseMenu(): void {
   if (isLocal()) {
     items.push({
       name: 'Save game',
+      disabled: disable_saving,
       cb: function () {
         crawlerSaveGame('manual');
         statusPush('Game saved.');
@@ -307,6 +309,7 @@ function pauseMenu(): void {
   }
   items.push({
     name: isOnline() ? 'Return to Title' : 'Save and Exit',
+    disabled: disable_saving,
     cb: function () {
       if (!isOnline()) {
         crawlerSaveGame('manual');
@@ -919,12 +922,14 @@ function playCrawl(): void {
 
   let dt = getScaledFrameDt();
 
-  let frame_combat = myEnt().isAlive() && engagedEnemy() || null;
+  const build_mode = buildModeActive();
+  let travel_game = travelGameCheck(build_mode);
+  let frame_combat = !travel_game && myEnt().isAlive() && engagedEnemy() || null;
   if (frame_combat && mapViewActive()) {
     mapViewSetActive(false);
   }
-  const frame_map_view = mapViewActive();
-  const frame_inventory_up = inventory_up;
+  const frame_map_view = !travel_game && mapViewActive();
+  const frame_inventory_up = !travel_game && inventory_up;
   const is_fullscreen_ui = false; // any game-mode fullscreen UIs up?
   let dialog_viewport = {
     x: VIEWPORT_X0 + 8,
@@ -943,7 +948,6 @@ function playCrawl(): void {
   }
   dialogRun(dt, dialog_viewport, false);
 
-  const build_mode = buildModeActive();
   let locked_dialog = dialogMoveLocked();
   const overlay_menu_up = pause_menu_up || inventory_up;
   let minimap_display_x = MINIMAP_X;
@@ -968,7 +972,7 @@ function playCrawl(): void {
   let button_x0: number;
   let button_y0: number;
 
-  let disabled = controller.hasMoveBlocker();
+  let disabled = !travel_game && controller.hasMoveBlocker();
 
   function button(
     rx: number, ry: number,
@@ -1029,8 +1033,10 @@ function playCrawl(): void {
   if (menu_up) {
     menu_pads.push(PAD.B, PAD.BACK);
   }
-  button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads, false, 'ESC');
-  if (!build_mode) {
+  if (!travel_game) {
+    button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads, false, 'ESC');
+  }
+  if (!build_mode && !travel_game) {
     button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up, 'I');
     if (up_edge.inventory) {
       inventory_up = !inventory_up;
@@ -1038,7 +1044,7 @@ function playCrawl(): void {
   }
 
   if (pause_menu_up) {
-    pauseMenu();
+    pauseMenu(travel_game);
   }
 
   if (frame_combat && engagedEnemy() !== crawlerEntInFront()) {
@@ -1104,7 +1110,9 @@ function playCrawl(): void {
     }
   }
 
-  if (!frame_map_view) {
+  if (travel_game) {
+    // no hud here
+  } else if (!frame_map_view) {
     if (!build_mode) {
       // Do game UI/stats here
       displayHUD(frame_inventory_up, frame_combat);
@@ -1115,7 +1123,7 @@ function playCrawl(): void {
       mapViewToggle();
     }
   }
-  if (!overlay_menu_up && !frame_combat && (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))) {
+  if (!overlay_menu_up && !travel_game && !frame_combat && (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))) {
     playUISound('button_click');
     mapViewToggle();
   }
@@ -1134,7 +1142,7 @@ function playCrawl(): void {
     crawlerMapViewDraw(game_state, 0, 0, game_width, game_height, 0, 0, Z.MAP,
       engine.defines.LEVEL_GEN, script_api, overlay_menu_up,
       floor((game_width - MINIMAP_W)/2), 2); // note: compass ignored, compass_h = 0 above
-  } else if (!frame_combat) {
+  } else if (!frame_combat && !travel_game) {
     if (!build_mode) {
       const OVERLAY_PAD = 1;
       let minimap_rect = {
@@ -1159,20 +1167,22 @@ function playCrawl(): void {
       COMPASS_X, COMPASS_Y);
   }
 
-  controller.doPlayerMotion({
-    dt,
-    button_x0: MOVE_BUTTONS_X0,
-    button_y0: build_mode ? game_height - 16 : MOVE_BUTTONS_Y0,
-    no_visible_ui: frame_map_view,
-    button_w: build_mode ? 6 : BUTTON_W,
-    button_sprites: useNoText() ? button_sprites_notext : button_sprites,
-    disable_move: moveBlocked() || overlay_menu_up,
-    disable_player_impulse: Boolean(frame_combat || locked_dialog),
-    show_buttons: !frame_combat && !locked_dialog,
-    do_debug_move: engine.defines.LEVEL_GEN || build_mode,
-    show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
-    show_hotkeys: !useNoText(),
-  });
+  if (!travel_game) {
+    controller.doPlayerMotion({
+      dt,
+      button_x0: MOVE_BUTTONS_X0,
+      button_y0: build_mode ? game_height - 16 : MOVE_BUTTONS_Y0,
+      no_visible_ui: frame_map_view,
+      button_w: build_mode ? 6 : BUTTON_W,
+      button_sprites: useNoText() ? button_sprites_notext : button_sprites,
+      disable_move: moveBlocked() || overlay_menu_up,
+      disable_player_impulse: Boolean(frame_combat || locked_dialog),
+      show_buttons: !frame_combat && !locked_dialog,
+      do_debug_move: engine.defines.LEVEL_GEN || build_mode,
+      show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
+      show_hotkeys: !useNoText(),
+    });
+  }
 
 
   statusTick(dialog_viewport);
@@ -1237,7 +1247,7 @@ export function play(dt: number): void {
 
   playCrawl();
 
-  crawlerPrepAndRenderFrame();
+  crawlerPrepAndRenderFrame(travelGameActive() ? 30/180*PI : 0);
 
   // if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
   //   let all_entities = entityManager().entities;
@@ -1276,6 +1286,7 @@ function playInitShared(online: boolean): void {
 
   pause_menu_up = false;
   inventory_up = false;
+  travelGameCheck(true);
 }
 
 

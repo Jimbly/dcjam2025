@@ -841,7 +841,7 @@ function uiClearColor(): void {
 let entity_split: boolean;
 let default_bg_color = vec3();
 let default_fog_params = vec3(0.003, 0.001, 800.0);
-export function crawlerRenderFramePrep(): void {
+export function crawlerRenderFramePrep(fov_hack: number): void { // DCJAM
   let opts_3d: {
     fov: number;
     clear_all: boolean;
@@ -852,7 +852,7 @@ export function crawlerRenderFramePrep(): void {
     viewport?: Vec4;
     need_depth?: string;
   } = {
-    fov: FOV,
+    fov: fov_hack || FOV,
     clear_all: true,
     clear_all_color: ui_clear_color,
   };
@@ -1041,8 +1041,8 @@ export function crawlerRenderFrame(): void {
   }
 }
 
-export function crawlerPrepAndRenderFrame(): void {
-  crawlerRenderFramePrep();
+export function crawlerPrepAndRenderFrame(fov_hack: number): void { // DCJAM
+  crawlerRenderFramePrep(fov_hack);
   crawlerRenderFrame();
 }
 

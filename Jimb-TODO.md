@@ -1,4 +1,10 @@
 TODO
+* prototype HEATgame
+  * maybe different game state within play()?
+  * get mechanics working without viewing the asteroids, just numbers for next too
+    * standalone minimal test?
+  * still load a level, but set game_state.pos ourselves
+  * asteroid entities are perhaps at half-coord positions (generally have a SQUASH param)
 * change combat to happen when you step onto their square; show enemy stats when looking at them
 * tap-to-move (forward) is immediately starting repeat, no delay
 * don't load sprite_near (shouldn't show up in /texmem)
