@@ -6,7 +6,7 @@ visuals:
   type: simple_floor
   opts:
     atlas: station
-    tile: floor_pillar
+    tile: floor
 - pass: bg
   type: simple_ceiling
   opts:

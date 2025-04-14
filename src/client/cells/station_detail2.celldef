@@ -16,7 +16,7 @@ visuals:
   type: simple_billboard
   opts:
     atlas: station
-    tile: chest
+    tile: detail2
     width: 0.5
     height: 0.5
     offs: [0, 0, 0]
