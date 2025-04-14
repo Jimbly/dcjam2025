@@ -47,6 +47,11 @@ export type StatsData = {
   dodge: number;
 };
 
+export type Item = {
+  item_id: string;
+  count?: number;
+  equipped?: boolean;
+};
 
 export type EntityDataClient = {
   type: string;
@@ -56,6 +61,7 @@ export type EntityDataClient = {
   stats: StatsData;
   // Player:
   money: number;
+  inventory: Item[];
 } & EntityCrawlerDataCommon;
 
 
@@ -106,10 +112,29 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
       if (!data.money) {
         data.money = 0;
       }
+      if (!data.inventory) {
+        data.inventory = [];
+      }
       data.stats.attack = 8;
       data.stats.defense = 4;
       data.stats.accuracy = 4;
       data.stats.dodge = 4;
+      if (!data.inventory.length) {
+        data.inventory.push({
+          item_id: 'helmet1',
+        });
+        data.inventory.push({
+          item_id: 'helmet2',
+          equipped: true,
+        });
+        data.inventory.push({
+          item_id: 'helmet3',
+        });
+        data.inventory.push({
+          item_id: 'med1',
+          count: 3,
+        });
+      }
     }
 
     this.floaters = [];

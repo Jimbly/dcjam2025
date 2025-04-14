@@ -19,7 +19,15 @@ import {
   padButtonUpEdge,
 } from 'glov/client/input';
 import { ClientChannelWorker } from 'glov/client/net';
-import { MenuItem, SelectionBoxDisplay } from 'glov/client/selection_box';
+import {
+  MenuItem,
+  selboxDefaultDrawItemBackground,
+  selboxDefaultDrawItemText,
+  SelectionBox,
+  selectionBoxCreate,
+  SelectionBoxDisplay,
+  SelectionBoxDrawItemParams,
+} from 'glov/client/selection_box';
 import * as settings from 'glov/client/settings';
 import {
   settingsRegister,
@@ -37,6 +45,7 @@ import {
   buttonText,
   drawBoxTiled,
   drawHBox,
+  drawLine,
   isMenuUp,
   menuUp,
   panel,
@@ -118,7 +127,7 @@ import {
 import { crawlerScriptAPIDummyServer } from './crawler_script_api_client';
 import { crawlerOnScreenButton } from './crawler_ui';
 import { dialogMoveLocked, dialogRun, dialogStartup } from './dialog_system';
-import { EntityDemoClient, entityManager } from './entity_demo_client';
+import { EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_client';
 // import { EntityDemoClient } from './entity_demo_client';
 import {
   game_height,
@@ -126,6 +135,7 @@ import {
   render_height,
   render_width,
 } from './globals';
+import { ItemDef, ITEMS } from './item_defs';
 import { appTraitsStartup } from './jam_traits';
 import { levelGenTest } from './level_gen_test';
 import { tickMusic } from './music';
@@ -136,7 +146,7 @@ import {
 } from './status';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { floor, max, min, round } = Math;
+const { floor, max, min, round, PI } = Math;
 
 declare module 'glov/client/settings' {
   export let ai_pause: 0 | 1; // TODO: move to ai.ts
@@ -212,6 +222,32 @@ const selbox_display: Partial<SelectionBoxDisplay> = {
   style_disabled: fontStyleColored(null, 0x404040ff),
   style_down: fontStyleColored(null, 0x000000ff),
 };
+
+function modalBackground(min_w: number, min_h: number): void {
+  let modal_frame_h = min_h * 825/605;
+  let modal_frame_w = max(modal_frame_h / 825 * 657,
+    min_w * 657/483);
+  modal_frame_h = modal_frame_w / 657 * 825;
+  let box = {
+    x: (game_width - modal_frame_w) / 2,
+    y: (game_height - modal_frame_h) / 2,
+    w: modal_frame_w,
+    h: modal_frame_h,
+    z: Z.MODAL + 0.3,
+  };
+  modal_frame.draw(box);
+  modal_bg_bottom_add.draw({
+    ...box,
+    z: Z.MODAL + 0.1,
+    blend: BLEND_ADDITIVE,
+  });
+  modal_bg_top_mult.draw({
+    ...box,
+    z: Z.MODAL + 0.2,
+    blend: BLEND_MULTIPLY,
+  });
+  menuUp();
+}
 
 const PAUSE_MENU_W = 120;
 let pause_menu: SimpleMenu;
@@ -294,30 +330,7 @@ function pauseMenu(): void {
   settingsSet('volume_sound', pause_menu.getItem(1).value as number);
   settingsSet('volume_music', pause_menu.getItem(2).value as number);
 
-  let modal_frame_h = modal_contents_h * 825/605;
-  let modal_frame_w = max(modal_frame_h / 825 * 657,
-    PAUSE_MENU_W * 657/483);
-  modal_frame_h = modal_frame_w / 657 * 825;
-  let box = {
-    x: (game_width - modal_frame_w) / 2,
-    y: (game_height - modal_frame_h) / 2,
-    w: modal_frame_w,
-    h: modal_frame_h,
-    z: Z.MODAL + 0.3,
-  };
-  modal_frame.draw(box);
-  modal_bg_bottom_add.draw({
-    ...box,
-    z: Z.MODAL + 0.1,
-    blend: BLEND_ADDITIVE,
-  });
-  modal_bg_top_mult.draw({
-    ...box,
-    z: Z.MODAL + 0.2,
-    blend: BLEND_MULTIPLY,
-  });
-
-  menuUp();
+  modalBackground(PAUSE_MENU_W, modal_contents_h);
 }
 
 function shift(): boolean {
@@ -492,6 +505,154 @@ function useNoText(): boolean {
   return input.inputTouchMode() || input.inputPadMode()/* || settings.turn_toggle*/; // DCJAM
 }
 
+function equip(stats: StatsData, item: ItemDef, is_on: boolean): void {
+  let key: keyof StatsData;
+  for (key in item.stats) {
+    let value = item.stats[key]!;
+    stats[key] += value * (is_on ? 1 : -1);
+    if (key === 'hp') {
+      stats[key] = clamp(stats[key], 0, stats.hp_max);
+    }
+  }
+}
+
+function useItem(index: number): void {
+  let me = myEnt();
+  let { inventory, stats } = me.data;
+  let item = inventory[index];
+  let item_def = ITEMS[item.item_id];
+  if (item_def.item_type === 'key') {
+    // nothing to do?
+  } else if (item_def.item_type === 'consumable') {
+    if (stats.hp === stats.hp_max) {
+      // nothing
+    } else {
+      stats.hp = min(stats.hp_max, stats.hp + (item_def.stats.hp || 0));
+      item.count = (item.count || 1) - 1;
+      if (!item.count) {
+        inventory.splice(index, 1);
+      }
+    }
+  } else {
+    // equippable
+    if (item.equipped) {
+      equip(stats, item_def, false);
+      item.equipped = false;
+    } else {
+      for (let ii = 0; ii < inventory.length; ++ii) {
+        let other_item = inventory[ii];
+        if (other_item.equipped) {
+          let other_item_def = ITEMS[other_item.item_id];
+          if (other_item_def.item_type === item_def.item_type) {
+            equip(stats, other_item_def, false);
+            other_item.equipped = false;
+          }
+        }
+      }
+      equip(stats, item_def, true);
+      item.equipped = true;
+    }
+  }
+}
+
+let preview_stats_final: StatsData | null = null;
+let inventory_selbox: SelectionBox;
+const INVENTORY_W = 110;
+const INVENTORY_H = 140;
+const INVENTORY_X = (game_width - INVENTORY_W) / 2;
+const INVENTORY_Y = (game_height - INVENTORY_H) / 2;
+const INVENTORY_ENTRY_H = 15; // uiButtonHeight()
+const MARKER_W = 12;
+let temp_inventory: Item[];
+function inventoryDrawItemCB(param: SelectionBoxDrawItemParams): void {
+  selboxDefaultDrawItemBackground(param);
+  selboxDefaultDrawItemText({
+    ...param,
+    x: param.x + MARKER_W,
+    w: param.w - MARKER_W,
+  });
+  let { item_idx } = param;
+  let item = temp_inventory[item_idx];
+  let item_def = ITEMS[item.item_id];
+  if (item.equipped) {
+    autoAtlas('default', 'modal-inventory-marker').draw({
+      x: param.x - MARKER_W/2,
+      y: param.y + (INVENTORY_ENTRY_H - MARKER_W) / 2,
+      z: param.z + 1,
+      w: MARKER_W,
+      h: MARKER_W,
+    });
+  }
+  autoAtlas('default', `icon-inventory-${item_def.item_type}`).draw({
+    x: param.x + MARKER_W/2,
+    y: param.y + (INVENTORY_ENTRY_H - MARKER_W) / 2,
+    z: param.z + 1,
+    w: MARKER_W,
+    h: MARKER_W,
+  });
+}
+const selbox_display_inventory: Partial<SelectionBoxDisplay> = {
+  ...selbox_display,
+  draw_item_cb: inventoryDrawItemCB,
+};
+
+function inventoryMenu(): void {
+  let z = Z.MODAL + 3;
+  if (!inventory_selbox) {
+    inventory_selbox = selectionBoxCreate({
+      x: INVENTORY_X + MARKER_W/2,
+      y: INVENTORY_Y,
+      z,
+      width: INVENTORY_W - MARKER_W/2,
+      scroll_height: INVENTORY_H,
+      entry_height: INVENTORY_ENTRY_H,
+      display: selbox_display_inventory,
+      touch_focuses: true,
+    });
+  }
+  let items: MenuItem[] = [];
+  let me = myEnt();
+  let { inventory, stats } = me.data;
+  temp_inventory = inventory;
+  for (let ii = 0; ii < inventory.length; ++ii) {
+    let item = inventory[ii];
+    let item_def = ITEMS[item.item_id];
+    items.push({
+      name: item_def.item_type === 'consumable' ? `${item_def.name} (${item.count || 1})` : item_def.name,
+    });
+  }
+  inventory_selbox.run({
+    items,
+  });
+  if (inventory_selbox.wasClicked()) {
+    useItem(inventory_selbox.selected);
+  }
+
+  preview_stats_final = null;
+  if (inventory_selbox.selected !== -1) {
+    let item = inventory[inventory_selbox.selected];
+    let item_def = ITEMS[item.item_id];
+    // TODO: display: preview_stats_delta = item_def.stats;
+    if (!item.equipped) {
+      preview_stats_final = {
+        ...stats,
+      };
+      for (let ii = 0; ii < inventory.length; ++ii) {
+        let other_item = inventory[ii];
+        if (other_item.equipped) {
+          let other_item_def = ITEMS[other_item.item_id];
+          if (other_item_def.item_type === item_def.item_type) {
+            equip(preview_stats_final, other_item_def, false);
+          }
+        }
+      }
+      equip(preview_stats_final, item_def, true);
+    }
+  }
+
+  modalBackground(INVENTORY_W, INVENTORY_H);
+}
+
 const HUD_PAD = 8;
 const HUD_W_FULL = game_width - (VIEWPORT_X0 + render_width + VIEWPORT_X0); // 110
 const HUD_X0 = game_width - HUD_W_FULL + 2; // 340
@@ -508,7 +669,7 @@ let style_hud_value = fontStyle(null, {
   outline_width: 0.25,
   outline_color: 0x000000ff,
 });
-function displayHUD(frame_combat: Entity | null): void {
+function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): void {
 
   let game_state = crawlerGameState();
   let level = game_state.level;
@@ -554,14 +715,15 @@ function displayHUD(frame_combat: Entity | null): void {
     }
   }
 
-  let y = 108;
-  function statsLine(label: string, value: string | number): void {
+  const STATS_Y0 = 108;
+  let y = STATS_Y0;
+  function statsLine(label: string, value: string | number, other_value?: string | number): void {
     const STATSPAD = 8;
     let x = HUD_X0 + STATSPAD;
+    let z = frame_inventory_up ? Z.MODAL + 2 : Z.UI;
     let text_w = font.draw({
       color: 0x000000ff,
-      x,
-      y,
+      x, y, z,
       size: text_height * 0.75,
       text: label,
     });
@@ -569,31 +731,69 @@ function displayHUD(frame_combat: Entity | null): void {
     font.draw({
       color: 0x000000ff,
       x: x + text_w,
+      y, z,
       w: left,
-      y: y,
       size: text_height * 0.75,
       align: ALIGN.HRIGHT,
       text: new Array(floor(left / text_height*6.2)).join('.'),
     });
-    font.draw({
+    let text_full_w = HUD_W - STATSPAD * 2;
+    let value_w = font.draw({
       x,
       y: y - 3,
-      w: HUD_W - STATSPAD * 2,
+      z,
+      w: text_full_w,
       align: ALIGN.HRIGHT,
       style: style_hud_value,
       size: text_height,
       text: String(value),
     });
+
+    if (other_value && other_value !== value) {
+      let line_start = x + text_full_w - value_w - 1;
+      drawLine(line_start, y+1, x + text_full_w + 1, y+1, z + 0.1, 1, 1, [0,0,0,1]);
+      font.draw({
+        x: line_start - 2,
+        y: y - 3,
+        z,
+        align: ALIGN.HRIGHT,
+        style: style_hud_value,
+        size: text_height,
+        text: String(other_value),
+      });
+    }
+
     y += text_height * 1.5;
   }
 
   let me = myEnt();
-  statsLine('HIT POINTS', `${me.data.stats.hp}/${me.data.stats.hp_max}`);
-  statsLine('ATTACK', me.data.stats.attack);
-  statsLine('DEFENSE', me.data.stats.defense);
-  statsLine('ACCURACY', me.data.stats.accuracy);
-  statsLine('DODGE', me.data.stats.dodge);
+  if (frame_inventory_up && preview_stats_final) {
+    statsLine('HIT POINTS', `${me.data.stats.hp}/${me.data.stats.hp_max}`,
+      `${preview_stats_final.hp}/${preview_stats_final.hp_max}`);
+    statsLine('ATTACK', me.data.stats.attack, preview_stats_final.attack);
+    statsLine('DEFENSE', me.data.stats.defense, preview_stats_final.defense);
+    statsLine('ACCURACY', me.data.stats.accuracy, preview_stats_final.accuracy);
+    statsLine('DODGE', me.data.stats.dodge, preview_stats_final.dodge);
+  } else {
+    statsLine('HIT POINTS', `${me.data.stats.hp}/${me.data.stats.hp_max}`);
+    statsLine('ATTACK', me.data.stats.attack);
+    statsLine('DEFENSE', me.data.stats.defense);
+    statsLine('ACCURACY', me.data.stats.accuracy);
+    statsLine('DODGE', me.data.stats.dodge);
+  }
   statsLine('FUNDS', me.data.money);
+
+  if (frame_inventory_up) {
+    panel({
+      x: HUD_X0,
+      y: STATS_Y0 - HUD_PAD,
+      z: Z.MODAL + 1,
+      w: HUD_W,
+      h: y - STATS_Y0 + HUD_PAD * 2,
+      color: [0.988, 0.976, 0.973, 1],
+      eat_clicks: false,
+    });
+  }
 
   panel({
     x: HUD_X0,
@@ -635,6 +835,7 @@ function playCrawl(): void {
     mapViewSetActive(false);
   }
   const frame_map_view = mapViewActive();
+  const frame_inventory_up = inventory_up;
   const is_fullscreen_ui = false; // any game-mode fullscreen UIs up?
   let dialog_viewport = {
     x: VIEWPORT_X0 + 8,
@@ -696,7 +897,7 @@ function playCrawl(): void {
       no_visible_ui = false;
       if (frame_map_view) {
         z = Z.MAP + 1;
-      } else if (pause_menu_up) {
+      } else if (pause_menu_up || inventory_up) {
         z = Z.MODAL + 1;
       } else {
         z = Z.MENUBUTTON;
@@ -817,7 +1018,7 @@ function playCrawl(): void {
   if (!frame_map_view) {
     if (!build_mode) {
       // Do game UI/stats here
-      displayHUD(frame_combat);
+      displayHUD(frame_inventory_up, frame_combat);
     }
     // Do modal UIs here
   } else {
@@ -829,7 +1030,9 @@ function playCrawl(): void {
     playUISound('button_click');
     mapViewToggle();
   }
-  // inventoryMenu();
+  if (inventory_up) {
+    inventoryMenu();
+  }
 
   let game_state = crawlerGameState();
   let script_api = crawlerScriptAPI();
