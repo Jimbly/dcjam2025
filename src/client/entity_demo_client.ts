@@ -115,6 +115,8 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
       if (!data.inventory) {
         data.inventory = [];
       }
+      data.stats.hp = 8;
+      data.stats.hp_max = 10;
       data.stats.attack = 8;
       data.stats.defense = 4;
       data.stats.accuracy = 4;
