@@ -52,7 +52,10 @@ type DamageRet = {
   style: 'miss' | 'normal' | 'crit';
 };
 
-export function damage(attacker: StatsData, defender: StatsData): DamageRet {
+export function damage(
+  attacker: Omit<StatsData, 'hp' | 'hp_max'>,
+  defender: Omit<StatsData, 'hp' | 'hp_max'>
+): DamageRet {
   let attacker_atk = attacker.attack;
   let defender_def = defender.defense;
   let dam = attacker_atk * attacker_atk / (attacker_atk + defender_def);
