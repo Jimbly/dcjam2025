@@ -354,10 +354,10 @@ function crawlerTraitsInit(ent_factory: TraitFactory<Entity, DataObject>): void 
     },
     default_opts: {
       lod_bias: [-1,0], // DCJAM25 [-4, 0],
-      biasL: [-0.2, 0.25],
-      biasF: [-0.25, 0],
-      biasR: [-0.3, 0.4],
-      biasIn: [0, 0.3, 0.25],
+      biasL: [-0.3, 0.32], // DCJAM25
+      biasF: [-0.35, 0], // DCJAM25
+      biasR: [-0.3, 0.32], // DCJAM25
+      biasIn: [0, 0.3, 0.25], // DCJAM25
     },
   });
 

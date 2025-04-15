@@ -1,0 +1,17 @@
+---
+traits:
+- id: drawable
+- id: drawable_sprite
+  anim_data:
+    idle:
+      frames: [npc-8]
+      times: 10000
+  sprite_data:
+    atlas: npcs
+    filter_min: LINEAR_MIPMAP_LINEAR
+    filter_mag: LINEAR
+    origin: [0.5, 1]
+  scale: 1.0
+  simple_anim:
+    - period: 5000
+      scale: [0.97, 1]
