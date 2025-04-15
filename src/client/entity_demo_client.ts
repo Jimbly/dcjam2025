@@ -85,6 +85,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
   declare is_player: boolean;
   declare is_enemy: boolean;
   declare is_chest: boolean;
+  declare respawns: boolean;
   declare blocks_player: boolean;
   declare ai_move_min_time: number;
   declare ai_move_rand_time: number;
@@ -201,5 +202,6 @@ EntityDemoClient.prototype.draw2D = crawlerEntClientDefaultDraw2D;
 EntityDemoClient.prototype.onDelete = crawlerEntClientDefaultOnDelete;
 EntityDemoClient.prototype.do_split = true;
 EntityDemoClient.prototype.is_chest = false;
+EntityDemoClient.prototype.respawns = false;
 EntityDemoClient.prototype.ai_move_min_time = 500;
 EntityDemoClient.prototype.ai_move_rand_time = 500;

@@ -1,4 +1,6 @@
 ---
+properties:
+  respawns: true
 traits:
 - id: enemy
 - id: stats_default

@@ -464,6 +464,7 @@ if (WRITE_ENEMIES) {
       let tile = LABEL_TO_SPRITE[e.label];
       let period = 5000 + Math.round(randSimpleSpatial(1234, enemy_tier, jj, 0) * 5000);
       let data = `---
+properties:${suffix === 'B' || suffix === 'C' ? '\n  respawns: true' : ''}
 traits:
 - id: enemy
 - id: stats_default

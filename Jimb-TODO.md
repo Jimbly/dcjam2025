@@ -1,7 +1,9 @@
 TODO
 * combat balance - it's a walk in the park as soon as you get 1-2 of the items? 0 medkit use?
 * respawn all entities on non-heist ships when going in/out
-  * respawn _some_ entities on planets (just based on entity type? As? property on the cell?)
+  * respawn all B/C entities
+    * path from entrance to bosses must be only A-entities
+    * path to treasures is B/C
 * always show living creatures on the map in explored areas
 * icon for unlooted chest on map (entity icon? loot property + entity?)
 * allow using medkits during combat
