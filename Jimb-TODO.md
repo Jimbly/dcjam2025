@@ -1,5 +1,4 @@
 TODO
-* don't load sprite_near (shouldn't show up in /texmem)
 * hat trader - first one's free, each next one much more expensive
 * paper-craft 3-4 tiers of enemies and gear, test that they work as expected
   * want:
