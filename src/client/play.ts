@@ -63,19 +63,20 @@ import {
 } from 'glov/common/types';
 import { clamp } from 'glov/common/util';
 import {
-  v2sub,
+  v2add,
+  v2same,
   vec2,
   Vec2,
 } from 'glov/common/vmath';
 import {
   crawlerLoadData,
-  dirFromDelta,
+  DXY,
 } from '../common/crawler_state';
 import {
   aiDoFloor, aiTraitsClientStartup,
   entitiesAdjacentTo,
 } from './ai';
-import { cleanupCombat, combatStartup, damage, doCombat } from './combat';
+import { cleanupCombat, combatStartup, doCombat } from './combat';
 // import './client_cmds';
 import {
   buildModeActive,
@@ -121,14 +122,13 @@ import {
   crawlerRenderViewportSet,
 } from './crawler_render';
 import {
-  crawlerEntInFront,
   crawlerRenderEntitiesStartup,
 } from './crawler_render_entities';
 import { crawlerScriptAPIDummyServer } from './crawler_script_api_client';
 import { crawlerOnScreenButton } from './crawler_ui';
 import './dialog_data';
 import { dialogMoveLocked, dialogRun, dialogStartup } from './dialog_system';
-import { EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_client';
+import { entitiesAt, EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_client';
 // import { EntityDemoClient } from './entity_demo_client';
 import {
   game_height,
@@ -172,6 +172,9 @@ const COMPASS_W = 50;
 const COMPASS_H = 12.5;
 const COMPASS_X = MINIMAP_X + (MINIMAP_W - COMPASS_W)/2;
 const COMPASS_Y = MINIMAP_Y + MINIMAP_H - 3;
+const LEVEL_NAME_W = 100;
+const LEVEL_NAME_H = 20;
+const LEVEL_SUBTITLE_H = LEVEL_NAME_H * 0.5;
 
 type Entity = EntityDemoClient;
 
@@ -210,6 +213,17 @@ let modal_label_options: Sprite;
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
   outline_width: 4,
+  outline_color: 0x000000ff,
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const style_label = fontStyle(null, {
+  color: 0x000000ff,
+});
+
+const style_hud_value = fontStyle(null, {
+  color: 0x000000ff,
+  outline_width: 0.25,
   outline_color: 0x000000ff,
 });
 
@@ -411,12 +425,13 @@ function engagedEnemy(): Entity | null {
   if (buildModeActive() || engine.defines.PEACE) {
     return null;
   }
-  let game_state = crawlerGameState();
   let me = crawlerMyEnt();
   // search, needs game_state, returns list of foes
-  let ents: Entity[] = entitiesAdjacentTo(game_state,
-    entityManager(),
-    me.data.floor, me.data.pos, crawlerScriptAPI());
+  // let game_state = crawlerGameState();
+  // let ents: Entity[] = entitiesAdjacentTo(game_state,
+  //   entityManager(),
+  //   me.data.floor, me.data.pos, crawlerScriptAPI());
+  let ents = entitiesAt(entityManager(), me.data.pos, me.data.floor, true);
   ents = ents.filter((ent: Entity) => {
     return ent.is_enemy && ent.isAlive();
   });
@@ -426,12 +441,35 @@ function engagedEnemy(): Entity | null {
   return null;
 }
 
+let looking_at = vec2();
+function facingEnemy(): Entity | null {
+  if (buildModeActive() || engine.defines.PEACE) {
+    return null;
+  }
+  let me = crawlerMyEnt();
+  // search, needs game_state, returns list of foes
+  let game_state = crawlerGameState();
+  let ents: Entity[] = entitiesAdjacentTo(game_state,
+    entityManager(),
+    me.data.floor, me.data.pos, crawlerScriptAPI());
+  ents = ents.filter((ent: Entity) => {
+    return ent.is_enemy && ent.isAlive();
+  });
+  if (ents.length) {
+    v2add(looking_at, me.data.pos, DXY[me.data.pos[2]]);
+    if (v2same(looking_at, ents[0].data.pos)) {
+      return ents[0];
+    }
+  }
+  return null;
+}
+
 function moveBlocked(): boolean {
   return false;
 }
 
 // TODO: move into crawler_play?
-function addFloater(ent_id: EntityID, message: string | null, anim: string): void {
+export function addFloater(ent_id: EntityID, message: string | null, anim: string): void {
   let ent = crawlerEntityManager().getEnt(ent_id);
   if (ent) {
     if (message) {
@@ -474,47 +512,150 @@ function moveBlockDead(): boolean {
   return true;
 }
 
-const HP_BAR_W = 82;
-const HP_BAR_H = 13;
-const ENEMY_HP_BAR_X = VIEWPORT_X0 + (render_width - HP_BAR_W)/2;
-const ENEMY_HP_BAR_Y = 20;
-const ENEMY_HP_BAR_H = 12;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const STATSPAD = 8;
+function statsLineEx(
+  x: number, y: number, z: number, w: number,
+  label: string, value: string | number, other_value?: string | number
+): number {
+  let text_height = uiTextHeight();
+  let text_w = font.draw({
+    color: 0x000000ff,
+    x, y, z,
+    size: text_height * 0.75,
+    text: label,
+  });
+  let left = w - text_w;
+  font.draw({
+    color: 0x000000ff,
+    x: x + text_w,
+    y, z,
+    w: left,
+    size: text_height * 0.75,
+    align: ALIGN.HRIGHT,
+    text: new Array(floor(left / text_height*6.2)).join('.'),
+  });
+  let text_full_w = w;
+  let value_w = font.draw({
+    x,
+    y: y - 3,
+    z,
+    w: text_full_w,
+    align: ALIGN.HRIGHT,
+    style: style_hud_value,
+    size: text_height,
+    text: String(value),
+  });
+
+  if (other_value && other_value !== value) {
+    let line_start = x + text_full_w - value_w - 1;
+    drawLine(line_start, y+1, x + text_full_w + 1, y+1, z + 0.1, 1, 1, [0,0,0,1]);
+    font.draw({
+      x: line_start - 2,
+      y: y - 3,
+      z,
+      align: ALIGN.HRIGHT,
+      style: style_hud_value,
+      size: text_height,
+      text: String(other_value),
+    });
+  }
+
+  y += text_height * 1.5;
+  return y;
+}
+
+
+// const HP_BAR_W = 82;
+// const HP_BAR_H = 13;
+// const ENEMY_HP_BAR_X = VIEWPORT_X0 + (render_width - HP_BAR_W)/2;
+// const ENEMY_HP_BAR_Y = 20;
+// const ENEMY_HP_BAR_H = 12;
+const ENEMY_STATS_W = 82;
+const ENEMY_STATS_X = VIEWPORT_X0 + (render_width - ENEMY_STATS_W)/2;
+const ENEMY_STATS_Y = VIEWPORT_Y0;
 function drawEnemyStats(ent: Entity): void {
-  let stats: { hp: number; hp_max: number } = ent.data.stats;
+  let stats = ent.data.stats;
   if (!stats) {
-    stats = { hp: 1, hp_max: 99 };
+    return;
   }
-  let { hp, hp_max } = stats;
-  let bar_h = ENEMY_HP_BAR_H;
-  let show_text = false;
-  if (input.mouseOver({
-    x: ENEMY_HP_BAR_X, y: ENEMY_HP_BAR_Y,
-    w: HP_BAR_W, h: bar_h,
-  })) {
-    bar_h = HP_BAR_H;
-    show_text = true;
-  }
-  drawHealthBar(ENEMY_HP_BAR_X, ENEMY_HP_BAR_Y, Z.UI, HP_BAR_W, bar_h, hp, hp_max, show_text);
-  // if (ent.getData('ready') && ent.isAlive()) {
-  //   let start = ent.getData('ready_start');
-  //   let dur = ent.getData('action_dur');
+  // let { hp, hp_max } = stats;
+  // let bar_h = ENEMY_HP_BAR_H;
+  // let show_text = false;
+  // if (input.mouseOver({
+  //   x: ENEMY_HP_BAR_X, y: ENEMY_HP_BAR_Y,
+  //   w: HP_BAR_W, h: bar_h,
+  // })) {
+  //   bar_h = HP_BAR_H;
+  //   show_text = true;
+  // }
+  // drawHealthBar(ENEMY_HP_BAR_X, ENEMY_HP_BAR_Y, Z.UI, HP_BAR_W, bar_h, hp, hp_max, show_text);
+
+  let box = {
+    x: ENEMY_STATS_X,
+    y: ENEMY_STATS_Y,
+    z: Z.UI,
+    w: ENEMY_STATS_W,
+    h: 100,
+    eat_clicks: false,
+  };
+
+  let x = box.x + STATSPAD;
+  let y = box.y + STATSPAD;
+  let z = Z.UI;
+  let w = box.w - STATSPAD * 2;
+
+  let yadv = uiTextHeight() * 1.2;
+  y += 2;
+  statsLineEx(x, y, z, w, 'HIT POINTS', stats.hp);
+  y += yadv;
+  statsLineEx(x, y, z, w, 'ATTACK', stats.attack);
+  y += yadv;
+  statsLineEx(x, y, z, w, 'DEFENSE', stats.defense);
+  y += yadv;
+  statsLineEx(x, y, z, w, 'ACCURACY', stats.accuracy);
+  y += yadv;
+  statsLineEx(x, y, z, w, 'DODGE', stats.dodge);
+  y += yadv;
+
+  box.h = y + STATSPAD - box.y - 5;
+
+  panel(box);
+
+  let subtitle_panel = {
+    x: box.x + box.w * 0.25,
+    w: box.w * 0.5,
+    y: box.y - 4,
+    h: LEVEL_SUBTITLE_H,
+    z: box.z + 0.1,
+    eat_clicks: false,
+  };
+  panel(subtitle_panel);
+  font.draw({
+    ...subtitle_panel,
+    color: 0x000000ff,
+    size: uiTextHeight() * 0.75,
+    z: subtitle_panel.z + 0.1,
+    align: ALIGN.HVCENTERFIT,
+    text: 'HOSTILE',
+  });
+
 }
 
 function bumpEntityCallback(ent_id: EntityID): void {
-  let me = myEnt();
-  let all_entities = entityManager().entities;
-  let target_ent = all_entities[ent_id]!;
-  if (target_ent && target_ent.isAlive() && me.isAlive()) {
-    let my_stats = me.data.stats;
-    let enemy_stats = target_ent.data.stats;
-    let { dam, style } = damage(my_stats, enemy_stats);
-    addFloater(ent_id, `${style === 'miss' ? 'WHIFF!\n' : style === 'crit' ? 'CRIT!' : ''}\n-${dam}`, '');
-    enemy_stats.hp = max(0, enemy_stats.hp - dam);
-    if (!enemy_stats.hp) {
-      crawlerEntityManager().deleteEntity(ent_id, 'killed');
-    }
-  }
+  // not doing bump-to-attack
+  // let me = myEnt();
+  // let all_entities = entityManager().entities;
+  // let target_ent = all_entities[ent_id]!;
+  // if (target_ent && target_ent.isAlive() && me.isAlive()) {
+  //   let my_stats = me.data.stats;
+  //   let enemy_stats = target_ent.data.stats;
+  //   let { dam, style } = damage(my_stats, enemy_stats);
+  //   addFloater(ent_id, `${style === 'miss' ? 'WHIFF!\n' : style === 'crit' ? 'CRIT!' : ''}\n-${dam}`, '');
+  //   enemy_stats.hp = max(0, enemy_stats.hp - dam);
+  //   if (!enemy_stats.hp) {
+  //     crawlerEntityManager().deleteEntity(ent_id, 'killed');
+  //   }
+  // }
 }
 
 const BUTTON_W = 26;
@@ -578,12 +719,6 @@ function useItem(index: number): void {
     }
   }
 }
-
-let style_hud_value = fontStyle(null, {
-  color: 0x000000ff,
-  outline_width: 0.25,
-  outline_color: 0x000000ff,
-});
 
 let preview_stats_final: StatsData | null = null;
 let inventory_selbox: SelectionBox;
@@ -758,8 +893,6 @@ function inventoryMenu(): void {
 const MOVE_BUTTONS_X0 = HUD_X0 + (HUD_W - BUTTON_W * 3) / 2 - 1;
 const MOVE_BUTTONS_Y0 = game_height - 71;
 
-const LEVEL_NAME_W = 100;
-
 export function drawHUDPanel(): void {
   panel({
     x: HUD_X0,
@@ -785,7 +918,7 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
       y: VIEWPORT_Y0,
       z: 3,
       w: LEVEL_NAME_W,
-      h: 20,
+      h: LEVEL_NAME_H,
       eat_clicks: false,
     };
     panel(name_panel);
@@ -802,7 +935,7 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
         x: name_panel.x + name_panel.w * 0.25,
         w: name_panel.w * 0.5,
         y: name_panel.y + name_panel.h - 4,
-        h: name_panel.h * 0.5,
+        h: LEVEL_SUBTITLE_H,
         z: name_panel.z + 0.1,
         eat_clicks: false,
       };
@@ -821,52 +954,9 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
   const STATS_Y0 = 108;
   let y = STATS_Y0;
   function statsLine(label: string, value: string | number, other_value?: string | number): void {
-    const STATSPAD = 8;
     let x = HUD_X0 + STATSPAD;
     let z = frame_inventory_up ? Z.MODAL + 2 : Z.UI;
-    let text_w = font.draw({
-      color: 0x000000ff,
-      x, y, z,
-      size: text_height * 0.75,
-      text: label,
-    });
-    let left = HUD_W - text_w - STATSPAD * 2;
-    font.draw({
-      color: 0x000000ff,
-      x: x + text_w,
-      y, z,
-      w: left,
-      size: text_height * 0.75,
-      align: ALIGN.HRIGHT,
-      text: new Array(floor(left / text_height*6.2)).join('.'),
-    });
-    let text_full_w = HUD_W - STATSPAD * 2;
-    let value_w = font.draw({
-      x,
-      y: y - 3,
-      z,
-      w: text_full_w,
-      align: ALIGN.HRIGHT,
-      style: style_hud_value,
-      size: text_height,
-      text: String(value),
-    });
-
-    if (other_value && other_value !== value) {
-      let line_start = x + text_full_w - value_w - 1;
-      drawLine(line_start, y+1, x + text_full_w + 1, y+1, z + 0.1, 1, 1, [0,0,0,1]);
-      font.draw({
-        x: line_start - 2,
-        y: y - 3,
-        z,
-        align: ALIGN.HRIGHT,
-        style: style_hud_value,
-        size: text_height,
-        text: String(other_value),
-      });
-    }
-
-    y += text_height * 1.5;
+    y = statsLineEx(x, y, z, HUD_W - STATSPAD * 2, label, value, other_value);
   }
 
   let me = myEnt();
@@ -900,7 +990,6 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
   drawHUDPanel();
 }
 
-let temp_delta = vec2();
 function playCrawl(): void {
   profilerStartFunc();
 
@@ -1049,14 +1138,14 @@ function playCrawl(): void {
     pauseMenu(travel_game);
   }
 
-  if (frame_combat && engagedEnemy() !== crawlerEntInFront()) {
-    // turn to face
-    let me = crawlerMyEnt();
-    let dir = dirFromDelta(v2sub(temp_delta, frame_combat.data.pos, me.data.pos));
-    controller.forceFaceDir(dir);
-  } else {
-    controller.forceFaceDir(null);
-  }
+  // if (frame_combat && engagedEnemy() !== crawlerEntInFront()) {
+  //   // turn to face
+  //   let me = crawlerMyEnt();
+  //   let dir = dirFromDelta(v2sub(temp_delta, frame_combat.data.pos, me.data.pos));
+  //   controller.forceFaceDir(dir);
+  // } else {
+  //   controller.forceFaceDir(null);
+  // }
 
 
   button_x0 = MOVE_BUTTONS_X0;
@@ -1254,14 +1343,14 @@ export function play(dt: number): void {
 
   crawlerPrepAndRenderFrame(travelGameActive() ? 30/180*PI : 0);
 
-  // if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
-  //   let all_entities = entityManager().entities;
-  //   let ent_in_front = crawlerEntInFront();
-  //   if (ent_in_front && myEnt().isAlive()) {
-  //     let target_ent = all_entities[ent_in_front]!;
-  //     drawEnemyStats(target_ent);
-  //   }
-  // }
+  // if (game_state.level && (engagedEnemy() || !crawlerController().controllerIsAnimating(0.75))) {
+  //   let target_ent = engagedEnemy() || facingEnemy();
+  if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
+    let target_ent = facingEnemy();
+    if (target_ent && myEnt().isAlive()) {
+      drawEnemyStats(target_ent);
+    }
+  }
 
   if (!loading_level && !buildModeActive()) {
     let script_api = crawlerScriptAPI();

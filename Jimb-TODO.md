@@ -1,5 +1,4 @@
 TODO
-* change combat to happen when you step onto their square; show enemy stats when looking at them
 * set up placeholder floors and get travel between them working
 * tap-to-move (forward) is immediately starting repeat, no delay
 * don't load sprite_near (shouldn't show up in /texmem)
