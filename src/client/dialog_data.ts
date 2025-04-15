@@ -51,7 +51,7 @@ dialogRegister({
     dialogPush({
       name: '',
       text: 'THE PURSUER has caught you.\n' +
-        (take ? `A little money goes a long way... you're out $${LOSE_COST}, but you're alive.` :
+        (take ? `A little money goes a long way... you're out [img=icon-currency]${LOSE_COST}, but you're alive.` :
         'Your ship is ransacked, but they find nothing of value.'),
       buttons: [{
         label: 'OK',
@@ -66,7 +66,7 @@ dialogRegister({
     let { money } = me.data;
     dialogPush({
       name: '',
-      text: money >= SHUTTLE_COST ? `Shuttle rentals are $${SHUTTLE_COST}.` : `New around here, eh?  The shuttle normally costs $${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Just be sure to bring it back in once piece.`,
+      text: money >= SHUTTLE_COST ? `Shuttle rentals are [img=icon-currency]${SHUTTLE_COST}.` : `New around here, eh?  The shuttle normally costs $${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Just be sure to bring it back in once piece.`,
       buttons: [{
         label: 'OK, I\'LL TAKE ONE',
         cb: function () {

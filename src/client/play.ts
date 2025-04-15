@@ -18,6 +18,7 @@ import {
   padButtonDown,
   padButtonUpEdge,
 } from 'glov/client/input';
+import { markdownAuto } from 'glov/client/markdown';
 import { ClientChannelWorker } from 'glov/client/net';
 import {
   MenuItem,
@@ -542,18 +543,18 @@ function statsLineEx(
     text: new Array(floor(left / text_height*6.2)).join('.'),
   });
   let text_full_w = w;
-  let value_w = font.draw({
-    x,
-    y: y - 3,
-    z,
-    w: text_full_w,
-    align: ALIGN.HRIGHT,
-    style: style_hud_value,
-    size: text_height,
-    text: String(value),
-  });
 
   if (other_value && other_value !== value) {
+    let value_w = font.draw({
+      x,
+      y: y - 3,
+      z,
+      w: text_full_w,
+      align: ALIGN.HRIGHT,
+      style: style_hud_value,
+      size: text_height,
+      text: String(value),
+    });
     let line_start = x + text_full_w - value_w - 1;
     drawLine(line_start, y+1, x + text_full_w + 1, y+1, z + 0.1, 1, 1, [0,0,0,1]);
     font.draw({
@@ -564,6 +565,17 @@ function statsLineEx(
       style: style_hud_value,
       size: text_height,
       text: String(other_value),
+    });
+  } else {
+    markdownAuto({
+      x,
+      y: y - 3,
+      z,
+      w: text_full_w,
+      align: ALIGN.HRIGHT,
+      font_style: style_hud_value,
+      text_height: text_height,
+      text: String(value),
     });
   }
 
@@ -897,6 +909,17 @@ function inventoryMenu(): void {
   modalBackground(INVENTORY_W, INVENTORY_H, modal_label_inventory);
 }
 
+export function giveReward(reward: { money?: number }): void {
+  let me = myEnt();
+  let msg: string[] = [];
+  if (reward.money) {
+    me.data.money += reward.money;
+    msg.push(`GAINED [img=icon-currency]${reward.money}`);
+  }
+
+  statusPush(msg.join('\n'));
+}
+
 const MOVE_BUTTONS_X0 = HUD_X0 + (HUD_W - BUTTON_W * 3) / 2 - 1;
 const MOVE_BUTTONS_Y0 = game_height - 71;
 
@@ -926,7 +949,7 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
       z: 3,
       w: LEVEL_NAME_W,
       h: LEVEL_NAME_H,
-      eat_clicks: false,
+      //eat_clicks: false,
     };
     panel(name_panel);
     font.draw({
@@ -986,7 +1009,7 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
     statsLine('ACCURACY', me.data.stats.accuracy);
     statsLine('DODGE', me.data.stats.dodge);
   }
-  statsLine('FUNDS', me.data.money);
+  statsLine('FUNDS', `[img=icon-currency]${me.data.money}`);
 
   if (frame_inventory_up) {
     panel({
