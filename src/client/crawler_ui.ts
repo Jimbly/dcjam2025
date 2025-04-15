@@ -105,7 +105,10 @@ export function crawlerOnScreenButton(param: {
       }
     }
     if (touch_hotzone) {
-      if (input.mouseOver(touch_hotzone)) {
+      if (input.mouseOver({
+        ...touch_hotzone,
+        peek: true,
+      })) {
         if (input.mouseDownEdge(touch_hotzone)) {
           playUISound('button_click');
           nav_ret.down_edge++;

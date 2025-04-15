@@ -23,6 +23,7 @@ import * as ui from 'glov/client/ui';
 import { v4set } from 'glov/common/vmath';
 // import './client_cmds.js'; // for side effects
 import { crawlerBuildModeStartup } from './crawler_build_mode';
+import { drawableSpriteLoadNear } from './crawler_entity_client';
 import { crawlerOnPixelyChange, crawlerRenderSetUIClearColor } from './crawler_play.js';
 import { crawlerRenderSetLODBiasRange } from './crawler_render';
 import { game_height, game_width } from './globals';
@@ -89,6 +90,7 @@ export function main(): void {
     settingsSet('entity_split', 0);
     settingsSet('entity_nosplit_use_near', 0);
     crawlerRenderSetLODBiasRange(0, 0);
+    drawableSpriteLoadNear(false);
   // @ts-expect-error truthy
   } else if (!'simple lowres') {
     settingsSet('pixely', 1);

@@ -1,6 +1,4 @@
 TODO
-* tap-to-move (forward) is immediately starting repeat, no delay
-* don't load sprite_near (shouldn't show up in /texmem)
 * hat trader - first one's free, each next one much more expensive
 * paper-craft 3-4 tiers of enemies and gear, test that they work as expected
   * want:
@@ -21,6 +19,10 @@ TODO
   * maybe also on planets?
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever
+* travel minigame
+  * add pursuer / lose condition
+  * visually dodge the asteroids
+  * heat and maybe gear to be bars
 
 Polish
 * the pillar to the SW doesn't show up at the right time when rotating the camera
