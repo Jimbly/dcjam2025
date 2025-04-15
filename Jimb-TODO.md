@@ -1,5 +1,17 @@
 TODO
 * money/gear dispensing chest
+  * gear always in chests
+    * also medkits, 2 per zone
+    * also 1 big cash reward per level to fuel chicken hats
+  * money always from enemies? and (any that don't block higher tier loot) replenish
+    * 50/100/150 ea
+    * 500/1000/1500 per floor
+    * shuttle is 100
+    * medkits are 100?
+    * 2000 total minus 1200 in expenses
+      * big cash reward is just slightly less than cost of next chicken hat
+        * 2000 each?
+      * final hat is another 2K, requires a few grind trips back to Zone 2
 * hat trader - first one's free, each next one much more expensive
 * respawn all entities on non-heist ships when going in/out
   * maybe also on planets?
@@ -10,6 +22,9 @@ TODO
   * add pursuer / lose condition
   * visually dodge the asteroids
   * heat and maybe gear to be bars
+
+Wrap-up
+* Disable `/`
 
 Polish
 * the pillar to the SW doesn't show up at the right time when rotating the camera

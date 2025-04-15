@@ -30,8 +30,8 @@ type DamageRet = {
 };
 
 export function damage(
-  attacker: Omit<StatsData, 'hp' | 'hp_max'>,
-  defender: Omit<StatsData, 'hp' | 'hp_max'>
+  attacker: Omit<StatsData, 'hp' | 'hp_max' | 'tier'>,
+  defender: Omit<StatsData, 'hp' | 'hp_max' | 'tier'>
 ): DamageRet {
   let attacker_atk = attacker.attack;
   let defender_def = defender.defense;
@@ -59,7 +59,7 @@ export function damage(
 }
 
 
-type Stats = Omit<StatsData, 'hp_max'>;
+type Stats = Omit<StatsData, 'hp_max' | 'tier'>;
 
 
 let player_base: Stats = {

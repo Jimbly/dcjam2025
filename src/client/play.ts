@@ -1040,7 +1040,7 @@ function playCrawl(): void {
     y: VIEWPORT_Y0,
     h: render_height + 4,
     z: Z.STATUS,
-    pad_top: 2,
+    pad_top: 4,
     pad_bottom: 4,
   };
   if (is_fullscreen_ui || frame_map_view) {

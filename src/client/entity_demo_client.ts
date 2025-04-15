@@ -45,6 +45,7 @@ export type StatsData = {
   defense: number;
   accuracy: number;
   dodge: number;
+  tier?: number;
 };
 
 export type Item = {
@@ -101,9 +102,9 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
     if (this.is_player) {
       if (!data.stats || !data.stats.attack) {
         data.stats = {
-          hp: 10,
-          hp_max: 10,
-          attack: 8,
+          hp: 20,
+          hp_max: 20,
+          attack: 4,
           defense: 4,
           accuracy: 4,
           dodge: 4,
@@ -115,9 +116,9 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
       if (!data.inventory) {
         data.inventory = [];
       }
-      data.stats.hp = 8;
-      data.stats.hp_max = 10;
-      data.stats.attack = 8;
+      data.stats.hp = 15;
+      data.stats.hp_max = 20;
+      data.stats.attack = 4;
       data.stats.defense = 4;
       data.stats.accuracy = 4;
       data.stats.dodge = 4;
