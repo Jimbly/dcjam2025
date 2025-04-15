@@ -8,7 +8,7 @@ TODO
     * 500/1000/1500 per floor
     * shuttle is 100
     * medkits are 100?
-    * 2000 total minus 1200 in expenses
+    * 3000 total minus 1200 in expenses
       * big cash reward is just slightly less than cost of next chicken hat
         * 2000 each?
       * final hat is another 2K, requires a few grind trips back to Zone 2
@@ -16,6 +16,7 @@ TODO
 * respawn all entities on non-heist ships when going in/out
   * maybe also on planets?
 * allow using medkits during combat
+* warning on enemy stats if they're a higher tier than you (expected damage of > 50% hp?)
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever
 * travel minigame

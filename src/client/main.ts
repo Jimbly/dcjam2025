@@ -245,6 +245,7 @@ export function main(): void {
   });
 
   markdownImageRegisterAutoAtlas('demo');
+  markdownImageRegisterAutoAtlas('default');
 
   crawlerBuildModeStartup({
     font: build_font,

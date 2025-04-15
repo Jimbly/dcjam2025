@@ -20,11 +20,19 @@ import {
   StatsData,
 } from './entity_demo_client';
 import { game_height, game_width } from './globals';
-import { drawHealthBar, myEnt } from './play';
+import { drawHealthBar, giveReward, myEnt } from './play';
 
 const { abs, pow, random, max, floor, PI } = Math;
 
 type Entity = EntityDemoClient;
+
+const REWARD_TIERS = [
+  50,
+  100,
+  150,
+  200,
+  200,
+];
 
 // return 0...1 weighted around 0.5
 export function bellish(xin: number, exp: number): number {
@@ -136,6 +144,9 @@ function startState(state: string): void {
       break;
     case 'fadeout':
       // nothing special
+      giveReward({
+        money: REWARD_TIERS[combat_state.target.data.stats.tier || 0],
+      });
       break;
     default:
       assert(false);
