@@ -1263,12 +1263,6 @@
         "stairs_out",
         "open",
         "solid"
-      ],
-      "events": [
-        {
-          "id": "sign",
-          "param": "BAY #82"
-        }
       ]
     },
     {
@@ -1371,7 +1365,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_hologram",
       "walls": [
         "open",
         "open",
