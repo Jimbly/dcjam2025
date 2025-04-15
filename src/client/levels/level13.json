@@ -2330,7 +2330,8 @@
   "seed": "32845502",
   "props": {
     "title": "ADVENTURE LOCATION",
-    "subtitle": "Zone 2"
+    "subtitle": "Zone 2",
+    "music": "bgm02"
   },
   "paths": {}
 }

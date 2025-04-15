@@ -2450,6 +2450,8 @@
   "state": {},
   "vstyle": "",
   "seed": "32845502",
-  "props": {},
+  "props": {
+    "music": "bgm02"
+  },
   "paths": {}
 }

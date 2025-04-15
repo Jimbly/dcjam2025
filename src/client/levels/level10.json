@@ -2401,7 +2401,8 @@
   "vstyle": "station",
   "seed": "32845502",
   "props": {
-    "title": "JUNCTION STATION"
+    "title": "JUNCTION STATION",
+    "music": "bgm02"
   },
   "paths": {}
 }
