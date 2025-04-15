@@ -7,3 +7,4 @@ visuals:
   opts:
     atlas: station
     tile: solid3
+    do_alpha: true

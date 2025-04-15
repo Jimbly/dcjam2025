@@ -20,5 +20,5 @@ visuals:
     width: 1
     height: 1
     offs: [0, 0, 0]
-    face_camera: false # Otherwise faces frustum
+    face_camera: true # Otherwise faces frustum
     do_alpha: true

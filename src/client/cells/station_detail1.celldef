@@ -17,8 +17,8 @@ visuals:
   opts:
     atlas: station
     tile: detail1
-    width: 1
-    height: 1
-    offs: [0.5, 0, 0]
-    face_camera: false # Otherwise faces frustum
+    width: 0.5
+    height: 0.5
+    offs: [0, 0, 0]
+    face_camera: true # Otherwise faces frustum
     do_alpha: true

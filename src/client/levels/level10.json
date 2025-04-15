@@ -1524,7 +1524,7 @@
       ]
     },
     {
-      "id": "station_detail1",
+      "id": "open",
       "walls": [
         "open",
         "station_decal_1",
@@ -1537,7 +1537,7 @@
       "walls": [
         "open",
         "open",
-        "open",
+        "station_shop_window",
         "open"
       ]
     },
@@ -1677,10 +1677,10 @@
       ]
     },
     {
-      "id": "station_detail3",
+      "id": "open",
       "walls": [
         "station_solid2",
-        "open",
+        "station_bulkhead",
         "station_solid2",
         "open"
       ]
@@ -1826,7 +1826,7 @@
         "station_decal_5",
         "station_decal_5",
         "station_decal_5",
-        "open"
+        "station_bulkhead"
       ]
     },
     {
@@ -2394,6 +2394,14 @@
         1,
         10,
         0
+      ]
+    },
+    {
+      "type": "critter13",
+      "pos": [
+        2,
+        6,
+        1
       ]
     }
   ],

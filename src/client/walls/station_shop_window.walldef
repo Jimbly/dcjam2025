@@ -1,0 +1,11 @@
+---
+open_move: false
+open_vis: true
+advertise_other_side: true
+visuals:
+- type: simple_wall
+  pass: celldetails
+  opts:
+    atlas: station
+    tile: shop_window
+    do_alpha: false
