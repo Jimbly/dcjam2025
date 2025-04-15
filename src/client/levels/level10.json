@@ -1538,8 +1538,8 @@
     {
       "id": "open",
       "walls": [
-        "solid",
         "station_decal_1",
+        "station_cantina_left",
         "open",
         "open"
       ]
