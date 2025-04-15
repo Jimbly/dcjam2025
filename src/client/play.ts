@@ -40,6 +40,7 @@ import {
   Sprite,
   spriteCreate,
 } from 'glov/client/sprites';
+import * as transition from 'glov/client/transition';
 import {
   ButtonStateString,
   buttonText,
@@ -239,6 +240,10 @@ export function myEntOptional(): Entity | undefined {
 //   return crawlerEntityManager() as ClientEntityManagerInterface<Entity>;
 // }
 
+export function queueTransition(): void {
+  transition.queue(Z.TRANSITION_FINAL, transition.wipe(800, 30/180*PI));
+}
+
 const selbox_display: Partial<SelectionBoxDisplay> = {
   style_default: fontStyleColored(null, 0x000000ff),
   style_selected: fontStyleColored(null, 0x000000ff),
@@ -333,6 +338,7 @@ function pauseMenu(disable_saving: boolean): void {
       if (!isOnline()) {
         crawlerSaveGame('manual');
       }
+      queueTransition();
       urlhash.go('');
     },
   });
@@ -340,6 +346,7 @@ function pauseMenu(disable_saving: boolean): void {
     items.push({
       name: 'Exit without saving',
       cb: function () {
+        queueTransition();
         urlhash.go('');
       },
     });
@@ -939,15 +946,20 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
         z: name_panel.z + 0.1,
         eat_clicks: false,
       };
-      panel(subtitle_panel);
-      font.draw({
+      let text_w = font.draw({
         ...subtitle_panel,
         color: 0x000000ff,
         size: text_height * 0.75,
         z: name_panel.z + 0.3,
-        align: ALIGN.HVCENTERFIT,
+        align: ALIGN.HVCENTER,
         text: floor_subtitle,
       });
+      text_w += 8;
+      if (text_w > subtitle_panel.w) {
+        subtitle_panel.x -= (text_w - subtitle_panel.w) / 2;
+        subtitle_panel.w = text_w;
+      }
+      panel(subtitle_panel);
     }
   }
 
@@ -1553,40 +1565,64 @@ export function playStartup(): void {
 
   viewport_frame = spriteCreate({
     name: 'viewport-frame',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
   });
   minimap_bg = spriteCreate({
     name: 'minimap-bg',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
   });
   minimap_overlay = spriteCreate({
     name: 'minimap-overlay',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
   });
   modal_frame = spriteCreate({
     name: 'modal-frame',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
   modal_bg_bottom_add = spriteCreate({
     name: 'modal-bg-bottom-add',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
   modal_bg_top_mult = spriteCreate({
     name: 'modal-bg-top-mult',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
   modal_inventory_descr = spriteCreate({
     name: 'modal-inventory-descr',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
   modal_label_inventory = spriteCreate({
     name: 'modal-label-inventory',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
   modal_label_options = spriteCreate({
     name: 'modal-label-options',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
@@ -1604,6 +1640,7 @@ export function playStartup(): void {
     // color_rollover: dawnbringer.colors[8],
     build_mode_entity_icons: {},
     style_map_name: fontStyleColored(null, 0x000000ff),
+    style_map_info: fontStyleColored(null, 0x000000ff),
     // compass_border_w: 6,
     hide_name_on_minimap: true,
   });

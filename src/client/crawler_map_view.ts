@@ -152,6 +152,9 @@ let style_map_name: FontStyle | null = fontStyle(null, {
   outline_width: 3,
   outline_color: 0x000000ff,
 });
+let style_map_info: FontStyle | null = fontStyle(null, {
+  color: 0xFFFFFFff,
+});
 
 let compass_border_w = 6;
 
@@ -231,14 +234,14 @@ export function crawlerMapViewDraw(
       }
     }
     if (full_vis) {
-      ui.font.drawSizedAligned(null, x, y + h - (text_height + 2)*2, z + 1, text_height,
+      ui.font.drawSizedAligned(style_map_info, x, y + h - (text_height + 2)*2, z + 1, text_height,
         ui.font.ALIGN.HCENTER, w, 0, `${num_enemies}/${total_enemies}`);
-      ui.font.drawSizedAligned(null, x, y + h - (text_height + 2), z + 1, text_height,
+      ui.font.drawSizedAligned(style_map_info, x, y + h - (text_height + 2), z + 1, text_height,
         ui.font.ALIGN.HCENTER, w, 0, `${level.seen_cells}/${level.total_cells}`);
     } else {
-      ui.font.drawSizedAligned(null, x, y + h - (text_height + 2)*2, z + 1, text_height,
+      ui.font.drawSizedAligned(style_map_info, x, y + h - (text_height + 2)*2, z + 1, text_height,
         ui.font.ALIGN.HCENTER, w, 0, `${num_enemies} ${num_enemies === 1 ? 'enemy' : 'enemies'} remaining`);
-      ui.font.drawSizedAligned(null, x, y + h - (text_height + 2), z + 1, text_height,
+      ui.font.drawSizedAligned(style_map_info, x, y + h - (text_height + 2), z + 1, text_height,
         ui.font.ALIGN.HCENTER, w, 0, `${percLabel(level.seen_cells, level.total_cells)} explored`);
     }
   }
@@ -647,6 +650,7 @@ export function crawlerMapViewStartup(param: {
   color_rollover?: ROVec4;
   build_mode_entity_icons?: Partial<Record<string, string>>;
   style_map_name?: FontStyle | null;
+  style_map_info?: FontStyle | null;
   hide_name_on_minimap?: boolean;
   compass_border_w?: number;
 }): void {
@@ -655,6 +659,9 @@ export function crawlerMapViewStartup(param: {
   color_rollover = param.color_rollover || color_rollover;
   if (param.style_map_name !== undefined) {
     style_map_name = param.style_map_name;
+  }
+  if (param.style_map_info !== undefined) {
+    style_map_info = param.style_map_info;
   }
   if (param.build_mode_entity_icons) {
     merge(build_mode_entity_icons, param.build_mode_entity_icons);

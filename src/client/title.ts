@@ -24,6 +24,7 @@ import {
 } from './crawler_play';
 import * as main from './main';
 import { tickMusic } from './music';
+import { queueTransition } from './play';
 
 
 const { max } = Math;
@@ -67,6 +68,7 @@ function title(dt: number): void {
       x, y: y + uiButtonHeight(), text: 'Load Game',
       disabled: !manual_data.timestamp
     })) {
+      queueTransition();
       crawlerPlayWantMode('manual');
       urlhash.go(`?c=local&slot=${slot}`);
     }
@@ -78,6 +80,7 @@ function title(dt: number): void {
           text: 'This will overwrite your existing game when you next save.  Continue?',
           buttons: {
             yes: function () {
+              queueTransition();
               crawlerPlayWantNewGame();
               urlhash.go(`?c=local&slot=${slot}`);
             },
@@ -85,6 +88,7 @@ function title(dt: number): void {
           }
         });
       } else {
+        queueTransition();
         crawlerPlayWantNewGame();
         urlhash.go(`?c=local&slot=${slot}`);
       }

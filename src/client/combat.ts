@@ -413,12 +413,24 @@ export function combatStartup(): void {
   font = uiGetFont();
   battle_frame = spriteCreate({
     name: 'battle-frame',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
   });
   battle_frame_hero_bg = spriteCreate({
     name: 'battle-frame-hero-bg',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
   });
   battle_frame_enemy_bg = spriteCreate({
     name: 'battle-frame-enemy-bg',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
   });
   sprite_pow = {
     normal: spriteCreate({

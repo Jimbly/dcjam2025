@@ -1,4 +1,5 @@
 /* eslint prefer-template:off, @stylistic/max-len:off, @typescript-eslint/no-unused-vars:off */
+export const SHUTTLE_COST = 100;
 import { fontStyle } from 'glov/client/font';
 import { PanelParam, playUISound, sprites as ui_sprites } from 'glov/client/ui';
 import { dialogIconsRegister } from '../common/crawler_events';
@@ -17,15 +18,15 @@ import {
 } from './play';
 import { statusPush } from './status';
 import { travelGameFinish } from './travelgame';
+import { startTravel } from './travelmap';
 
-// dialogIconsRegister({
-//   terminal: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-//     if (onetimeEvent(true)) {
-//       return CrawlerScriptEventMapIcon.NOTE;
-//     }
-//     return CrawlerScriptEventMapIcon.NOTE_SEEN;
-//   },
-// });
+const LOSE_COST = 100;
+
+dialogIconsRegister({
+  shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return 'icon_exclamation';
+  },
+});
 
 dialogRegister({
   sign: function (param: string) {
@@ -43,7 +44,6 @@ dialogRegister({
   travelfail: function () {
     let me = myEnt();
     let { money } = me.data;
-    const LOSE_COST = 100;
     let take = money > LOSE_COST * 2;
     if (take) {
       me.data.money -= LOSE_COST;
@@ -58,6 +58,22 @@ dialogRegister({
         cb: function () {
           travelGameFinish();
         },
+      }],
+    });
+  },
+  shuttle: function () {
+    let me = myEnt();
+    let { money } = me.data;
+    dialogPush({
+      name: '',
+      text: money >= SHUTTLE_COST ? `Shuttle rentals are $${SHUTTLE_COST}.` : `New around here, eh?  The shuttle normally costs $${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Just be sure to bring it back in once piece.`,
+      buttons: [{
+        label: 'OK, I\'LL TAKE ONE',
+        cb: function () {
+          startTravel();
+        },
+      }, {
+        label: 'MAYBE ANOTHER TIME...',
       }],
     });
   },

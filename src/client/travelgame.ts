@@ -4,7 +4,7 @@ import { autoAtlas } from 'glov/client/autoatlas';
 import { MODE_DEVELOPMENT } from 'glov/client/client_config';
 import { getFrameDt } from 'glov/client/engine';
 import { ALIGN, FontStyle, fontStyleColored } from 'glov/client/font';
-import { keyDownEdge, KEYS } from 'glov/client/input';
+import { keyDown, keyDownEdge, KEYS } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
 import { spot, SPOT_DEFAULT_BUTTON } from 'glov/client/spot';
 import { buttonText, drawLine, panel, playUISound, uiButtonHeight, uiGetFont, uiTextHeight } from 'glov/client/ui';
@@ -15,7 +15,7 @@ import { crawlerController, crawlerGameState } from './crawler_play';
 import { dialog } from './dialog_system';
 import { game_height, HUD_PAD, HUD_W, HUD_X0, HUD_Y0, render_width, VIEWPORT_X0 } from './globals';
 import { tickLoopingSound } from './music';
-import { drawHealthBar, drawHUDPanel, myEnt } from './play';
+import { drawHealthBar, drawHUDPanel, myEnt, queueTransition } from './play';
 
 export const HAND_SIZE = 6;
 export const MAX_HEAT = 7;
@@ -62,6 +62,14 @@ type LastMove = {
   asteroid_events: AsteroidEvent[];
 };
 
+let destination_floor = 10;
+let destination_key = 'stairs_out';
+export function travelTo(floor_id: number, special_pos: string): void {
+  destination_floor = floor_id;
+  destination_key = special_pos;
+  crawlerController().goToFloor(7);
+}
+
 class TravelGameState {
   pos = 0;
   gear = 1;
@@ -76,7 +84,6 @@ class TravelGameState {
   won = false;
   animating = false;
   transitioning = false;
-  destination_floor = 10;
   t = 0;
   constructor() {
     let entity_manager = crawlerEntityManager();
@@ -417,7 +424,8 @@ let style_danger = fontStyleColored(null, 0xFF4040ff);
 export function travelGameFinish(): void {
   assert(travel_state);
   travel_state.transitioning = true;
-  crawlerController().goToFloor(travel_state.destination_floor);
+  crawlerController().goToFloor(destination_floor, destination_key);
+  queueTransition();
 }
 
 export function doTravelGame(): void {
@@ -455,7 +463,7 @@ ${next.goal ? '' : `Maximum Safe Speed: **${next.max_speed}**`}`,
     travel_state.selected[HAND_SIZE-1] = true;
     travel_state.go();
     travel_state.done = true;
-    travel_state.won = false;
+    travel_state.won = keyDown(KEYS.SHIFT);
     travel_state.animating = true;
     travel_state.t = 1;
   }

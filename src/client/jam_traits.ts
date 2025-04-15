@@ -1,8 +1,32 @@
 import { clone } from 'glov/common/util';
+import {
+  CrawlerScriptAPI,
+  crawlerScriptRegisterEvent,
+  CrawlerScriptWhen,
+} from '../common/crawler_script';
+import { CrawlerCell } from '../common/crawler_state';
 import { crawlerEntFactory } from './crawler_entity_client';
 import { EntityDemoClient, StatsData } from './entity_demo_client';
+import { travelTo } from './travelgame';
 
 type Entity = EntityDemoClient;
+
+crawlerScriptRegisterEvent({
+  key: 'travel',
+  when: CrawlerScriptWhen.POST,
+  func: (api: CrawlerScriptAPI, cell: CrawlerCell, param: string) => {
+    let params = param.split(' ');
+    let floor = Number(params[0]);
+    if (!isFinite(floor)) {
+      api.status('travel', '"travel" event requires a floor number parameter');
+      return;
+    }
+    let delta = floor - api.getFloor();
+    let idx = 1;
+    let special_pos = params[idx++] || (delta < 0 ? 'stairs_out' : 'stairs_in');
+    travelTo(floor, special_pos);
+  },
+});
 
 export function appTraitsStartup(): void {
   let ent_factory = crawlerEntFactory<Entity>();

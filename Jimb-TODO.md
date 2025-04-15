@@ -1,36 +1,29 @@
 TODO
-* set up placeholder floors and get travel between them working
 * tap-to-move (forward) is immediately starting repeat, no delay
 * don't load sprite_near (shouldn't show up in /texmem)
-
-CORE GAMEPLAY
-* inventory screen, click things to select, click Equip to equip, see stats, use consumables
-* map to change locations
-* minigame to travel (just an "ok" button on the screen for now)
-* locations:
-  * space station
-  * docked ship (same map for all ships, probably)
-  * danger locations (ideally each a separate style/environment, can all be similar if we run out of time):
-* combat
-  * modal and automatic in a comic-book style
-
-COMBAT
-* Stats:
-  * ATK
-  * DEF
-  * ACC
-  * DODGE
-* Auto-resolve combat
-
-HUD:
-* (at least when exploring) health
-* inventory button
-* maybe current cash
-* (maybe not) movement controls
-* minimap
-
+* hat trader - first one's free, each next one much more expensive
+* paper-craft 3-4 tiers of enemies and gear, test that they work as expected
+  * want:
+    * death if going to other zones
+    * 2-3 medkits to mostly clear the first zone
+    * some hard enemy that is impossible with even T2 gear (maybe doable with T3)
+    * find T2 gear and enough money to buy T2 hat
+    * then:
+      * third zone is still death
+      * 2-3 medkits to mostly clear the second zone
+      * find T3 gear and enough money to buy T3 hat
+      * some hard enemy impossible with T2 gear, doable with T4
+      * then:
+        * 2-3 medkits to clear the third zone
+        * find 1 piece of T4 gear, can afford T4 hat now, can beat old bosses
+        * old bosses give other T4 gear
+* respawn all entities on non-heist ships when going in/out
+  * maybe also on planets?
+* armor/weapon/offhand trader?
+  * at least someone to buy all of your old stuff, maybe even sells it back forever
 
 Polish
+* the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * auto-unload auto-atlases that are no longer in use?
 
