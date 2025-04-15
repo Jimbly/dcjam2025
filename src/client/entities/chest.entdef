@@ -1,0 +1,22 @@
+---
+properties:
+  is_chest: true
+traits:
+- id: drawable
+  biasL: [-0.15, 0.25]
+  biasF: [0, -0.25]
+  biasR: [-0.15, 0.25]
+- id: drawable_sprite
+  anim_data:
+    idle:
+      frames: [chest]
+      times: 10000
+  sprite_data:
+    atlas: test
+    filter_min: LINEAR_MIPMAP_LINEAR
+    filter_mag: LINEAR
+    origin: [0.5, 1]
+  scale: 0.62
+  simple_anim:
+    - period: 12000
+      scale: [1, 1.15]

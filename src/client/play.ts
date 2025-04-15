@@ -1,3 +1,4 @@
+import assert from 'assert';
 import { autoAtlas } from 'glov/client/autoatlas';
 // import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
@@ -442,6 +443,21 @@ function engagedEnemy(): Entity | null {
   let ents = entitiesAt(entityManager(), me.data.pos, me.data.floor, true);
   ents = ents.filter((ent: Entity) => {
     return ent.is_enemy && ent.isAlive();
+  });
+  if (ents.length) {
+    return ents[0];
+  }
+  return null;
+}
+
+function engagedChest(): Entity | null {
+  if (buildModeActive()) {
+    return null;
+  }
+  let me = crawlerMyEnt();
+  let ents = entitiesAt(entityManager(), me.data.pos, me.data.floor, true);
+  ents = ents.filter((ent: Entity) => {
+    return ent.is_chest;
   });
   if (ents.length) {
     return ents[0];
@@ -909,12 +925,37 @@ function inventoryMenu(): void {
   modalBackground(INVENTORY_W, INVENTORY_H, modal_label_inventory);
 }
 
-export function giveReward(reward: { money?: number }): void {
+export function giveReward(reward: { money?: number; items?: Item[] }): void {
   let me = myEnt();
   let msg: string[] = [];
   if (reward.money) {
     me.data.money += reward.money;
     msg.push(`GAINED [img=icon-currency]${reward.money}`);
+  }
+  if (reward.items) {
+    for (let ii = 0; ii < reward.items.length; ++ii) {
+      let item = reward.items[ii];
+      let item_def = ITEMS[item.item_id];
+      assert(item_def);
+      if (item_def.item_type === 'consumable') {
+        let found = false;
+        for (let jj = 0; jj < me.data.inventory.length; ++jj) {
+          let other = me.data.inventory[jj];
+          if (other.item_id === item.item_id) {
+            other.count = (other.count || 1) + (item.count || 1);
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          me.data.inventory.push(item);
+        }
+        msg.push(`FOUND ${item.count || 1} ${item_def.name}`);
+      } else {
+        me.data.inventory.push(item);
+        msg.push(`FOUND ${item_def.name}`);
+      }
+    }
   }
 
   statusPush(msg.join('\n'));
@@ -1025,6 +1066,36 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
   drawHUDPanel();
 }
 
+function checkLoot(): void {
+  let chest = engagedChest();
+  if (!chest) {
+    return;
+  }
+  let { level } = crawlerGameState();
+  if (!level) {
+    return;
+  }
+  let cell = level.getCell(chest.data.pos[0], chest.data.pos[1]);
+  assert(cell);
+  let loot = cell.props?.loot || 'money 50';
+  if (loot.startsWith('money')) {
+    let money = Number(loot.split(' ')[1]);
+    if (!isFinite(money)) {
+      money = 50;
+    }
+    giveReward({ money });
+  } else {
+    if (!ITEMS[loot]) {
+      statusPush(`Unknown loot "${loot}"`);
+    } else {
+      giveReward({ items: [{
+        item_id: loot,
+      }] });
+    }
+  }
+  entityManager().deleteEntity(chest.id, 'looted');
+}
+
 function playCrawl(): void {
   profilerStartFunc();
 
@@ -1053,6 +1124,9 @@ function playCrawl(): void {
   let frame_combat = !travel_game && myEnt().isAlive() && engagedEnemy() || null;
   if (frame_combat && mapViewActive()) {
     mapViewSetActive(false);
+  }
+  if (!frame_combat && !crawlerController().controllerIsAnimating(0.5)) {
+    checkLoot();
   }
   const frame_map_view = !travel_game && mapViewActive();
   const frame_inventory_up = !travel_game && inventory_up;
