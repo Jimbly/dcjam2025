@@ -35,17 +35,6 @@ corners: # pillars and floor/ceiling details
       atlas: station
       tile: pillar_floor1
   two:
-  - pass: celldetails
-    type: simple_pillar
-    opts:
-      quadrants: 2
-      radius: 0.125
-      segments: 8
-      roundness: 0
-      atlas: station
-      tile: pillar2
-      height: 1
-      offs: [0,0,0]
   - pass: details
     type: simple_corner_floor
     opts:
@@ -55,17 +44,6 @@ corners: # pillars and floor/ceiling details
       tile: pillar_floor2
   three:
   - pass: details
-    type: simple_pillar
-    opts:
-      quadrants: 3
-      radius: 0.125
-      segments: 8
-      roundness: 0
-      atlas: station
-      tile: pillar3
-      height: 1
-      offs: [0,0,0]
-  - pass: details
     type: simple_corner_floor
     opts:
       quadrants: 3
@@ -73,17 +51,6 @@ corners: # pillars and floor/ceiling details
       atlas: station
       tile: pillar_floor3
   # four:
-  # - pass: details
-  #   type: simple_pillar
-  #   opts:
-  #     quadrants: 4
-  #     atlas: station
-  #     radius: 0.125
-  #     segments: 8
-  #     roundness: 0
-  #     tile: pillar4
-  #     height: 1
-  #     offs: [0,0,0]
   # - pass: details
   #   type: simple_corner_floor
   #   opts:
