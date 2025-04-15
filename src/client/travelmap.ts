@@ -1,8 +1,10 @@
 import assert from 'assert';
 import { setState } from 'glov/client/engine';
-import { ALIGN } from 'glov/client/font';
+import { ALIGN, fontStyleColored } from 'glov/client/font';
+import { KEYS, PAD } from 'glov/client/input';
+import { markdownAuto } from 'glov/client/markdown';
 import { Sprite, spriteCreate } from 'glov/client/sprites';
-import { buttonText, uiGetFont, uiTextHeight } from 'glov/client/ui';
+import { buttonText, uiTextHeight } from 'glov/client/ui';
 import { WEST } from '../common/crawler_state';
 import { crawlerEntityManager } from './crawler_entity_client';
 import { crawlerController } from './crawler_play';
@@ -62,6 +64,8 @@ export function stateTravel(dt: number): void {
     y: 219,
     w: GO_W,
     text: 'CANCEL',
+    hotkey: KEYS.ESC,
+    hotpad: PAD.CANCEL,
   })) {
     queueTransition();
     crawlerController().forceMove(WEST);
@@ -75,12 +79,12 @@ export function stateTravel(dt: number): void {
     money = 123;
   }
   if (money >= SHUTTLE_COST) {
-    uiGetFont().draw({
-      color: 0x000000ff,
+    markdownAuto({
+      font_style: fontStyleColored(null, 0x000000ff),
       x: 0, w: game_width,
       y: game_height - uiTextHeight() * 2 - 12,
       align: ALIGN.HCENTER|ALIGN.HWRAP,
-      text: `FUNDS: $${money}\nCOST: $${money >= SHUTTLE_COST ? SHUTTLE_COST : 0}`,
+      text: `FUNDS: [img=icon-currency]${money}\nCOST: [img=icon-currency]${money >= SHUTTLE_COST ? SHUTTLE_COST : 0}`,
     });
   }
 }
