@@ -1,7 +1,7 @@
 /* eslint prefer-template:off, @stylistic/max-len:off, @typescript-eslint/no-unused-vars:off */
 export const SHUTTLE_COST = 100;
-import { fontStyle } from 'glov/client/font';
-import { PanelParam, playUISound, sprites as ui_sprites } from 'glov/client/ui';
+import { ALIGN, fontStyle } from 'glov/client/font';
+import { panel, PanelParam, playUISound, sprites as ui_sprites, uiGetFont, uiTextHeight } from 'glov/client/ui';
 import { dialogIconsRegister } from '../common/crawler_events';
 import {
   CrawlerScriptAPI,
@@ -13,7 +13,9 @@ import {
   dialogPush,
   dialogRegister,
 } from './dialog_system';
+import { ITEMS } from './item_defs';
 import {
+  giveReward,
   myEnt,
 } from './play';
 import { statusPush } from './status';
@@ -21,6 +23,33 @@ import { travelGameFinish } from './travelgame';
 import { startTravel } from './travelmap';
 
 const LOSE_COST = 100;
+
+const NAME_BOX_H = 14;
+const NAME_BOX_PAD = 6;
+
+function nameRender(name: string): (param: PanelParam) => void {
+  return function (param: PanelParam): void {
+    let name_panel = {
+      x: param.x + NAME_BOX_H/2,
+      w: 0,
+      y: param.y - NAME_BOX_H * 0.8,
+      h: NAME_BOX_H,
+      z: (param.z || Z.UI) + 0.1,
+      eat_clicks: false,
+    };
+    let text_w = uiGetFont().draw({
+      ...name_panel,
+      x: name_panel.x + NAME_BOX_PAD,
+      color: 0x000000ff,
+      size: uiTextHeight() * 0.75,
+      z: name_panel.z + 0.2,
+      align: ALIGN.VCENTER,
+      text: name,
+    });
+    name_panel.w = text_w + NAME_BOX_PAD * 2;
+    panel(name_panel);
+  };
+}
 
 dialogIconsRegister({
   shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
@@ -76,6 +105,96 @@ dialogRegister({
         label: 'MAYBE ANOTHER TIME...',
       }],
     });
+  },
+  hats: function () {
+    let api = crawlerScriptAPI();
+    let custom_render = nameRender('"HAT" DEALER');
+    if (!api.keyGet('helmetfree')) {
+      return dialogPush({
+        custom_render,
+        text: 'Psst... Over here...',
+        buttons: [{
+          label: 'HULLO THERE!',
+          cb: function () {
+            dialogPush({
+              custom_render,
+              text: 'I got the freshest hats around.  Here, take this, first one\'s free.',
+              buttons: [{
+                label: 'UH, OKAY...',
+                cb: function () {
+                  giveReward({ items: [{ item_id: 'helmetfree' }] });
+                  api.keySet('helmetfree');
+                }
+              }],
+            });
+          },
+        }]
+      });
+    }
+    const HAT_COSTS = 2000;
+    let options = [
+      'helmet1',
+      'helmet2',
+      'helmet3',
+      'helmet4',
+    ];
+    let next = '';
+    for (let ii = 0; ii < options.length; ++ii) {
+      if (!api.keyGet(options[ii])) {
+        next = options[ii];
+        break;
+      }
+    }
+
+    if (!next) {
+      return dialogPush({
+        custom_render,
+        transient: true,
+        text: 'Rest easy, and know that you have the most majestic of head accoutrements.'
+      });
+    }
+
+    let me = myEnt();
+    let { money } = me.data;
+
+    if (money < HAT_COSTS) {
+      return dialogPush({
+        custom_render,
+        transient: true,
+        text: `I've got another one saved for ya.  Come back when you have [img=icon-currency]${HAT_COSTS}.`
+      });
+    }
+
+    return dialogPush({
+      custom_render,
+      text: `This one will fit you perfectly.  I call it The ${ITEMS[next].name}.  Only [img=icon-currency]${HAT_COSTS}.`,
+      buttons: [{
+        label: 'YES, PLEASE!',
+        cb: function () {
+          me.data.money -= HAT_COSTS;
+          giveReward({ items: [{ item_id: next }] });
+          api.keySet(next);
+        },
+      }, {
+        label: 'MAYBE LATER...',
+      }]
+    });
+  },
+  equipcheck: function () {
+    let { inventory } = myEnt().data;
+    let any_equippable = false;
+    for (let ii = 0; ii < inventory.length; ++ii) {
+      if (inventory[ii].equipped) {
+        return;
+      }
+      let item_def = ITEMS[inventory[ii].item_id];
+      if (item_def.item_type !== 'consumable') {
+        any_equippable = true;
+      }
+    }
+    if (any_equippable) {
+      dialog('sign', 'HINT: EQUIP YOUR NEW ITEM IN THE INVENTORY');
+    }
   },
   // finale: function () {
   //   myEnt().data.score_won = true;

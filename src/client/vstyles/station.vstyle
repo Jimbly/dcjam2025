@@ -15,7 +15,7 @@ wall_swaps:
   open: station_open
   door: station_door
   door_oneway: station_door
-  # door_locked: demo_door_locked
+  door_locked: station_door
   # door_locked_unlocked: demo_door_locked_unlocked
   entrance: station_stairs_in
   # secret_door: demo_secret_door

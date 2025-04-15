@@ -63,6 +63,7 @@ type Stats = Omit<StatsData, 'hp_max' | 'tier'>;
 
 
 let player_base: Stats = {
+  // note: base stats *with* the T-1 hat
   hp: 20,
   attack: 4,
   defense: 4,

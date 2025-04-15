@@ -1,5 +1,4 @@
 TODO
-* hat trader - first one's free, each next one much more expensive
 * respawn all entities on non-heist ships when going in/out
   * respawn _some_ entities on planets (just based on entity type? As? property on the cell?)
 * always show living creatures on the map in explored areas

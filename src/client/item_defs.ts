@@ -11,11 +11,11 @@ export type ItemDef = {
 
 type ItemRow = [ItemType, string, string, Partial<StatsData>?, string?];
 const ITEM_ROWS: ItemRow[] = [
-  ['head', 'helmet1', 'Cocky Rooster', { defense: 1 }, 'Have you ever tried to catch a chicken?  Well, then you know how fast these little guys can change course.\n\nThis helmet gives you great reflexes, which will help you dodge the attack of even your quickest enemies.'],
-  ['head', 'helmet2', 'Deathclaw', { defense: 2, attack: 1 }, 'You have been assured that these are bonefide chicken horns, sharp enough to pierce the strongest foe.'],
-  ['head', 'helmet3', 'Eye of the Chicken', { defense: 3, attack: 1 }],
-  ['head', 'helmet4', 'Cockerel', { defense: 4 }],
-  ['head', 'helmet5', 'Chicken Wings', { defense: 5 }],
+  ['head', 'helmetfree', 'Cocky Rooster', { hp: 5 }, 'Have you ever tried to catch a chicken?  Well, then you know how fast these little guys can change course.\n\nThis helmet gives you great reflexes, which will help you dodge the attack of even your quickest enemies.'],
+  ['head', 'helmet1', 'Deathclaw', { defense: 2, attack: 1 }, 'You have been assured that these are bonefide chicken horns, sharp enough to pierce the strongest foe.'],
+  ['head', 'helmet2', 'Eye of the Chicken', { defense: 3, attack: 1 }],
+  ['head', 'helmet3', 'Cockerel', { defense: 4 }],
+  ['head', 'helmet4', 'Chicken Wings', { defense: 5 }],
   ['torso', 'torso1', 'Placeholder Armor', { defense: 1 }],
   ['weapon', 'weapon1', 'Placeholder Weapon', { attack: 1 }],
   ['offhand', 'shield1', 'Placeholder Offhand', { dodge: 1 }],

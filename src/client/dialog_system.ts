@@ -58,7 +58,7 @@ export type DialogButton = {
   cb?: string | (() => void);
 };
 export type DialogParam = {
-  name: string;
+  name?: string;
   text: string;
   font_style?: FontStyle;
   transient?: boolean;

@@ -950,10 +950,10 @@ export function giveReward(reward: { money?: number; items?: Item[] }): void {
         if (!found) {
           me.data.inventory.push(item);
         }
-        msg.push(`FOUND ${item.count || 1} ${item_def.name}`);
+        msg.push(`GAINED ${item.count || 1} ${item_def.name}`);
       } else {
         me.data.inventory.push(item);
-        msg.push(`FOUND ${item_def.name}`);
+        msg.push(`GAINED ${item_def.name}`);
       }
     }
   }
@@ -1137,8 +1137,8 @@ function playCrawl(): void {
     y: VIEWPORT_Y0,
     h: render_height + 4,
     z: Z.STATUS,
-    pad_top: 4,
-    pad_bottom: 4,
+    pad_top: 5,
+    pad_bottom: 5,
   };
   if (is_fullscreen_ui || frame_map_view) {
     dialog_viewport.x = 0;
