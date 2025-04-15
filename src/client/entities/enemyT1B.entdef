@@ -3,17 +3,17 @@ traits:
 - id: enemy
 - id: stats_default
   # NOTE: don't change these stats, change combat_test.ts
-  hp: 10 # var
-  attack: 6
-  defense: 3
-  accuracy: 3
-  dodge: 2
-  tier: 0
+  hp: 13 # cannon
+  attack: 12
+  defense: 6
+  accuracy: 6
+  dodge: 7
+  tier: 1
 - id: drawable
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [critter-14]
+      frames: [critter-12]
       times: 10000
   sprite_data:
     atlas: critters
@@ -22,5 +22,5 @@ traits:
     origin: [0.5, 1]
   scale: 0.85
   simple_anim:
-    - period: 6851
+    - period: 5083
       scale: [1, 0.88]

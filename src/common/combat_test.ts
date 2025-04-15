@@ -1,3 +1,5 @@
+import fs from 'fs';
+import { randSimpleSpatial } from 'glov/common/rand_fast';
 import type { StatsData } from '../client/entity_demo_client';
 import type { ItemType } from '../client/item_defs';
 
@@ -171,21 +173,32 @@ let equipment: Equip[] = [{
 
 let TEST_TIERS = [0, 4];
 
-let enemies: Stats[][] = [
+const LABEL_TO_SPRITE = {
+  normal: 'critter-11',
+  sponge: 'critter-15',
+  var: 'critter-14',
+  cannon: 'critter-12',
+  boss: 'critter-13',
+};
+
+let enemies: (Stats & { label: keyof typeof LABEL_TO_SPRITE })[][] = [
   // tier 0 - zone 0 enemies
   [{
+    label: 'normal',
     hp: 12,
     attack: 3,
     defense: 3,
     accuracy: 3,
     dodge: 3,
   },{
+    label: 'sponge',
     hp: 24, // sponge
     attack: 2,
     defense: 4,
     accuracy: 3,
     dodge: 1,
   },{
+    label: 'var',
     hp: 10, // variable
     attack: 6,
     defense: 3,
@@ -194,18 +207,21 @@ let enemies: Stats[][] = [
   }],
   // tier 1 - zone 1 enemies
   [{
+    label: 'normal',
     hp: 18,
     attack: 7,
     defense: 8,
     accuracy: 7,
     dodge: 7,
   },{
+    label: 'cannon',
     hp: 13, // glass cannon
     attack: 12,
     defense: 6,
     accuracy: 7,
     dodge: 7,
   },{
+    label: 'var',
     hp: 16, // dodge tank
     attack: 7,
     defense: 7,
@@ -214,18 +230,21 @@ let enemies: Stats[][] = [
   }],
   // tier 2 - zone 2 enemies
   [{
+    label: 'normal',
     hp: 26,
     attack: 12,
     defense: 11,
     accuracy: 11,
     dodge: 11,
   }, {
+    label: 'sponge',
     hp: 39, // sponge
     attack: 9,
     defense: 13,
     accuracy: 10,
     dodge: 10,
   }, {
+    label: 'var',
     hp: 18, // glass cannon w/ dodge
     attack: 18,
     defense: 10,
@@ -234,6 +253,7 @@ let enemies: Stats[][] = [
   }],
   // tier 3 - special bosses / blockers
   [{
+    label: 'boss',
     hp: 45,
     attack: 19,
     defense: 18,
@@ -242,6 +262,7 @@ let enemies: Stats[][] = [
   }],
   // tier 4 - final guard // ~90% death at double HP with T4 gear
   [{
+    label: 'boss',
     hp: 100,
     attack: 36,
     defense: 43,
@@ -427,6 +448,50 @@ for (let player_tier = 0; player_tier <= 4; ++player_tier) {
     }
     if (dobreak) {
       break;
+    }
+  }
+}
+
+
+const WRITE_ENEMIES = false;
+if (WRITE_ENEMIES) {
+  for (let enemy_tier = 0; enemy_tier < enemies.length; ++enemy_tier) {
+    let enemy_list = enemies[enemy_tier];
+    for (let jj = 0; jj < enemy_list.length; ++jj) {
+      let e = enemy_list[jj];
+      let suffix = enemy_list.length > 1 ? ['A','B','C'][jj] : '';
+      let filename = `src/client/entities/enemyT${enemy_tier}${suffix}.entdef`;
+      let tile = LABEL_TO_SPRITE[e.label];
+      let period = 5000 + Math.round(randSimpleSpatial(1234, enemy_tier, jj, 0) * 5000);
+      let data = `---
+traits:
+- id: enemy
+- id: stats_default
+  # NOTE: don't change these stats, change combat_test.ts
+  hp: ${e.hp} # ${e.label}
+  attack: ${e.attack}
+  defense: ${e.defense}
+  accuracy: ${e.defense}
+  dodge: ${e.dodge}
+  tier: ${enemy_tier}
+- id: drawable
+- id: drawable_sprite
+  anim_data:
+    idle:
+      frames: [${tile}]
+      times: 10000
+  sprite_data:
+    atlas: critters
+    filter_min: LINEAR_MIPMAP_LINEAR
+    filter_mag: LINEAR
+    origin: [0.5, 1]
+  scale: 0.85
+  simple_anim:
+    - period: ${period}
+      scale: [1, 0.88]
+`;
+      console.log(filename);
+      fs.writeFileSync(filename, data);
     }
   }
 }

@@ -14,4 +14,4 @@ traits:
   scale: 1.0
   simple_anim:
     - period: 5000
-      scale: [0.97, 1]
+      scale: [1, 0.97]

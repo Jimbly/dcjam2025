@@ -3,12 +3,12 @@ traits:
 - id: enemy
 - id: stats_default
   # NOTE: don't change these stats, change combat_test.ts
-  hp: 10 # var
-  attack: 6
-  defense: 3
-  accuracy: 3
-  dodge: 2
-  tier: 0
+  hp: 16 # var
+  attack: 7
+  defense: 7
+  accuracy: 7
+  dodge: 13
+  tier: 1
 - id: drawable
 - id: drawable_sprite
   anim_data:
@@ -22,5 +22,5 @@ traits:
     origin: [0.5, 1]
   scale: 0.85
   simple_anim:
-    - period: 6851
+    - period: 7780
       scale: [1, 0.88]

@@ -2,16 +2,14 @@
 traits:
 - id: enemy
 - id: stats_default
-  hp: 20 # sponge
+  # NOTE: don't change these stats, change combat_test.ts
+  hp: 24 # sponge
   attack: 2
-  defense: 3
-  accuracy: 3
-  dodge: 0
+  defense: 4
+  accuracy: 4
+  dodge: 1
   tier: 0
 - id: drawable
-  biasL: [-0.35, 0.32]
-  biasF: [0, -0.25]
-  biasR: [-0.25, 0.5]
 - id: drawable_sprite
   anim_data:
     idle:
@@ -22,11 +20,7 @@ traits:
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
     origin: [0.5, 1]
-  scale: 0.75
+  scale: 0.85
   simple_anim:
-    - period: 5000
-      scale: [1, 1.15]
-      # easing: 2
-      # offs:
-      #   - [0, -0.15]
-      #   - [0, 0]
+    - period: 9821
+      scale: [1, 0.88]
