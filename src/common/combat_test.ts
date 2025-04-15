@@ -71,7 +71,8 @@ let player_base: Stats = {
   dodge: 4,
 };
 
-let equipment: (Partial<Stats> & { slot: ItemType; tier: number })[] = [{
+type Equip = Partial<Stats> & { slot: ItemType; tier: number };
+let equipment: Equip[] = [{
   slot: 'head',
   tier: 0,
   hp: 5,
@@ -173,34 +174,34 @@ let TEST_TIERS = [0, 4];
 let enemies: Stats[][] = [
   // tier 0 - zone 0 enemies
   [{
-    hp: 10,
+    hp: 12,
     attack: 3,
     defense: 3,
     accuracy: 3,
     dodge: 3,
   },{
-    hp: 20, // sponge
+    hp: 24, // sponge
     attack: 2,
-    defense: 3,
+    defense: 4,
     accuracy: 3,
-    dodge: 0,
+    dodge: 1,
   },{
     hp: 10, // variable
-    attack: 4,
-    defense: 2,
-    accuracy: 4,
+    attack: 6,
+    defense: 3,
+    accuracy: 6,
     dodge: 2,
   }],
   // tier 1 - zone 1 enemies
   [{
     hp: 18,
     attack: 7,
-    defense: 7,
+    defense: 8,
     accuracy: 7,
     dodge: 7,
   },{
-    hp: 12, // glass cannon
-    attack: 11,
+    hp: 13, // glass cannon
+    attack: 12,
     defense: 6,
     accuracy: 7,
     dodge: 7,
@@ -209,24 +210,24 @@ let enemies: Stats[][] = [
     attack: 7,
     defense: 7,
     accuracy: 5,
-    dodge: 12,
+    dodge: 13,
   }],
   // tier 2 - zone 2 enemies
   [{
-    hp: 24,
-    attack: 11,
+    hp: 26,
+    attack: 12,
     defense: 11,
     accuracy: 11,
     dodge: 11,
   }, {
-    hp: 38, // sponge
+    hp: 39, // sponge
     attack: 9,
-    defense: 12,
+    defense: 13,
     accuracy: 10,
     dodge: 10,
   }, {
     hp: 18, // glass cannon w/ dodge
-    attack: 17,
+    attack: 18,
     defense: 10,
     accuracy: 11,
     dodge: 14,
@@ -235,7 +236,7 @@ let enemies: Stats[][] = [
   [{
     hp: 45,
     attack: 19,
-    defense: 17,
+    defense: 18,
     accuracy: 15,
     dodge: 15,
   }],
@@ -249,7 +250,7 @@ let enemies: Stats[][] = [
   }],
 ];
 
-const RUNS = 1000;
+const RUNS = 3000;
 const NUM_PER_FLOOR = [
   10,
   10,
@@ -257,6 +258,10 @@ const NUM_PER_FLOOR = [
   3,
   1,
 ];
+
+function rarr<T>(arr: T[]): T {
+  return arr[Math.floor(random() * arr.length)];
+}
 
 let was_oneshot = false;
 let fight_turns = 0;
@@ -289,7 +294,27 @@ function avg(v: number, runs: number): string {
   return (v / runs).toFixed(1);
 }
 
-function runAgainst(prefix: string, player: Stats, tier: number, num_per_floor: number): boolean {
+function equip(player: Stats, e: Equip): void {
+  let key: keyof Stats;
+  for (key in e as Stats) {
+    player[key] += (e as Stats)[key];
+  }
+}
+
+function unequip(player: Stats, slot: ItemType, tier: number): void {
+  for (let ii = 0; ii < equipment.length; ++ii) {
+    let e = equipment[ii];
+    if (e.slot === slot && e.tier === tier) {
+      let key: keyof Stats;
+      for (key in e as Stats) {
+        player[key] -= (e as Stats)[key];
+      }
+      return;
+    }
+  }
+}
+
+function runAgainst(prefix: string, player: Stats, tier: number, num_per_floor: number, upgrades: Equip[]): boolean {
   let deaths = 0;
   let total_heals = 0;
   let total_oneshots = 0;
@@ -306,16 +331,26 @@ function runAgainst(prefix: string, player: Stats, tier: number, num_per_floor: 
   }
   if (enemies[tier][1]) {
     for (let ii = 0; ii < 3; ++ii) {
-      enemy_list.push(enemies[tier][1]);
+      enemy_list.push(enemies[tier][2]);
     }
   }
+  let player_orig = player;
   for (let ii = 0; ii < RUNS; ++ii) {
+    player = { ...player_orig };
     let hp = player.hp;
     let heals = 0;
     let oneshots = 0;
     let turns = 0;
     let died = false;
+
+    rarr(upgrades);
+    let upgrade_idx = 0;
     for (let jj = 0; jj < num_per_floor; ++jj) {
+      if (upgrades.length && jj/(num_per_floor - 1) >= (upgrade_idx+1)/upgrades.length) {
+        let e = upgrades[upgrade_idx++];
+        unequip(player, e.slot, e.tier - 1);
+        equip(player, e);
+      }
       if (hp < player.hp * 0.5) {
         ++heals;
         hp = player.hp;
@@ -351,7 +386,7 @@ function runAgainst(prefix: string, player: Stats, tier: number, num_per_floor: 
   if (deaths/RUNS > 0.9) {
     console.log(`${prefix} DEATH - Death: ${perc(deaths/RUNS)}${deaths ?
       ` (survived ${avg(fights_til_death, deaths)})` : ''}`);
-    return false;
+    return true;
   }
   console.log(`${prefix}`);
   console.log(`  Death: ${perc(deaths/RUNS)}${deaths ? ` (survived ${avg(fights_til_death, deaths)})` : ''}`);
@@ -370,25 +405,25 @@ for (let player_tier = 0; player_tier <= 4; ++player_tier) {
   let player = {
     ...player_base,
   };
+  let upgrades: Equip[] = [];
   for (let ii = 0; ii < equipment.length; ++ii) {
     let e = equipment[ii];
     if (e.tier === player_tier) {
-      let key: keyof Stats;
-      for (key in e as Stats) {
-        (player as Stats)[key] += (e as Stats)[key];
-      }
+      equip(player, e);
+    } else if (e.tier === player_tier + 1) {
+      upgrades.push(e);
     }
   }
   for (let enemy_tier = TEST_TIERS[0]; enemy_tier <= TEST_TIERS[1]; ++enemy_tier) {
     let dobreak = runAgainst(`Player T${player_tier} vs Enemy T${enemy_tier}:`,
-      player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
+      player, enemy_tier, NUM_PER_FLOOR[enemy_tier], enemy_tier === player_tier ? upgrades : []);
     if (player_tier === 4 && enemy_tier === 4) {
       player.hp *= 2;
       runAgainst(`Player T${player_tier} (double HP) vs Enemy T${enemy_tier}:`,
-        player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
+        player, enemy_tier, NUM_PER_FLOOR[enemy_tier], upgrades);
       player.hp *= 2;
       runAgainst(`Player T${player_tier} (quadruple HP) vs Enemy T${enemy_tier}:`,
-        player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
+        player, enemy_tier, NUM_PER_FLOOR[enemy_tier], upgrades);
     }
     if (dobreak) {
       break;
