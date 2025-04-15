@@ -19,6 +19,6 @@ visuals:
     tile: hologram
     width: 1
     height: 1
-    offs: [0.06, 0.06, 0]
+    offs: [0.0, 0.0, 0.0]
     face_camera: true # Otherwise faces frustum
     do_alpha: true
