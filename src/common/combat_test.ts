@@ -63,8 +63,8 @@ type Stats = Omit<StatsData, 'hp_max' | 'tier'>;
 
 
 let player_base: Stats = {
-  // note: base stats *with* the T-1 hat
-  hp: 20,
+  // note: base stats *with* the T0 hat
+  hp: 15,
   attack: 4,
   defense: 4,
   accuracy: 4,
@@ -72,17 +72,31 @@ let player_base: Stats = {
 };
 
 let equipment: (Partial<Stats> & { slot: ItemType; tier: number })[] = [{
+  slot: 'head',
+  tier: 0,
+  hp: 5,
+}, {
   // tier 1 found in zone 0, guarded by T0s
   // head - bought
   // torso - zone 0
   // weapon - zone 0
   // offhand - zone 0
+
   slot: 'head',
   tier: 1,
-  hp: 15,
+  hp: 20,
+}, {
+  slot: 'torso',
+  tier: 1,
   defense: 6,
+}, {
+  slot: 'weapon',
+  tier: 1,
   attack: 6,
   accuracy: 4,
+}, {
+  slot: 'offhand',
+  tier: 1,
   dodge: 4,
 }, {
   // tier 2 found in zone 1, guarded by T1s
@@ -93,24 +107,42 @@ let equipment: (Partial<Stats> & { slot: ItemType; tier: number })[] = [{
   // weaponb - zone 0 T1 blocked
   slot: 'head',
   tier: 2,
-  hp: 30,
+  hp: 35,
+}, {
+  slot: 'torso',
+  tier: 2,
   defense: 12,
+}, {
+  slot: 'weapon',
+  tier: 2,
   attack: 12,
   accuracy: 8,
+}, {
+  slot: 'offhand',
+  tier: 2,
   dodge: 8,
 }, {
   // tier 3 found in zone 2, guarded by T2s
-  slot: 'head',
   // head - bought
   // torso - zone 2
   // weapon - zone 2
   // offhand - zone 2
   // offhandb - zone 1 T2 blocked
+  slot: 'head',
   tier: 3,
-  hp: 45,
+  hp: 50,
+}, {
+  slot: 'torso',
+  tier: 3,
   defense: 18,
+}, {
+  slot: 'weapon',
+  tier: 3,
   attack: 20,
   accuracy: 12,
+}, {
+  slot: 'offhand',
+  tier: 3,
   dodge: 12,
 }, {
   // tier 4 purchased or found in earlier zones - not required/expected
@@ -120,10 +152,19 @@ let equipment: (Partial<Stats> & { slot: ItemType; tier: number })[] = [{
   // offhand - zone 2 T3 blocked
   slot: 'head',
   tier: 4,
-  hp: 60,
+  hp: 65,
+}, {
+  slot: 'torso',
+  tier: 4,
   defense: 26,
+}, {
+  slot: 'weapon',
+  tier: 4,
   attack: 24,
   accuracy: 16,
+}, {
+  slot: 'offhand',
+  tier: 4,
   dodge: 16,
 }];
 
@@ -192,9 +233,9 @@ let enemies: Stats[][] = [
   }],
   // tier 3 - special bosses / blockers
   [{
-    hp: 40,
-    attack: 14,
-    defense: 16,
+    hp: 45,
+    attack: 19,
+    defense: 17,
     accuracy: 15,
     dodge: 15,
   }],
@@ -216,10 +257,6 @@ const NUM_PER_FLOOR = [
   3,
   1,
 ];
-
-function rarr<T>(arr: T[]): T {
-  return arr[Math.floor(random() * arr.length)];
-}
 
 let was_oneshot = false;
 let fight_turns = 0;
@@ -252,12 +289,26 @@ function avg(v: number, runs: number): string {
   return (v / runs).toFixed(1);
 }
 
-function runAgainst(player: Stats, tier: number, num_per_floor: number): boolean {
+function runAgainst(prefix: string, player: Stats, tier: number, num_per_floor: number): boolean {
   let deaths = 0;
   let total_heals = 0;
   let total_oneshots = 0;
   let total_turns = 0;
   let fights_til_death = 0;
+  let enemy_list = [];
+  for (let ii = 0; ii < 4; ++ii) {
+    enemy_list.push(enemies[tier][0]);
+  }
+  if (enemies[tier][1]) {
+    for (let ii = 0; ii < 3; ++ii) {
+      enemy_list.push(enemies[tier][1]);
+    }
+  }
+  if (enemies[tier][1]) {
+    for (let ii = 0; ii < 3; ++ii) {
+      enemy_list.push(enemies[tier][1]);
+    }
+  }
   for (let ii = 0; ii < RUNS; ++ii) {
     let hp = player.hp;
     let heals = 0;
@@ -269,7 +320,7 @@ function runAgainst(player: Stats, tier: number, num_per_floor: number): boolean
         ++heals;
         hp = player.hp;
       }
-      let enemy = rarr(enemies[tier]);
+      let enemy = enemy_list[jj];
       hp = fight(player, hp, enemy);
       // console.log('fight', enemy, hp);
       if (hp) {
@@ -291,8 +342,19 @@ function runAgainst(player: Stats, tier: number, num_per_floor: number): boolean
       total_turns += turns;
     }
   }
-  console.log(`  Death: ${perc(deaths/RUNS)}${deaths ? ` (survived ${avg(fights_til_death, deaths)})` : ''}`);
   let runs = RUNS - deaths;
+  if (!deaths && !total_heals && total_turns/num_per_floor/runs < 5) {
+    console.log(`${prefix} TRIVIAL - Oneshots: ${perc(total_oneshots/num_per_floor/runs)}` +
+      ` Turns/fight: ${avg(total_turns/num_per_floor, runs)}`);
+    return false;
+  }
+  if (deaths/RUNS > 0.9) {
+    console.log(`${prefix} DEATH - Death: ${perc(deaths/RUNS)}${deaths ?
+      ` (survived ${avg(fights_til_death, deaths)})` : ''}`);
+    return false;
+  }
+  console.log(`${prefix}`);
+  console.log(`  Death: ${perc(deaths/RUNS)}${deaths ? ` (survived ${avg(fights_til_death, deaths)})` : ''}`);
   if (runs) {
     console.log([
       `  Heals: ${avg(total_heals, runs)}`,
@@ -318,15 +380,15 @@ for (let player_tier = 0; player_tier <= 4; ++player_tier) {
     }
   }
   for (let enemy_tier = TEST_TIERS[0]; enemy_tier <= TEST_TIERS[1]; ++enemy_tier) {
-    console.log(`\nPlayer T${player_tier} vs Enemy T${enemy_tier}:`);
-    let dobreak = runAgainst(player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
+    let dobreak = runAgainst(`Player T${player_tier} vs Enemy T${enemy_tier}:`,
+      player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
     if (player_tier === 4 && enemy_tier === 4) {
-      console.log(`\nPlayer T${player_tier} (double HP) vs Enemy T${enemy_tier}:`);
       player.hp *= 2;
-      runAgainst(player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
-      console.log(`\nPlayer T${player_tier} (quadruple HP) vs Enemy T${enemy_tier}:`);
+      runAgainst(`Player T${player_tier} (double HP) vs Enemy T${enemy_tier}:`,
+        player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
       player.hp *= 2;
-      runAgainst(player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
+      runAgainst(`Player T${player_tier} (quadruple HP) vs Enemy T${enemy_tier}:`,
+        player, enemy_tier, NUM_PER_FLOOR[enemy_tier]);
     }
     if (dobreak) {
       break;

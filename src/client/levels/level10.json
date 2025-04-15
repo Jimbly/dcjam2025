@@ -1068,7 +1068,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "station_decal_5",
         "door",
         "solid"
       ],
@@ -1080,9 +1080,9 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_hologram",
       "walls": [
-        "solid",
+        "station_decal_3",
         "solid",
         "open",
         "solid"
@@ -1365,7 +1365,7 @@
       ]
     },
     {
-      "id": "station_hologram",
+      "id": "open",
       "walls": [
         "open",
         "open",
@@ -2393,10 +2393,10 @@
   ],
   "initial_entities": [
     {
-      "type": "critter11",
+      "type": "npc04",
       "pos": [
-        5,
-        7,
+        6,
+        10,
         2
       ]
     },
@@ -2438,14 +2438,6 @@
         5,
         13,
         1
-      ]
-    },
-    {
-      "type": "npc04",
-      "pos": [
-        6,
-        10,
-        2
       ]
     }
   ],

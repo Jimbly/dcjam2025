@@ -131,7 +131,7 @@ dialogRegister({
         }]
       });
     }
-    const HAT_COSTS = 2000;
+    let hat_cost = 2000;
     let options = [
       'helmet1',
       'helmet2',
@@ -144,6 +144,7 @@ dialogRegister({
         next = options[ii];
         break;
       }
+      hat_cost += 100;
     }
 
     if (!next) {
@@ -157,21 +158,21 @@ dialogRegister({
     let me = myEnt();
     let { money } = me.data;
 
-    if (money < HAT_COSTS) {
+    if (money < hat_cost) {
       return dialogPush({
         custom_render,
         transient: true,
-        text: `I've got another one saved for ya.  Come back when you have [img=icon-currency]${HAT_COSTS}.`
+        text: `I've got another one saved for ya.  Come back when you have [img=icon-currency]${hat_cost}.`
       });
     }
 
     return dialogPush({
       custom_render,
-      text: `This one will fit you perfectly.  I call it The ${ITEMS[next].name}.  Only [img=icon-currency]${HAT_COSTS}.`,
+      text: `This one will fit you perfectly.  I call it The ${ITEMS[next].name}.  Only [img=icon-currency]${hat_cost}.`,
       buttons: [{
         label: 'YES, PLEASE!',
         cb: function () {
-          me.data.money -= HAT_COSTS;
+          me.data.money -= hat_cost;
           giveReward({ items: [{ item_id: next }] });
           api.keySet(next);
         },

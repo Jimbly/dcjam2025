@@ -1,4 +1,5 @@
 TODO
+* combat balance - it's a walk in the park as soon as you get 1-2 of the items? 0 medkit use?
 * respawn all entities on non-heist ships when going in/out
   * respawn _some_ entities on planets (just based on entity type? As? property on the cell?)
 * always show living creatures on the map in explored areas
@@ -11,6 +12,18 @@ TODO
   * add pursuer / lose condition
   * visually dodge the asteroids
   * heat and maybe gear to be bars
+
+ZONES
+* Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
+* Zone 0
+  * key1
+  * torso1, weapon1, offhand1, weapon2b (T1), torso4 (T3)
+* Zone 1
+  * key2
+  * torso2, weapon2, offhand2, offhand3b (T2), weapon4 (T3)
+* Zone 2
+  * key3
+  * torso3, weapon3, offhand3, offhand4 (T3)
 
 ECONOMY
 * gear always in chests
