@@ -1,0 +1,25 @@
+---
+# fog_color: '#fff'
+fog_color: '#ffebe2'
+fog_ex_color: [1.000, 0.929, 0.890, 1.3] # extinction color, w is a uniform scale on brightness
+background_color: [1.000, 0.929, 0.890]
+# background_img: backdrop_demo
+fog_params:
+- 0.0025 # color extinction rate
+- 0.0003 # fog rate
+- 450.0
+cell_swaps:
+  open: ship_open
+wall_swaps:
+  open: ship_open
+  door: ship_door
+  door_oneway: ship_door
+  # door_locked: demo_door_locked
+  # door_locked_unlocked: demo_door_locked_unlocked
+  entrance: ship_stairs_in
+  # secret_door: demo_secret_door
+  # secret_door_unvisited: demo_secret_door
+  solid: ship_solid1
+  stairs_in: ship_stairs_in
+  stairs_out: ship_stairs_out
+  # floorswitch: demo_floorswitch

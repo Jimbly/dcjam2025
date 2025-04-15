@@ -4,11 +4,11 @@ open_vis: true
 visuals:
 - type: simple_filler
   opts:
-    atlas: spireish
+    atlas: ship
     tile: filler
 - type: simple_filler
   opts:
-    atlas: spireish
+    atlas: ship
     tile: filler
     offs: [0, 1]
 

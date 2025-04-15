@@ -5,20 +5,20 @@ visuals:
 - pass: bg
   type: simple_floor
   opts:
-    atlas: spireish
+    atlas: moon
     tile: floor
 - pass: bg
   type: simple_ceiling
   opts:
-    atlas: spireish
+    atlas: moon
     tile: ceiling
 - pass: celldetails
   type: simple_billboard
   opts:
-    atlas: spireish
-    tile: detail1
-    width: 1
-    height: 1
+    atlas: moon
+    tile: detail2
+    width: 0.5
+    height: 0.5
     offs: [0, 0, 0]
     face_camera: true # Otherwise faces frustum
     do_alpha: true

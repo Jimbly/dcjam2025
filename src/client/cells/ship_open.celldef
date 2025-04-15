@@ -6,12 +6,12 @@ visuals:
 - pass: bg
   type: simple_floor
   opts:
-    atlas: spireish
+    atlas: ship
     tile: floor
 - pass: bg
   type: simple_ceiling
   opts:
-    atlas: spireish
+    atlas: ship
     tile: ceiling
 
 corners: # pillars and floor/ceiling details
@@ -20,7 +20,10 @@ corners: # pillars and floor/ceiling details
     type: simple_pillar
     opts:
       quadrants: 1
-      atlas: spireish
+      radius: 0.125
+      segments: 8
+      roundness: 0
+      atlas: ship
       tile: pillar1
       height: 1
       offs: [0,0,0]
@@ -29,14 +32,17 @@ corners: # pillars and floor/ceiling details
     opts:
       quadrants: 1
       scale: 1
-      atlas: spireish
+      atlas: ship
       tile: pillar_floor1
   two:
-  - pass: details
+  - pass: celldetails
     type: simple_pillar
     opts:
       quadrants: 2
-      atlas: spireish
+      radius: 0.125
+      segments: 8
+      roundness: 0
+      atlas: ship
       tile: pillar2
       height: 1
       offs: [0,0,0]
@@ -45,14 +51,17 @@ corners: # pillars and floor/ceiling details
     opts:
       quadrants: 2
       scale: 1
-      atlas: spireish
+      atlas: ship
       tile: pillar_floor2
   three:
   - pass: details
     type: simple_pillar
     opts:
       quadrants: 3
-      atlas: spireish
+      radius: 0.125
+      segments: 8
+      roundness: 0
+      atlas: ship
       tile: pillar3
       height: 1
       offs: [0,0,0]
@@ -61,21 +70,24 @@ corners: # pillars and floor/ceiling details
     opts:
       quadrants: 3
       scale: 1
-      atlas: spireish
+      atlas: ship
       tile: pillar_floor3
-  four:
-  - pass: details
-    type: simple_pillar
-    opts:
-      quadrants: 4
-      atlas: spireish
-      tile: pillar4
-      height: 1
-      offs: [0,0,0]
-  - pass: details
-    type: simple_corner_floor
-    opts:
-      quadrants: 4
-      scale: 1
-      atlas: spireish
-      tile: pillar_floor4
+  # four:
+  # - pass: details
+  #   type: simple_pillar
+  #   opts:
+  #     quadrants: 4
+  #     atlas: ship
+  #     radius: 0.125
+  #     segments: 8
+  #     roundness: 0
+  #     tile: pillar4
+  #     height: 1
+  #     offs: [0,0,0]
+  # - pass: details
+  #   type: simple_corner_floor
+  #   opts:
+  #     quadrants: 4
+  #     scale: 1
+  #     atlas: ship
+  #     tile: pillar_floor4

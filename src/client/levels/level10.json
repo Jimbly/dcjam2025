@@ -1,14 +1,14 @@
 {
   "special_pos": {
     "stairs_in": [
-      1,
-      8,
-      0
+      4,
+      7,
+      2
     ],
     "stairs_out": [
-      4,
-      9,
-      3
+      3,
+      7,
+      2
     ]
   },
   "w": 16,
@@ -891,7 +891,7 @@
       "id": "solid",
       "walls": [
         "solid",
-        "solid",
+        "open",
         "open",
         "open"
       ]
@@ -1025,25 +1025,19 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "open",
         "open",
         "open",
         "open"
       ]
     },
     {
-      "id": "stairs_out",
+      "id": "solid",
       "walls": [
-        "door",
         "solid",
         "solid",
-        "solid"
-      ],
-      "events": [
-        {
-          "id": "floor_delta",
-          "param": "-1000"
-        }
+        "open",
+        "open"
       ]
     },
     {
@@ -1051,14 +1045,14 @@
       "walls": [
         "open",
         "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
         "stairs_out",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "door",
         "open",
         "open",
         "open"
@@ -1066,7 +1060,7 @@
       "events": [
         {
           "id": "sign",
-          "param": "SHUTTLE RENTAL"
+          "param": "SHUTTLE RENTALS"
         }
       ]
     },

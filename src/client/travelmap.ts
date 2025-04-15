@@ -32,7 +32,7 @@ export function stateTravel(dt: number): void {
   [{
     x: 42,
     y: 37,
-    floor: 12,
+    floor: 13,
   }, {
     x: 138,
     y: 123,

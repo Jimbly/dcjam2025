@@ -1,0 +1,24 @@
+---
+open_move: true
+open_vis: true
+visuals:
+- pass: bg
+  type: simple_floor
+  opts:
+    atlas: ship
+    tile: floor
+- pass: bg
+  type: simple_ceiling
+  opts:
+    atlas: ship
+    tile: ceiling
+- pass: celldetails
+  type: simple_billboard
+  opts:
+    atlas: ship
+    tile: detail4
+    width: 1
+    height: 1
+    offs: [0, 0, 0]
+    face_camera: true # Otherwise faces frustum
+    do_alpha: true
