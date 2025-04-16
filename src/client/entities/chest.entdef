@@ -1,6 +1,7 @@
 ---
 properties:
   is_chest: true
+  map_icon: chest
 traits:
 - id: drawable
   biasL: [-0.15, 0.25]

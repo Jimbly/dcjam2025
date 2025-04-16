@@ -1,7 +1,6 @@
 TODO
 * sound hooks: chest pickup, buying hat
 * combat test: try B varieties and combinations for comparison
-* icon for unlooted chest on map (entity icon? loot property + entity?)
 * update HP on the right during combat (related to medkit one below?)
 * allow using medkits during combat
 * armor/weapon/offhand trader?

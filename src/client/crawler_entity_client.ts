@@ -117,6 +117,7 @@ export interface EntityCrawlerClient extends EntityBaseClient {
   is_player: boolean;
   is_enemy: boolean;
   blocks_player: boolean;
+  map_icon?: string;
 }
 
 type Entity = EntityCrawlerClient;
