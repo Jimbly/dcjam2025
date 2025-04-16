@@ -33,8 +33,8 @@ type Entity = EntityDemoClient;
 const REWARD_TIERS = [
   50,
   100,
-  150,
   200,
+  350,
   200,
 ];
 

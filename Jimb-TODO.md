@@ -47,7 +47,7 @@ ECONOMY
       * 2000 each?
     * final hat is another 2K, requires a few grind trips back to Zone 2
 * full run-through with no repeated monster kills, and forgetting to heal: ended with all stuff and $50, 2 medkits, not enough to beat guard, perfect!
-* Need an extra ~2K for bribes now though! (want this tail-loaded in Zone 2)
+* Need an extra ~2K for bribes now though! Increased drops by ~900
 
 Wrap-up
 * Disable `/`
