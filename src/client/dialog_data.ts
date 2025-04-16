@@ -23,6 +23,7 @@ import { travelGameFinish } from './travelgame';
 import { startTravel } from './travelmap';
 
 const LOSE_COST = 100;
+const COST_MEDKIT = 100;
 
 const NAME_BOX_H = 14;
 const NAME_BOX_PAD = 6;
@@ -56,6 +57,17 @@ dialogIconsRegister({
     return 'icon_exclamation';
   },
 });
+
+function numMedkitsMessage(): string {
+  let ret = 0;
+  let { inventory } = myEnt().data;
+  for (let ii = 0; ii < inventory.length; ++ii) {
+    if (inventory[ii].item_id === 'med1') {
+      ret += inventory[ii].count || 1;
+    }
+  }
+  return `(Med-Kits owned: ${ret})`;
+}
 
 dialogRegister({
   sign: function (param: string) {
@@ -215,6 +227,45 @@ dialogRegister({
     myEnt().data.money = 9999;
 
     dialog('sign', 'GRANTED EVERYTHING');
+  },
+  medbay: function () {
+    let { data } = myEnt();
+    let { stats, money } = data;
+    let do_heal = stats.hp < stats.hp_max;
+    if (do_heal) {
+      stats.hp = stats.hp_max;
+      playUISound('item_heal');
+    }
+    let prefix = do_heal ? 'I\'ve patched you up.  ' : '';
+    if (money < COST_MEDKIT) {
+      return dialog('sign', `${prefix}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.`);
+    }
+    dialogPush({
+      text: `${prefix || 'You\'re right as rain.  '}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.  Want one?\n${numMedkitsMessage()}`,
+      buttons: [{
+        label: `YES, PLEASE! (-[img=icon-currency]${COST_MEDKIT})`,
+        cb: 'medbuy',
+      }, {
+        label: 'MAYBE LATER...',
+      }]
+    });
+  },
+  medbuy: function () {
+    let { data } = myEnt();
+    data.money -= COST_MEDKIT;
+    giveReward({ items: [{ item_id: 'med1' }] });
+    if (data.money < COST_MEDKIT) {
+      return dialog('sign', 'Thank you, come again!');
+    }
+    dialogPush({
+      text: `There you go!  Want another?\n${numMedkitsMessage()}`,
+      buttons: [{
+        label: `THANK YOU SIR, MAY I HAVE ANOTHER! (-[img=icon-currency]${COST_MEDKIT})`,
+        cb: 'medbuy',
+      }, {
+        label: 'THAT\'LL BE ALL, THANKS...',
+      }]
+    });
   },
   // finale: function () {
   //   myEnt().data.score_won = true;

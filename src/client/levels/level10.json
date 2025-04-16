@@ -1350,7 +1350,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -1509,18 +1509,9 @@
       ]
     },
     {
-      "id": "solid",
-      "walls": [
-        "solid",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
       "id": "open",
       "walls": [
-        "open",
+        "station_shop_window",
         "station_decal_1",
         "station_solid3",
         "station_decal_1"
@@ -1530,9 +1521,30 @@
       "id": "open",
       "walls": [
         "open",
-        "open",
+        "station_solid2",
         "station_shop_window",
+        "station_decal_5"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "medbay"
+        }
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
         "open"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "MED BAY"
+        }
       ]
     },
     {
@@ -1676,7 +1688,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2401,11 +2413,11 @@
       ]
     },
     {
-      "type": "critter13",
+      "type": "critter12",
       "pos": [
-        1,
-        10,
-        0
+        5,
+        13,
+        1
       ]
     },
     {
@@ -2433,11 +2445,11 @@
       ]
     },
     {
-      "type": "critter12",
+      "type": "npc01",
       "pos": [
-        5,
-        13,
-        1
+        0,
+        10,
+        0
       ]
     }
   ],

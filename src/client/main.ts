@@ -227,8 +227,8 @@ export function main(): void {
     fontStyleColored(null, 0x000000ff),
     fontStyle(null, {
       color: 0x000000ff,
-      outline_width: 2.5,
-      outline_color: 0xFFFFFFff,
+      // outline_width: 2.5,
+      // outline_color: 0xFFFFFFff,
     }),
     fontStyleColored(null, 0x000000ff),
     fontStyleColored(null, 0x808080ff),

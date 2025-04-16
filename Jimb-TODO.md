@@ -1,8 +1,8 @@
 TODO
-* medkit seller and healing in medbay
 * don't show stats preview in inventory when mouse isn't actually over an item
-* combat test: try B varieties and combinations for comparison
 * always show living creatures on the map in explored areas
+* sound hooks: chest pickup, buying hat,
+* combat test: try B varieties and combinations for comparison
 * icon for unlooted chest on map (entity icon? loot property + entity?)
 * allow using medkits during combat
 * armor/weapon/offhand trader?

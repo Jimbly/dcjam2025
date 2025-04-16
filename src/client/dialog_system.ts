@@ -292,6 +292,7 @@ export function dialogRun(dt: number, viewport: UIBox & { pad_top: number; pad_b
         w: w - HPAD * 2,
         y: yy,
         z,
+        markdown: true,
       })) {
         active_dialog = null;
         if (button.cb) {
