@@ -65,6 +65,47 @@ function parseRow(job, img, x0, y0, dx, dy) {
 }
 
 
+let png_cache = [];
+let used_index = 0;
+function pngAllocTempReset() {
+  let any_used = false;
+  let oldest_unused = -1;
+  for (let ii = 0; ii < png_cache.length; ++ii) {
+    if (png_cache[ii].used) {
+      png_cache[ii].used = false;
+      any_used = true;
+    } else {
+      if (oldest_unused === -1 || png_cache[ii].index < png_cache[oldest_unused].index) {
+        oldest_unused = ii;
+      }
+    }
+  }
+  if (any_used) {
+    // just free one
+    png_cache[oldest_unused] = png_cache[png_cache.length - 1];
+    png_cache.pop();
+  }
+}
+
+function pngAllocTemp(width, height) {
+  for (let ii = 0; ii < png_cache.length; ++ii) {
+    if (!png_cache[ii].used && png_cache[ii].width === width && png_cache[ii].height === height) {
+      png_cache[ii].used = true;
+      png_cache[ii].index = ++used_index;
+      return png_cache[ii].img;
+    }
+  }
+  let img = pngAlloc({ width, height, byte_depth: 4 });
+  png_cache.push({
+    width,
+    height,
+    img,
+    used: true,
+    index: ++used_index,
+  });
+  return img;
+}
+
 module.exports = function (opts) {
   function imgproc(job, done) {
     let files = job.getFiles();
@@ -182,6 +223,7 @@ module.exports = function (opts) {
     }
 
     function doAtlas(name) {
+      pngAllocTempReset();
       let atlas_data = atlases[name];
       let { file_data, config_data } = atlas_data;
 
@@ -257,7 +299,7 @@ module.exports = function (opts) {
       let height = nextHighestPowerOfTwo(maxy);
       let pngouts = [];
       for (let ii = 0; ii < atlas_data.num_layers; ++ii) {
-        pngouts.push(pngAlloc({ width, height, byte_depth: 4 }));
+        pngouts.push(pngAllocTemp(width, height));
       }
       runtime_data.w = width;
       runtime_data.h = height;
@@ -316,6 +358,7 @@ module.exports = function (opts) {
         relative: `client/${name}.auat`,
         contents: JSON.stringify(runtime_data),
       });
+      pngAllocTempReset();
     }
 
     for (let key in atlases) {
@@ -325,6 +368,7 @@ module.exports = function (opts) {
   }
 
   function prepproc(job, done) {
+    pngAllocTempReset();
     let img_file = job.getFile();
 
     let base_name = path.basename(img_file.relative);
@@ -390,11 +434,10 @@ module.exports = function (opts) {
           job.error(depfile, `Tile "${key}" specifies unrecognized definition of "${JSON.stringify(tile_def)}" (expected index, [x, y], or [x, y, w, h])`);
           continue;
         }
-        let img_out = pngAlloc({
-          width: source[2],
-          height: source[3],
-          byte_depth: 4,
-        });
+        let img_out = pngAllocTemp(
+          source[2],
+          source[3],
+        );
         try {
           img.bitblt(img_out, source[0], source[1], source[2], source[3], 0, 0);
         } catch (err) {
@@ -406,6 +449,7 @@ module.exports = function (opts) {
           contents: pngWrite(img_out),
         });
       }
+      pngAllocTempReset();
       done();
     });
   }
