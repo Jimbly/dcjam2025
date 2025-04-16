@@ -1,6 +1,6 @@
 TODO
+* disable travel minigame
 * keys needing hookup:
-  foundsafe
   solvedescape
 * travel minigame
   * new race idea

@@ -28,6 +28,7 @@ const { round } = Math;
 const LOSE_COST = 100;
 const COST_MEDKIT = 100;
 const DRINK_COST = 60;
+const COST_ASSIST_BRIBE = 1000;
 
 const NAME_BOX_H = 14;
 const NAME_BOX_PAD = 6;
@@ -57,7 +58,7 @@ function consumeMoney(amount: number): void {
 
 function consumeItem(item_id: string): void {
   let item_def = ITEMS[item_id];
-  statusPush(`Lost ${item_def.name}`);
+  statusPush(`Lost **${item_def.name}**`);
   let { inventory } = myEnt().data;
   for (let ii = 0; ii < inventory.length; ++ii) {
     if (inventory[ii].item_id === item_id) {
@@ -292,6 +293,67 @@ dialogRegister({
         },
       }],
     });
+  },
+});
+
+dialogIconsRegister({
+  assistant: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    if (keyGet('sovledsafe')) {
+      return null;
+    }
+    if (!keyGet('assist1')) {
+      if (myEnt().data.money >= COST_ASSIST_BRIBE) {
+        return 'icon_exclamation';
+      }
+      return 'icon_question';
+    }
+    if (hasItem('key3')) {
+      return 'icon_exclamation';
+    }
+    return 'icon_question';
+  },
+});
+dialogRegister({
+  assistant: function () {
+    const name = 'THE BELEAGUERED ASSISTANT';
+    let { data } = myEnt();
+    if (keyGet('sovledsafe')) {
+      return signWithName(name, "I'll be gone on the next starliner and never look back...");
+    }
+    if (!keyGet('assist1')) {
+      if (data.money < COST_ASSIST_BRIBE) {
+        return signWithName(name, 'I won\'t talk to someone shady like you unless you give me a big gift as a sign of good faith...');
+      }
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: 'I won\'t talk to someone shady like you unless you give me a big gift as a sign of good faith...',
+        buttons: [{
+          label: `HOW'S [img=icon-currency]${COST_ASSIST_BRIBE} SOUND?`,
+          cb: function () {
+            consumeMoney(COST_ASSIST_BRIBE);
+            keySet('assist1');
+            dialog('assistant');
+          },
+        }, {
+          label: 'MAYBE LATER...',
+        }]
+      });
+    }
+    if (hasItem('key3')) {
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: '<exchange ticket for combination>',
+        buttons: [{
+          label: 'JUST WHAT YOU ALWAYS WANTED...',
+          cb: function () {
+            consumeItem('key3');
+            giveReward({ items: [{ item_id: 'key4' }] });
+            keySet('solvedsafe');
+          },
+        }],
+      });
+    }
+    return signWithName(name, '<want THE TICKET TO PARADISE for THE SAFE COMBINATION>');
   },
 });
 

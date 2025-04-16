@@ -844,7 +844,7 @@ function journalMenu(): void {
   let lines = [
     ['foundship', 'Find where **THE ASCENDING SWORD** is docked'],
     ['solvedguard', api.keyGet('metguard') ? 'Get past **THE ESTRANGED GUARD**' : 'Get past **THE GUARD**'],
-    ['foundsafe', 'Open the safe and grab **THE RED DEVASATION**'],
+    ['solvedsafe', 'Open the safe and grab **THE RED DEVASATION**'],
     ['solvedescape', 'Disappear into the black'],
   ];
   let x = INVENTORY_X;

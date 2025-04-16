@@ -1803,7 +1803,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "solid",
         "solid"
       ]
@@ -1812,7 +1812,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "solid"
       ]
@@ -1937,36 +1937,42 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "solid"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
         "open",
-        "solid",
         "open",
-        "open"
+        "solid",
+        "station_solid3a"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_solid3a",
+        "open",
+        "open",
+        "station_solid3a"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "assistant"
+        }
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "open",
         "solid",
         "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
-        "open",
-        "open",
         "open"
       ]
     },
@@ -2093,7 +2099,7 @@
         "open",
         "open",
         "solid",
-        "station_solid3"
+        "open"
       ],
       "events": [
         {
@@ -2108,7 +2114,7 @@
         "station_solid3",
         "station_shop_window",
         "open",
-        "station_solid3"
+        "open"
       ],
       "events": [
         {
@@ -2566,6 +2572,14 @@
         3,
         10,
         3
+      ]
+    },
+    {
+      "type": "npc05",
+      "pos": [
+        6,
+        12,
+        2
       ]
     }
   ],
