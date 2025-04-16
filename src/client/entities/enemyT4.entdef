@@ -4,7 +4,7 @@ traits:
 - id: enemy
 - id: stats_default
   # NOTE: don't change these stats, change combat_test.ts
-  hp: 100 # boss
+  hp: 115 # boss
   attack: 36
   defense: 43
   accuracy: 43

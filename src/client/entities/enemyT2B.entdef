@@ -5,8 +5,8 @@ traits:
 - id: enemy
 - id: stats_default
   # NOTE: don't change these stats, change combat_test.ts
-  hp: 39 # sponge
-  attack: 9
+  hp: 37 # sponge
+  attack: 10
   defense: 13
   accuracy: 13
   dodge: 10

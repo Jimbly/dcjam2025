@@ -6,7 +6,7 @@ traits:
 - id: stats_default
   # NOTE: don't change these stats, change combat_test.ts
   hp: 16 # var
-  attack: 7
+  attack: 8
   defense: 7
   accuracy: 7
   dodge: 13

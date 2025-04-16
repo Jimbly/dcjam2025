@@ -107,7 +107,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
         data.stats = {
           hp: 15,
           hp_max: 15,
-          attack: 4,
+          attack: 6,
           defense: 4,
           accuracy: 4,
           dodge: 4,

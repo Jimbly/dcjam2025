@@ -67,7 +67,7 @@ type Stats = Omit<StatsData, 'hp_max' | 'tier'>;
 let player_base: Stats = {
   // note: base stats *with* the T0 hat
   hp: 15,
-  attack: 4,
+  attack: 6,
   defense: 4,
   accuracy: 4,
   dodge: 4,
@@ -171,6 +171,7 @@ let equipment: Equip[] = [{
   dodge: 16,
 }];
 
+let CONCISE = true;
 let TEST_TIERS = [0, 4];
 
 const LABEL_TO_SPRITE = {
@@ -186,21 +187,21 @@ let enemies: (Stats & { label: keyof typeof LABEL_TO_SPRITE })[][] = [
   [{
     label: 'normal',
     hp: 12,
-    attack: 3,
+    attack: 5,
     defense: 3,
-    accuracy: 3,
+    accuracy: 4,
     dodge: 3,
   },{
     label: 'sponge',
     hp: 24, // sponge
-    attack: 2,
+    attack: 3,
     defense: 4,
     accuracy: 3,
     dodge: 1,
   },{
     label: 'var',
     hp: 10, // variable
-    attack: 6,
+    attack: 7,
     defense: 3,
     accuracy: 6,
     dodge: 2,
@@ -209,21 +210,21 @@ let enemies: (Stats & { label: keyof typeof LABEL_TO_SPRITE })[][] = [
   [{
     label: 'normal',
     hp: 18,
-    attack: 7,
+    attack: 9,
     defense: 8,
     accuracy: 7,
     dodge: 7,
   },{
     label: 'cannon',
     hp: 13, // glass cannon
-    attack: 12,
+    attack: 13,
     defense: 6,
-    accuracy: 7,
+    accuracy: 8,
     dodge: 7,
   },{
     label: 'var',
     hp: 16, // dodge tank
-    attack: 7,
+    attack: 8,
     defense: 7,
     accuracy: 5,
     dodge: 13,
@@ -231,30 +232,30 @@ let enemies: (Stats & { label: keyof typeof LABEL_TO_SPRITE })[][] = [
   // tier 2 - zone 2 enemies
   [{
     label: 'normal',
-    hp: 26,
-    attack: 12,
+    hp: 23,
+    attack: 14,
     defense: 11,
     accuracy: 11,
     dodge: 11,
   }, {
     label: 'sponge',
-    hp: 39, // sponge
-    attack: 9,
+    hp: 37, // sponge
+    attack: 10,
     defense: 13,
     accuracy: 10,
     dodge: 10,
   }, {
     label: 'var',
-    hp: 18, // glass cannon w/ dodge
-    attack: 18,
+    hp: 17, // glass cannon w/ dodge
+    attack: 19,
     defense: 10,
-    accuracy: 11,
+    accuracy: 12,
     dodge: 14,
   }],
   // tier 3 - special bosses / blockers
   [{
     label: 'boss',
-    hp: 45,
+    hp: 70,
     attack: 19,
     defense: 18,
     accuracy: 15,
@@ -263,7 +264,7 @@ let enemies: (Stats & { label: keyof typeof LABEL_TO_SPRITE })[][] = [
   // tier 4 - final guard // ~90% death at double HP with T4 gear
   [{
     label: 'boss',
-    hp: 100,
+    hp: 115,
     attack: 36,
     defense: 43,
     accuracy: 20,
@@ -436,6 +437,9 @@ for (let player_tier = 0; player_tier <= 4; ++player_tier) {
     }
   }
   for (let enemy_tier = TEST_TIERS[0]; enemy_tier <= TEST_TIERS[1]; ++enemy_tier) {
+    if (CONCISE && enemy_tier !== player_tier) {
+      continue;
+    }
     let dobreak = runAgainst(`Player T${player_tier} vs Enemy T${enemy_tier}:`,
       player, enemy_tier, NUM_PER_FLOOR[enemy_tier], enemy_tier === player_tier ? upgrades : []);
     if (player_tier === 4 && enemy_tier === 4) {

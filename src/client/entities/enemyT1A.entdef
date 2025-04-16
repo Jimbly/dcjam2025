@@ -5,7 +5,7 @@ traits:
 - id: stats_default
   # NOTE: don't change these stats, change combat_test.ts
   hp: 18 # normal
-  attack: 7
+  attack: 9
   defense: 8
   accuracy: 8
   dodge: 7

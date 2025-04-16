@@ -6,7 +6,7 @@ traits:
 - id: stats_default
   # NOTE: don't change these stats, change combat_test.ts
   hp: 13 # cannon
-  attack: 12
+  attack: 13
   defense: 6
   accuracy: 6
   dodge: 7
