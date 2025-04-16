@@ -203,7 +203,7 @@ dialogRegister({
       return signWithName(name, 'I\'m really gonna miss that guy...');
     }
     if (!keyGet('metguard')) {
-      return signWithName(name, 'I\'m so lucky to be on THE ASCENDING SWORD, my boss is always working so I don\'t have to...');
+      return signWithName(name, 'I\'m so lucky to be on **THE ASCENDING SWORD**, my boss is always working so I don\'t have to...');
     }
     if (!keyGet('solvedguard')) {
       if (keyGet('soldierdrunk')) {
@@ -219,7 +219,7 @@ dialogRegister({
               custom_render: nameRender(name),
               text: "Kid, I'm off the clock. And if you think that I'm gonna give you any info about my work, you're either crazy or stupid.",
               buttons: [{
-                label: `BUY HIM A DRINK (-[img=icon-currency]${DRINK_COST})`,
+                label: `BUY HIM A DRINK ([img=icon-currency]${DRINK_COST})`,
                 cb: 'soldierbuydrink',
               }, {
                 label: 'MAYBE LATER...',
@@ -261,7 +261,7 @@ dialogRegister({
             custom_render: nameRender(name),
             text: elem[1],
             buttons: [{
-              label: `LET'S GET YOU ANOTHER (-[img=icon-currency]${DRINK_COST})`,
+              label: `LET'S GET YOU ANOTHER ([img=icon-currency]${DRINK_COST})`,
               cb: 'soldierbuydrink',
             }, {
               label: 'MAYBE LATER...',
@@ -384,7 +384,7 @@ dialogRegister({
         custom_render: nameRender(name),
         text: 'I know every ship that docks or leaves this station.',
         buttons: [{
-          label: `BUY HIM A DRINK (-[img=icon-currency]${DRINK_COST})`,
+          label: `BUY HIM A DRINK ([img=icon-currency]${DRINK_COST})`,
           cb: function () {
             if (myEnt().data.money < DRINK_COST) {
               return signWithName(name, 'Hah, you can\'t even afford a drink?  Well, you know where to find me if you want to learn anything about ships.');
@@ -548,7 +548,7 @@ dialogRegister({
       custom_render: nameRender('THE UNDERPAID NURSE'),
       text: `${prefix || 'You\'re right as rain.  '}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.  Want one?\n${numMedkitsMessage()}`,
       buttons: [{
-        label: `YES, PLEASE! (-[img=icon-currency]${COST_MEDKIT})`,
+        label: `YES, PLEASE! ([img=icon-currency]${COST_MEDKIT})`,
         cb: 'medbuy',
       }, {
         label: 'MAYBE LATER...',
@@ -567,7 +567,7 @@ dialogRegister({
       custom_render: nameRender('THE UNDERPAID NURSE'),
       text: `There you go!  Want another?\n${numMedkitsMessage()}`,
       buttons: [{
-        label: `THANK YOU SIR, MAY I HAVE ANOTHER! (-[img=icon-currency]${COST_MEDKIT})`,
+        label: `THANK YOU SIR, MAY I HAVE ANOTHER! ([img=icon-currency]${COST_MEDKIT})`,
         cb: 'medbuy',
       }, {
         label: 'THAT\'LL BE ALL, THANKS...',
