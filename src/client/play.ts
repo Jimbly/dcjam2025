@@ -539,6 +539,7 @@ function moveBlockDead(): boolean {
     x: x + floor(w/2 - button_w/2), y, z,
     w: button_w,
     text: 'Reload from last save',
+    auto_focus: true,
     disabled: !hasSaveData(slot),
   })) {
     queueTransition();

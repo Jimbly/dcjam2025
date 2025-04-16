@@ -1,5 +1,4 @@
 TODO
-* combat test: try B varieties and combinations for comparison
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever
 * travel minigame
@@ -9,6 +8,9 @@ TODO
     * queued input though if you tap right twice, it should move right twice
   * same with shifting speeds
   * simple levelgen?
+POLISH
+* B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
+  * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
 
 ZONES
 * respawn all B/C entities
@@ -38,6 +40,7 @@ ECONOMY
     * big cash reward is just slightly less than cost of next chicken hat
       * 2000 each?
     * final hat is another 2K, requires a few grind trips back to Zone 2
+* full run-through with no repeated monster kills, and forgetting to heal: ended with all stuff and $50, 2 medkits, not enough to beat guard, perfect!
 
 Wrap-up
 * Disable `/`

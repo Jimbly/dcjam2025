@@ -172,9 +172,11 @@ function startState(state: string): void {
       break;
     case 'fadeout':
       // nothing special
-      giveReward({
-        money: REWARD_TIERS[combat_state.target.data.stats.tier || 0],
-      });
+      if (me.data.stats.hp) {
+        giveReward({
+          money: REWARD_TIERS[combat_state.target.data.stats.tier || 0],
+        });
+      }
       break;
     default:
       assert(false);

@@ -372,7 +372,7 @@ function crawlerTraitsInit(ent_factory: TraitFactory<Entity, DataObject>): void 
         let { reason } = param;
         if (reason === 'killed') {
           anim.setState('death');
-          param.countdown_max = 1000;
+          param.countdown_max = 250; // DCJAM25 1000;
         } else if (reason === 'pit') {
           anim.setState('pit');
         } else if (reason === 'pickup') {
