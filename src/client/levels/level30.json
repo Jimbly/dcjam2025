@@ -1838,10 +1838,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "station_decal_1",
         "station_shop_shuttle",
-        "solid",
-        "solid"
+        "station_decal_1",
+        "station_decal_1"
       ]
     },
     {
