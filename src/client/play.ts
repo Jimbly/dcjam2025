@@ -3,6 +3,7 @@ import { autoAtlas } from 'glov/client/autoatlas';
 // import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
 import * as engine from 'glov/client/engine';
+import { ClientEntityManagerInterface } from 'glov/client/entity_manager_client';
 import {
   ALIGN,
   Font,
@@ -64,7 +65,7 @@ import { webFSAPI } from 'glov/client/webfs';
 import {
   EntityID,
 } from 'glov/common/types';
-import { clamp } from 'glov/common/util';
+import { clamp, clone } from 'glov/common/util';
 import {
   v2add,
   v2same,
@@ -72,6 +73,7 @@ import {
   Vec2,
 } from 'glov/common/vmath';
 import {
+  CrawlerLevel,
   crawlerLoadData,
   DXY,
 } from '../common/crawler_state';
@@ -704,11 +706,13 @@ function equip(stats: StatsData, item: ItemDef, is_on: boolean): void {
   let key: keyof StatsData;
   for (key in item.stats) {
     let value = item.stats[key]!;
-    stats[key] += value * (is_on ? 1 : -1);
-    if (key === 'hp') {
-      stats[key] = clamp(stats[key], 0, stats.hp_max);
+    let dv = value * (is_on ? 1 : -1);
+    stats[key] += dv;
+    if (key === 'hp_max') {
+      stats.hp += dv;
     }
   }
+  stats.hp = clamp(stats.hp, 1, stats.hp_max);
 }
 
 function useItem(index: number): void {
@@ -930,7 +934,7 @@ export function giveReward(reward: { money?: number; items?: Item[] }): void {
   let msg: string[] = [];
   if (reward.money) {
     me.data.money += reward.money;
-    msg.push(`GAINED [img=icon-currency]${reward.money}`);
+    msg.push(`Gained [img=icon-currency]${reward.money}`);
   }
   if (reward.items) {
     for (let ii = 0; ii < reward.items.length; ++ii) {
@@ -950,10 +954,10 @@ export function giveReward(reward: { money?: number; items?: Item[] }): void {
         if (!found) {
           me.data.inventory.push(item);
         }
-        msg.push(`GAINED ${item.count || 1} ${item_def.name}`);
+        msg.push(`Gained ${item.count || 1} ${item_def.name}`);
       } else {
         me.data.inventory.push(item);
-        msg.push(`GAINED ${item_def.name}`);
+        msg.push(`Gained ${item_def.name}`);
       }
     }
   }
@@ -1519,6 +1523,58 @@ export function restartFromLastSave(): void {
   crawlerPlayInitOffline();
 }
 
+function initLevel(entity_manager: ClientEntityManagerInterface,
+  floor_id: number, level: CrawlerLevel
+) : void {
+  let me = entity_manager.getMyEnt();
+  assert(me);
+  // maybe sometimes: autosave();
+
+  if (me.data.last_floor === floor_id) {
+    return;
+  }
+  me.data.last_floor = floor_id;
+
+  // respawn - remove any respawning entities
+  assert(!entity_manager.isOnline());
+  let { entities } = entity_manager;
+  for (let ent_id_str in entities) {
+    let ent_id = Number(ent_id_str);
+    let ent = entities[ent_id]!;
+    if (ent.respawns && ent.data.floor === floor_id) {
+      entity_manager.deleteEntity(ent_id, 'respawn');
+    }
+  }
+
+  // respawn them
+  if (level.initial_entities) {
+    let initial_entities = clone(level.initial_entities);
+    for (let ii = 0; ii < initial_entities.length; ++ii) {
+      initial_entities[ii].floor = floor_id;
+      let ent = entity_manager.addEntityFromSerialized(initial_entities[ii]);
+      if (!ent.respawns) {
+        entity_manager.deleteEntity(ent.id, 'respawn');
+      }
+    }
+  }
+
+  // reset any gameplay related script keys?
+  // let { w, h } = level;
+  // let script_api = crawlerScriptAPI();
+  // for (let yy = 0; yy < h; ++yy) {
+  //   for (let xx = 0; xx < w; ++xx) {
+  //     let cell = level.getCell(xx, yy)!;
+  //     if (cell.desc.code === 'BRIDGE') {
+  //       let key_name = cell.getKeyNameForWall(DIR_CELL);
+  //       if (key_name) {
+  //         script_api.keyClear(key_name);
+  //       }
+  //     }
+  //   }
+  // }
+}
+
+
 settingsRegister({
   ai_pause: {
     default_value: 0,
@@ -1549,7 +1605,7 @@ export function playStartup(): void {
       loading_state: playOfflineLoading,
     },
     play_state: play,
-    // on_init_level_offline: initLevel,
+    on_init_level_offline: initLevel,
     default_vstyle: 'demo',
     allow_offline_console: engine.DEBUG,
     chat_ui_param: {

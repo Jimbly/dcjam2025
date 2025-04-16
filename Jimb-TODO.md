@@ -1,13 +1,13 @@
 TODO
-* combat balance - it's a walk in the park as soon as you get 1-2 of the items? 0 medkit use?
-* respawn all entities on non-heist ships when going in/out
-  * respawn all B/C entities
-    * path from entrance to bosses must be only A-entities
-    * path to treasures is B/C
+* combat balance - too many turns to fights
+* autosave before spending money on shuttle
+* warning on enemy stats if they're a higher tier than you (expected damage of > 50% hp?)
+* auto-sort inventory: medkits, highest tier of each type, key items, others (by tier)
+* don't show stats preview in inventory when mouse isn't actually over an item
+* debug: gain everything chest in floor 0
 * always show living creatures on the map in explored areas
 * icon for unlooted chest on map (entity icon? loot property + entity?)
 * allow using medkits during combat
-* warning on enemy stats if they're a higher tier than you (expected damage of > 50% hp?)
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever
 * travel minigame
@@ -16,6 +16,9 @@ TODO
   * heat and maybe gear to be bars
 
 ZONES
+* respawn all B/C entities
+  * path from entrance to bosses must be only A-entities
+  * path to treasures is B/C
 * Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
 * Zone 0
   * key1

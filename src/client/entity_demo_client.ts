@@ -62,6 +62,7 @@ export type EntityDataClient = {
   stats: StatsData;
   // Player:
   money: number;
+  last_floor: number;
   inventory: Item[];
 } & EntityCrawlerDataCommon;
 
@@ -102,7 +103,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
     }
 
     if (this.is_player) {
-      if (!data.stats || !data.stats.attack) {
+      if (!data.stats || !data.stats.dodge) {
         data.stats = {
           hp: 15,
           hp_max: 15,
@@ -116,47 +117,10 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
         data.money = 0;
       }
       if (!data.inventory) {
-        data.inventory = [];
-      }
-      data.stats.hp = 10;
-      data.stats.hp_max = 15;
-      data.stats.attack = 4;
-      data.stats.defense = 4;
-      data.stats.accuracy = 4;
-      data.stats.dodge = 4;
-      if (!data.inventory.length) {
-        data.inventory.push({
-          item_id: 'helmet1',
-        });
-        data.inventory.push({
-          item_id: 'helmet2',
-          equipped: true,
-        });
-        data.inventory.push({
-          item_id: 'helmet3',
-        });
-        data.inventory.push({
+        data.inventory = [{
           item_id: 'med1',
-          count: 3,
-        });
-        data.inventory.push({
-          item_id: 'torso1',
-        });
-        data.inventory.push({
-          item_id: 'shield1',
-        });
-        data.inventory.push({
-          item_id: 'weapon1',
-        });
-        data.inventory.push({
-          item_id: 'key1',
-        });
-        data.inventory.push({
-          item_id: 'key1',
-        });
-        data.inventory.push({
-          item_id: 'key1',
-        });
+          count: 2,
+        }];
       }
     }
 
