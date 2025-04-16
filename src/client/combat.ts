@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { ALIGN, Font } from 'glov/client/font';
-import { mouseOver } from 'glov/client/input';
+import { KEYS, mouseOver, PAD } from 'glov/client/input';
 import {
   BLEND_MULTIPLY,
   Sprite,
@@ -8,7 +8,7 @@ import {
   spriteClipPush,
   spriteCreate,
 } from 'glov/client/sprites';
-import { playUISound, uiGetFont } from 'glov/client/ui';
+import { buttonText, playUISound, uiButtonWidth, uiGetFont } from 'glov/client/ui';
 import { mashString, randCreate } from 'glov/common/rand_alea';
 import type { VoidFunc } from 'glov/common/types';
 import { easeOut, lerp, ridx } from 'glov/common/util';
@@ -16,13 +16,14 @@ import { vec2 } from 'glov/common/vmath';
 import { crawlerGameState } from './crawler_play';
 import { crawlerRenderViewportGet } from './crawler_render';
 import { EntityDrawableSprite } from './crawler_render_entities';
+import { numMedkits } from './dialog_data';
 import {
   EntityDemoClient,
   entityManager,
   StatsData,
 } from './entity_demo_client';
 import { game_height, game_width } from './globals';
-import { drawHealthBar, giveReward, myEnt } from './play';
+import { drawHealthBar, giveReward, myEnt, useMedkit } from './play';
 
 const { abs, pow, max, floor, round, PI } = Math;
 
@@ -305,6 +306,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   let dye = 0;
   let dxh_noframe = 0;
   let dxe_noframe = 0;
+  let viewport = crawlerRenderViewportGet();
   if (state === 'fadein' || state === 'fadeout') {
     let p = t / 500;
     // p = mousePos()[0] / game_width;
@@ -328,6 +330,19 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       dyh = lerp(p, FRAME_W * FRAME_SLOPE, 0);
       dxe = lerp(p, FRAME_W, 0);
       dye = lerp(p, -FRAME_W * FRAME_SLOPE, 0);
+    }
+  } else {
+    let button_w = uiButtonWidth();
+    if (target.data.stats.tier === 4 && me.isAlive() && buttonText({
+      x: viewport.x + floor(viewport.w/2 - button_w/2),
+      y: viewport.y + viewport.h * 0.9,
+      w: button_w,
+      disabled: !numMedkits() || me.data.stats.hp === me.data.stats.hp_max,
+      text: 'USE MED-KIT',
+      hotkey: KEYS.SPACE,
+      hotpad: PAD.SELECT,
+    })) {
+      useMedkit();
     }
   }
   let pscale = 1;
@@ -381,7 +396,6 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     }
   }
   let z = Z.COMBAT;
-  let viewport = crawlerRenderViewportGet();
   spriteClipPush(z, viewport.x, viewport.y, viewport.w, viewport.h);
   battle_frame_hero_bg.draw({
     x: FRAME_HERO_X + dxh,

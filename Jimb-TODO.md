@@ -1,5 +1,4 @@
 TODO
-* only allow medkits in tier 4 battle
 * combat test: try B varieties and combinations for comparison
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever

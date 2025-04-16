@@ -90,7 +90,7 @@ dialogIconsRegister({
   },
 });
 
-function numMedkitsMessage(): string {
+export function numMedkits(): number {
   let ret = 0;
   let { inventory } = myEnt().data;
   for (let ii = 0; ii < inventory.length; ++ii) {
@@ -98,7 +98,11 @@ function numMedkitsMessage(): string {
       ret += inventory[ii].count || 1;
     }
   }
-  return `(Med-Kits owned: ${ret})`;
+  return ret;
+}
+
+function numMedkitsMessage(): string {
+  return `(Med-Kits owned: ${numMedkits()})`;
 }
 
 dialogRegister({

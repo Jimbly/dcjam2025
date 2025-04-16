@@ -804,6 +804,19 @@ function useItem(index: number): void {
   }
 }
 
+export function useMedkit(): void {
+  let me = myEnt();
+  let { inventory } = me.data;
+  for (let ii = 0; ii < inventory.length; ++ii) {
+    let item = inventory[ii];
+    if (item.item_id === 'med1') {
+      useItem(ii);
+      return;
+    }
+  }
+  assert(false);
+}
+
 let preview_stats_final: StatsData | null = null;
 let inventory_selbox: SelectionBox;
 const INVENTORY_W = 110;
@@ -1564,7 +1577,8 @@ export function play(dt: number): void {
   //   h: camera2d.hReal(),
   // });
 
-  let overlay_menu_up = pause_menu_up || dialogMoveLocked() || inventory_up;
+  let overlay_menu_up = Boolean(pause_menu_up || dialogMoveLocked() || inventory_up ||
+    !myEntOptional()?.isAlive() || engagedEnemy());
 
   tickMusic(game_state.level?.props.music || 'bgm01');
   crawlerPlayTopOfFrame(overlay_menu_up);
