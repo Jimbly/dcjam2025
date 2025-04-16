@@ -53,6 +53,7 @@ import {
   isMenuUp,
   menuUp,
   panel,
+  PanelParam,
   playUISound,
   // sprites as ui_sprites,
   uiButtonHeight,
@@ -64,6 +65,7 @@ import * as urlhash from 'glov/client/urlhash';
 import { webFSAPI } from 'glov/client/webfs';
 import {
   EntityID,
+  WithRequired,
 } from 'glov/common/types';
 import { clamp, clone } from 'glov/common/util';
 import {
@@ -71,6 +73,7 @@ import {
   v2same,
   vec2,
   Vec2,
+  vec4,
 } from 'glov/common/vmath';
 import {
   CrawlerLevel,
@@ -81,7 +84,7 @@ import {
   aiDoFloor, aiTraitsClientStartup,
   entitiesAdjacentTo,
 } from './ai';
-import { cleanupCombat, combatStartup, doCombat } from './combat';
+import { cleanupCombat, combatStartup, doCombat, isDeadly } from './combat';
 // import './client_cmds';
 import {
   buildModeActive,
@@ -159,7 +162,7 @@ import {
 import { doTravelGame, travelGameActive, travelGameCheck } from './travelgame';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { ceil, floor, max, min, round, sin, PI } = Math;
+const { ceil, cos, floor, max, min, round, sin, PI } = Math;
 
 declare module 'glov/client/settings' {
   export let ai_pause: 0 | 1; // TODO: move to ai.ts
@@ -221,7 +224,6 @@ const style_text = fontStyle(null, {
   outline_color: 0x000000ff,
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const style_label = fontStyle(null, {
   color: 0x000000ff,
 });
@@ -478,14 +480,12 @@ function facingEnemy(): Entity | null {
   let ents: Entity[] = entitiesAdjacentTo(game_state,
     entityManager(),
     me.data.floor, me.data.pos, crawlerScriptAPI());
+  v2add(looking_at, me.data.pos, DXY[me.data.pos[2]]);
   ents = ents.filter((ent: Entity) => {
-    return ent.is_enemy && ent.isAlive();
+    return ent.is_enemy && ent.isAlive() && v2same(looking_at, ent.data.pos);
   });
   if (ents.length) {
-    v2add(looking_at, me.data.pos, DXY[me.data.pos[2]]);
-    if (v2same(looking_at, ents[0].data.pos)) {
-      return ents[0];
-    }
+    return ents[0];
   }
   return null;
 }
@@ -610,6 +610,7 @@ function statsLineEx(
 const ENEMY_STATS_W = 82;
 const ENEMY_STATS_X = VIEWPORT_X0 + (render_width - ENEMY_STATS_W)/2;
 const ENEMY_STATS_Y = VIEWPORT_Y0;
+const color_danger = vec4(1,0.7,0.7,1);
 function drawEnemyStats(ent: Entity): void {
   let stats = ent.data.stats;
   if (!stats) {
@@ -627,7 +628,7 @@ function drawEnemyStats(ent: Entity): void {
   // }
   // drawHealthBar(ENEMY_HP_BAR_X, ENEMY_HP_BAR_Y, Z.UI, HP_BAR_W, bar_h, hp, hp_max, show_text);
 
-  let box = {
+  let box: WithRequired<PanelParam, 'z'> = {
     x: ENEMY_STATS_X,
     y: ENEMY_STATS_Y,
     z: Z.UI,
@@ -643,6 +644,17 @@ function drawEnemyStats(ent: Entity): void {
 
   let yadv = uiTextHeight() * 1.2;
   y += 2;
+  let num_stars = stats.tier || 0;
+  if (num_stars) {
+    y -= 4;
+    markdownAuto({
+      ...box,
+      y,
+      align: ALIGN.HCENTER,
+      text: new Array(num_stars + 1).join('[img=icon-star]'),
+    });
+    y += yadv;
+  }
   statsLineEx(x, y, z, w, 'HIT POINTS', stats.hp);
   y += yadv;
   statsLineEx(x, y, z, w, 'ATTACK', stats.attack);
@@ -656,24 +668,33 @@ function drawEnemyStats(ent: Entity): void {
 
   box.h = y + STATSPAD - box.y - 5;
 
+  if (isDeadly(myEnt().data.stats, stats)) {
+    box.color = color_danger;
+  }
   panel(box);
 
+  let ww = box.w * 0.75;
   let subtitle_panel = {
-    x: box.x + box.w * 0.25,
-    w: box.w * 0.5,
+    x: box.x + (box.w - ww)/2,
+    w: ww,
     y: box.y - 4,
     h: LEVEL_SUBTITLE_H,
     z: box.z + 0.1,
+    color: box.color,
     eat_clicks: false,
   };
   panel(subtitle_panel);
-  font.draw({
+  markdownAuto({
     ...subtitle_panel,
-    color: 0x000000ff,
-    size: uiTextHeight() * 0.75,
+    x: subtitle_panel.x + 2,
+    w: subtitle_panel.w - 4,
+    font_style: style_label,
+    text_height: uiTextHeight() * 0.75,
     z: subtitle_panel.z + 0.1,
     align: ALIGN.HVCENTERFIT,
-    text: 'HOSTILE',
+    text: stats.tier === 4 ? 'THE ESTRANGED GUARD' :
+      stats.tier === 3 ? 'PATIENT SENTRY' :
+      'HOSTILE',
   });
 
 }
@@ -945,8 +966,22 @@ function inventoryMenu(): void {
       text: itemName(item),
     });
     advLine(1.5);
-    let key: keyof StatsData;
+    let tier = itemTier(item);
+    if (tier > 0) {
+      for (let ii = 0; ii < tier; ++ii) {
+        autoAtlas('default', 'icon-star').draw({
+          x: descr_x + cos(descr_rot_adv) * line_height * ii,
+          y: descr_y + sin(descr_rot_adv) * line_height * ii,
+          w: line_height,
+          h: line_height,
+          rot: descr_rot,
+          z: z + 2,
+        });
+      }
+      advLine(1.5);
+    }
     let any_stats = false;
+    let key: keyof StatsData;
     for (key in item_def.stats) {
       let value = item_def.stats[key];
       font.draw({

@@ -22,7 +22,7 @@ import {
 import { game_height, game_width } from './globals';
 import { drawHealthBar, giveReward, myEnt } from './play';
 
-const { abs, pow, random, max, floor, PI } = Math;
+const { abs, pow, random, max, floor, round, PI } = Math;
 
 type Entity = EntityDemoClient;
 
@@ -62,7 +62,9 @@ type DamageRet = {
 
 export function damage(
   attacker: Omit<StatsData, 'hp' | 'hp_max'>,
-  defender: Omit<StatsData, 'hp' | 'hp_max'>
+  defender: Omit<StatsData, 'hp' | 'hp_max'>,
+  average?: boolean,
+  average_for_enemy?: boolean,
 ): DamageRet {
   let attacker_atk = attacker.attack;
   let defender_def = defender.defense;
@@ -71,22 +73,43 @@ export function damage(
 
   let style: 'miss' | 'normal' | 'crit' = 'normal';
   let hit_chance = 2 - pow(0.5, attacker.accuracy/defender.dodge-1);
+  let r = average ? average_for_enemy ? 0.75 : 0.5 : random();
   if (hit_chance <= 1) {
-    if (random() > hit_chance) {
+    if (r > hit_chance) {
       style = 'miss';
       dam *= 0.25;
     }
-  } else if (random() < hit_chance - 1) {
+  } else if (r < hit_chance - 1) {
     dam *= 2;
     style = 'crit';
   }
 
-  dam = roundRand(dam);
+  if (average) {
+    dam = round(dam);
+  } else {
+    dam = roundRand(dam);
+  }
   dam = max(1, dam);
   return {
     dam,
     style,
   };
+}
+
+export function isDeadly(player: StatsData, enemy: StatsData): boolean {
+  let turn = false;
+  let player_hp = player.hp_max;
+  let enemy_hp = enemy.hp;
+  while (player_hp > 0 && enemy_hp > 0) {
+    let dam = damage(turn ? player : enemy, turn ? enemy: player, true, !turn).dam;
+    if (turn) {
+      enemy_hp -= dam;
+    } else {
+      player_hp -= dam;
+    }
+    turn = !turn;
+  }
+  return player_hp < player.hp_max * 0.25;
 }
 
 //////////////////////////////////////////////////////////////////////////

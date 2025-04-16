@@ -1,7 +1,6 @@
 TODO
-* warning on enemy stats if they're a higher tier than you (expected damage of > 50% hp?)
-* don't show stats preview in inventory when mouse isn't actually over an item
 * medkit seller and healing in medbay
+* don't show stats preview in inventory when mouse isn't actually over an item
 * combat test: try B varieties and combinations for comparison
 * always show living creatures on the map in explored areas
 * icon for unlooted chest on map (entity icon? loot property + entity?)
@@ -20,13 +19,13 @@ ZONES
 * Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
 * Zone 0
   * key1
-  * torso1, weapon1, offhand1, weapon2b (T1), torso4 (T3)
+  * torso1, weapon1, offhand1, weapon2b (T2), torso4 (T3)
 * Zone 1
   * key2
-  * torso2, weapon2, offhand2, offhand3b (T2), weapon4 (T3)
+  * torso2, weapon2, offhand2, offhand3b (T3), weapon4 (T3)
 * Zone 2
   * key3
-  * torso3, weapon3, offhand3, offhand4 (T3)
+  * offhand3 (first), torso3, weapon3, offhand4 (T3)
 
 ECONOMY
 * gear always in chests
