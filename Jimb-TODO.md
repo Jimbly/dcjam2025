@@ -1,8 +1,6 @@
 TODO
-* debug: gain everything chest in floor 0
 * autosave before spending money on shuttle
 * warning on enemy stats if they're a higher tier than you (expected damage of > 50% hp?)
-* auto-sort inventory: medkits, highest tier of each type, key items, others (by tier)
 * don't show stats preview in inventory when mouse isn't actually over an item
 * medkit seller and healing in medbay
 * combat test: try B varieties and combinations for comparison

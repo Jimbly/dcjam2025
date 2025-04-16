@@ -147,7 +147,7 @@ import {
   VIEWPORT_X0,
   VIEWPORT_Y0,
 } from './globals';
-import { ItemDef, ITEMS } from './item_defs';
+import { ItemDef, ITEMS, ItemType } from './item_defs';
 import { appTraitsStartup } from './jam_traits';
 import { levelGenTest } from './level_gen_test';
 import { tickMusic } from './music';
@@ -805,6 +805,58 @@ function itemName(item: Item): string {
   return (item_def.item_type === 'consumable' ? `${item_def.name} (${item.count || 1})` : item_def.name).toUpperCase();
 }
 
+function itemTier(item: Item): number {
+  let item_def = ITEMS[item.item_id];
+  if (item_def.item_type === 'key' || item_def.item_type === 'consumable') {
+    return -1;
+  }
+  let m = item.item_id.match(/^[^\d]+(\d)[^\d]?$/);
+  if (m) {
+    return Number(m[1]);
+  }
+  return -1;
+}
+
+function sortInventory(): void {
+  let { inventory } = myEnt().data;
+  let highest_tier_by_slot: Partial<Record<ItemType, number>> = {};
+  for (let ii = 0; ii < inventory.length; ++ii) {
+    let item = inventory[ii];
+    let tier = itemTier(item);
+    if (tier !== -1) {
+      let item_def = ITEMS[item.item_id];
+      highest_tier_by_slot[item_def.item_type] = max(highest_tier_by_slot[item_def.item_type] || 0, tier);
+    }
+  }
+  inventory.sort((a, b) => {
+    let defa = ITEMS[a.item_id];
+    let defb = ITEMS[b.item_id];
+    if (defa.item_type === 'consumable' && defb.item_type !== 'consumable') {
+      return -1;
+    } else if (defb.item_type === 'consumable' && defa.item_type !== 'consumable') {
+      return 1;
+    }
+    let tier_a = itemTier(a);
+    let tier_b = itemTier(b);
+    let is_highest_a = highest_tier_by_slot[defa.item_type] === tier_a;
+    let is_highest_b = highest_tier_by_slot[defb.item_type] === tier_b;
+    if (is_highest_a && !is_highest_b) {
+      return -1;
+    } else if (is_highest_b && !is_highest_a) {
+      return 1;
+    }
+    if (defa.item_type === 'key' && defb.item_type !== 'key') {
+      return -1;
+    } else if (defb.item_type === 'key' && defa.item_type !== 'key') {
+      return 1;
+    }
+    if (tier_a !== tier_b) {
+      return tier_b - tier_a;
+    }
+    return a.item_id < b.item_id ? -1 : 1;
+  });
+}
+
 function inventoryMenu(): void {
   let z = Z.MODAL + 3;
   if (!inventory_selbox) {
@@ -1244,6 +1296,7 @@ function playCrawl(): void {
     button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up, 'I');
     if (up_edge.inventory) {
       inventory_up = !inventory_up;
+      sortInventory();
     }
   }
 
