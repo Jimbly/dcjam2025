@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { autoResetSkippedFrames } from 'glov/client/auto_reset';
 import { autoAtlas } from 'glov/client/autoatlas';
 // import * as camera2d from 'glov/client/camera2d';
 import { cmd_parse } from 'glov/client/cmds';
@@ -752,7 +753,7 @@ function equip(stats: StatsData, item: ItemDef, is_on: boolean): void {
     let value = item.stats[key]!;
     let dv = value * (is_on ? 1 : -1);
     stats[key] += dv;
-    if (key === 'hp_max') {
+    if (key === 'hp_max' && stats.hp > 1) {
       stats.hp += dv;
     }
   }
@@ -901,7 +902,15 @@ function sortInventory(): void {
   });
 }
 
-function inventoryMenu(): void {
+let desired_damage = 0;
+let desired_cur_hp = 1;
+function inventoryMenu(frame_combat: boolean): void {
+  let me = myEnt();
+  let { inventory, stats } = me.data;
+  if (autoResetSkippedFrames('inventory')) {
+    desired_damage = stats.hp_max - stats.hp;
+    desired_cur_hp = stats.hp;
+  }
   let z = Z.MODAL + 3;
   if (!inventory_selbox) {
     inventory_selbox = selectionBoxCreate({
@@ -916,16 +925,14 @@ function inventoryMenu(): void {
     });
   }
   let items: MenuItem[] = [];
-  let me = myEnt();
-  let { inventory, stats } = me.data;
   // let at_max_hp = stats.hp === stats.hp_max;
   temp_inventory = inventory;
   for (let ii = 0; ii < inventory.length; ++ii) {
     let item = inventory[ii];
-    // let item_def = ITEMS[item.item_id];
+    let item_def = ITEMS[item.item_id];
     items.push({
       name: itemName(item),
-      disabled: !stats.hp,
+      disabled: item_def.item_type === 'consumable' && frame_combat,
       no_sound: true,
     });
   }
@@ -933,7 +940,15 @@ function inventoryMenu(): void {
     items,
   });
   if (inventory_selbox.wasClicked()) {
+    let item = inventory[inventory_selbox.selected];
+    let item_def = ITEMS[item.item_id];
     useItem(inventory_selbox.selected);
+    if (item_def.item_type === 'consumable') {
+      desired_damage = stats.hp_max - stats.hp;
+      desired_cur_hp = stats.hp;
+    } else {
+      stats.hp = clamp(stats.hp_max - desired_damage, 1, min(stats.hp_max, desired_cur_hp));
+    }
   }
 
   preview_stats_final = null;
@@ -954,6 +969,10 @@ function inventoryMenu(): void {
         }
       }
       equip(preview_stats_final, item_def, true);
+      if (item_def.item_type !== 'consumable') {
+        preview_stats_final.hp = clamp(preview_stats_final.hp_max - desired_damage, 1,
+          min(preview_stats_final.hp_max, desired_cur_hp));
+      }
     }
 
     let descr_w = 328/1920*game_width;
@@ -1444,7 +1463,7 @@ function playCrawl(): void {
     mapViewToggle();
   }
   if (inventory_up) {
-    inventoryMenu();
+    inventoryMenu(Boolean(frame_combat));
   }
   if (travel_game) {
     doTravelGame();

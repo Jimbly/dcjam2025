@@ -1,11 +1,15 @@
 TODO
+* only allow medkits in tier 4 battle
 * combat test: try B varieties and combinations for comparison
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever
 * travel minigame
-  * add pursuer / lose condition
-  * visually dodge the asteroids
-  * heat and maybe gear to be bars
+  * new race idea
+    * racing someone, whoever's last gets robbed?
+  * immediately move between lanes, but cooldown on moves
+    * queued input though if you tap right twice, it should move right twice
+  * same with shifting speeds
+  * simple levelgen?
 
 ZONES
 * respawn all B/C entities
@@ -14,13 +18,13 @@ ZONES
 * Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
 * Zone 0
   * key1
-  * torso1, weapon1, offhand1, weapon2b (T2), torso4 (T3)
+  * weapon1, offhand1, torso1, weapon2b (T2), torso4 (T3)
 * Zone 1
   * key2
-  * torso2, weapon2, offhand2, offhand3b (T3), weapon4 (T3)
+  * offhand2, torso2, weapon2, offhand3b (T3), weapon4 (T3)
 * Zone 2
   * key3
-  * offhand3 (first), torso3, weapon3, offhand4 (T3)
+  * offhand3 (first), weapon3, torso3, offhand4 (T3)
 
 ECONOMY
 * gear always in chests
