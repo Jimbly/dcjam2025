@@ -1129,7 +1129,7 @@
       "events": [
         {
           "id": "floor_delta",
-          "param": "5"
+          "param": "6"
         }
       ]
     },
@@ -1323,6 +1323,12 @@
         "stairs_out",
         "open",
         "stairs_out"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "(right) Bay **47**"
+        }
       ]
     },
     {
@@ -1332,6 +1338,12 @@
         "stairs_out",
         "open",
         "stairs_out"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "(left) Bay **82**"
+        }
       ]
     },
     {
@@ -1950,6 +1962,12 @@
         "open",
         "solid",
         "station_solid3a"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "captain"
+        }
       ]
     },
     {
@@ -2581,14 +2599,24 @@
         12,
         2
       ]
+    },
+    {
+      "type": "npc15",
+      "pos": [
+        5,
+        12,
+        1
+      ]
     }
   ],
   "state": {},
   "vstyle": "station",
   "seed": "32845502",
   "props": {
-    "title": "JUNCTION STATION",
-    "music": "bgm02"
+    "title": "STATION 15",
+    "music": "bgm02",
+    "subtitle": "COMMERCIAL DECK",
+    "noexplore": "true"
   },
   "paths": {}
 }

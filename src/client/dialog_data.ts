@@ -1,7 +1,9 @@
 /* eslint prefer-template:off, @stylistic/max-len:off, @typescript-eslint/no-unused-vars:off */
 export const SHUTTLE_COST = 100;
+import { cmd_parse } from 'glov/client/cmds';
 import { ALIGN, fontStyle } from 'glov/client/font';
 import { panel, PanelParam, playUISound, sprites as ui_sprites, uiGetFont, uiTextHeight } from 'glov/client/ui';
+import * as urlhash from 'glov/client/urlhash';
 import { ridx } from 'glov/common/util';
 import { dialogIconsRegister } from '../common/crawler_events';
 import {
@@ -14,10 +16,12 @@ import {
   dialogPush,
   dialogRegister,
 } from './dialog_system';
+import { entitiesAt, entityManager } from './entity_demo_client';
 import { ITEMS } from './item_defs';
 import {
   giveReward,
   myEnt,
+  queueTransition,
 } from './play';
 import { statusPush } from './status';
 import { travelGameFinish } from './travelgame';
@@ -28,7 +32,8 @@ const { round } = Math;
 const LOSE_COST = 100;
 const COST_MEDKIT = 100;
 const DRINK_COST = 60;
-const COST_ASSIST_BRIBE = 1000;
+const COST_ASSIST_BRIBE = 500;
+const COST_ESCAPE = 1000;
 
 const NAME_BOX_H = 14;
 const NAME_BOX_PAD = 6;
@@ -151,7 +156,7 @@ dialogRegister({
     if (!keyGet('enteredship')) {
       keySet('foundship');
       keySet('enteredship');
-      return signWithName('MONOLOGUING', 'Ah, this must be **THE ASCENDING SWORD**.  Surely **THE RED DEVASATION** must be onboard somewhere, locked in a safe, beyond that guard.');
+      return signWithName('MONOLOGUING', 'Ah, this must be **THE ASCENDING SWORD**.  Surely **THE RED DEVASTATION** must be onboard somewhere, locked in a safe, beyond that guard.');
     }
   },
   theship2: function () {
@@ -186,6 +191,37 @@ dialogRegister({
     keySet('solvedguard');
     keySet('killedguard');
     signWithName('MONOLOGUING', 'Well, I guess that takes care of that...');
+  },
+});
+
+dialogIconsRegister({
+  finalsafe: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return null; // has treasure instead from entity 'icon_exclamation';
+  },
+});
+dialogRegister({
+  finalsafe: function () {
+    if (hasItem('key6')) {
+      return;
+    }
+    if (!keyGet('solvedsafe')) {
+      return signWithName('MONOLOGUING', 'I\'m going to need **THE SAFE COMBINATION** to open this...');
+    }
+    if (!keyGet('solvedescape')) {
+      return signWithName('MONOLOGUING', 'I need a plan of escape before I take this and set off the alarm...');
+    }
+    playUISound('gain_item_loot');
+    giveReward({ items: [{ item_id: 'key6' }] });
+    let api = crawlerScriptAPI();
+    let ents = entitiesAt(entityManager(), api.pos, api.getFloor(), true);
+    ents = ents.filter((ent) => {
+      return ent.is_chest;
+    });
+    if (ents.length) {
+      entityManager().deleteEntity(ents[0].id, 'looted');
+    }
+
+    return signWithName('MONOLOGUING', 'Oops, that set off an alarm.  Time to go!');
   },
 });
 
@@ -234,7 +270,7 @@ dialogRegister({
       });
     }
     if (!keyGet('lookedforship')) {
-      return signWithName(name, 'Go check out the dock for THE ASCENDING SWORD.');
+      return signWithName(name, 'Go check out the dock for **THE ASCENDING SWORD**.');
     }
     return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
   },
@@ -297,6 +333,82 @@ dialogRegister({
 });
 
 dialogIconsRegister({
+  captain: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    if (!keyGet('foundship')) {
+      return null;
+    }
+    if (keyGet('solvedescape')) {
+      return null;
+    }
+    if (myEnt().data.money >= COST_ESCAPE) {
+      return 'icon_exclamation';
+    }
+    return 'icon_question';
+  },
+});
+dialogRegister({
+  captain: function () {
+    const name = 'THE SHADY CAPTAIN';
+    if (keyGet('solvedescape') && hasItem('key5')) {
+      return signWithName(name, 'Me and my crew are ready to leave any time.  Meet us in **Bay 47** when you need to leave.');
+    }
+    if (!keyGet('foundship') || keyGet('solvedescape')) {
+      return signWithName(name, 'Let me tell you about how we fought against THE NEW ALLIANCE in the last war...');
+    }
+    if (myEnt().data.money < COST_ESCAPE) {
+      return signWithName(name, `Need some off-the-books transit outta here?  It'll cost you [img=icon-currency]${COST_ESCAPE}.`);
+    }
+    dialogPush({
+      custom_render: nameRender(name),
+      text: `Need some off-the-books transit outta here?  It'll cost you [img=icon-currency]${COST_ESCAPE}.`,
+      buttons: [{
+        label: `HERE YOU GO ([img=icon-currency]${COST_ESCAPE})`,
+        cb: function () {
+          consumeMoney(COST_ESCAPE);
+          keySet('solvedescape');
+          playUISound('gain_item_quest');
+          giveReward({ items: [{ item_id: 'key5' }] });
+          dialog('captain');
+        },
+      }, {
+        label: 'I\'LL BE BACK...',
+      }]
+    });
+  },
+});
+
+dialogRegister({
+  escape: function () {
+    const name = 'THE BEHATTED MERCENARY';
+    if (!hasItem('key5')) {
+      return signWithName(name, 'Hey, get off our boat.');
+    }
+    if (!hasItem('key6')) {
+      return signWithName(name, 'Come back here when you\'re ready to leave in a hurry.');
+    }
+    dialogPush({
+      custom_render: nameRender(name),
+      text: 'That\'s a lot of commotion back there... Ready to go?',
+      buttons: [{
+        label: 'TAKE ME OUT INTO THE BLACK, WHERE NO ONE CAN FOLLOW...',
+        cb: function () {
+          dialogPush({
+            text: 'YOU WIN!  THANKS FOR PLAYING!',
+            buttons: [{
+              label: 'RETURN TO TITLE SCREEN',
+              cb: function () {
+                queueTransition();
+                urlhash.go('');
+              },
+            }]
+          });
+        },
+      }]
+    });
+  },
+});
+
+dialogIconsRegister({
   assistant: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
     if (keyGet('sovledsafe')) {
       return null;
@@ -347,6 +459,7 @@ dialogRegister({
           label: 'JUST WHAT YOU ALWAYS WANTED...',
           cb: function () {
             consumeItem('key3');
+            playUISound('gain_item_quest');
             giveReward({ items: [{ item_id: 'key4' }] });
             keySet('solvedsafe');
           },
@@ -370,14 +483,14 @@ dialogRegister({
       keySet('rumor1');
       return dialogPush({
         custom_render: nameRender(name),
-        text: 'I heard that THE ASCENDING SWORD is transporting THE RED DEVASATION through the station today.',
+        text: 'I heard that **THE ASCENDING SWORD** is transporting **THE RED DEVASTATION** through the station today.',
         buttons: [{
           label: 'THAT SEEMS LIKE SOMETHING SAFEST IN *MY* HANDS...'
         }],
       });
     }
     if (!keyGet('lookedforship')) {
-      return signWithName(name, 'Go check out the dock for THE ASCENDING SWORD.');
+      return signWithName(name, 'Go check out the dock for **THE ASCENDING SWORD**.');
     }
     return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
     // any other tips?
@@ -620,8 +733,8 @@ dialogRegister({
   medbuy: function () {
     let { data } = myEnt();
     data.money -= COST_MEDKIT;
-    giveReward({ items: [{ item_id: 'med1' }] });
     playUISound('gain_item_purchase');
+    giveReward({ items: [{ item_id: 'med1' }] });
     if (data.money < COST_MEDKIT) {
       return signWithName('THE UNDERPAID NURSE', 'Thank you, come again!');
     }
@@ -791,4 +904,21 @@ dialogRegister({
   //   goToHallOfFame();
   //   creditsGo();
   // },
+});
+
+cmd_parse.register({
+  help: 'Give an item',
+  prefix_usage_with_help: true,
+  usage: `Usage: /give ID  or  /give money 1000\n\nITEM IDs: ${Object.keys(ITEMS).join(', ')}`,
+  cmd: 'give',
+  func: function (param, resp_func) {
+    let m = param.match(/money (\d+)/);
+    if (m) {
+      return giveReward({ money: Number(m[1]) });
+    }
+    if (!ITEMS[param]) {
+      return resp_func('Invalid ITEM ID');
+    }
+    giveReward({ items: [{ item_id: param }] });
+  },
 });

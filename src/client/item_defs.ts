@@ -42,6 +42,7 @@ const ITEM_ROWS: ItemRow[] = [
   ['key', 'key3', 'The Ticket to Paradise', undefined, 'Shiny.'],
   ['key', 'key4', 'The Safe Combination', undefined, '4, 8, 15, 16, 23, 42'],
   ['key', 'key5', 'The Ticket Outtahere', undefined, 'Poof.'],
+  ['key', 'key6', 'The Red Devastation', undefined, 'Probably goes boom.'],
 ];
 
 export const ITEMS: Record<string, ItemDef> = (function () {

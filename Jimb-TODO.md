@@ -1,6 +1,4 @@
 TODO
-* keys needing hookup:
-  solvedescape
 * travel minigame
   * new race idea
     * racing someone, whoever's last gets robbed?
@@ -13,6 +11,8 @@ LEVEL MECHANICS / NPCs TODO
     * if `soldierdrunk` - find a clue about dazzling gift location near shops
   * zone 0
     * set up old racer to die upon entering, then can loot
+  * bay 47
+    * just a locked door inside; ship named "LIGHTNING BUG"
 
 POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
@@ -47,6 +47,7 @@ ECONOMY
       * 2000 each?
     * final hat is another 2K, requires a few grind trips back to Zone 2
 * full run-through with no repeated monster kills, and forgetting to heal: ended with all stuff and $50, 2 medkits, not enough to beat guard, perfect!
+* Need an extra ~2K for bribes now though! (want this tail-loaded in Zone 2)
 
 Wrap-up
 * Disable `/`

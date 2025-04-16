@@ -844,7 +844,7 @@ function journalMenu(): void {
   let lines = [
     ['foundship', 'Find where **THE ASCENDING SWORD** is docked'],
     ['solvedguard', api.keyGet('metguard') ? 'Get past **THE ESTRANGED GUARD**' : 'Get past **THE GUARD**'],
-    ['solvedsafe', 'Open the safe and grab **THE RED DEVASATION**'],
+    ['solvedsafe', 'Open the safe and grab **THE RED DEVASTATION**'],
     ['solvedescape', 'Disappear into the black'],
   ];
   let x = INVENTORY_X;
@@ -1283,7 +1283,10 @@ function checkLoot(): void {
   }
   let cell = level.getCell(chest.data.pos[0], chest.data.pos[1]);
   assert(cell);
-  let loot = cell.props?.loot || 'money 50';
+  let loot = cell.props?.loot;
+  if (!loot) {
+    return;
+  }
   playUISound('gain_item_loot');
   if (loot.startsWith('money')) {
     let money = Number(loot.split(' ')[1]);
