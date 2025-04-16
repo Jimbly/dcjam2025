@@ -925,7 +925,7 @@ function inventoryMenu(): void {
     // let item_def = ITEMS[item.item_id];
     items.push({
       name: itemName(item),
-      // disabled: item_def.item_type === 'consumable' && at_max_hp,
+      disabled: !stats.hp,
       no_sound: true,
     });
   }

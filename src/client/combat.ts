@@ -138,7 +138,6 @@ type CombatFloater = {
 type CombatState = {
   target: Entity;
   target_hp: number;
-  player_hp: number;
   state: string;
   t: number;
   dam?: DamageRet;
@@ -276,6 +275,10 @@ function numLivingEnemies(): number {
   return ret;
 }
 
+export function combatActive(): boolean {
+  return Boolean(combat_state);
+}
+
 export function doCombat(target: Entity, dt: number, paused: boolean): void {
   if (paused) {
     dt = 0;
@@ -284,7 +287,6 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   if (!combat_state) {
     combat_state = {
       target_hp: target.data.stats.hp,
-      player_hp: me.data.stats.hp,
       target,
       state: 'fadein',
       t: 0,
@@ -310,7 +312,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       if (state === 'fadein') {
         startState(rand.random() < 0.5 ? 'hero' : 'enemy');
       } else {
-        me.data.stats.hp = combat_state.player_hp;
+        me.not_dead_yet = false;
         target.data.stats.hp = combat_state.target_hp;
         if (!target.data.stats.hp) {
           entityManager().deleteEntity(target.id, 'killed');
@@ -335,7 +337,10 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       if (state === 'hero') {
         combat_state!.target_hp = max(0, combat_state!.target_hp - combat_state!.dam!.dam);
       } else {
-        combat_state!.player_hp = max(0, combat_state!.player_hp - combat_state!.dam!.dam);
+        me.data.stats.hp = max(0, me.data.stats.hp - combat_state!.dam!.dam);
+        if (!me.data.stats.hp) {
+          me.not_dead_yet = true;
+        }
       }
       floaterPush(combat_state!.dam!);
     });
@@ -360,15 +365,13 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     } else if (t >= 600) {
       if (state === 'hero') {
         if (!combat_state.target_hp) {
-          // TODO: rewards
           startState('fadeout');
           playUISound('combat_enemy_death');
         } else {
           startState('enemy');
         }
       } else {
-        if (!combat_state.player_hp) {
-          // TODO: game over
+        if (!me.data.stats.hp) {
           startState('fadeout');
           playUISound('combat_hero_death');
         } else {
@@ -401,7 +404,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   if (FRAME_Y + 3 + dyh < game_height) {
     spriteClipPush(z + 0.2, 0, FRAME_Y + 3 + dyh, game_width, FRAME_H - 6);
     drawCombatant(dt, me, FRAME_HERO_X + HERO_AVATAR_X + dxh_noframe, FRAME_Y, pscale,
-      combat_state.player_hp === 0);
+      me.data.stats.hp === 0);
     spriteClipPop();
   }
   if (abs(dye) < game_height) {
@@ -427,7 +430,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     z: z + 0.5,
     rot: PI,
   });
-  drawHP(combat_state.player_hp, me, HEALTH_HERO_X + dxh, HEALTH_HERO_Y + dyh);
+  drawHP(me.data.stats.hp, me, HEALTH_HERO_X + dxh, HEALTH_HERO_Y + dyh);
   drawHP(combat_state.target_hp, target, HEALTH_ENEMY_X + dxe, HEALTH_ENEMY_Y + dye);
   spriteClipPop();
 

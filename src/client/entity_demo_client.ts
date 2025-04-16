@@ -91,6 +91,8 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
   declare ai_move_min_time: number;
   declare ai_move_rand_time: number;
 
+  not_dead_yet = false;
+
   constructor(data_in: DataObject) {
     super(data_in);
     let data = this.data;
@@ -148,7 +150,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
   }
 
   isAlive(): boolean {
-    return this.data.stats ? this.data.stats.hp > 0 : true;
+    return this.data.stats ? this.data.stats.hp > 0 || this.not_dead_yet : true;
   }
 
   isEnemy(): boolean {
