@@ -131,54 +131,6 @@ function signWithName(name: string, message: string): void {
   });
 }
 
-dialogIconsRegister({
-  shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return 'icon_exclamation';
-  },
-  hats: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    let { next, hat_cost } = nextHatCost();
-    if (!next) {
-      return null;
-    }
-    return myEnt().data.money >= hat_cost ? 'icon_exclamation' : 'icon_question';
-  },
-  medbay: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return 'icon_exclamation';
-  },
-  tips: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return !keyGet('rumor1') ? 'icon_exclamation' : null;
-  },
-  dockingwander: () => {
-    return !keyGet('lookedforship') ? 'icon_exclamation' : null;
-  },
-  shiptaker: () => {
-    if (!keyGet('lookedforship') ||
-      keyGet('foundship') && !keyGet('foundshipbyshiptaker')
-    ) {
-      return null;
-    }
-    if (keyGet('foundship')) {
-      return null;
-    }
-    if (hasItem('key2')) {
-      return 'icon_exclamation';
-    }
-    if (!keyGet('lookingforship')) {
-      return 'icon_exclamation';
-    }
-    return null;
-  },
-  historian: () => {
-    if (keyGet('lookingforship') && !keyGet('foundship')) {
-      if (!keyGet('historian')) {
-        return 'icon_exclamation';
-      }
-      return 'icon_question';
-    }
-    return null;
-  }
-});
-
 dialogRegister({
   intro: function () {
     if (keyGet('rumor1')) {
@@ -186,6 +138,14 @@ dialogRegister({
     }
     signWithName('MONOLOGUING', 'There\'s gotta be something coming through this station worth my "talents"...  Let\'s see what the rumor mill has today.');
   },
+});
+
+dialogIconsRegister({
+  tips: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return !keyGet('rumor1') ? 'icon_exclamation' : null;
+  },
+});
+dialogRegister({
   tips: function () {
     let name = 'THE FLIRTY ENGINEER';
     if (!keyGet('rumor1')) {
@@ -204,12 +164,42 @@ dialogRegister({
     return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
     // any other tips?
   },
+});
+
+dialogIconsRegister({
+  dockingwander: () => {
+    return !keyGet('lookedforship') ? 'icon_exclamation' : null;
+  },
+});
+dialogRegister({
   dockingwander: function () {
     if (!keyGet('foundship')) {
       signWithName('MONOLOGUING', 'Searching one-by-one will take forever.  Maybe one of the **shiptakers** knows where **THE ASCENDING SWORD** is.');
       keySet('lookedforship');
     }
   },
+});
+
+dialogIconsRegister({
+  shiptaker: () => {
+    if (!keyGet('lookedforship') ||
+      keyGet('foundship') && !keyGet('foundshipbyshiptaker')
+    ) {
+      return null;
+    }
+    if (keyGet('foundship')) {
+      return null;
+    }
+    if (hasItem('key2')) {
+      return 'icon_exclamation';
+    }
+    if (!keyGet('lookingforship')) {
+      return 'icon_exclamation';
+    }
+    return null;
+  },
+});
+dialogRegister({
   shiptaker: function () {
     let name = 'THE OVERWORKED SHIPTAKER';
     if (!keyGet('lookedforship') ||
@@ -263,11 +253,29 @@ dialogRegister({
     }
     signWithName(name, 'The pilot who won that race is pretty well-known...');
   },
+});
+
+dialogRegister({
   outsideracer: function () {
     if (!keyGet('lookingforship')) {
       signWithName('MONOLOGUING', 'Hmm, it seems no one\'s home...');
     }
   },
+});
+
+dialogIconsRegister({
+  historian: () => {
+    if (keyGet('lookingforship') && !keyGet('foundship')) {
+      if (!keyGet('historian')) {
+        return 'icon_exclamation';
+      }
+      return 'icon_question';
+    }
+    return null;
+  }
+});
+
+dialogRegister({
   historian: function () {
     let name = 'THE WANDERING HISTORIAN';
     if (keyGet('lookingforship') && !keyGet('foundship')) {
@@ -285,57 +293,18 @@ dialogRegister({
     }
     signWithName(name, '<insert generic historian dialog>');
   },
-  sign: function (param: string) {
-    // param = param.replace(/NAME(\d)/g, function (a, b) {
-    //   let { heroes } = myEnt().data;
-    //   let idx = Number(b) % heroes.length;
-    //   return heroes[idx].name;
-    // });
-    dialogPush({
-      name: '',
-      text: param,
-      transient: true,
-    });
-  },
-  travelfail: function () {
-    let me = myEnt();
-    let { money } = me.data;
-    let take = money > LOSE_COST * 2;
-    if (take) {
-      me.data.money -= LOSE_COST;
+});
+
+dialogIconsRegister({
+  hats: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    let { next, hat_cost } = nextHatCost();
+    if (!next) {
+      return null;
     }
-    dialogPush({
-      name: '',
-      text: 'THE PURSUER has caught you.\n' +
-        (take ? `A little money goes a long way... you're out [img=icon-currency]${LOSE_COST}, but you're alive.` :
-        'Your ship is ransacked, but they find nothing of value.'),
-      buttons: [{
-        label: 'OK',
-        cb: function () {
-          travelGameFinish();
-        },
-      }],
-    });
+    return myEnt().data.money >= hat_cost ? 'icon_exclamation' : 'icon_question';
   },
-  shuttle: function () {
-    if (!keyGet('rumor1')) {
-      return signWithName('MONOLOGUING', 'I don\'t think I should leave the station just yet.');
-    }
-    let me = myEnt();
-    let { money } = me.data;
-    dialogPush({
-      name: '',
-      text: money >= SHUTTLE_COST ? `Shuttle rentals are [img=icon-currency]${SHUTTLE_COST}.` : `New around here, eh?  The shuttle normally costs [img=icon-currency]${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Just be sure to bring it back in once piece.`,
-      buttons: [{
-        label: 'OK, I\'LL TAKE ONE',
-        cb: function () {
-          startTravel();
-        },
-      }, {
-        label: 'MAYBE ANOTHER TIME...',
-      }],
-    });
-  },
+});
+dialogRegister({
   hats: function () {
     let custom_render = nameRender('THE ENTERPRISING NUTRITIONIST');
     if (!keyGet('helmetfree')) {
@@ -398,41 +367,14 @@ dialogRegister({
       }]
     });
   },
-  equipcheck: function () {
-    let { inventory } = myEnt().data;
-    let any_equippable = false;
-    for (let ii = 0; ii < inventory.length; ++ii) {
-      if (inventory[ii].equipped) {
-        return;
-      }
-      let item_def = ITEMS[inventory[ii].item_id];
-      if (item_def.item_type !== 'consumable') {
-        any_equippable = true;
-      }
-    }
-    if (any_equippable) {
-      dialog('sign', 'HINT: EQUIP YOUR NEW ITEM IN THE INVENTORY');
-    }
-  },
-  debug: function () {
-    let { inventory } = myEnt().data;
-    for (let key in ITEMS) {
-      let has = false;
-      for (let ii = 0; ii < inventory.length; ++ii) {
-        if (inventory[ii].item_id === key) {
-          has = true;
-        }
-      }
-      if (!has) {
-        inventory.push({
-          item_id: key,
-        });
-      }
-    }
-    myEnt().data.money = 9999;
+});
 
-    dialog('sign', 'GRANTED EVERYTHING');
+dialogIconsRegister({
+  medbay: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return 'icon_exclamation';
   },
+});
+dialogRegister({
   medbay: function () {
     let { data } = myEnt();
     let { stats, money } = data;
@@ -474,6 +416,104 @@ dialogRegister({
         label: 'THAT\'LL BE ALL, THANKS...',
       }]
     });
+  },
+});
+
+dialogIconsRegister({
+  shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return 'icon_exclamation';
+  },
+});
+dialogRegister({
+  shuttle: function () {
+    if (!keyGet('rumor1')) {
+      return signWithName('MONOLOGUING', 'I don\'t think I should leave the station just yet.');
+    }
+    let me = myEnt();
+    let { money } = me.data;
+    dialogPush({
+      name: '',
+      text: money >= SHUTTLE_COST ? `Shuttle rentals are [img=icon-currency]${SHUTTLE_COST}.` : `New around here, eh?  The shuttle normally costs [img=icon-currency]${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Just be sure to bring it back in once piece.`,
+      buttons: [{
+        label: 'OK, I\'LL TAKE ONE',
+        cb: function () {
+          startTravel();
+        },
+      }, {
+        label: 'MAYBE ANOTHER TIME...',
+      }],
+    });
+  },
+});
+
+// generic / non-iconic
+dialogRegister({
+  sign: function (param: string) {
+    // param = param.replace(/NAME(\d)/g, function (a, b) {
+    //   let { heroes } = myEnt().data;
+    //   let idx = Number(b) % heroes.length;
+    //   return heroes[idx].name;
+    // });
+    dialogPush({
+      name: '',
+      text: param,
+      transient: true,
+    });
+  },
+  travelfail: function () {
+    let me = myEnt();
+    let { money } = me.data;
+    let take = money > LOSE_COST * 2;
+    if (take) {
+      me.data.money -= LOSE_COST;
+    }
+    dialogPush({
+      name: '',
+      text: 'THE PURSUER has caught you.\n' +
+        (take ? `A little money goes a long way... you're out [img=icon-currency]${LOSE_COST}, but you're alive.` :
+        'Your ship is ransacked, but they find nothing of value.'),
+      buttons: [{
+        label: 'OK',
+        cb: function () {
+          travelGameFinish();
+        },
+      }],
+    });
+  },
+  equipcheck: function () {
+    let { inventory } = myEnt().data;
+    let any_equippable = false;
+    for (let ii = 0; ii < inventory.length; ++ii) {
+      if (inventory[ii].equipped) {
+        return;
+      }
+      let item_def = ITEMS[inventory[ii].item_id];
+      if (item_def.item_type !== 'consumable') {
+        any_equippable = true;
+      }
+    }
+    if (any_equippable) {
+      dialog('sign', 'HINT: EQUIP YOUR NEW ITEM IN THE INVENTORY');
+    }
+  },
+  debug: function () {
+    let { inventory } = myEnt().data;
+    for (let key in ITEMS) {
+      let has = false;
+      for (let ii = 0; ii < inventory.length; ++ii) {
+        if (inventory[ii].item_id === key) {
+          has = true;
+        }
+      }
+      if (!has) {
+        inventory.push({
+          item_id: key,
+        });
+      }
+    }
+    myEnt().data.money = 9999;
+
+    dialog('sign', 'GRANTED EVERYTHING');
   },
   // finale: function () {
   //   myEnt().data.score_won = true;
