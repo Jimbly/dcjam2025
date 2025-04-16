@@ -2,6 +2,7 @@
 open_move: false
 open_vis: true
 advertise_other_side: true
+map_view_wall_frames_from: solid
 visuals:
 - type: simple_wall
   pass: celldetails
