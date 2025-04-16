@@ -92,6 +92,7 @@ export type VstyleDesc = {
   fog_ex_color?: Vec4; // extinction color, default black; [3] is a scalar multiplier
   background_color: Vec3;
   background_img?: string;
+  background_size?: number;
 };
 export type VstyleDescs = Partial<Record<string, VstyleDesc>>;
 export type CrawlerStateParams = {

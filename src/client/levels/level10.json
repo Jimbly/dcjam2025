@@ -1752,16 +1752,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -1770,7 +1761,16 @@
       "id": "solid",
       "walls": [
         "open",
+        "solid",
         "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -1851,7 +1851,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "open",
         "solid",
         "open"
       ]
@@ -1886,10 +1886,37 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "station_solid3",
+        "station_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "door",
+        "open",
+        "station_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_solid3",
+        "open",
+        "open",
+        "station_solid3"
       ]
     },
     {
@@ -1897,34 +1924,7 @@
       "walls": [
         "open",
         "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -1992,12 +1992,12 @@
       ]
     },
     {
-      "id": "open",
+      "id": "solid",
       "walls": [
+        "open",
+        "open",
         "solid",
-        "solid",
-        "station_decal_5a",
-        "solid"
+        "open"
       ]
     },
     {
@@ -2005,7 +2005,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "open",
         "open"
       ]
     },
@@ -2030,6 +2030,48 @@
     {
       "id": "solid",
       "walls": [
+        "solid",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "door",
+        "open",
+        "station_solid3",
+        "open"
+      ]
+    },
+    {
+      "id": "stairs_out",
+      "walls": [
+        "door",
+        "door",
+        "door",
+        "door"
+      ],
+      "events": [
+        {
+          "id": "floor_abs",
+          "param": "same 2 15 0"
+        }
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_solid3",
+        "open",
+        "stairs_out",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
         "open",
         "open",
         "solid",
@@ -2084,44 +2126,8 @@
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -2141,7 +2147,7 @@
         "open",
         "solid",
         "solid",
-        "solid"
+        "open"
       ]
     },
     {
@@ -2174,99 +2180,9 @@
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
         "open",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -2274,9 +2190,111 @@
       "id": "open",
       "walls": [
         "open",
-        "station_decal_5a",
-        "station_solid1a",
+        "station_solid3",
+        "station_solid3",
         "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "station_solid3",
+        "open",
+        "door"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_solid3",
+        "station_solid3",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "stairs_out",
+      "walls": [
+        "door",
+        "solid",
+        "solid",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_abs",
+          "param": "same 10 13 0"
+        }
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "station_decal_5a",
+        "stairs_out",
+        "open"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "OBSERVATION DECK"
+        }
       ]
     },
     {
@@ -2330,7 +2348,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2339,7 +2357,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2348,7 +2366,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
