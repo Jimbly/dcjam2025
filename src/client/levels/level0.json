@@ -1533,6 +1533,12 @@
         "open",
         "solid",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "debug"
+        }
       ]
     },
     {

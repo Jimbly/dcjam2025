@@ -197,6 +197,25 @@ dialogRegister({
       dialog('sign', 'HINT: EQUIP YOUR NEW ITEM IN THE INVENTORY');
     }
   },
+  debug: function () {
+    let { inventory } = myEnt().data;
+    for (let key in ITEMS) {
+      let has = false;
+      for (let ii = 0; ii < inventory.length; ++ii) {
+        if (inventory[ii].item_id === key) {
+          has = true;
+        }
+      }
+      if (!has) {
+        inventory.push({
+          item_id: key,
+        });
+      }
+    }
+    myEnt().data.money = 9999;
+
+    dialog('sign', 'GRANTED EVERYTHING');
+  },
   // finale: function () {
   //   myEnt().data.score_won = true;
   //   setScore();
