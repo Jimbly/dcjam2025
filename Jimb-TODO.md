@@ -1,5 +1,4 @@
 TODO
-* currency symbol if he didn't already
 * sound hooks: chest pickup, buying hat
 * combat - use seeded random (floor # +  living enemies)
 * combat test: try B varieties and combinations for comparison
