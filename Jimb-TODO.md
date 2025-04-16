@@ -5,6 +5,7 @@ TODO
 * auto-sort inventory: medkits, highest tier of each type, key items, others (by tier)
 * don't show stats preview in inventory when mouse isn't actually over an item
 * medkit seller and healing in medbay
+* combat test: try B varieties and combinations for comparison
 * always show living creatures on the map in explored areas
 * icon for unlooted chest on map (entity icon? loot property + entity?)
 * allow using medkits during combat
