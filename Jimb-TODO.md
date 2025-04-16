@@ -1,5 +1,4 @@
 TODO
-* always show living creatures on the map in explored areas
 * sound hooks: chest pickup, buying hat
 * combat test: try B varieties and combinations for comparison
 * icon for unlooted chest on map (entity icon? loot property + entity?)

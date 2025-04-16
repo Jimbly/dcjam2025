@@ -553,6 +553,9 @@ export function crawlerMapViewDraw(
           if (!cell || cell.visible_frame === engine.frame_index - 1 && cell.visible_bits) {
             vis = true;
           }
+          if (cell?.visible_bits) { // DCJAM25
+            vis = true;
+          }
         }
         if (vis) {
           // draw it
