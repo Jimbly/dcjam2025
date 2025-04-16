@@ -1,5 +1,4 @@
 TODO
-* don't show stats preview in inventory when mouse isn't actually over an item
 * always show living creatures on the map in explored areas
 * sound hooks: chest pickup, buying hat,
 * combat test: try B varieties and combinations for comparison

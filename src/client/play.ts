@@ -914,7 +914,7 @@ function inventoryMenu(): void {
   }
 
   preview_stats_final = null;
-  if (inventory_selbox.selected !== -1) {
+  if (inventory_selbox.selected !== -1 && inventory_selbox.isFocused()) {
     let item = inventory[inventory_selbox.selected];
     let item_def = ITEMS[item.item_id];
     if (!item.equipped) {
