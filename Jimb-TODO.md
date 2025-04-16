@@ -1,6 +1,10 @@
 TODO
-* armor/weapon/offhand trader?
-  * at least someone to buy all of your old stuff, maybe even sells it back forever
+* keys needing hookup:
+  metguard
+  foundship
+  solvedguard
+  foundsafe
+  solvedescape
 * travel minigame
   * new race idea
     * racing someone, whoever's last gets robbed?
@@ -8,6 +12,7 @@ TODO
     * queued input though if you tap right twice, it should move right twice
   * same with shifting speeds
   * simple levelgen?
+
 POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse

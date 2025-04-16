@@ -105,7 +105,38 @@ function numMedkitsMessage(): string {
   return `(Med-Kits owned: ${numMedkits()})`;
 }
 
+function signWithName(name: string, message: string): void {
+  dialogPush({
+    custom_render: nameRender(name),
+    text: message,
+    transient: true,
+  });
+}
+
 dialogRegister({
+  intro: function () {
+    if (crawlerScriptAPI().keyGet('rumor1')) {
+      return;
+    }
+    signWithName('MONOLOGUING', 'There\'s gotta be something coming through this station worth my "talents"...  Let\'s see what the rumor mill has today.');
+  },
+  tips: function () {
+    let name = 'THE FLIRTY ENGINEER';
+    if (!crawlerScriptAPI().keyGet('rumor1')) {
+      crawlerScriptAPI().keySet('rumor1');
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: 'I heard that THE ASCENDING SWORD is transporting THE RED DEVASATION through the station today.',
+        buttons: [{
+          label: 'THAT SEEMS LIKE SOMETHING SAFEST IN *MY* HANDS...'
+        }],
+      });
+    }
+    if (!crawlerScriptAPI().keyGet('foundship')) {
+      return signWithName(name, 'Go check out the dock for THE ASCENDING SWORD.');
+    }
+    // any other tips?
+  },
   sign: function (param: string) {
     // param = param.replace(/NAME(\d)/g, function (a, b) {
     //   let { heroes } = myEnt().data;
@@ -156,7 +187,7 @@ dialogRegister({
   },
   hats: function () {
     let api = crawlerScriptAPI();
-    let custom_render = nameRender('"HAT" DEALER');
+    let custom_render = nameRender('THE ENTERPRISING NUTRITIONIST');
     if (!api.keyGet('helmetfree')) {
       return dialogPush({
         custom_render,
@@ -166,7 +197,7 @@ dialogRegister({
           cb: function () {
             dialogPush({
               custom_render,
-              text: 'I got the freshest hats around.  Here, take this, first one\'s free.',
+              text: 'I got the freshest "hats" around.  Here, take this, first one\'s free.',
               buttons: [{
                 label: 'UH, OKAY...',
                 cb: function () {
@@ -262,9 +293,10 @@ dialogRegister({
     }
     let prefix = do_heal ? 'I\'ve patched you up.  ' : '';
     if (money < COST_MEDKIT) {
-      return dialog('sign', `${prefix}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.`);
+      return signWithName('THE UNDERPAID NURSE', `${prefix}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.`);
     }
     dialogPush({
+      custom_render: nameRender('THE UNDERPAID NURSE'),
       text: `${prefix || 'You\'re right as rain.  '}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.  Want one?\n${numMedkitsMessage()}`,
       buttons: [{
         label: `YES, PLEASE! (-[img=icon-currency]${COST_MEDKIT})`,
@@ -280,9 +312,10 @@ dialogRegister({
     giveReward({ items: [{ item_id: 'med1' }] });
     playUISound('gain_item_purchase');
     if (data.money < COST_MEDKIT) {
-      return dialog('sign', 'Thank you, come again!');
+      return signWithName('THE UNDERPAID NURSE', 'Thank you, come again!');
     }
     dialogPush({
+      custom_render: nameRender('THE UNDERPAID NURSE'),
       text: `There you go!  Want another?\n${numMedkitsMessage()}`,
       buttons: [{
         label: `THANK YOU SIR, MAY I HAVE ANOTHER! (-[img=icon-currency]${COST_MEDKIT})`,

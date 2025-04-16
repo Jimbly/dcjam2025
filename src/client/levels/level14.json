@@ -2325,6 +2325,16 @@
       ]
     }
   ],
+  "initial_entities": [
+    {
+      "type": "enemyT3",
+      "pos": [
+        3,
+        8,
+        2
+      ]
+    }
+  ],
   "state": {},
   "vstyle": "ship",
   "seed": "32845502",

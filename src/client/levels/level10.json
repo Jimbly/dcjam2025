@@ -1,9 +1,9 @@
 {
   "special_pos": {
     "stairs_in": [
-      4,
-      7,
-      2
+      0,
+      8,
+      0
     ],
     "stairs_out": [
       3,
@@ -1026,7 +1026,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -1179,26 +1179,26 @@
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
+        "open",
         "solid",
-        "open",
-        "open",
-        "open"
+        "solid",
+        "solid"
       ]
     },
     {
-      "id": "stairs_in",
+      "id": "open",
       "walls": [
-        "door",
+        "open",
         "solid",
-        "solid",
+        "open",
         "solid"
       ],
       "events": [
         {
-          "id": "floor_delta",
-          "param": "-10000"
+          "id": "dialog",
+          "param": "kbhint HINT: Press F11 for Fullscreen"
         }
       ]
     },
@@ -1207,8 +1207,14 @@
       "walls": [
         "open",
         "open",
-        "stairs_in",
+        "open",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "intro"
+        }
       ]
     },
     {
@@ -1352,7 +1358,7 @@
         "open",
         "solid",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2337,6 +2343,12 @@
         "station_solid3",
         "open",
         "station_shop_window"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "tips"
+        }
       ]
     },
     {

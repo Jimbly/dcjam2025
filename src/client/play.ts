@@ -196,6 +196,7 @@ let controller: CrawlerController;
 
 let pause_menu_up = false;
 let inventory_up = false;
+let journal_up = false;
 
 let button_sprites: Record<ButtonStateString, Sprite>;
 let button_sprites_down: Record<ButtonStateString, Sprite>;
@@ -259,7 +260,7 @@ const selbox_display: Partial<SelectionBoxDisplay> = {
   style_down: fontStyleColored(null, 0x000000ff),
 };
 
-function modalBackground(min_w: number, min_h: number, label: Sprite): void {
+function modalBackground(min_w: number, min_h: number, label: Sprite | null): void {
   let modal_frame_h = min_h * 825/605;
   let modal_frame_w = max(modal_frame_h / 825 * 657,
     min_w * 657/483);
@@ -282,14 +283,16 @@ function modalBackground(min_w: number, min_h: number, label: Sprite): void {
     z: Z.MODAL + 0.2,
     blend: BLEND_MULTIPLY,
   });
-  let label_w = label.texs[0].src_width / 674 * 155;
-  label.draw({
-    x: box.x - 8,
-    y: box.y - (label === modal_label_options ? 23 : 32),
-    z: Z.MODAL + 0.4,
-    w: label_w,
-    h: label_w / label.getAspect(),
-  });
+  if (label) {
+    let label_w = label.texs[0].src_width / 674 * 155;
+    label.draw({
+      x: box.x - 8,
+      y: box.y - (label === modal_label_options ? 23 : 32),
+      z: Z.MODAL + 0.4,
+      w: label_w,
+      h: label_w / label.getAspect(),
+    });
+  }
   menuUp();
 }
 
@@ -826,6 +829,53 @@ const INVENTORY_X = (game_width - INVENTORY_W) / 2;
 const INVENTORY_Y = (game_height - INVENTORY_H) / 2 + 3;
 const INVENTORY_ENTRY_H = 15; // uiButtonHeight()
 const MARKER_W = 12;
+
+function journalMenu(): void {
+  let api = crawlerScriptAPI();
+  let lines = [
+    ['foundship', 'Find where **THE ASCENDING SWORD** is docked'],
+    ['solvedguard', api.keyGet('metguard') ? 'Get past **THE ESTRANGED GUARD**' : 'Get past **THE GUARD**'],
+    ['foundsafe', 'Open the safe and grab **THE RED DEVASATION**'],
+    ['solvedescape', 'Disappear into the black'],
+  ];
+  let x = INVENTORY_X;
+  let w = INVENTORY_W;
+  let x1 = INVENTORY_X + w;
+  let y = INVENTORY_Y + 12;
+  let z = Z.MODAL + 3;
+  let text_height = uiTextHeight();
+  let line_pad = text_height;
+
+  markdownAuto({
+    x, y, z, w,
+    align: ALIGN.HLEFT,
+    text: '**HEIST PLANNING**',
+  });
+  y += text_height * 3;
+
+  lines.forEach(function (pair) {
+    let solved = api.keyGet(pair[0]);
+    autoAtlas('default', `icon-checkbox-${solved ? 'checked' : 'empty'}`).draw({
+      x,
+      y: y - text_height * 0.5,
+      z,
+      w: text_height * 2,
+      h: text_height * 2,
+    });
+
+    let xx = x + text_height + 8;
+    y += markdownAuto({
+      x: xx,
+      y, z,
+      w: x1 - xx,
+      align: ALIGN.HWRAP,
+      indent: 8,
+      text: pair[1]
+    }).h + line_pad;
+  });
+  modalBackground(INVENTORY_W, INVENTORY_H, null);
+}
+
 let temp_inventory: Item[];
 function inventoryDrawItemCB(param: SelectionBoxDrawItemParams): void {
   selboxDefaultDrawItemBackground(param);
@@ -1258,12 +1308,14 @@ function playCrawl(): void {
   let down = {
     menu: 0,
     inventory: 0,
+    journal: 0,
   };
   type ValidKeys = keyof typeof down;
-  let up_edge = {
+  let up_edge: Record<ValidKeys, number> = {
     menu: 0,
     inventory: 0,
-  } as Record<ValidKeys, number>;
+    journal: 0,
+  };
 
   let dt = getScaledFrameDt();
 
@@ -1276,8 +1328,13 @@ function playCrawl(): void {
   if (!frame_combat && !crawlerController().controllerIsAnimating(0.5)) {
     checkLoot();
   }
+  let allow_journal = crawlerScriptAPI().keyGet('rumor1');
+  if (!allow_journal) {
+    journal_up = false;
+  }
   const frame_map_view = !travel_game && mapViewActive();
   const frame_inventory_up = !travel_game && inventory_up;
+  const frame_journal_up = !travel_game && journal_up;
   const is_fullscreen_ui = false; // any game-mode fullscreen UIs up?
   let dialog_viewport = {
     x: VIEWPORT_X0 + 8,
@@ -1297,7 +1354,7 @@ function playCrawl(): void {
   dialogRun(dt, dialog_viewport, false);
 
   let locked_dialog = dialogMoveLocked();
-  const overlay_menu_up = pause_menu_up || inventory_up;
+  const overlay_menu_up = pause_menu_up || frame_inventory_up || frame_journal_up;
   let minimap_display_x = MINIMAP_X;
   let minimap_display_h = build_mode ? BUTTON_W : MINIMAP_H;
   let show_compass = !build_mode;
@@ -1338,14 +1395,14 @@ function playCrawl(): void {
       no_visible_ui = false;
       if (frame_map_view) {
         z = Z.MAP + 1;
-      } else if (pause_menu_up || inventory_up) {
+      } else if (pause_menu_up || frame_inventory_up || frame_journal_up) {
         z = Z.MODAL + 1;
       } else {
         z = Z.MENUBUTTON;
       }
     } else {
       if (overlay_menu_up && toggled_down) {
-        no_visible_ui = true;
+        //no_visible_ui = true; // DCJAM25
       } else {
         my_disabled = my_disabled || overlay_menu_up;
       }
@@ -1385,10 +1442,18 @@ function playCrawl(): void {
     button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads, false, 'ESC');
   }
   if (!build_mode && !travel_game) {
-    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up, 'I');
+    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up || journal_up, 'I');
     if (up_edge.inventory) {
       inventory_up = !inventory_up;
+      journal_up = false;
       sortInventory();
+    }
+    if (allow_journal) {
+      button(0, 2, 8, 'journal', [KEYS.J], [PAD.X], inventory_up || journal_up, 'J');
+      if (up_edge.journal) {
+        journal_up = !journal_up;
+        inventory_up = false;
+      }
     }
   }
 
@@ -1439,6 +1504,7 @@ function playCrawl(): void {
       return profilerStopFunc();
     }
     inventory_up = false;
+    journal_up = false;
   }
 
   if (up_edge.menu) {
@@ -1452,6 +1518,7 @@ function playCrawl(): void {
         // close everything
         mapViewSetActive(false);
         inventory_up = false;
+        journal_up = false;
       }
       pause_menu_up = false;
     } else {
@@ -1478,6 +1545,9 @@ function playCrawl(): void {
   }
   if (inventory_up) {
     inventoryMenu(Boolean(frame_combat));
+  }
+  if (journal_up) {
+    journalMenu();
   }
   if (travel_game) {
     doTravelGame();
@@ -1578,7 +1648,7 @@ export function play(dt: number): void {
   //   h: camera2d.hReal(),
   // });
 
-  let overlay_menu_up = Boolean(pause_menu_up || dialogMoveLocked() || inventory_up ||
+  let overlay_menu_up = Boolean(pause_menu_up || dialogMoveLocked() || inventory_up || journal_up ||
     !myEntOptional()?.isAlive() || engagedEnemy());
 
   tickMusic(game_state.level?.props.music || 'bgm01');
@@ -1639,6 +1709,7 @@ function playInitShared(online: boolean): void {
 
   pause_menu_up = false;
   inventory_up = false;
+  journal_up = false;
   travelGameCheck(true);
 }
 
