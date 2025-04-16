@@ -1,5 +1,4 @@
 TODO
-* disable travel minigame
 * keys needing hookup:
   solvedescape
 * travel minigame

@@ -7,13 +7,22 @@ import { ALIGN, FontStyle, fontStyleColored } from 'glov/client/font';
 import { keyDown, keyDownEdge, KEYS } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
 import { spot, SPOT_DEFAULT_BUTTON } from 'glov/client/spot';
-import { buttonText, drawLine, panel, playUISound, uiButtonHeight, uiGetFont, uiTextHeight } from 'glov/client/ui';
+import {
+  buttonText,
+  drawLine,
+  panel,
+  playUISound,
+  uiButtonHeight,
+  uiButtonWidth,
+  uiGetFont,
+  uiTextHeight
+} from 'glov/client/ui';
 import { randCreate, shuffleArray } from 'glov/common/rand_alea';
 import { clamp, easeInOut, lerp, plural, ridx } from 'glov/common/util';
 import { crawlerEntityManager } from './crawler_entity_client';
 import { crawlerController, crawlerGameState } from './crawler_play';
 import { dialog } from './dialog_system';
-import { game_height, HUD_PAD, HUD_W, HUD_X0, HUD_Y0, render_width, VIEWPORT_X0 } from './globals';
+import { game_height, game_width, HUD_PAD, HUD_W, HUD_X0, HUD_Y0, render_width, VIEWPORT_X0 } from './globals';
 import { tickLoopingSound } from './music';
 import { drawHealthBar, drawHUDPanel, myEnt, queueTransition } from './play';
 
@@ -433,6 +442,18 @@ export function doTravelGame(): void {
   let { asteroids, hand, selected, done, animating } = travel_state;
   let z = Z.UI;
   let text_height = uiTextHeight();
+
+  if (1) {
+    let button_w = uiButtonWidth();
+    if (buttonText({
+      x: (game_width - button_w) / 2,
+      y: game_height/2 - 5,
+      text: 'I WIN!'
+    })) {
+      travelGameFinish();
+    }
+    return;
+  }
 
   if (asteroids.length && 0) {
     let next = asteroids[0];
