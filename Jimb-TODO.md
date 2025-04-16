@@ -1,6 +1,4 @@
 TODO
-* sound hooks: chest pickup, buying hat
-* combat - use seeded random (floor # +  living enemies)
 * combat test: try B varieties and combinations for comparison
 * update HP on the right during combat (related to medkit one below?)
 * allow using medkits during combat

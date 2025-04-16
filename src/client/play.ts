@@ -1192,6 +1192,7 @@ function checkLoot(): void {
   let cell = level.getCell(chest.data.pos[0], chest.data.pos[1]);
   assert(cell);
   let loot = cell.props?.loot || 'money 50';
+  playUISound('gain_item_loot');
   if (loot.startsWith('money')) {
     let money = Number(loot.split(' ')[1]);
     if (!isFinite(money)) {

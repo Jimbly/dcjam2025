@@ -134,6 +134,7 @@ dialogRegister({
               buttons: [{
                 label: 'UH, OKAY...',
                 cb: function () {
+                  playUISound('gain_item_purchase');
                   giveReward({ items: [{ item_id: 'helmetfree' }] });
                   api.keySet('helmetfree');
                 }
@@ -185,6 +186,7 @@ dialogRegister({
         label: 'YES, PLEASE!',
         cb: function () {
           me.data.money -= hat_cost;
+          playUISound('gain_item_purchase');
           giveReward({ items: [{ item_id: next }] });
           api.keySet(next);
         },
@@ -254,6 +256,7 @@ dialogRegister({
     let { data } = myEnt();
     data.money -= COST_MEDKIT;
     giveReward({ items: [{ item_id: 'med1' }] });
+    playUISound('gain_item_purchase');
     if (data.money < COST_MEDKIT) {
       return dialog('sign', 'Thank you, come again!');
     }

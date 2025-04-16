@@ -9,9 +9,11 @@ import {
   spriteCreate,
 } from 'glov/client/sprites';
 import { playUISound, uiGetFont } from 'glov/client/ui';
+import { mashString, randCreate } from 'glov/common/rand_alea';
 import type { VoidFunc } from 'glov/common/types';
 import { easeOut, lerp, ridx } from 'glov/common/util';
 import { vec2 } from 'glov/common/vmath';
+import { crawlerGameState } from './crawler_play';
 import { crawlerRenderViewportGet } from './crawler_render';
 import { EntityDrawableSprite } from './crawler_render_entities';
 import {
@@ -22,7 +24,7 @@ import {
 import { game_height, game_width } from './globals';
 import { drawHealthBar, giveReward, myEnt } from './play';
 
-const { abs, pow, random, max, floor, round, PI } = Math;
+const { abs, pow, max, floor, round, PI } = Math;
 
 type Entity = EntityDemoClient;
 
@@ -51,8 +53,14 @@ export function bellish(xin: number, exp: number): number {
   }
 }
 
+let rand = randCreate();
+
+function combatSetSeed(seed: number): void {
+  rand.reseed(seed);
+}
+
 function roundRand(v: number): number {
-  return floor(v + random());
+  return floor(v + rand.random());
 }
 
 type DamageRet = {
@@ -73,7 +81,7 @@ export function damage(
 
   let style: 'miss' | 'normal' | 'crit' = 'normal';
   let hit_chance = 2 - pow(0.5, attacker.accuracy/defender.dodge-1);
-  let r = average ? average_roll! : random();
+  let r = average ? average_roll! : rand.random();
   if (hit_chance <= 1) {
     if (r > hit_chance) {
       style = 'miss';
@@ -255,6 +263,19 @@ function eventIndex(time_req: number, event_idx: number, f: VoidFunc): void {
   f();
 }
 
+function numLivingEnemies(): number {
+  let { floor_id } = crawlerGameState();
+  let { entities } = entityManager();
+  let ret = 0;
+  for (let key in entities) {
+    let ent = entities[key]!;
+    if (ent.isEnemy() && ent.data.floor === floor_id) {
+      ++ret;
+    }
+  }
+  return ret;
+}
+
 export function doCombat(target: Entity, dt: number, paused: boolean): void {
   if (paused) {
     dt = 0;
@@ -271,6 +292,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       did_event: 0,
       floaters: [],
     };
+    combatSetSeed(mashString([target.data.floor, numLivingEnemies()].join()));
     playUISound('combat_start');
   }
   combat_state.t += dt;
@@ -286,7 +308,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     // p = mousePos()[0] / game_width;
     if (p >= 1) {
       if (state === 'fadein') {
-        startState(random() < 0.5 ? 'hero' : 'enemy');
+        startState(rand.random() < 0.5 ? 'hero' : 'enemy');
       } else {
         me.data.stats.hp = combat_state.player_hp;
         target.data.stats.hp = combat_state.target_hp;

@@ -190,4 +190,7 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   item_unequip_offhand: { file: 'item/unequip', volume: 1 },
   item_unequip_weapon: { file: 'item/unequip', volume: 1 },
 
+  gain_item_purchase: { file: 'item/equip', volume: 1 },
+  gain_item_loot: { file: 'item/equip', volume: 1 },
+
 };
