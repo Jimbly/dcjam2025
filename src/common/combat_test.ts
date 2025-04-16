@@ -171,7 +171,7 @@ let equipment: Equip[] = [{
   dodge: 16,
 }];
 
-let CONCISE = true;
+let CONCISE = 'b' as 'a' | 'b' | false;
 let TEST_TIERS = [0, 4];
 
 const LABEL_TO_SPRITE = {
@@ -437,7 +437,10 @@ for (let player_tier = 0; player_tier <= 4; ++player_tier) {
     }
   }
   for (let enemy_tier = TEST_TIERS[0]; enemy_tier <= TEST_TIERS[1]; ++enemy_tier) {
-    if (CONCISE && enemy_tier !== player_tier) {
+    if (CONCISE === 'a' && enemy_tier !== player_tier) {
+      continue;
+    }
+    if (CONCISE === 'b' && enemy_tier !== player_tier && enemy_tier !== player_tier + 1) {
       continue;
     }
     let dobreak = runAgainst(`Player T${player_tier} vs Enemy T${enemy_tier}:`,

@@ -194,7 +194,7 @@
         "solid"
       ],
       "props": {
-        "loot": "weapon1"
+        "loot": "torso4"
       }
     },
     {
@@ -344,7 +344,7 @@
         "solid"
       ],
       "props": {
-        "loot": "offhand1"
+        "loot": "weapon1"
       }
     },
     {
@@ -413,7 +413,7 @@
         "solid"
       ],
       "props": {
-        "loot": "weapon1"
+        "loot": "offhand1"
       }
     },
     {

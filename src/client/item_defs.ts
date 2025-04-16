@@ -14,9 +14,9 @@ const ITEM_ROWS: ItemRow[] = [
   ['head', 'helmetfree', 'Cocky Rooster', { hp_max: 5 }, 'Have you ever tried to catch a chicken?  Well, then you know how fast these little guys can change course.\n\nThis helmet gives you great reflexes, which will help you dodge the attack of even your quickest enemies.'],
 
   ['head', 'helmet1', 'Deathclaw', { hp_max: 20 }, 'You have been assured that these are bonefide chicken horns, sharp enough to pierce the strongest foe.'],
-  ['torso', 'torso1', 'T1 Armor', { defense: 6 }],
-  ['weapon', 'weapon1', 'T1 Weapon', { attack: 6, accuracy: 4 }],
-  ['offhand', 'offhand1', 'T1 Offhand', { dodge: 4 }],
+  ['weapon', 'weapon1', 'T1 Weapon', { attack: 6, accuracy: 2 }],
+  ['offhand', 'offhand1', 'T1 Offhand', { dodge: 2, accuracy: 2 }],
+  ['torso', 'torso1', 'T1 Armor', { defense: 6, dodge: 2 }],
 
   ['head', 'helmet2', 'Eye of the Chicken', { hp_max: 35 }],
   ['torso', 'torso2', 'T2 Armor', { defense: 12 }],
