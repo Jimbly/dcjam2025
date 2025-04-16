@@ -1,6 +1,4 @@
 TODO
-* update HP on the right during combat (related to medkit one below?)
-* allow using medkits during combat
 * combat test: try B varieties and combinations for comparison
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever
