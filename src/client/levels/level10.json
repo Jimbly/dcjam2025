@@ -1350,7 +1350,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "open",
         "open",
         "open"
       ]
@@ -1374,7 +1374,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_hologram",
       "walls": [
         "station_decal_2",
         "open",
@@ -1509,6 +1509,15 @@
       ]
     },
     {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
       "id": "open",
       "walls": [
         "station_shop_window",
@@ -1521,23 +1530,8 @@
       "id": "open",
       "walls": [
         "open",
-        "station_solid2",
+        "open",
         "station_shop_window",
-        "station_decal_5"
-      ],
-      "events": [
-        {
-          "id": "dialog",
-          "param": "medbay"
-        }
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
         "open"
       ],
       "events": [
@@ -1688,7 +1682,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "open"
       ]
     },
     {
@@ -2445,9 +2439,9 @@
       ]
     },
     {
-      "type": "npc01",
+      "type": "critter13",
       "pos": [
-        0,
+        1,
         10,
         0
       ]
@@ -2457,7 +2451,7 @@
   "vstyle": "station",
   "seed": "32845502",
   "props": {
-    "title": "JUNCTION STATION",
+    "title": "STATION 15",
     "music": "bgm02"
   },
   "paths": {}
