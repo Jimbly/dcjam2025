@@ -305,7 +305,7 @@ function pauseMenu(disable_saving: boolean): void {
     });
   }
   let items: MenuItem[] = [{
-    name: 'Return to game',
+    name: 'RETURN TO GAME',
     cb: function () {
       pause_menu_up = false;
     },
@@ -322,14 +322,14 @@ function pauseMenu(disable_saving: boolean): void {
     value_min: 0,
     value_max: 1,
   }, {
-    name: `Turn: ${settings.turn_toggle ? 'A/S/4/6/←/→': 'Q/E/7/9/LB/RB'}`,
+    name: `TURN: ${settings.turn_toggle ? 'A/S/4/6/←/→': 'Q/E/7/9/LB/RB'}`,
     cb: () => {
       settingsSet('turn_toggle', 1 - settings.turn_toggle);
     },
   }];
   if (isLocal()) {
     items.push({
-      name: 'Save game',
+      name: 'SAVE GAME',
       disabled: disable_saving,
       cb: function () {
         crawlerSaveGame('manual');
@@ -339,7 +339,7 @@ function pauseMenu(disable_saving: boolean): void {
     });
   }
   items.push({
-    name: isOnline() ? 'Return to Title' : 'Save and Exit',
+    name: isOnline() ? 'RETURN TO TITLE' : 'SAVE AND EXIT',
     disabled: disable_saving,
     cb: function () {
       if (!isOnline()) {
@@ -351,7 +351,7 @@ function pauseMenu(disable_saving: boolean): void {
   });
   if (isLocal()) {
     items.push({
-      name: 'Exit without saving',
+      name: 'EXIT WITHOUT SAVING',
       cb: function () {
         queueTransition();
         urlhash.go('');
@@ -361,10 +361,10 @@ function pauseMenu(disable_saving: boolean): void {
 
   let volume_item = items[1];
   volume_item.value = settings.volume_sound;
-  volume_item.name = `SFX Vol: ${(settings.volume_sound * 100).toFixed(0)}`;
+  volume_item.name = `SFX: ${(settings.volume_sound * 100).toFixed(0)}`;
   volume_item = items[2];
   volume_item.value = settings.volume_music;
-  volume_item.name = `Mus Vol: ${(settings.volume_music * 100).toFixed(0)}`;
+  volume_item.name = `MUS: ${(settings.volume_music * 100).toFixed(0)}`;
 
   let modal_contents_h = items.length * uiButtonHeight();
 
