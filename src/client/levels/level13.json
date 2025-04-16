@@ -2329,8 +2329,8 @@
   "vstyle": "station",
   "seed": "32845502",
   "props": {
-    "title": "ADVENTURE LOCATION",
-    "subtitle": "Zone 2",
+    "title": "EPSILON-ALPHA",
+    "subtitle": "Zone 2 Test",
     "music": "bgm02"
   },
   "paths": {}

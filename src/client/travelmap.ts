@@ -32,17 +32,17 @@ export function stateTravel(dt: number): void {
   let me = crawlerEntityManager() && myEnt();
 
   [{
-    x: 42,
-    y: 37,
-    floor: 13,
-  }, {
-    x: 138,
-    y: 123,
+    x: 131,
+    y: 121,
     floor: 11,
   }, {
-    x: 348,
-    y: 123,
+    x: 264.5,
+    y: 121,
     floor: 12,
+  }, {
+    x: 58.5,
+    y: 203,
+    floor: 13,
   }].forEach(function (elem) {
     if (buttonText({
       ...elem,
@@ -61,8 +61,8 @@ export function stateTravel(dt: number): void {
   });
 
   if (buttonText({
-    x: 392,
-    y: 219,
+    x: 393,
+    y: 217,
     w: GO_W,
     text: 'CANCEL',
     hotkey: KEYS.ESC,
