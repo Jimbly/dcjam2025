@@ -2,6 +2,7 @@
 export const SHUTTLE_COST = 100;
 import { ALIGN, fontStyle } from 'glov/client/font';
 import { panel, PanelParam, playUISound, sprites as ui_sprites, uiGetFont, uiTextHeight } from 'glov/client/ui';
+import { ridx } from 'glov/common/util';
 import { dialogIconsRegister } from '../common/crawler_events';
 import {
   CrawlerScriptAPI,
@@ -22,11 +23,43 @@ import { statusPush } from './status';
 import { travelGameFinish } from './travelgame';
 import { startTravel } from './travelmap';
 
+const { round } = Math;
+
 const LOSE_COST = 100;
 const COST_MEDKIT = 100;
+const DRINK_COST = 60;
 
 const NAME_BOX_H = 14;
 const NAME_BOX_PAD = 6;
+
+function keyGet(name: string): boolean {
+  return crawlerScriptAPI().keyGet(name);
+}
+
+function keySet(name: string): void {
+  crawlerScriptAPI().keySet(name);
+}
+
+function hasItem(item_id: string): boolean {
+  let { inventory } = myEnt().data;
+  for (let ii = 0; ii < inventory.length; ++ii) {
+    if (inventory[ii].item_id === item_id) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function consumeItem(item_id: string): void {
+  let item_def = ITEMS[item_id];
+  statusPush(`Lost ${item_def.name}`);
+  let { inventory } = myEnt().data;
+  for (let ii = 0; ii < inventory.length; ++ii) {
+    if (inventory[ii].item_id === item_id) {
+      ridx(inventory, ii);
+    }
+  }
+}
 
 function nameRender(name: string): (param: PanelParam) => void {
   return function (param: PanelParam): void {
@@ -36,12 +69,13 @@ function nameRender(name: string): (param: PanelParam) => void {
       y: param.y - NAME_BOX_H * 0.8,
       h: NAME_BOX_H,
       z: (param.z || Z.UI) + 0.1,
+      color: param.color,
       eat_clicks: false,
     };
     let text_w = uiGetFont().draw({
       ...name_panel,
       x: name_panel.x + NAME_BOX_PAD,
-      color: 0x000000ff,
+      color: round((param.color?.[3] || 1) * 255),
       size: uiTextHeight() * 0.75,
       z: name_panel.z + 0.2,
       align: ALIGN.VCENTER,
@@ -52,8 +86,8 @@ function nameRender(name: string): (param: PanelParam) => void {
   };
 }
 
-function nextHatCost(api: CrawlerScriptAPI): { next: string; hat_cost: number } {
-  if (!api.keyGet('helmetfree')) {
+function nextHatCost(): { next: string; hat_cost: number } {
+  if (!keyGet('helmetfree')) {
     return { next: 'helmetfree', hat_cost: 0 };
   }
   let hat_cost = 2000;
@@ -65,7 +99,7 @@ function nextHatCost(api: CrawlerScriptAPI): { next: string; hat_cost: number } 
   ];
   let next = '';
   for (let ii = 0; ii < options.length; ++ii) {
-    if (!api.keyGet(options[ii])) {
+    if (!keyGet(options[ii])) {
       next = options[ii];
       break;
     }
@@ -73,22 +107,6 @@ function nextHatCost(api: CrawlerScriptAPI): { next: string; hat_cost: number } 
   }
   return { next, hat_cost };
 }
-
-dialogIconsRegister({
-  shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return 'icon_exclamation';
-  },
-  hats: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    let { next, hat_cost } = nextHatCost(script_api);
-    if (!next) {
-      return null;
-    }
-    return myEnt().data.money >= hat_cost ? 'icon_exclamation' : 'icon_question';
-  },
-  medbay: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return 'icon_exclamation';
-  },
-});
 
 export function numMedkits(): number {
   let ret = 0;
@@ -113,17 +131,65 @@ function signWithName(name: string, message: string): void {
   });
 }
 
+dialogIconsRegister({
+  shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return 'icon_exclamation';
+  },
+  hats: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    let { next, hat_cost } = nextHatCost();
+    if (!next) {
+      return null;
+    }
+    return myEnt().data.money >= hat_cost ? 'icon_exclamation' : 'icon_question';
+  },
+  medbay: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return 'icon_exclamation';
+  },
+  tips: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return !keyGet('rumor1') ? 'icon_exclamation' : null;
+  },
+  dockingwander: () => {
+    return !keyGet('lookedforship') ? 'icon_exclamation' : null;
+  },
+  shiptaker: () => {
+    if (!keyGet('lookedforship') ||
+      keyGet('foundship') && !keyGet('foundshipbyshiptaker')
+    ) {
+      return null;
+    }
+    if (keyGet('foundship')) {
+      return null;
+    }
+    if (hasItem('key2')) {
+      return 'icon_exclamation';
+    }
+    if (!keyGet('lookingforship')) {
+      return 'icon_exclamation';
+    }
+    return null;
+  },
+  historian: () => {
+    if (keyGet('lookingforship') && !keyGet('foundship')) {
+      if (!keyGet('historian')) {
+        return 'icon_exclamation';
+      }
+      return 'icon_question';
+    }
+    return null;
+  }
+});
+
 dialogRegister({
   intro: function () {
-    if (crawlerScriptAPI().keyGet('rumor1')) {
+    if (keyGet('rumor1')) {
       return;
     }
     signWithName('MONOLOGUING', 'There\'s gotta be something coming through this station worth my "talents"...  Let\'s see what the rumor mill has today.');
   },
   tips: function () {
     let name = 'THE FLIRTY ENGINEER';
-    if (!crawlerScriptAPI().keyGet('rumor1')) {
-      crawlerScriptAPI().keySet('rumor1');
+    if (!keyGet('rumor1')) {
+      keySet('rumor1');
       return dialogPush({
         custom_render: nameRender(name),
         text: 'I heard that THE ASCENDING SWORD is transporting THE RED DEVASATION through the station today.',
@@ -132,10 +198,92 @@ dialogRegister({
         }],
       });
     }
-    if (!crawlerScriptAPI().keyGet('foundship')) {
+    if (!keyGet('lookedforship')) {
       return signWithName(name, 'Go check out the dock for THE ASCENDING SWORD.');
     }
+    return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
     // any other tips?
+  },
+  dockingwander: function () {
+    if (!keyGet('foundship')) {
+      signWithName('MONOLOGUING', 'Searching one-by-one will take forever.  Maybe one of the **shiptakers** knows where **THE ASCENDING SWORD** is.');
+      keySet('lookedforship');
+    }
+  },
+  shiptaker: function () {
+    let name = 'THE OVERWORKED SHIPTAKER';
+    if (!keyGet('lookedforship') ||
+      keyGet('foundship') && !keyGet('foundshipbyshiptaker')
+    ) {
+      return signWithName(name, 'I spend all day cleaning up after your kind in the docks, I just want a drink to unwind...');
+    }
+
+    if (keyGet('foundship')) {
+      return signWithName(name, 'Remember, **THE ASCENDING SWORD** is in Bay **#82**.');
+    }
+    if (hasItem('key2')) {
+      keySet('foundship');
+      keySet('foundshipbyshiptaker');
+      consumeItem('key2');
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: '<insert story> **THE ASCENDING SWORD** is in Bay **#82**',
+        buttons: [{
+          label: 'GLAD I COULD HELP.',
+        }],
+      });
+    }
+    if (!keyGet('lookingforship')) {
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: 'I know every ship that docks or leaves this station.',
+        buttons: [{
+          label: `BUY HIM A DRINK (-[img=icon-currency]${DRINK_COST})`,
+          cb: function () {
+            if (myEnt().data.money < DRINK_COST) {
+              return signWithName(name, 'Hah, you can\'t even afford a drink?  Well, you know where to find me if you want to learn anything about ships.');
+            }
+            keySet('lookingforship');
+
+            dialogPush({
+              custom_render: nameRender(name),
+              text: '<insert story: wants THE GOLDEN ROCKET>',
+              buttons: [{
+                label: 'MAYBE I CAN HELP HIM WITH THAT...',
+              }],
+            });
+          },
+        }, {
+          label: 'MAYBE LATER...',
+          cb: function () {
+            signWithName(name, 'Well, you know where to find me if you want to learn anything about ships.');
+          }
+        }],
+      });
+    }
+    signWithName(name, 'The pilot who won that race is pretty well-known...');
+  },
+  outsideracer: function () {
+    if (!keyGet('lookingforship')) {
+      signWithName('MONOLOGUING', 'Hmm, it seems no one\'s home...');
+    }
+  },
+  historian: function () {
+    let name = 'THE WANDERING HISTORIAN';
+    if (keyGet('lookingforship') && !keyGet('foundship')) {
+      if (!keyGet('historian')) {
+        keySet('historian');
+        return dialogPush({
+          custom_render: nameRender(name),
+          text: 'THE GOLDEN ROCKET? Yes, it\'s a very sought-after trophy. The \'86 winner retired a handful of years ago to Zarenth, a town on Calliope.',
+          buttons: [{
+            label: 'THAT\'S REALLY INTERESTING...',
+          }],
+        });
+      }
+      return signWithName(name, 'THE GOLDEN ROCKET? The \'86 winner retired to Calliope.');
+    }
+    signWithName(name, '<insert generic historian dialog>');
   },
   sign: function (param: string) {
     // param = param.replace(/NAME(\d)/g, function (a, b) {
@@ -170,6 +318,9 @@ dialogRegister({
     });
   },
   shuttle: function () {
+    if (!keyGet('rumor1')) {
+      return signWithName('MONOLOGUING', 'I don\'t think I should leave the station just yet.');
+    }
     let me = myEnt();
     let { money } = me.data;
     dialogPush({
@@ -186,9 +337,8 @@ dialogRegister({
     });
   },
   hats: function () {
-    let api = crawlerScriptAPI();
     let custom_render = nameRender('THE ENTERPRISING NUTRITIONIST');
-    if (!api.keyGet('helmetfree')) {
+    if (!keyGet('helmetfree')) {
       return dialogPush({
         custom_render,
         text: 'Psst... Over here...',
@@ -203,7 +353,7 @@ dialogRegister({
                 cb: function () {
                   playUISound('gain_item_purchase');
                   giveReward({ items: [{ item_id: 'helmetfree' }] });
-                  api.keySet('helmetfree');
+                  keySet('helmetfree');
                 }
               }],
             });
@@ -211,7 +361,7 @@ dialogRegister({
         }]
       });
     }
-    let { next, hat_cost } = nextHatCost(api);
+    let { next, hat_cost } = nextHatCost();
 
     if (!next) {
       return dialogPush({
@@ -241,7 +391,7 @@ dialogRegister({
           me.data.money -= hat_cost;
           playUISound('gain_item_purchase');
           giveReward({ items: [{ item_id: next }] });
-          api.keySet(next);
+          keySet(next);
         },
       }, {
         label: 'MAYBE LATER...',

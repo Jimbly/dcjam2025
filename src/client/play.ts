@@ -1147,10 +1147,10 @@ export function giveReward(reward: { money?: number; items?: Item[] }): void {
         if (!found) {
           me.data.inventory.push(item);
         }
-        msg.push(`Gained ${item.count || 1} ${item_def.name}`);
+        msg.push(`Gained **${item.count || 1} ${item_def.name}**`);
       } else {
         me.data.inventory.push(item);
-        msg.push(`Gained ${item_def.name}`);
+        msg.push(`Gained **${item_def.name}**`);
       }
     }
   }

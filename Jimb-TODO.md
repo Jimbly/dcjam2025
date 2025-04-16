@@ -1,7 +1,7 @@
 TODO
 * keys needing hookup:
   metguard
-  foundship
+  foundship - upon walking into the right bay
   solvedguard
   foundsafe
   solvedescape
@@ -12,6 +12,9 @@ TODO
     * queued input though if you tap right twice, it should move right twice
   * same with shifting speeds
   * simple levelgen?
+LEVEL MECHANICS / NPCs TODO
+  * zone 0
+    * set up old racer to die upon entering, then can loot
 
 POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level

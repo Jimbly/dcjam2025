@@ -114,6 +114,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
           accuracy: 4,
           dodge: 4,
         };
+        data.floor = 10;
       }
       if (!data.money) {
         data.money = 0;

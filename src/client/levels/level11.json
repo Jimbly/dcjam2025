@@ -131,7 +131,7 @@
     {
       "id": "open",
       "walls": [
-        "open",
+        "solid",
         "open",
         "door_oneway",
         "solid"
@@ -141,22 +141,25 @@
       "id": "open",
       "walls": [
         "open",
-        "open",
-        "open",
+        "solid",
+        "solid",
         "solid"
       ],
       "props": {
-        "loot": "key1"
+        "loot": "key2"
       }
     },
     {
       "id": "open",
       "walls": [
         "solid",
-        "open",
+        "door_locked",
         "open",
         "solid"
-      ]
+      ],
+      "props": {
+        "key_north": "lookingforship"
+      }
     },
     {
       "id": "solid",
@@ -221,7 +224,7 @@
         "open",
         "solid",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -230,7 +233,13 @@
         "solid",
         "open",
         "open",
-        "open"
+        "door_locked"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "outsideracer"
+        }
       ]
     },
     {
@@ -658,11 +667,11 @@
       ]
     },
     {
-      "type": "enemyT0C",
+      "type": "chest",
       "pos": [
+        1,
         6,
-        2,
-        1
+        0
       ]
     },
     {
@@ -786,11 +795,11 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "enemyT0C",
       "pos": [
-        1,
         6,
-        0
+        3,
+        1
       ]
     }
   ],
