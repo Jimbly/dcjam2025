@@ -52,8 +52,40 @@ function nameRender(name: string): (param: PanelParam) => void {
   };
 }
 
+function nextHatCost(api: CrawlerScriptAPI): { next: string; hat_cost: number } {
+  if (!api.keyGet('helmetfree')) {
+    return { next: 'helmetfree', hat_cost: 0 };
+  }
+  let hat_cost = 2000;
+  let options = [
+    'helmet1',
+    'helmet2',
+    'helmet3',
+    'helmet4',
+  ];
+  let next = '';
+  for (let ii = 0; ii < options.length; ++ii) {
+    if (!api.keyGet(options[ii])) {
+      next = options[ii];
+      break;
+    }
+    hat_cost += 100;
+  }
+  return { next, hat_cost };
+}
+
 dialogIconsRegister({
   shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    return 'icon_exclamation';
+  },
+  hats: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    let { next, hat_cost } = nextHatCost(script_api);
+    if (!next) {
+      return null;
+    }
+    return myEnt().data.money >= hat_cost ? 'icon_exclamation' : 'icon_question';
+  },
+  medbay: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
     return 'icon_exclamation';
   },
 });
@@ -144,21 +176,7 @@ dialogRegister({
         }]
       });
     }
-    let hat_cost = 2000;
-    let options = [
-      'helmet1',
-      'helmet2',
-      'helmet3',
-      'helmet4',
-    ];
-    let next = '';
-    for (let ii = 0; ii < options.length; ++ii) {
-      if (!api.keyGet(options[ii])) {
-        next = options[ii];
-        break;
-      }
-      hat_cost += 100;
-    }
+    let { next, hat_cost } = nextHatCost(api);
 
     if (!next) {
       return dialogPush({
