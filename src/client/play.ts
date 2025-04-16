@@ -1546,7 +1546,7 @@ export function play(dt: number): void {
 
   // if (game_state.level && (engagedEnemy() || !crawlerController().controllerIsAnimating(0.75))) {
   //   let target_ent = engagedEnemy() || facingEnemy();
-  if (game_state.level && !crawlerController().controllerIsAnimating(0.75)) {
+  if (game_state.level && !crawlerController().controllerIsAnimating(0.75) && !engagedEnemy()) {
     let target_ent = facingEnemy();
     if (target_ent && myEnt().isAlive()) {
       drawEnemyStats(target_ent);

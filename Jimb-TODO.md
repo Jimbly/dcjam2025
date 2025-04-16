@@ -1,8 +1,9 @@
 TODO
 * always show living creatures on the map in explored areas
-* sound hooks: chest pickup, buying hat,
+* sound hooks: chest pickup, buying hat
 * combat test: try B varieties and combinations for comparison
 * icon for unlooted chest on map (entity icon? loot property + entity?)
+* update HP on the right during combat (related to medkit one below?)
 * allow using medkits during combat
 * armor/weapon/offhand trader?
   * at least someone to buy all of your old stuff, maybe even sells it back forever

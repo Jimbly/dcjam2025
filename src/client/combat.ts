@@ -64,7 +64,7 @@ export function damage(
   attacker: Omit<StatsData, 'hp' | 'hp_max'>,
   defender: Omit<StatsData, 'hp' | 'hp_max'>,
   average?: boolean,
-  average_for_enemy?: boolean,
+  average_roll?: number,
 ): DamageRet {
   let attacker_atk = attacker.attack;
   let defender_def = defender.defense;
@@ -73,7 +73,7 @@ export function damage(
 
   let style: 'miss' | 'normal' | 'crit' = 'normal';
   let hit_chance = 2 - pow(0.5, attacker.accuracy/defender.dodge-1);
-  let r = average ? average_for_enemy ? 0.75 : 0.5 : random();
+  let r = average ? average_roll! : random();
   if (hit_chance <= 1) {
     if (r > hit_chance) {
       style = 'miss';
@@ -97,19 +97,16 @@ export function damage(
 }
 
 export function isDeadly(player: StatsData, enemy: StatsData): boolean {
-  let turn = false;
-  let player_hp = player.hp_max;
-  let enemy_hp = enemy.hp;
-  while (player_hp > 0 && enemy_hp > 0) {
-    let dam = damage(turn ? player : enemy, turn ? enemy: player, true, !turn).dam;
-    if (turn) {
-      enemy_hp -= dam;
-    } else {
-      player_hp -= dam;
-    }
-    turn = !turn;
+  let enemy_damage = 0;
+  let player_damage = 0;
+  for (let ii = 0; ii < 8; ++ii) {
+    let r = 0.125 * (ii + 0.5);
+    enemy_damage += damage(enemy, player, true, r).dam;
+    player_damage += damage(player, enemy, true, r).dam;
   }
-  return player_hp < player.hp_max * 0.25;
+  let turns_to_kill_enemy = round(enemy.hp / (player_damage / 8));
+  let total_damage = (turns_to_kill_enemy + 1) * (enemy_damage / 8);
+  return total_damage > player.hp_max;
 }
 
 //////////////////////////////////////////////////////////////////////////
