@@ -159,6 +159,7 @@ import {
   statusPush,
   statusTick,
 } from './status';
+import { hasSaveData } from './title';
 import { doTravelGame, travelGameActive, travelGameCheck } from './travelgame';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -477,6 +478,9 @@ function facingEnemy(): Entity | null {
   let me = crawlerMyEnt();
   // search, needs game_state, returns list of foes
   let game_state = crawlerGameState();
+  if (!game_state.level) {
+    return null;
+  }
   let ents: Entity[] = entitiesAdjacentTo(game_state,
     entityManager(),
     me.data.floor, me.data.pos, crawlerScriptAPI());
@@ -522,17 +526,36 @@ function moveBlockDead(): boolean {
   let h = render_height;
   let z = Z.UI;
 
+  y += floor(h/2);
   font.drawSizedAligned(fontStyleColored(null, 0x000000ff),
-    x + floor(w/2), y + floor(h/2) - 16, z,
+    x + floor(w/2), y - 16, z,
     uiTextHeight(), ALIGN.HCENTER|ALIGN.VBOTTOM,
     0, 0, 'You have died.');
 
+  let slot = urlhash.get('slot') || '1';
+  let button_w = uiButtonWidth();
   if (buttonText({
-    x: x + floor(w/2 - uiButtonWidth()/2), y: y + floor(h/2), z,
-    text: 'Unimplemented',
+    x: x + floor(w/2 - button_w/2), y, z,
+    w: button_w,
+    text: 'Reload from last save',
+    disabled: !hasSaveData(slot),
   })) {
-    // TODO: reload from save
-    controller.goToFloor(0, 'stairs_in', 'respawn');
+    queueTransition();
+    engine.postTick({
+      ticks: 1,
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      fn: restartFromLastSave,
+    });
+  }
+  y += uiButtonHeight() + 16;
+
+  if (buttonText({
+    x: x + floor(w/2 - button_w/2), y, z,
+    w: button_w,
+    text: 'Exit to Menu',
+  })) {
+    queueTransition();
+    urlhash.go('');
   }
 
   return true;

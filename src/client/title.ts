@@ -27,7 +27,7 @@ import { tickMusic } from './music';
 import { queueTransition } from './play';
 
 
-function hasSaveData(slot: number): boolean {
+export function hasSaveData(slot: number): boolean {
   let manual_data = localStorageGetJSON<SavedGameData>(`savedgame_${slot}.manual`, { timestamp: 0 });
   let auto_data = localStorageGetJSON<SavedGameData>(`savedgame_${slot}.auto`, { timestamp: 0 });
   return Boolean(manual_data.timestamp || auto_data.timestamp);
