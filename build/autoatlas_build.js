@@ -107,18 +107,25 @@ function pngAllocTemp(width, height) {
 }
 
 module.exports = function (opts) {
+  let output_cache = {};
+  let input_png_cache = {};
   function imgproc(job, done) {
     let files = job.getFiles();
+    let changed_files = job.getFilesUpdated();
 
     let atlases = {};
-    // TODO: smart caching of unchanged atlases, only read and output the changed ones
+    let seen_png = {};
     for (let ii = 0; ii < files.length; ++ii) {
       let img_file = files[ii];
       let m = img_file.relative.match(/^(?:.*\/)?([^/]+)\/([^/]+)\.(png|ya?ml)$/);
       let atlas_name = m[1].toLowerCase();
       let img_name = m[2].toLowerCase();
       let ext = m[3];
-      let atlas_data = atlases[atlas_name] = atlases[atlas_name] || { num_layers: 1, file_data: {} };
+      let atlas_data = atlases[atlas_name] = atlases[atlas_name] || { num_layers: 1, file_data: {}, dirty: false };
+      let is_dirty = changed_files.includes(img_file);
+      if (is_dirty) {
+        atlas_data.dirty = true;
+      }
       if (ext[0] === 'y') {
         if (img_name !== 'atlas') {
           job.error(img_file, `Found unexpected yaml: "${img_file.relative}" (expected atlas.yaml or [image_name].yaml)`);
@@ -166,10 +173,18 @@ module.exports = function (opts) {
         atlas_data.config_data = config_data;
         continue;
       }
-      let { err, img } = pngRead(img_file.contents);
-      if (err) {
-        job.error(img_file, `Error reading ${img_file.relative}: ${err}`);
-        continue;
+      seen_png[img_file.relative] = true;
+      let img;
+      if (!is_dirty && input_png_cache[img_file.relative]) {
+        img = input_png_cache[img_file.relative];
+      } else {
+        let err;
+        ({ err, img } = pngRead(img_file.contents));
+        if (err) {
+          job.error(img_file, `Error reading ${img_file.relative}: ${err}`);
+          continue;
+        }
+        input_png_cache[img_file.relative] = img;
       }
       img.source_name = img_file.relative;
       let do_9patch = img_name.endsWith('.9');
@@ -215,6 +230,12 @@ module.exports = function (opts) {
       img_data.imgs[idx] = img;
     }
 
+    for (let key in input_png_cache) {
+      if (!seen_png[key]) {
+        delete input_png_cache[key];
+      }
+    }
+
     let atlas_keys = Object.keys(atlases);
 
     if (!atlas_keys.length) {
@@ -222,10 +243,20 @@ module.exports = function (opts) {
       return void done();
     }
 
+    let seen = {};
     function doAtlas(name) {
-      pngAllocTempReset();
       let atlas_data = atlases[name];
-      let { file_data, config_data } = atlas_data;
+      let { file_data, config_data, dirty } = atlas_data;
+      seen[name] = true;
+      if (!dirty) {
+        let cache = output_cache[name];
+        assert(cache);
+        for (let ii = 0; ii < cache.length; ++ii) {
+          job.out(cache[ii]);
+        }
+        return;
+      }
+      pngAllocTempReset();
 
       const tile_horiz_regex = config_data?.tile_horiz_regex || null;
       const tile_vert_regex = config_data?.tile_vert_regex || null;
@@ -347,22 +378,32 @@ module.exports = function (opts) {
         }
       }
 
+      let out_list = [];
       for (let idx = 0; idx < pngouts.length; ++idx) {
         let pngout = pngouts[idx];
-        job.out({
+        out_list.push({
           relative: `client/img/atlas_${name}${atlas_data.num_layers > 1 ? `_${idx}` : ''}.png`,
           contents: pngWrite(pngout),
         });
       }
-      job.out({
+      out_list.push({
         relative: `client/${name}.auat`,
         contents: JSON.stringify(runtime_data),
       });
+      for (let ii = 0; ii < out_list.length; ++ii) {
+        job.out(out_list[ii]);
+      }
+      output_cache[name] = out_list;
       pngAllocTempReset();
     }
 
     for (let key in atlases) {
       doAtlas(key);
+    }
+    for (let key in output_cache) {
+      if (!seen[key]) {
+        delete output_cache[key];
+      }
     }
     done();
   }
