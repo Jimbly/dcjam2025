@@ -451,7 +451,13 @@ function engagedEnemy(): Entity | null {
   //   me.data.floor, me.data.pos, crawlerScriptAPI());
   let ents = entitiesAt(entityManager(), me.data.pos, me.data.floor, true);
   ents = ents.filter((ent: Entity) => {
-    return ent.is_enemy && ent.isAlive();
+    if (!ent.is_enemy || !ent.isAlive()) {
+      return false;
+    }
+    if (ent.data.stats?.tier === 4 && crawlerScriptAPI().keyGet('solvedguard')) {
+      return false;
+    }
+    return true;
   });
   if (ents.length) {
     return ents[0];
@@ -696,7 +702,10 @@ function drawEnemyStats(ent: Entity): void {
 
   box.h = y + STATSPAD - box.y - 5;
 
-  if (isDeadly(myEnt().data.stats, stats)) {
+  if (
+    isDeadly(myEnt().data.stats, stats) &&
+    !(stats.tier === 4 && crawlerScriptAPI().keyGet('solvedguard'))
+  ) {
     box.color = color_danger;
   }
   panel(box);

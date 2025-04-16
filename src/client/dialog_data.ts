@@ -50,6 +50,11 @@ function hasItem(item_id: string): boolean {
   return false;
 }
 
+function consumeMoney(amount: number): void {
+  statusPush(`Lost [img=icon-currency]${amount}`);
+  myEnt().data.money -= amount;
+}
+
 function consumeItem(item_id: string): void {
   let item_def = ITEMS[item_id];
   statusPush(`Lost ${item_def.name}`);
@@ -139,6 +144,157 @@ dialogRegister({
     signWithName('MONOLOGUING', 'There\'s gotta be something coming through this station worth my "talents"...  Let\'s see what the rumor mill has today.');
   },
 });
+
+dialogRegister({
+  theship1: function () {
+    if (!keyGet('enteredship')) {
+      keySet('foundship');
+      keySet('enteredship');
+      return signWithName('MONOLOGUING', 'Ah, this must be **THE ASCENDING SWORD**.  Surely **THE RED DEVASATION** must be onboard somewhere, locked in a safe, beyond that guard.');
+    }
+  },
+  theship2: function () {
+    let name = 'THE ESTRANGED GUARD';
+    if (keyGet('solvedguard')) {
+      return dialogPush({
+        text: '**THE ESTRANGED GUARD** looks the other way...',
+        transient: true,
+      });
+    }
+    if (hasItem('key1')) {
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: '<give gift for look other way>',
+        buttons: [{
+          label: 'YOU CAN HAVE IT',
+          cb: function () {
+            consumeItem('key1');
+            keySet('solvedguard');
+            dialog('theship2');
+          },
+        }]
+      });
+    }
+    if (!keyGet('metguard')) {
+      keySet('metguard');
+      return signWithName(name, 'You\'re not authorized to be in here.');
+    }
+    return signWithName(name, 'I told you to leave!');
+  },
+  killedguard: function () {
+    keySet('solvedguard');
+    keySet('killedguard');
+    signWithName('MONOLOGUING', 'Well, I guess that takes care of that...');
+  },
+});
+
+dialogIconsRegister({
+  soldier: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    if (keyGet('soldierdrunk') || keyGet('solvedguard') || !keyGet('metguard')) {
+      return null;
+    }
+    return 'icon_exclamation';
+  },
+});
+dialogRegister({
+  soldier: function () {
+    let name = 'THE OFF-DUTY SOLDIER';
+    if (keyGet('killedguard')) {
+      return signWithName(name, 'I\'m really gonna miss that guy...');
+    }
+    if (!keyGet('metguard')) {
+      return signWithName(name, 'I\'m so lucky to be on THE ASCENDING SWORD, my boss is always working so I don\'t have to...');
+    }
+    if (!keyGet('solvedguard')) {
+      if (keyGet('soldierdrunk')) {
+        return signWithName(name, "**THE ESTRANGED GUARD** wants **THE DAZZLING GIFT** his wife, that's all you'll get from me.");
+      }
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: 'Whatcha want, kid?',
+        buttons: [{
+          label: 'JUST SOME INFO ABOUT YOUR BOSS ON **THE SWORD**',
+          cb: function () {
+            dialogPush({
+              custom_render: nameRender(name),
+              text: "Kid, I'm off the clock. And if you think that I'm gonna give you any info about my work, you're either crazy or stupid.",
+              buttons: [{
+                label: `BUY HIM A DRINK (-[img=icon-currency]${DRINK_COST})`,
+                cb: 'soldierbuydrink',
+              }, {
+                label: 'MAYBE LATER...',
+                cb: function () {
+                  signWithName(name, 'Scram, kid.');
+                }
+              }],
+            });
+          },
+        }],
+      });
+    }
+    if (!keyGet('lookedforship')) {
+      return signWithName(name, 'Go check out the dock for THE ASCENDING SWORD.');
+    }
+    return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
+  },
+  soldierbuydrink: function () {
+    let name = 'THE OFF-DUTY SOLDIER';
+    if (myEnt().data.money < DRINK_COST) {
+      return signWithName(name, 'Hah, you can\'t even afford a drink?  Scram, kid.');
+    }
+    consumeMoney(DRINK_COST);
+
+    let list = [
+      ['soldierdrink1', '...Stars, this stuff ain\'t bad.'],
+      ['soldierdrink2', 'I could’ve been something. But I had to go into the force.'],
+      ['soldierdrink3', 'Being an explorer must be fun. No rules, make your own schedule.'],
+    ];
+    let did_set = false;
+    for (let ii = 0; ii < list.length; ++ii) {
+      let elem = list[ii];
+      if (!keyGet(elem[0])) {
+        if (!did_set) {
+          keySet(elem[0]);
+          did_set = true;
+        } else {
+          return dialogPush({
+            custom_render: nameRender(name),
+            text: elem[1],
+            buttons: [{
+              label: `LET'S GET YOU ANOTHER (-[img=icon-currency]${DRINK_COST})`,
+              cb: 'soldierbuydrink',
+            }, {
+              label: 'MAYBE LATER...',
+              cb: function () {
+                signWithName(name, 'Thanks for the drink, kid.');
+              }
+            }],
+          });
+        }
+      }
+    }
+    dialogPush({
+      custom_render: nameRender(name),
+      text: '*hiccup*',
+      buttons: [{
+        label: 'NOW, CAN YOU TELL ME ABOUT **THE ESTRANGED GUARD**?',
+        cb: function () {
+          dialogPush({
+            custom_render: nameRender(name),
+            text: 'Alright, **THE ESTRANGED GUARD** is looking for **THE DAZZLING GIFT** for his wife for their anniversary.  He\'d do anything to get her something real pretty.',
+            buttons: [{
+              label: 'THANKS',
+              cb: function () {
+                keySet('soldierdrunk');
+              },
+            }],
+          });
+        },
+      }],
+    });
+  },
+});
+
 
 dialogIconsRegister({
   tips: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
@@ -234,6 +390,7 @@ dialogRegister({
               return signWithName(name, 'Hah, you can\'t even afford a drink?  Well, you know where to find me if you want to learn anything about ships.');
             }
             keySet('lookingforship');
+            consumeMoney(DRINK_COST);
 
             dialogPush({
               custom_render: nameRender(name),
@@ -466,6 +623,7 @@ dialogRegister({
     let take = money > LOSE_COST * 2;
     if (take) {
       me.data.money -= LOSE_COST;
+      consumeMoney(LOSE_COST);
     }
     dialogPush({
       name: '',

@@ -1,8 +1,5 @@
 TODO
 * keys needing hookup:
-  metguard
-  foundship - upon walking into the right bay
-  solvedguard
   foundsafe
   solvedescape
 * travel minigame
@@ -13,6 +10,8 @@ TODO
   * same with shifting speeds
   * simple levelgen?
 LEVEL MECHANICS / NPCs TODO
+  * station
+    * if `soldierdrunk` - find a clue about dazzling gift location near shops
   * zone 0
     * set up old racer to die upon entering, then can loot
 

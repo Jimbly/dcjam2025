@@ -2109,6 +2109,12 @@
         "station_shop_window",
         "open",
         "station_solid3"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "soldier"
+        }
       ]
     },
     {

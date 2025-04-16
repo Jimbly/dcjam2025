@@ -17,6 +17,7 @@ import { crawlerGameState } from './crawler_play';
 import { crawlerRenderViewportGet } from './crawler_render';
 import { EntityDrawableSprite } from './crawler_render_entities';
 import { numMedkits } from './dialog_data';
+import { dialog } from './dialog_system';
 import {
   EntityDemoClient,
   entityManager,
@@ -173,9 +174,14 @@ function startState(state: string): void {
     case 'fadeout':
       // nothing special
       if (me.data.stats.hp) {
-        giveReward({
-          money: REWARD_TIERS[combat_state.target.data.stats.tier || 0],
-        });
+        let tier = combat_state.target.data.stats.tier || 0;
+        if (tier === 4) {
+          dialog('killedguard');
+        } else {
+          giveReward({
+            money: REWARD_TIERS[tier],
+          });
+        }
       }
       break;
     default:
