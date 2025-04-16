@@ -63,7 +63,7 @@
       "id": "open",
       "walls": [
         "station_decal_1",
-        "station_shop_window",
+        "station_shop_medi",
         "station_decal_1",
         "station_solid3"
       ]
@@ -81,7 +81,7 @@
       "id": "open",
       "walls": [
         "station_decal_1",
-        "station_shop_window",
+        "station_shop_medi",
         "station_decal_1",
         "station_solid3"
       ]
@@ -281,7 +281,7 @@
         "open",
         "open",
         "open",
-        "station_shop_window"
+        "station_shop_medi"
       ]
     },
     {
@@ -299,7 +299,7 @@
         "open",
         "open",
         "open",
-        "station_shop_window"
+        "station_shop_medi"
       ]
     },
     {
@@ -1214,7 +1214,7 @@
     {
       "id": "open",
       "walls": [
-        "station_shop_window",
+        "station_shop_medi",
         "open",
         "open",
         "open"
@@ -1225,7 +1225,7 @@
       "walls": [
         "station_solid3",
         "open",
-        "station_shop_window",
+        "station_shop_medi",
         "open"
       ]
     },
@@ -1839,7 +1839,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "station_shop_window",
+        "station_shop_shuttle",
         "solid",
         "solid"
       ]
@@ -2039,7 +2039,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "station_decal_2"
       ]
     },
     {
@@ -2057,7 +2057,7 @@
         "open",
         "open",
         "open",
-        "station_shop_window"
+        "station_shop_shuttle"
       ]
     },
     {
@@ -2075,7 +2075,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "station_decal_2"
       ]
     },
     {
