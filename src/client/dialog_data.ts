@@ -46,7 +46,7 @@ function keySet(name: string): void {
   crawlerScriptAPI().keySet(name);
 }
 
-function hasItem(item_id: string): boolean {
+export function hasItem(item_id: string): boolean {
   let { inventory } = myEnt().data;
   for (let ii = 0; ii < inventory.length; ++ii) {
     if (inventory[ii].item_id === item_id) {

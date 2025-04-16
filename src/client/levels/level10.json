@@ -1644,14 +1644,14 @@
       "id": "open",
       "walls": [
         "open",
-        "door_locked",
+        "station_shop_hat",
         "open",
         "solid"
       ],
       "events": [
         {
           "id": "sign",
-          "param": "NUTRITION PROCESSING DEPARTMENT - OFF LIMITS"
+          "param": "NUTRITION PROCESSING DEPARTMENT"
         }
       ]
     },
@@ -1808,7 +1808,7 @@
         "solid",
         "solid",
         "solid",
-        "door_locked"
+        "station_shop_hat"
       ]
     },
     {

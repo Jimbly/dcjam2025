@@ -135,7 +135,7 @@ import {
 } from './crawler_render_entities';
 import { crawlerScriptAPIDummyServer } from './crawler_script_api_client';
 import { crawlerOnScreenButton } from './crawler_ui';
-import './dialog_data';
+import { hasItem } from './dialog_data';
 import { dialogMoveLocked, dialogRun, dialogStartup } from './dialog_system';
 import { entitiesAt, EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_client';
 // import { EntityDemoClient } from './entity_demo_client';
@@ -842,10 +842,10 @@ const MARKER_W = 12;
 function journalMenu(): void {
   let api = crawlerScriptAPI();
   let lines = [
-    ['foundship', 'Find where **THE ASCENDING SWORD** is docked'],
+    ['foundship', `Find where **THE ASCENDING SWORD** is docked${api.keyGet('foundship') ? ' (Bay 82)' : ''}`],
     ['solvedguard', api.keyGet('metguard') ? 'Get past **THE ESTRANGED GUARD**' : 'Get past **THE GUARD**'],
     ['solvedsafe', 'Open the safe and grab **THE RED DEVASTATION**'],
-    ['solvedescape', 'Disappear into the black'],
+    ['solvedescape', `Disappear into the black${hasItem('key5') ? ' (Bay 42)' : ''}`],
   ];
   let x = INVENTORY_X;
   let w = INVENTORY_W;

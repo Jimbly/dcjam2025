@@ -83,7 +83,7 @@ export function stateTravel(dt: number): void {
     markdownAuto({
       font_style: fontStyleColored(null, 0x000000ff),
       x: 0, w: game_width,
-      y: game_height - uiTextHeight() * 2 - 12,
+      y: game_height - uiTextHeight() * 2 - 17,
       align: ALIGN.HCENTER|ALIGN.HWRAP,
       text: `FUNDS: [img=icon-currency]${money}\nCOST: [img=icon-currency]${money >= SHUTTLE_COST ? SHUTTLE_COST : 0}`,
     });

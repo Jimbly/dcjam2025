@@ -11,8 +11,6 @@ LEVEL MECHANICS / NPCs TODO
     * if `soldierdrunk` - find a clue about dazzling gift location near shops
   * zone 0
     * set up old racer to die upon entering, then can loot
-  * bay 47
-    * just a locked door inside; ship named "LIGHTNING BUG"
 
 POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
