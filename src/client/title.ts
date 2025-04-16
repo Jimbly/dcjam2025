@@ -27,6 +27,12 @@ import { tickMusic } from './music';
 import { queueTransition } from './play';
 
 
+function hasSaveData(slot: number): boolean {
+  let manual_data = localStorageGetJSON<SavedGameData>(`savedgame_${slot}.manual`, { timestamp: 0 });
+  let auto_data = localStorageGetJSON<SavedGameData>(`savedgame_${slot}.auto`, { timestamp: 0 });
+  return Boolean(manual_data.timestamp || auto_data.timestamp);
+}
+
 const { max } = Math;
 
 type AccountUI = ReturnType<typeof createAccountUI>;
@@ -60,16 +66,16 @@ function title(dt: number): void {
   print(null, x, y, Z.UI, 'Crawler Demo');
   x += 10;
   y += uiTextHeight() + 2;
-  for (let ii = 0; ii < 3; ++ii) {
+  for (let ii = 0; ii < 2; ++ii) {
     let slot = ii + 1;
     let manual_data = localStorageGetJSON<SavedGameData>(`savedgame_${slot}.manual`, { timestamp: 0 });
     print(null, x, y, Z.UI, `Slot ${slot}`);
     if (buttonText({
       x, y: y + uiButtonHeight(), text: 'Load Game',
-      disabled: !manual_data.timestamp
+      disabled: !hasSaveData(slot)
     })) {
       queueTransition();
-      crawlerPlayWantMode('manual');
+      crawlerPlayWantMode('recent');
       urlhash.go(`?c=local&slot=${slot}`);
     }
     if (buttonText({
