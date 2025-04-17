@@ -199,7 +199,7 @@ export function dialogRun(dt: number, viewport: UIBox & { pad_top: number; pad_b
     active_dialog = null;
   }
   let { x, y, w, h, z, pad_top, pad_bottom } = viewport;
-  z = z || Z.STATUS;
+  z = z || Z.DIALOG || Z.STATUS;
   if (!active_dialog) {
     return false;
   }

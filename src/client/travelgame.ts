@@ -18,11 +18,11 @@ import {
   uiTextHeight
 } from 'glov/client/ui';
 import { randCreate, shuffleArray } from 'glov/common/rand_alea';
-import { clamp, easeInOut, easeOut, lerp, plural, ridx } from 'glov/common/util';
+import { clamp, easeIn, easeInOut, easeOut, lerp, map01, plural, ridx, sign } from 'glov/common/util';
 import { JSVec2 } from 'glov/common/vmath';
 import { DirType, EAST, NORTH, SOUTH, WEST } from '../common/crawler_state';
 import { crawlerEntityManager, entityPosManager } from './crawler_entity_client';
-import { crawlerController, crawlerGameState } from './crawler_play';
+import { crawlerController, crawlerGameState, crawlerScriptAPI } from './crawler_play';
 import { dialog } from './dialog_system';
 import { entityManager } from './entity_demo_client';
 import {
@@ -41,7 +41,7 @@ import {
 import { tickLoopingSound } from './music';
 import { doMotionForTravelGame, drawHealthBar, drawHUDPanel, myEnt, queueTransition, useNoText } from './play';
 
-const { max, min, PI } = Math;
+const { abs, max, min, PI } = Math;
 
 type Asteroid = {
   pos: JSVec2;
@@ -61,13 +61,15 @@ const LOOP_DIST = 50;
 
 class TravelGameState {
   pos: JSVec2 = [0, 1];
-  speed = 1;
+  speed = 0;
   asteroids: Asteroid[];
   done = false;
   won = false;
+  done_time = 0;
   crashed = false;
   transitioning = false;
   escape = 0.5;
+  intro = 0;
   hblends: { t: number; d: number }[] = [];
   last_shift = 0;
   constructor() {
@@ -140,7 +142,7 @@ export function travelGameCheck(force_no: boolean): boolean {
     travel_state = new TravelGameState();
     crawlerController().setControllerType('instant');
   }
-  tickLoopingSound(`ship/engine_${travel_state.speed}`);
+  tickLoopingSound(`ship/engine_${max(1, travel_state.speed)}`);
   return true;
 }
 
@@ -159,7 +161,7 @@ export function travelGameFinish(): void {
 export function travelGameStartMove(dir: DirType): void {
   assert(travel_state);
   let now = getFrameTimestamp();
-  let can_shift = now - travel_state.last_shift > 500;
+  let can_shift = now - travel_state.last_shift > 300;
   if (dir === NORTH) {
     if (travel_state.pos[1] < 2) {
       travel_state.pos[1]++;
@@ -184,7 +186,7 @@ export function travelGameStartMove(dir: DirType): void {
     if (travel_state.speed < 5 && can_shift) {
       travel_state.speed++;
       travel_state.last_shift = now;
-      playUISound(`ship_accelerate_${travel_state.speed}`);
+      playUISound(`ship_accelerate_${max(2, travel_state.speed)}`);
     } else {
       playUISound('ship_cannot_move');
     }
@@ -237,6 +239,7 @@ function shift(): void {
   }
 }
 
+let crash_x = 0;
 export function doTravelGame(): void {
   assert(travel_state);
   let { asteroids, done, pos } = travel_state;
@@ -245,17 +248,27 @@ export function doTravelGame(): void {
   let z = Z.UI;
 
   let dt = getFrameDt();
+
+  travel_state.intro += dt * 0.0005;
+
   if (!travel_state.done) {
     doMotionForTravelGame(dt);
+  }
+  if (!travel_state.done) {
     if (travel_state.escape >= 1) {
       travel_state.done = true;
+      travel_state.done_time = 0;
       travel_state.won = true;
     } else if (travel_state.crashed) {
       travel_state.done = true;
+      travel_state.done_time = 0;
+      crash_x = pos[0];
       travel_state.won = false;
     }
     if (MODE_DEVELOPMENT && keyDownEdge(KEYS.F)) {
       travel_state.done = true;
+      travel_state.done_time = 0;
+      crash_x = pos[0];
       travel_state.won = keyDown(KEYS.SHIFT);
     }
     if (travel_state.done) {
@@ -269,42 +282,49 @@ export function doTravelGame(): void {
     }
   }
 
-  if (!(travel_state.done && !travel_state.won)) {
-    let xpos0 = pos[0];
-    let xpos1 = xpos0 + dt * (3 + travel_state.speed * 2) * 0.001;
+  let lost = travel_state.done && !travel_state.won;
+  if (lost) {
+    travel_state.done_time = min(travel_state.done_time + dt * 0.001, 1);
+    pos[0] = crash_x - easeOut(travel_state.done_time, 2) * 0.85;
+  } else {
+    if (travel_state.speed > 0) {
+      let xpos0 = pos[0];
+      let xpos1 = xpos0 + dt * (3 + travel_state.speed * 2) * 0.001;
+      travel_state.escape += dt * (travel_state.speed - 2.5) * 0.00005;
+      travel_state.escape = clamp(travel_state.escape, 0, 1);
 
-    travel_state.escape += dt * (travel_state.speed - 2.5) * 0.00005;
-    travel_state.escape = clamp(travel_state.escape, 0, 1);
+      let crashed = false;
+      for (let ii = 0; ii < asteroids.length; ++ii) {
+        let ast = asteroids[ii];
+        let astx = ast.pos[0] + 0.32; // 0.4 is visually tightest, but there's hblends...
+        if (ast.pos[1] === pos[1] &&
+          xpos0 < astx && xpos1 >= astx
+        ) {
+          playUISound('ship_crash');
+          crashed = true;
+        }
+      }
 
-    let crashed = false;
-    for (let ii = 0; ii < asteroids.length; ++ii) {
-      let ast = asteroids[ii];
-      let astx = ast.pos[0] + 0.32; // 0.4 is visually tightest, but there's hblends...
-      if (ast.pos[1] === pos[1] &&
-        xpos0 < astx && xpos1 >= astx
-      ) {
-        playUISound('ship_crash');
-        crashed = true;
+      if (crashed) {
+        travel_state.crashed = true;
+      } else {
+        pos[0] = xpos1;
       }
     }
+  }
 
-    if (crashed) {
-      travel_state.crashed = true;
-    } else {
-      pos[0] = xpos1;
-    }
-
-    let BAR_PAD = 40;
-    let BAR_Y = 40;
-    let BAR_H = 24;
-    let bar = {
-      x: VIEWPORT_X0 + BAR_PAD,
-      y: BAR_Y,
-      z: Z.UI,
-      w: render_width - BAR_PAD * 2,
-      h: BAR_H,
-    };
-    drawHealthBar(bar.x, bar.y, bar.z, bar.w, bar.h, travel_state.escape, 1, false);
+  let BAR_PAD = 40;
+  let BAR_Y = 40;
+  let BAR_H = 24;
+  let bar = {
+    x: VIEWPORT_X0 + BAR_PAD,
+    y: BAR_Y,
+    z: Z.UI,
+    w: render_width - BAR_PAD * 2,
+    h: BAR_H,
+  };
+  drawHealthBar(bar.x, bar.y, bar.z, bar.w, bar.h, travel_state.escape, 1, false);
+  if (!lost) {
     if (travel_state.escape < 0.05 && travel_state.speed < 3) {
       font.draw({
         color: 0x000000ff,
@@ -313,27 +333,61 @@ export function doTravelGame(): void {
         align: ALIGN.HVCENTER,
         text: 'ACCELERATE TO ESCAPE!',
       });
+    } else if (travel_state.intro > 2 && !travel_state.speed) {
+      font.draw({
+        color: 0x000000ff,
+        ...bar,
+        x: bar.x + bar.w/2,
+        w: bar.w/2,
+        z: bar.z + 1,
+        align: ALIGN.HVCENTER,
+        text: 'ACCELERATE TO ESCAPE!',
+      });
     }
     let escape_size = uiTextHeight() * 2;
     let text_y = bar.y - escape_size - 2.2;
-    let text_w = font.draw({
-      color: 0x000000ff,
-      size: escape_size,
-      x: bar.x + bar.w/2,
-      y: text_y,
-      z: bar.z + 4,
-      align: ALIGN.HCENTER,
-      text: 'ESCAPE!',
-    });
-    let panel_w = text_w + 20;
-    panel({
-      x: bar.x + (bar.w - panel_w) / 2,
-      y: text_y - 6,
-      z: bar.z + 3,
-      w: panel_w,
-      h: escape_size + 6 * 2,
-      eat_clicks: false,
-    });
+    let api = crawlerScriptAPI();
+    if (travel_state.intro < 1) {
+      function msg(text: string, offs: number): void {
+        let text_w = font.draw({
+          color: 0x000000ff,
+          size: escape_size,
+          x: bar.x + bar.w/2 + offs,
+          y: text_y,
+          z: bar.z + 4,
+          align: ALIGN.HCENTER,
+          text,
+        });
+        let panel_w = text_w + 20;
+        panel({
+          x: bar.x + (bar.w - panel_w) / 2 + offs,
+          y: text_y - 6,
+          z: bar.z + 3,
+          w: panel_w,
+          h: escape_size + 6 * 2,
+          eat_clicks: false,
+        });
+      }
+      const E = 0.1;
+      if (travel_state.intro < 0.5 + E/2) {
+        let offs = travel_state.intro < E ? lerp(map01(travel_state.intro, 0, E), -1, 0) :
+          travel_state.intro > 0.5 - E/2 ? lerp(map01(travel_state.intro, 0.5 - E/2, 0.5 + E/2), 0, 1) : 0;
+        offs = easeIn(abs(offs), 4) * sign(offs) * 600;
+
+        msg(api.keyGet('sawpirates') ? 'PIRATES (AGAIN)!' : 'PIRATES!', offs);
+      }
+      if (travel_state.intro > 0.5 - E/2) {
+        let offs = travel_state.intro < 0.5 + E/2 ? lerp(map01(travel_state.intro, 0.5 - E/2, 0.5 + E/2), -1, 0) :
+          travel_state.intro > 1 - E ? lerp(map01(travel_state.intro, 1 - E, 1), 0, 1) : 0;
+        offs = easeIn(abs(offs), 4) * sign(offs) * 600;
+
+        msg('ESCAPE!', offs);
+      }
+    } else {
+      if (!api.keyGet('sawpirates')) {
+        api.keySet('sawpirates');
+      }
+    }
   }
 
   if (pos[0] > LOOP_DIST) {

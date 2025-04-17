@@ -115,6 +115,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
           dodge: 4,
         };
         data.floor = 10;
+        data.money = 200;
       }
       if (!data.money) {
         data.money = 0;
