@@ -1507,7 +1507,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "open",
         "solid",
         "open"
       ]
@@ -1716,19 +1716,19 @@
     {
       "id": "open",
       "walls": [
-        "open",
+        "solid",
         "open",
         "solid",
         "door"
       ]
     },
     {
-      "id": "open",
+      "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "solid"
+        "solid",
+        "solid",
+        "solid",
+        "open"
       ]
     },
     {
@@ -1736,9 +1736,12 @@
       "walls": [
         "solid",
         "open",
-        "open",
+        "solid",
         "solid"
-      ]
+      ],
+      "props": {
+        "loot": "med1"
+      }
     },
     {
       "id": "solid",
@@ -1947,7 +1950,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -2531,7 +2534,10 @@
         "solid",
         "solid",
         "open"
-      ]
+      ],
+      "props": {
+        "loot": "med1"
+      }
     },
     {
       "id": "open",
@@ -5086,6 +5092,22 @@
         9,
         20,
         3
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        8,
+        11,
+        3
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        18,
+        7,
+        1
       ]
     }
   ],

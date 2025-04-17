@@ -1,6 +1,4 @@
 TODO
-* build out zone 2
-  * test it
 * medkit hotkey (put in description of medkit)
 * title/scores/credits
 * don't allow manual moving in fullscreen map
@@ -10,7 +8,7 @@ TODO
 * use `combat-hit-crit-2` in race game upon death
 * build out levels
   * station
-  * zones - maybe aim for double enemy count
+  * zones - maybe aim for double enemy count (and 4 medkits)
   * ships
 LEVEL MECHANICS / NPCs TODO
   * guard needs option to not give him the gift (so you can manually fight)
