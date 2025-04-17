@@ -7,8 +7,8 @@
     ],
     "stairs_out": [
       3,
-      8,
-      2
+      0,
+      1
     ]
   },
   "w": 8,
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "id": "stairs_in",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
@@ -125,7 +125,7 @@
         "solid",
         "open",
         "open",
-        "stairs_in"
+        "stairs_out"
       ]
     },
     {
