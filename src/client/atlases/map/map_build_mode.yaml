@@ -1,0 +1,16 @@
+---
+tile_res: 32
+tiles:
+  floor_solid: [3,0] # build mode only
+  pit: [4,0]
+
+  water: [3,4]
+
+  icon_shop3: [5,4]
+
+  spawner: [0,5]
+  t0: [1,5]
+  t1: [2,5]
+  t2: [3,5]
+  t3: [4,5]
+  t4: [5,5]

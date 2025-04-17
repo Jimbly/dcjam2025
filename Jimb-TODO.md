@@ -1,11 +1,13 @@
 TODO
 * build out zone 2
   * test it
+* medkit hotkey (put in description of medkit)
 * title/scores/credits
 * don't allow manual moving in fullscreen map
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
+* use `combat-hit-crit-2` in race game upon death
 * build out levels
   * station
   * zones - maybe aim for double enemy count

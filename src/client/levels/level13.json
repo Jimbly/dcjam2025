@@ -4274,6 +4274,12 @@
         "open",
         "open",
         "open"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "You will gain nothing by fighting me, I'm just here for you to test your might."
+        }
       ]
     },
     {
