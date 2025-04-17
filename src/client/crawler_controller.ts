@@ -97,6 +97,7 @@ import {
 import { CrawlerScriptAPIClient } from './crawler_script_api_client';
 import { crawlerOnScreenButton } from './crawler_ui';
 import { statusPush } from './status';
+import { travelGameStartMove, travelGameStartTurn } from './travelgame';
 
 const { PI, abs, cos, floor, max, min, random, round, sin } = Math;
 
@@ -556,10 +557,10 @@ class CrawlerControllerInstantStep implements PlayerController {
     this.rot = this.parent.last_finished_rot;
   }
   tickMovement(param: TickParam): TickPositions {
-    let { game_state } = this.parent;
+    // let { game_state } = this.parent;
 
-    v2copy(game_state.pos, this.pos);
-    game_state.angle = this.rot * PI / 2;
+    // v2copy(game_state.pos, this.pos);
+    // game_state.angle = this.rot * PI / 2;
 
     return {
       dest_pos: this.pos,
@@ -586,25 +587,27 @@ class CrawlerControllerInstantStep implements PlayerController {
     return false;
   }
   startTurn(rot: DirType): void {
-    assert(rot >= 0 && rot <= 3);
-    this.rot = rot;
+    travelGameStartTurn(rot);
+    // assert(rot >= 0 && rot <= 3);
+    // this.rot = rot;
   }
   startMove(dir: DirType): void {
-    let { script_api } = this.parent;
-    let new_pos = v2add(vec2(), this.pos, DXY[dir]);
-    const {
-      bumped_something,
-      bumped_entity,
-    } = startMove(this.parent, dir, new_pos, this.rot);
+    travelGameStartMove(dir);
+    // let { script_api } = this.parent;
+    // let new_pos = v2add(vec2(), this.pos, DXY[dir]);
+    // const {
+    //   bumped_something,
+    //   bumped_entity,
+    // } = startMove(this.parent, dir, new_pos, this.rot);
 
-    if (bumped_something) {
-      // TODO: animate a bump towards `new_pos`? play sound?
-      if (!bumped_entity) {
-        script_api.status('move_blocked', '*BUMP*');
-      }
-    } else {
-      v2copy(this.pos, new_pos);
-    }
+    // if (bumped_something) {
+    //   // TODO: animate a bump towards `new_pos`? play sound?
+    //   if (!bumped_entity) {
+    //     // script_api.status('move_blocked', '*BUMP*');
+    //   }
+    // } else {
+    //   v2copy(this.pos, new_pos);
+    // }
   }
   autoStartMove(rot: DirType, offs: number): void {
     this.startMove(rot);
@@ -1084,7 +1087,7 @@ export class CrawlerController {
     this.flush_vis_data = param.flush_vis_data;
     this.on_init_level = param.on_init_level;
     this.on_enter_cell = param.on_enter_cell;
-    this.setControllerType(param.controller_type || 'queued');
+    this.setControllerType(param.controller_type || 'queued2');
     this.script_api.setController(this);
   }
 

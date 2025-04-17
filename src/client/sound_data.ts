@@ -150,16 +150,17 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
 
   ship_accelerate_2: { file: 'ship/ship_accelerate_2', volume: 1 },
   ship_accelerate_3: { file: 'ship/ship_accelerate_3', volume: 1 },
-  ship_accelerate_4: { file: 'ship/ship_accelerate_5', volume: 1 },
+  ship_accelerate_4: { file: 'ship/ship_accelerate_4', volume: 1 },
+  ship_accelerate_5: { file: 'ship/ship_accelerate_5', volume: 1 },
   ship_decelerate_1: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_decelerate_2: { file: 'ship/ship_decelerate_2', volume: 1 },
   ship_decelerate_3: { file: 'ship/ship_decelerate_3', volume: 1 },
+  ship_decelerate_4: { file: 'ship/ship_decelerate_4', volume: 1 },
 
   // Game sounds - TODO
 
-  ship_maintain_speed: { file: 'ship/ship_accelerate_2', volume: 1 },
-  ship_asteroid_avoid: { file: 'ship/ship_accelerate_2', volume: 1 },
-  ship_asteroid_gainheat: { file: 'ship/ship_decelerate_1', volume: 1 },
+  ship_cannot_move: { file: 'combat/hit', volume: 1 },
+  ship_crash: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_failure: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_success: { file: 'ship/ship_accelerate_5', volume: 1 },
 

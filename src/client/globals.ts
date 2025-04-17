@@ -13,3 +13,7 @@ export const HUD_W_FULL = game_width - (VIEWPORT_X0 + render_width + VIEWPORT_X0
 export const HUD_X0 = game_width - HUD_W_FULL + 2;
 export const HUD_W = game_width - HUD_PAD - HUD_X0;
 export const HUD_Y0 = HUD_PAD;
+
+export const BUTTON_W = 26; // square controller buttons
+export const MOVE_BUTTONS_X0 = HUD_X0 + (HUD_W - BUTTON_W * 3) / 2 - 1;
+export const MOVE_BUTTONS_Y0 = game_height - 71;

@@ -48,6 +48,10 @@ ECONOMY
 * Need an extra ~2K for bribes now though! Increased drops by ~900
 
 Wrap-up
+* Title screen
+* Credits
+* High Scores
+* Prune unused atlases and tiles from used atlases
 * Disable `/`
 
 Polish

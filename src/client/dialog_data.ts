@@ -802,9 +802,9 @@ dialogRegister({
     }
     dialogPush({
       name: '',
-      text: 'THE PURSUER has caught you.\n' +
-        (take ? `A little money goes a long way... you're out [img=icon-currency]${LOSE_COST}, but you're alive.` :
-        'Your ship is ransacked, but they find nothing of value.'),
+      text: 'YOU\'VE CRASHED THE SHUTTLE.\n' +
+        (take ? `I guess you've gotta pay for repairs... you're out [img=icon-currency]${LOSE_COST}, but you're alive.` :
+        'Since you lacking the cash on hand, the rental company says they\'ll take it up with your insurance.'),
       buttons: [{
         label: 'OK',
         cb: function () {

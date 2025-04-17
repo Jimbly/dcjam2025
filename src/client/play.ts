@@ -140,12 +140,15 @@ import { dialogMoveLocked, dialogRun, dialogStartup } from './dialog_system';
 import { entitiesAt, EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_client';
 // import { EntityDemoClient } from './entity_demo_client';
 import {
+  BUTTON_W,
   game_height,
   game_width,
   HUD_PAD,
   HUD_W,
   HUD_X0,
   HUD_Y0,
+  MOVE_BUTTONS_X0,
+  MOVE_BUTTONS_Y0,
   render_height,
   render_width,
   VIEWPORT_X0,
@@ -753,10 +756,7 @@ function bumpEntityCallback(ent_id: EntityID): void {
   // }
 }
 
-const BUTTON_W = 26;
-
-
-function useNoText(): boolean {
+export function useNoText(): boolean {
   return input.inputTouchMode() || input.inputPadMode()/* || settings.turn_toggle*/; // DCJAM
 }
 
@@ -1167,9 +1167,6 @@ export function giveReward(reward: { money?: number; items?: Item[] }): void {
   statusPush(msg.join('\n'));
 }
 
-const MOVE_BUTTONS_X0 = HUD_X0 + (HUD_W - BUTTON_W * 3) / 2 - 1;
-const MOVE_BUTTONS_Y0 = game_height - 71;
-
 export function drawHUDPanel(): void {
   panel({
     x: HUD_X0,
@@ -1304,6 +1301,23 @@ function checkLoot(): void {
     }
   }
   entityManager().deleteEntity(chest.id, 'looted');
+}
+
+export function doMotionForTravelGame(dt: number): void {
+  controller.doPlayerMotion({
+    dt,
+    button_x0: MOVE_BUTTONS_X0,
+    button_y0: MOVE_BUTTONS_Y0,
+    no_visible_ui: false,
+    button_w: BUTTON_W,
+    button_sprites: useNoText() ? button_sprites_notext : button_sprites,
+    disable_move: false,
+    disable_player_impulse: false,
+    show_buttons: true,
+    do_debug_move: false,
+    show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 } : null,
+    show_hotkeys: !useNoText(),
+  });
 }
 
 function playCrawl(): void {
