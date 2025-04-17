@@ -1839,9 +1839,9 @@
       "id": "open",
       "walls": [
         "station_decal_1",
-        "station_shop_shuttle",
+        "station_shop_hat",
         "station_decal_1",
-        "station_decal_1"
+        "station_solid3"
       ]
     },
     {
@@ -2057,7 +2057,7 @@
         "open",
         "open",
         "open",
-        "station_shop_shuttle"
+        "station_shop_hat"
       ]
     },
     {
