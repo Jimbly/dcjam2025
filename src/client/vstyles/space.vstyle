@@ -6,7 +6,7 @@ background_color: '#000'
 background_img: minigame/crawler_sky
 fog_params:
 - 0 # 0.0025 # color extinction rate
-- 0.0007 # fog rate
+- 0.0014 # fog rate
 - 450.0
 cell_swaps:
   open: space_open

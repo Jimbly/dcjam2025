@@ -1,11 +1,4 @@
 TODO
-* travel minigame
-  * new race idea
-    * racing someone, whoever's last gets robbed?
-  * immediately move between lanes, but cooldown on moves
-    * queued input though if you tap right twice, it should move right twice
-  * same with shifting speeds
-  * simple levelgen?
 LEVEL MECHANICS / NPCs TODO
   * station
     * if `soldierdrunk` - find a clue about dazzling gift location near shops

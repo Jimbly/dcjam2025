@@ -765,7 +765,7 @@ dialogRegister({
     let { money } = me.data;
     dialogPush({
       name: '',
-      text: money >= SHUTTLE_COST ? `Shuttle rentals are [img=icon-currency]${SHUTTLE_COST}.` : `New around here, eh?  The shuttle normally costs [img=icon-currency]${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Just be sure to bring it back in once piece.`,
+      text: money >= SHUTTLE_COST ? `Shuttle rentals are [img=icon-currency]${SHUTTLE_COST}.  Watch out for pirates.` : `New around here, eh?  The shuttle normally costs [img=icon-currency]${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Watch out for pirates, and don't crash my shuttle!`,
       buttons: [{
         label: 'OK, I\'LL TAKE ONE',
         cb: function () {
@@ -795,7 +795,7 @@ dialogRegister({
   travelfail: function () {
     let me = myEnt();
     let { money } = me.data;
-    let take = money > LOSE_COST * 2;
+    let take = money > LOSE_COST;
     if (take) {
       me.data.money -= LOSE_COST;
       consumeMoney(LOSE_COST);
@@ -804,7 +804,7 @@ dialogRegister({
       name: '',
       text: 'YOU\'VE CRASHED THE SHUTTLE.\n' +
         (take ? `I guess you've gotta pay for repairs... you're out [img=icon-currency]${LOSE_COST}, but you're alive.` :
-        'Since you lacking the cash on hand, the rental company says they\'ll take it up with your insurance.'),
+        'Since you lack the cash on hand, the rental company says they\'ll take it up with your insurance.'),
       buttons: [{
         label: 'OK',
         cb: function () {
