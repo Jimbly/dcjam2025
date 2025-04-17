@@ -975,14 +975,12 @@ function sortInventory(): void {
   });
 }
 
-let desired_damage = 0;
-let desired_cur_hp = 1;
+let desired_hp_percent = 0;
 function inventoryMenu(frame_combat: boolean): void {
   let me = myEnt();
   let { inventory, stats } = me.data;
   if (autoResetSkippedFrames('inventory')) {
-    desired_damage = stats.hp_max - stats.hp;
-    desired_cur_hp = stats.hp;
+    desired_hp_percent = stats.hp / stats.hp_max;
   }
   let z = Z.MODAL + 3;
   if (!inventory_selbox) {
@@ -1017,10 +1015,9 @@ function inventoryMenu(frame_combat: boolean): void {
     let item_def = ITEMS[item.item_id];
     useItem(inventory_selbox.selected);
     if (item_def.item_type === 'consumable') {
-      desired_damage = stats.hp_max - stats.hp;
-      desired_cur_hp = stats.hp;
+      desired_hp_percent = stats.hp / stats.hp_max;
     } else {
-      stats.hp = clamp(stats.hp_max - desired_damage, 1, min(stats.hp_max, desired_cur_hp));
+      stats.hp = clamp(round(desired_hp_percent * stats.hp_max), 1, stats.hp_max);
     }
   }
 
@@ -1043,8 +1040,8 @@ function inventoryMenu(frame_combat: boolean): void {
       }
       equip(preview_stats_final, item_def, true);
       if (item_def.item_type !== 'consumable') {
-        preview_stats_final.hp = clamp(preview_stats_final.hp_max - desired_damage, 1,
-          min(preview_stats_final.hp_max, desired_cur_hp));
+        preview_stats_final.hp = clamp(round(desired_hp_percent * preview_stats_final.hp_max), 1,
+          preview_stats_final.hp_max);
       }
     }
 
