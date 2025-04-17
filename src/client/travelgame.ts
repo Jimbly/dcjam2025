@@ -91,6 +91,9 @@ class TravelGameState {
       let asteroid: Asteroid = {
         pos: [adist, rand.range(3)],
       };
+      if (adist < 15 && asteroid.pos[1] === 1) {
+        asteroid.pos[1] += -1 + rand.range(2) * 2;
+      }
       asteroids.push(asteroid);
       entity_manager.addEntityFromSerialized({
         type: 'asteroid_danger',
