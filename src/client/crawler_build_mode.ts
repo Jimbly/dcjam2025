@@ -1346,6 +1346,7 @@ function showCurrentCell(param: {
           colors: colors_prop,
         })) {
           crawlerBuildModeBegin();
+          setLastProp({ key: prop_key, text: value || '' });
           target_cell.setProp(prop_key, undefined);
           crawlerBuildModeCommit();
         }

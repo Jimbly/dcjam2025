@@ -1,10 +1,9 @@
 TODO
-* on next combat playtest
-  * when first entering zone 1+, save once, then tweak each fight to be a little harder
-* travel game
-  * do a "safe!" thing so you stop pressing forward at the end
 * build out zone 3
 * title/scores/credits
+* on next combat playtest
+  * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
+  * when first entering zone 1+, save once, then tweak each fight to be a little harder
 * build out levels
   * station
   * zones - maybe aim for double enemy count
@@ -18,6 +17,7 @@ LEVEL MECHANICS / NPCs TODO
   * zone 0
     * set up old racer to die upon entering, then can loot
   * zone 2
+    *
     * put a second copy of the guard guarding an easter egg
 
 Important art left
@@ -28,6 +28,7 @@ Important art left
 * map icons
 
 POLISH
+* travel game: do a "safe!" thing so you stop pressing forward at the end
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
 
