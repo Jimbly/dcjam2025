@@ -1,4 +1,6 @@
 ---
+properties:
+  build_hide: true
 traits:
 - id: drawable
   biasL: [-0.35, 0.32]

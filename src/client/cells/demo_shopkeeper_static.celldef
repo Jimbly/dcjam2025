@@ -1,6 +1,7 @@
 ---
 open_move: true
 open_vis: true
+build_hide: true
 ascii_char: 'f'
 visuals:
 - pass: bg

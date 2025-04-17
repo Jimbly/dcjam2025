@@ -1,4 +1,6 @@
 ---
+properties:
+  build_hide: true
 traits:
 - id: wander
 - id: drawable
@@ -8,7 +10,7 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [goblin]
+      frames: [cat]
       times: 10000
   sprite_data:
     atlas: utumno
