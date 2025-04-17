@@ -64,6 +64,7 @@ class TravelGameState {
   asteroids: Asteroid[];
   done = false;
   won = false;
+  crashed = false;
   transitioning = false;
   hblends: { t: number; d: number }[] = [];
   last_shift = 0;
@@ -196,18 +197,12 @@ export function doTravelGame(): void {
   let dt = getFrameDt();
   if (!travel_state.done) {
     doMotionForTravelGame(dt);
-    let xpos = pos[0];
-    for (let ii = 0; ii < asteroids.length; ++ii) {
-      let ast = asteroids[ii];
-      if (ast.pos[1] === pos[1] && xpos >= ast.pos[0] && xpos < ast.pos[0] + 0.3) {
-        playUISound('ship_crash');
-        travel_state.done = true;
-        travel_state.won = false;
-      }
-    }
     if (pos[0] > TARGET_DIST) {
       travel_state.done = true;
       travel_state.won = true;
+    } else if (travel_state.crashed) {
+      travel_state.done = true;
+      travel_state.won = false;
     }
     if (MODE_DEVELOPMENT && keyDownEdge(KEYS.F)) {
       travel_state.done = true;
@@ -225,7 +220,26 @@ export function doTravelGame(): void {
   }
 
   if (!(travel_state.done && !travel_state.won)) {
-    pos[0] += dt * (3 + travel_state.speed * 2) * 0.001;
+    let xpos0 = pos[0];
+    let xpos1 = xpos0 + dt * (3 + travel_state.speed * 2) * 0.001;
+
+    let crashed = false;
+    for (let ii = 0; ii < asteroids.length; ++ii) {
+      let ast = asteroids[ii];
+      let astx = ast.pos[0] + 0.4;
+      if (ast.pos[1] === pos[1] &&
+        xpos0 < astx && xpos1 >= astx
+      ) {
+        playUISound('ship_crash');
+        crashed = true;
+      }
+    }
+
+    if (crashed) {
+      travel_state.crashed = true;
+    } else {
+      pos[0] = xpos1;
+    }
   }
 
   game_state.angle = 0;
