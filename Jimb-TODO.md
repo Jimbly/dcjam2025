@@ -1,5 +1,4 @@
 TODO
-* placeholders for locked/unlocked doors and secret doors for each vstyle, then ask
 * build out zone 2
   * test it
 * title/scores/credits
@@ -32,6 +31,7 @@ POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
 * fullscreen map view spread color to full view
+* fade out ent at start of combat
 
 ZONES
 * respawn all B/C entities
@@ -71,6 +71,7 @@ Wrap-up
 * Prune unused atlases and tiles from used atlases
 * Disable `/`
 * Add wander cat and nilo
+* remove DEBUG events
 
 Polish
 * the pillar to the SW doesn't show up at the right time when rotating the camera

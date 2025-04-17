@@ -21,6 +21,7 @@ import { ITEMS } from './item_defs';
 import {
   autosave,
   giveReward,
+  itemTier,
   myEnt,
   queueTransition,
 } from './play';
@@ -840,7 +841,11 @@ dialogRegister({
       dialog('sign', 'HINT: EQUIP YOUR NEW ITEM IN THE INVENTORY');
     }
   },
-  debug: function () {
+  debug: function (param: string) {
+    let max_tier = 0;
+    if (param[0] === 't') {
+      max_tier = Number(param.slice(1));
+    }
     let { inventory } = myEnt().data;
     for (let key in ITEMS) {
       let has = false;
@@ -850,21 +855,33 @@ dialogRegister({
         }
       }
       if (!has) {
-        inventory.push({
+        let item = {
           item_id: key,
-        });
+        };
+        if (max_tier) {
+          let tier = itemTier(item);
+          if (tier !== max_tier) {
+            continue;
+          }
+        }
+        inventory.push(item);
       }
     }
-    myEnt().data.money = 9999;
+    giveReward({ items: [{ item_id: 'med1', count: 3 }] });
+    if (!max_tier) {
+      myEnt().data.money = 9999;
 
-    keySet('rumor1');
-    keySet('foundship');
-    keySet('solvedguard');
-    keySet('metguard');
-    keySet('solvedsafe');
-    keySet('solvedescape');
+      keySet('rumor1');
+      keySet('foundship');
+      keySet('solvedguard');
+      keySet('metguard');
+      keySet('solvedsafe');
+      keySet('solvedescape');
 
-    dialog('sign', 'GRANTED EVERYTHING');
+      dialog('sign', 'GRANTED EVERYTHING');
+    } else {
+      dialog('sign', `GRANTED T${max_tier} GEAR`);
+    }
   },
   // finale: function () {
   //   myEnt().data.score_won = true;

@@ -90,7 +90,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -296,10 +296,25 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "solid",
         "open",
         "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "debug t2"
+        }
       ]
     },
     {
@@ -307,16 +322,7 @@
       "walls": [
         "open",
         "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
         "solid",
-        "open",
         "open"
       ]
     },
@@ -524,7 +530,13 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "open"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "DEBUG: Step back here to get all T2 gear (you need to equip it though)"
+        }
       ]
     },
     {

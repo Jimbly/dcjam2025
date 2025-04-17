@@ -922,7 +922,7 @@ function itemName(item: Item): string {
   return (item_def.item_type === 'consumable' ? `${item_def.name} (${item.count || 1})` : item_def.name).toUpperCase();
 }
 
-function itemTier(item: Item): number {
+export function itemTier(item: Item): number {
   let item_def = ITEMS[item.item_id];
   if (item_def.item_type === 'key' || item_def.item_type === 'consumable') {
     return -1;
