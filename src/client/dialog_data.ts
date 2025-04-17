@@ -135,7 +135,7 @@ function numMedkitsMessage(): string {
   return `(Med-Kits owned: ${numMedkits()})`;
 }
 
-function signWithName(name: string, message: string): void {
+export function signWithName(name: string, message: string): void {
   dialogPush({
     custom_render: nameRender(name),
     text: message,

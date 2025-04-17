@@ -1,6 +1,9 @@
 TODO
-* build out zone 3
+* build out zone 2
+  * put a second copy of the guard guarding an easter egg
+  * test it
 * title/scores/credits
+* don't allow manual moving in fullscreen map
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
@@ -16,9 +19,6 @@ LEVEL MECHANICS / NPCs TODO
     * icon on bay 82 and 47 on the minimap
   * zone 0
     * set up old racer to die upon entering, then can loot
-  * zone 2
-    *
-    * put a second copy of the guard guarding an easter egg
 
 Important art left
 * journal button
@@ -31,12 +31,14 @@ POLISH
 * travel game: do a "safe!" thing so you stop pressing forward at the end
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
+* fullscreen map view spread color to full view
 
 ZONES
 * respawn all B/C entities
   * path from entrance to bosses must be only A-entities
   * path to treasures is B/C
 * Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
+  doubled: 8 TnAs, 6 TnBs, 6 TnCs
 * Zone 0
   * key1
   * weapon1, offhand1, torso1, weapon2b (T2), torso4 (T3)
@@ -44,8 +46,7 @@ ZONES
   * key2
   * offhand2, torso2, weapon2, offhand3b (T3), weapon4 (T3)
 * Zone 2
-  * key3
-  * offhand3 (first), weapon3, torso3, offhand4 (T3)
+  * offhand4 (T3), med1, med1, offhand3, weapon3, money 3000, torso3, key1
 
 ECONOMY
 * gear always in chests
@@ -61,7 +62,7 @@ ECONOMY
       * 2000 each?
     * final hat is another 2K, requires a few grind trips back to Zone 2
 * full run-through with no repeated monster kills, and forgetting to heal: ended with all stuff and $50, 2 medkits, not enough to beat guard, perfect!
-* Need an extra ~2K for bribes now though! Increased drops by ~900
+* Need an extra ~2K for bribes now though! Increased drops by the same
 
 Wrap-up
 * Title screen

@@ -14,14 +14,18 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [critter-11]
+      frames: [critter10]
       times: 10000
   sprite_data:
     atlas: critters
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
-    origin: [0.5, 1]
-  scale: 0.85
+    origin: [0.5, 1.2]
+  scale: 0.75
   simple_anim:
-    - period: 9979
-      scale: [1, 0.88]
+    - period: 5000
+      # scale: [1, 1]
+      # easing: 2
+      offs:
+        - [0, -0.15]
+        - [0, 0]
