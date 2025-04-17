@@ -1364,7 +1364,7 @@ function playCrawl(): void {
     w: render_width - 16,
     y: VIEWPORT_Y0,
     h: render_height + 4,
-    z: Z.STATUS,
+    z: Z.DIALOG,
     pad_top: 5,
     pad_bottom: 5,
   };
@@ -1562,7 +1562,9 @@ function playCrawl(): void {
       mapViewToggle();
     }
   }
-  if (!overlay_menu_up && !travel_game && !frame_combat && (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))) {
+  if (!overlay_menu_up && !travel_game && !frame_combat && !controller.hasMoveBlocker() &&
+    (keyDownEdge(KEYS.M) || padButtonUpEdge(PAD.BACK))
+  ) {
     playUISound('button_click');
     mapViewToggle();
   }
@@ -1585,7 +1587,7 @@ function playCrawl(): void {
       }
     }
     crawlerMapViewDraw(game_state, 0, 0, game_width, game_height, 0, 0, Z.MAP,
-      engine.defines.LEVEL_GEN, script_api, overlay_menu_up,
+      engine.defines.LEVEL_GEN, script_api, overlay_menu_up || controller.hasMoveBlocker(),
       floor((game_width - MINIMAP_W)/2), 2); // note: compass ignored, compass_h = 0 above
   } else if (!frame_combat && !travel_game) {
     if (!build_mode) {
@@ -1608,7 +1610,7 @@ function playCrawl(): void {
     crawlerMapViewDraw(game_state,
       minimap_display_x, MINIMAP_Y,
       MINIMAP_W, minimap_display_h, compass_h, COMPASS_W, Z.MAP,
-      false, script_api, overlay_menu_up,
+      false, script_api, overlay_menu_up || controller.hasMoveBlocker(),
       COMPASS_X, COMPASS_Y);
   }
 
@@ -1630,9 +1632,25 @@ function playCrawl(): void {
   }
 
 
-  statusTick(dialog_viewport);
+  statusTick({
+    ...dialog_viewport,
+    z: Z.STATUS,
+  });
 
   profilerStopFunc();
+}
+
+export function playStatusTick(): void {
+  let dialog_viewport = {
+    x: VIEWPORT_X0 + 8,
+    w: render_width - 16,
+    y: VIEWPORT_Y0,
+    h: render_height + 4,
+    z: Z.STATUS,
+    pad_top: 5,
+    pad_bottom: 5,
+  };
+  statusTick(dialog_viewport);
 }
 
 export function play(dt: number): void {

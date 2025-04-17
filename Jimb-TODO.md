@@ -1,18 +1,24 @@
 TODO
-* iterate on combat / progression
-  * set order of gear upgrades
-  * switch stats around so the first ones are not such a big bump
-  * have A varieties slightly worse than they are now
+* on next combat playtest
+  * when first entering zone 1+, save once, then tweak each fight to be a little harder
+* travel game
+  * do a "safe!" thing so you stop pressing forward at the end
+* build out zone 3
 * title/scores/credits
 * build out levels
   * station
   * zones - maybe aim for double enemy count
   * ships
 LEVEL MECHANICS / NPCs TODO
+  * guard needs option to not give him the gift (so you can manually fight)
   * station
     * if `soldierdrunk` - find a clue about dazzling gift location near shops
+    * autosave upon returning to the station - just add a "return" event for zones?
+    * icon on bay 82 and 47 on the minimap
   * zone 0
     * set up old racer to die upon entering, then can loot
+  * zone 2
+    * put a second copy of the guard guarding an easter egg
 
 Important art left
 * journal button

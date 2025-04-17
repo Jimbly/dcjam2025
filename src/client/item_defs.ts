@@ -11,29 +11,29 @@ export type ItemDef = {
 
 type ItemRow = [ItemType, string, string, Partial<StatsData>?, string?];
 const ITEM_ROWS: ItemRow[] = [
-  ['head', 'helmetfree', 'Cocky Rooster', { hp_max: 5 }, 'Have you ever tried to catch a chicken?  Well, then you know how fast these little guys can change course.\n\nThis helmet gives you great reflexes, which will help you dodge the attack of even your quickest enemies.'],
+  ['head', 'helmetfree', 'Cockerel', { hp_max: 5 }, 'I guess this goes on my... head?  It\'s still slightly moist.  I guess, if it keeps me alive...'],
 
-  ['head', 'helmet1', 'Deathclaw', { hp_max: 20 }, 'You have been assured that these are bonefide chicken horns, sharp enough to pierce the strongest foe.'],
-  ['weapon', 'weapon1', 'T1 Weapon', { attack: 6, accuracy: 2 }],
+  ['weapon', 'weapon1', 'T1 Weapon', { attack: 4 }],
   ['offhand', 'offhand1', 'T1 Offhand', { dodge: 2, accuracy: 2 }],
-  ['torso', 'torso1', 'T1 Armor', { defense: 6, dodge: 2 }],
+  ['torso', 'torso1', 'T1 Armor', { defense: 6, dodge: 2, attack: 2 }],
+  ['head', 'helmet1', 'Eye of the Chicken', { hp_max: 20, accuracy: 2 }, 'Helps you better see the thrill of the fight and stalk your prey in the night.'],
 
-  ['head', 'helmet2', 'Eye of the Chicken', { hp_max: 35 }],
-  ['torso', 'torso2', 'T2 Armor', { defense: 12 }],
-  ['weapon', 'weapon2', 'T2 Weapon A', { attack: 12, accuracy: 8 }],
-  ['weapon', 'weapon2b', 'T2 Weapon B', { attack: 7, accuracy: 13 }],
-  ['offhand', 'offhand2', 'T2 Offhand', { dodge: 8 }],
+  ['offhand', 'offhand2', 'T2 Offhand', { accuracy: 5, defense: 1 }],
+  ['torso', 'torso2', 'T2 Armor', { defense: 11 }],
+  ['weapon', 'weapon2', 'T2 Weapon A', { attack: 10, accuracy: 3 }],
+  ['weapon', 'weapon2b', 'T2 Weapon B', { attack: 7, accuracy: 8 }],
+  ['head', 'helmet2', 'Chicken Wings', { hp_max: 35, dodge: 8 }, 'Have you ever tried to catch a chicken?  Well, then you know how fast these little guys can change course.\n\nThis helmet gives you great reflexes, which will help you dodge the attack of even your quickest enemies.'],
 
-  ['head', 'helmet3', 'Cockerel', { hp_max: 50 }],
-  ['torso', 'torso3', 'T3 Armor', { defense: 18 }],
-  ['weapon', 'weapon3', 'T3 Weapon', { attack: 20, accuracy: 12 }],
-  ['offhand', 'offhand3', 'T3 Offhand A', { dodge: 12 }],
-  ['offhand', 'offhand3b', 'T3 Offhand B', { dodge: 4, attack: 10 }],
+  ['offhand', 'offhand3', 'T3 Offhand A', { dodge: 8 }],
+  ['weapon', 'weapon3', 'T3 Weapon', { attack: 20, accuracy: 8 }],
+  ['torso', 'torso3', 'T3 Armor', { defense: 12, accuracy: 4 }],
+  ['offhand', 'offhand3b', 'T3 Offhand B', { attack: 10 }],
+  ['head', 'helmet3', 'Cocky Rooster', { hp_max: 50, defense: 6, dodge: 4 }, 'Wearing this you feel like you might be compensating for something.  Lack of colorful plumage, perhaps.'],
 
-  ['head', 'helmet4', 'Chicken Wings', { hp_max: 65 }],
-  ['torso', 'torso4', 'T4 Armor', { defense: 26 }],
-  ['weapon', 'weapon4', 'T4 Weapon', { attack: 24, accuracy: 16 }],
-  ['offhand', 'offhand4', 'T4 Offhand', { dodge: 16 }],
+  ['torso', 'torso4', 'T4 Armor', { defense: 18 }],
+  ['weapon', 'weapon4', 'T4 Weapon', { attack: 20, accuracy: 16 }],
+  ['offhand', 'offhand4', 'T4 Offhand', { dodge: 16, defense: 8 }],
+  ['head', 'helmet4', 'Deathclaw', { hp_max: 65, attack: 4 }, 'You have been assured that these are bonefide chicken horns, sharp enough to pierce the strongest foe.'],
 
   ['consumable', 'med1', 'Med-Kit', { hp: 50 }],
 

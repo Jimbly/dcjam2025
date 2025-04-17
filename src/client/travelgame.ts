@@ -161,7 +161,7 @@ export function travelGameFinish(): void {
 export function travelGameStartMove(dir: DirType): void {
   assert(travel_state);
   let now = getFrameTimestamp();
-  let can_shift = now - travel_state.last_shift > 500;
+  let can_shift = now - travel_state.last_shift > 300;
   if (dir === NORTH) {
     if (travel_state.pos[1] < 2) {
       travel_state.pos[1]++;

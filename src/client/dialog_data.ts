@@ -19,6 +19,7 @@ import {
 import { entitiesAt, entityManager } from './entity_demo_client';
 import { ITEMS } from './item_defs';
 import {
+  autosave,
   giveReward,
   myEnt,
   queueTransition,
@@ -221,7 +222,7 @@ dialogRegister({
       entityManager().deleteEntity(ents[0].id, 'looted');
     }
 
-    return signWithName('MONOLOGUING', 'Oops, that set off an alarm.  Time to go!');
+    return signWithName('MONOLOGUING', 'My prize is in hand, but that alarm is getting on my nerves.  Time to blow this joint.');
   },
 });
 
@@ -334,10 +335,7 @@ dialogRegister({
 
 dialogIconsRegister({
   captain: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    if (!keyGet('foundship')) {
-      return null;
-    }
-    if (keyGet('solvedescape')) {
+    if (!keyGet('metguard') || !keyGet('foundship') || keyGet('solvedescape')) {
       return null;
     }
     if (myEnt().data.money >= COST_ESCAPE) {
@@ -352,7 +350,7 @@ dialogRegister({
     if (keyGet('solvedescape') && hasItem('key5')) {
       return signWithName(name, 'Me and my crew are ready to leave any time.  Meet us in **Bay 47** when you need to leave.');
     }
-    if (!keyGet('foundship') || keyGet('solvedescape')) {
+    if (!keyGet('metguard') || !keyGet('foundship') || keyGet('solvedescape')) {
       return signWithName(name, 'Let me tell you about how we fought against THE NEW ALLIANCE in the last war...');
     }
     if (myEnt().data.money < COST_ESCAPE) {
@@ -386,6 +384,7 @@ dialogRegister({
     if (!hasItem('key6')) {
       return signWithName(name, 'Come back here when you\'re ready to leave in a hurry.');
     }
+    autosave();
     dialogPush({
       custom_render: nameRender(name),
       text: 'That\'s a lot of commotion back there... Ready to go?',
@@ -393,24 +392,36 @@ dialogRegister({
         label: 'TAKE ME OUT INTO THE BLACK, WHERE NO ONE CAN FOLLOW...',
         cb: function () {
           dialogPush({
-            text: 'YOU WIN!  THANKS FOR PLAYING!',
+            text: 'CONGRATULATIONS!  You have accomplished your daring heist (and have won this game).',
             buttons: [{
-              label: 'RETURN TO TITLE SCREEN',
-              cb: function () {
-                queueTransition();
-                urlhash.go('');
-              },
+              label: 'I ALSO PREVENTED **THE RED DEVASTATION** FROM BEING USED FOR EVIL.',
+              cb: 'thanksforplaying',
+            }, {
+              label: 'NAH, I JUST SOLD **THE RED DEVASTATION** TO THE HIGHEST BIDDER.',
+              cb: 'thanksforplaying',
             }]
           });
         },
       }]
     });
   },
+  thanksforplaying: function () {
+    dialogPush({
+      text: 'Good choice.  THANKS FOR PLAYING!',
+      buttons: [{
+        label: 'RETURN TO TITLE SCREEN',
+        cb: function () {
+          queueTransition();
+          urlhash.go('');
+        },
+      }]
+    });
+  }
 });
 
 dialogIconsRegister({
   assistant: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    if (keyGet('sovledsafe')) {
+    if (keyGet('sovledsafe') || hasItem('key4')) {
       return null;
     }
     if (!keyGet('assist1')) {
@@ -429,16 +440,16 @@ dialogRegister({
   assistant: function () {
     const name = 'THE BELEAGUERED ASSISTANT';
     let { data } = myEnt();
-    if (keyGet('sovledsafe')) {
+    if (keyGet('sovledsafe') || hasItem('key4')) {
       return signWithName(name, "I'll be gone on the next starliner and never look back...");
     }
     if (!keyGet('assist1')) {
       if (data.money < COST_ASSIST_BRIBE) {
-        return signWithName(name, 'I won\'t talk to someone shady like you unless you give me a big gift as a sign of good faith...');
+        return signWithName(name, 'I won\'t talk to someone shady like you unless you give me a "donation" as a sign of good faith...');
       }
       return dialogPush({
         custom_render: nameRender(name),
-        text: 'I won\'t talk to someone shady like you unless you give me a big gift as a sign of good faith...',
+        text: 'I won\'t talk to someone shady like you unless you give me a "donation" as a sign of good faith...',
         buttons: [{
           label: `HOW'S [img=icon-currency]${COST_ASSIST_BRIBE} SOUND?`,
           cb: function () {
@@ -527,7 +538,7 @@ dialogIconsRegister({
     if (!keyGet('lookingforship')) {
       return 'icon_exclamation';
     }
-    return null;
+    return 'icon_question';
   },
 });
 dialogRegister({
@@ -703,7 +714,7 @@ dialogRegister({
 
 dialogIconsRegister({
   medbay: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return 'icon_exclamation';
+    return 'icon_shop1';
   },
 });
 dialogRegister({
@@ -753,7 +764,7 @@ dialogRegister({
 
 dialogIconsRegister({
   shuttle: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return 'icon_exclamation';
+    return 'icon_shop2';
   },
 });
 dialogRegister({
@@ -920,5 +931,12 @@ cmd_parse.register({
       return resp_func('Invalid ITEM ID');
     }
     giveReward({ items: [{ item_id: param }] });
+  },
+});
+
+cmd_parse.register({
+  cmd: 'status',
+  func: function (param, resp_func) {
+    statusPush(param);
   },
 });

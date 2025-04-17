@@ -10,7 +10,7 @@ import { crawlerEntityManager } from './crawler_entity_client';
 import { crawlerController } from './crawler_play';
 import { SHUTTLE_COST } from './dialog_data';
 import { game_height, game_width } from './globals';
-import { autosave, myEnt, play, queueTransition } from './play';
+import { autosave, myEnt, play, playStatusTick, queueTransition } from './play';
 import { travelTo } from './travelgame';
 
 let worlds_map: Sprite;
@@ -88,6 +88,8 @@ export function stateTravel(dt: number): void {
       text: `FUNDS: [img=icon-currency]${money}\nCOST: [img=icon-currency]${money >= SHUTTLE_COST ? SHUTTLE_COST : 0}`,
     });
   }
+
+  playStatusTick();
 }
 
 export function startTravel(): void {

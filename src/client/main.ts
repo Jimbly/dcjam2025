@@ -44,7 +44,8 @@ Z.CHAT = 60;
 Z.UI = 100;
 Z.MAP = Z.UI + 5; // also minimap
 Z.FLOATERS = 125;
-Z.STATUS = 140;
+Z.DIALOG = 140;
+Z.STATUS = 160;
 Z.CHAT_FOCUSED = 100;
 
 let fonts: Font[] | undefined;

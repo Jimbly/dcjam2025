@@ -34,9 +34,9 @@ tiles:
   stairs_in: [0,4]
   stairs_out: [1,4]
   water: [3,4]
-  icon_shop1: [4,4]
-  icon_shop2: [5,4]
-  icon_shop3: [6,4]
+  icon_shop1: [3,4]
+  icon_shop2: [4,4]
+  icon_shop3: [5,4]
 
   spawner: [0,5] # build mode only
   enemy: [1,5]
