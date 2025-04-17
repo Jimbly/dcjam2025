@@ -1614,7 +1614,7 @@
       "id": "solid",
       "walls": [
         "solid",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -1755,12 +1755,12 @@
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
         "solid",
-        "open",
-        "open",
-        "open"
+        "solid",
+        "solid",
+        "solid"
       ]
     },
     {
@@ -1768,7 +1768,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "entrance",
         "open"
       ]
     },
@@ -1904,7 +1904,7 @@
         "solid",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
