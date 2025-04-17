@@ -844,7 +844,7 @@ function journalMenu(): void {
     ['foundship', `Find where **THE ASCENDING SWORD** is docked${api.keyGet('foundship') ? ' (Bay 82)' : ''}`],
     ['solvedguard', api.keyGet('metguard') ? 'Get past **THE ESTRANGED GUARD**' : 'Get past **THE GUARD**'],
     ['solvedsafe', 'Open the safe and grab **THE RED DEVASTATION**'],
-    ['solvedescape', `Disappear into the black${hasItem('key5') ? ' (Bay 42)' : ''}`],
+    ['solvedescape', `Disappear into the black${hasItem('key5') ? ' (Bay 47)' : ''}`],
   ];
   let x = INVENTORY_X;
   let w = INVENTORY_W;
