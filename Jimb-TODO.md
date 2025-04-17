@@ -1,9 +1,25 @@
 TODO
+* iterate on combat / progression
+  * set order of gear upgrades
+  * switch stats around so the first ones are not such a big bump
+  * have A varieties slightly worse than they are now
+* title/scores/credits
+* build out levels
+  * station
+  * zones - maybe aim for double enemy count
+  * ships
 LEVEL MECHANICS / NPCs TODO
   * station
     * if `soldierdrunk` - find a clue about dazzling gift location near shops
   * zone 0
     * set up old racer to die upon entering, then can loot
+
+Important art left
+* journal button
+* journal checkmarks / header / bg image
+* minigame space tile
+* player avatar + chicken hat varieties for hud
+* map icons
 
 POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
