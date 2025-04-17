@@ -857,6 +857,13 @@ dialogRegister({
     }
     myEnt().data.money = 9999;
 
+    keySet('rumor1');
+    keySet('foundship');
+    keySet('solvedguard');
+    keySet('metguard');
+    keySet('solvedsafe');
+    keySet('solvedescape');
+
     dialog('sign', 'GRANTED EVERYTHING');
   },
   // finale: function () {
