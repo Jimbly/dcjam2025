@@ -22,7 +22,7 @@ corners: # pillars and floor/ceiling details
       quadrants: 1
       radius: 0.125
       segments: 8
-      roundness: 0
+      roundness: 1
       atlas: moon
       tile: pillar1
       height: 1
@@ -41,7 +41,7 @@ corners: # pillars and floor/ceiling details
       quadrants: 2
       radius: 0.125
       segments: 8
-      roundness: 0
+      roundness: 1
       atlas: moon
       tile: pillar2
       height: 1
@@ -60,7 +60,7 @@ corners: # pillars and floor/ceiling details
       quadrants: 3
       radius: 0.125
       segments: 8
-      roundness: 0
+      roundness: 1
       atlas: moon
       tile: pillar3
       height: 1
