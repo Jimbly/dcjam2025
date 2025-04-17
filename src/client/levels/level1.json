@@ -2363,30 +2363,6 @@
       ]
     },
     {
-      "type": "critter2",
-      "pos": [
-        1,
-        6,
-        1
-      ]
-    },
-    {
-      "type": "critter3",
-      "pos": [
-        0,
-        6,
-        1
-      ]
-    },
-    {
-      "type": "critter4",
-      "pos": [
-        0,
-        7,
-        1
-      ]
-    },
-    {
       "type": "critter5",
       "pos": [
         0,
