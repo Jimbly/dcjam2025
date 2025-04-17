@@ -175,7 +175,7 @@ function startState(state: string): void {
       // nothing special
       if (me.data.stats.hp) {
         let tier = combat_state.target.data.stats.tier || 0;
-        if (tier === 4) {
+        if (combat_state.target.theguard) {
           dialog('killedguard');
         } else {
           giveReward({

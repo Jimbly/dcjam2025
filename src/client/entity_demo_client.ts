@@ -90,6 +90,8 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
   declare blocks_player: boolean;
   declare ai_move_min_time: number;
   declare ai_move_rand_time: number;
+  declare name?: string;
+  declare theguard?: boolean;
 
   not_dead_yet = false;
 

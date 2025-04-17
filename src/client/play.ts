@@ -457,7 +457,7 @@ function engagedEnemy(): Entity | null {
     if (!ent.is_enemy || !ent.isAlive()) {
       return false;
     }
-    if (ent.data.stats?.tier === 4 && crawlerScriptAPI().keyGet('solvedguard')) {
+    if (ent.theguard && crawlerScriptAPI().keyGet('solvedguard')) {
       return false;
     }
     return true;
@@ -707,7 +707,7 @@ function drawEnemyStats(ent: Entity): void {
 
   if (
     isDeadly(myEnt().data.stats, stats) &&
-    !(stats.tier === 4 && crawlerScriptAPI().keyGet('solvedguard'))
+    !(ent.theguard && crawlerScriptAPI().keyGet('solvedguard'))
   ) {
     box.color = color_danger;
   }
@@ -732,9 +732,8 @@ function drawEnemyStats(ent: Entity): void {
     text_height: uiTextHeight() * 0.75,
     z: subtitle_panel.z + 0.1,
     align: ALIGN.HVCENTERFIT,
-    text: stats.tier === 4 ? 'THE ESTRANGED GUARD' :
-      stats.tier === 3 ? 'PATIENT SENTRY' :
-      'HOSTILE',
+    text: ent.name || (stats.tier === 3 ? 'PATIENT SENTRY' :
+    'HOSTILE'),
   });
 
 }

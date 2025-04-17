@@ -1,11 +1,10 @@
 ---
 properties:
-  theguard: true
-  name: THE ESTRANGED GUARD
+  name: ULTIMA GUARD
 traits:
 - id: enemy
 - id: stats_default
-  # NOTE: don't change these stats, change combat_test.ts
+  # NOTE: keep in sync with enemyT4
   hp: 115 # boss
   attack: 36
   defense: 43

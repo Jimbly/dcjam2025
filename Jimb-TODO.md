@@ -1,6 +1,6 @@
 TODO
+* placeholders for locked/unlocked doors and secret doors for each vstyle, then ask
 * build out zone 2
-  * put a second copy of the guard guarding an easter egg
   * test it
 * title/scores/credits
 * don't allow manual moving in fullscreen map
@@ -70,6 +70,7 @@ Wrap-up
 * High Scores
 * Prune unused atlases and tiles from used atlases
 * Disable `/`
+* Add wander cat and nilo
 
 Polish
 * the pillar to the SW doesn't show up at the right time when rotating the camera
