@@ -369,7 +369,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       w: button_w,
       disabled: !numMedkits() || me.data.stats.hp === me.data.stats.hp_max,
       text: 'USE MED-KIT',
-      hotkey: KEYS.SPACE,
+      hotkeys: [KEYS.SPACE, KEYS.H],
       hotpad: PAD.SELECT,
     })) {
       useMedkit();

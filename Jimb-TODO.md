@@ -1,5 +1,4 @@
 TODO
-* medkit hotkey (put in description of medkit)
 * title/scores/credits
 * don't allow manual moving in fullscreen map
 * on next combat playtest
@@ -69,6 +68,7 @@ Wrap-up
 * Credits
 * High Scores
 * Prune unused atlases and tiles from used atlases
+* Copy item descriptions/names from doc
 * Disable `/`
 * Add wander cat and nilo
 * remove DEBUG events

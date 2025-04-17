@@ -19,6 +19,7 @@ import {
   keyUpEdge,
   PAD,
   padButtonDown,
+  padButtonDownEdge,
   padButtonUpEdge,
 } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
@@ -1575,6 +1576,28 @@ function playCrawl(): void {
   }
   if (travel_game) {
     doTravelGame();
+  }
+
+  if (!travel_game && !journal_up && !pause_menu_up && !frame_combat && !controller.hasMoveBlocker()) {
+    let { data } = myEnt();
+    if (keyDownEdge(KEYS.H) || padButtonDownEdge(PAD.SELECT)) {
+      if (!hasItem('med1')) {
+        statusPush('I\'m all outta **Med-Kits**.');
+      } else if (data.stats.hp >= data.stats.hp_max) {
+        statusPush('I don\'t need medical attention right now.');
+      } else {
+        let { inventory } = data;
+        let index = -1;
+        for (let ii = 0; ii < inventory.length; ++ii) {
+          if (inventory[ii].item_id === 'med1') {
+            index = ii;
+          }
+        }
+        assert(index !== -1);
+        statusPush('Used **Med-Kit**');
+        useItem(index);
+      }
+    }
   }
 
   let game_state = crawlerGameState();
