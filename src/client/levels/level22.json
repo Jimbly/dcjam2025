@@ -1,0 +1,709 @@
+{
+  "special_pos": {
+    "stairs_in": [
+      3,
+      0,
+      1
+    ],
+    "stairs_out": [
+      3,
+      8,
+      2
+    ]
+  },
+  "w": 8,
+  "h": 8,
+  "cells": [
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "stairs_in",
+      "walls": [
+        "solid",
+        "door",
+        "solid",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "-2"
+        }
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "solid",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "door",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "stairs_in"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "door_oneway",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "solid"
+      ],
+      "props": {
+        "loot": "key3"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "solid",
+        "door"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "open",
+        "solid"
+      ],
+      "props": {
+        "loot": "offhand3b"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "door",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "open",
+        "solid"
+      ],
+      "props": {
+        "loot": "med1"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "solid",
+        "door"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "open",
+        "solid"
+      ],
+      "props": {
+        "loot": "offhand2"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "solid",
+        "solid"
+      ],
+      "props": {
+        "loot": "money 2000"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "solid",
+        "solid"
+      ],
+      "props": {
+        "loot": "torso2"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "door",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "open",
+        "solid"
+      ],
+      "props": {
+        "loot": "med1"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "solid",
+        "solid"
+      ],
+      "props": {
+        "loot": "weapon4"
+      }
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "door"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
+        "open",
+        "open"
+      ],
+      "props": {
+        "loot": "weapon2"
+      }
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    }
+  ],
+  "initial_entities": [
+    {
+      "type": "chest",
+      "pos": [
+        4,
+        4,
+        0
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        6,
+        6,
+        3
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        5,
+        1,
+        1
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        2,
+        4,
+        2
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        5,
+        3,
+        2
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        5,
+        5,
+        2
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        1,
+        5,
+        0
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        1,
+        6,
+        0
+      ]
+    }
+  ],
+  "state": {},
+  "vstyle": "moon",
+  "seed": "32845502",
+  "props": {
+    "title": "ATLAS 7",
+    "subtitle": "Zone 1 Test"
+  },
+  "paths": {}
+}

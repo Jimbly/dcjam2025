@@ -898,7 +898,7 @@ function showPaintPaletteConfig(level: CrawlerLevel, x1: number): void {
     }
   }
   for (let key in spawn_descs) {
-    if (key !== 'player') {
+    if (key !== 'player' && !spawn_descs[key]!.example_ent.build_hide) {
       all_descs.push(['spawn', spawn_descs[key]!]);
     }
   }
