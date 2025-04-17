@@ -5,5 +5,5 @@ advertise_other_side: true
 visuals:
   type: simple_wall
   opts:
-    atlas: station
+    atlas: moon
     tile: door-locked

@@ -6,4 +6,4 @@ visuals:
   type: simple_wall
   opts:
     atlas: station
-    tile: door
+    tile: door-unlocked
