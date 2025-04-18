@@ -33,7 +33,7 @@ const { abs, pow, max, min, floor, round, PI } = Math;
 type Entity = EntityDemoClient;
 
 const REWARD_TIERS = [
-  50,
+  40,
   75,
   100,
   350,

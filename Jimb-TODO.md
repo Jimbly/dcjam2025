@@ -1,18 +1,15 @@
 TODO
 * build out levels
-  * switch zone 2 to use ship, and use station on the ships
   * station
-  * ships
 * display medkit count on hud and (H)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
 * equip stats changes green/red numbers for better/worse, grey the old
 * Saturday polish
-  * zone 2 - put only the item that have a B variety behind secret doors
   * zone 1 - needs some locked doors and keys
-  * use the right enemies on the right floors
   * item descriptions and ensure they all fit reasonably
+  * remove debug nooks
 
 COMBAT POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
@@ -54,7 +51,7 @@ Wrap-up
 * Copy item descriptions/names from doc
 * Disable `/`
 * Add wander cat and nilo
-* remove DEBUG events
+* remove DEBUG events / debug nooks
 
 Polish
 * random NPCs moving around the station

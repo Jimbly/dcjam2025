@@ -9576,6 +9576,9 @@
   "state": {},
   "vstyle": "base",
   "seed": "20519926",
-  "props": {},
+  "props": {
+    "title": "CALLIOPE",
+    "subtitle": "Abandoned Ruins"
+  },
   "paths": {}
 }

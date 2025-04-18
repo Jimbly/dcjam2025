@@ -2,162 +2,18 @@
   "special_pos": {
     "stairs_in": [
       7,
-      1,
+      0,
       1
     ],
     "stairs_out": [
-      3,
-      8,
-      2
+      7,
+      0,
+      1
     ]
   },
   "w": 16,
   "h": 16,
   "cells": [
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
     {
       "id": "solid",
       "walls": [
@@ -366,7 +222,7 @@
       "id": "solid",
       "walls": [
         "solid",
-        "solid",
+        "open",
         "open",
         "open"
       ]
@@ -374,9 +230,9 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "station_decal_3",
         "open",
-        "solid",
+        "station_decal_3",
         "stairs_in"
       ],
       "events": [
@@ -390,6 +246,150 @@
       "id": "solid",
       "walls": [
         "open",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_decal_3",
+        "station_bulkhead",
+        "station_decal_3",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
         "solid",
         "solid",
         "open"
@@ -516,8 +516,8 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "station_solid3a",
+        "station_decal_1",
+        "station_solid3",
         "solid"
       ]
     },
@@ -527,7 +527,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "station_bulkhead"
       ],
       "events": [
         {
@@ -539,8 +539,8 @@
     {
       "id": "open",
       "walls": [
-        "station_solid3a",
-        "solid",
+        "station_solid3",
+        "station_decal_1",
         "open",
         "solid"
       ]
@@ -802,7 +802,7 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "station_solid3",
         "solid"
       ]
     },
@@ -812,7 +812,7 @@
         "open",
         "door",
         "open",
-        "solid"
+        "station_decal_1"
       ]
     },
     {
@@ -830,13 +830,13 @@
         "open",
         "door",
         "open",
-        "solid"
+        "station_decal_1"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "station_solid3",
         "solid",
         "open",
         "solid"
@@ -965,7 +965,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "station_decal_5"
       ]
     },
     {
@@ -1099,7 +1099,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "station_decal_1",
         "open"
       ]
     },
@@ -1122,7 +1122,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "station_decal_1",
         "open",
         "open",
         "open"
@@ -1249,7 +1249,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "station_decal_5",
         "solid",
         "open"
       ]
@@ -1258,7 +1258,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "door_locked",
         "open",
         "open"
       ]
@@ -1267,7 +1267,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
+        "station_decal_3",
         "open",
         "open"
       ]
@@ -1404,7 +1404,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "door_locked"
       ]
     },
     {
@@ -2363,7 +2363,7 @@
     }
   ],
   "state": {},
-  "vstyle": "ship",
+  "vstyle": "station",
   "seed": "32845502",
   "props": {
     "title": "THE ASCENDING SWORD",

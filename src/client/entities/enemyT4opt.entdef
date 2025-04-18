@@ -15,7 +15,7 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [critter-13]
+      frames: [critter5]
       times: 10000
   sprite_data:
     atlas: critters
@@ -24,5 +24,9 @@ traits:
     origin: [0.5, 1]
   scale: 0.85
   simple_anim:
-    - period: 7113
-      scale: [1, 0.88]
+    # - period: 7113
+    #   scale: [1, 0.88]
+    - period: 4000
+      offs:
+        - [0, -0.10]
+        - [0, 0]

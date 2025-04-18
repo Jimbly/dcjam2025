@@ -14,7 +14,7 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [critter6]
+      frames: [critter-13]
       times: 10000
   sprite_data:
     atlas: critters

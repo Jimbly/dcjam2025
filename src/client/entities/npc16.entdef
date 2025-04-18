@@ -1,15 +1,5 @@
 ---
-properties:
 traits:
-- id: enemy
-- id: stats_default
-  # NOTE: don't change these stats, change combat_test.ts
-  hp: 70 # boss
-  attack: 19
-  defense: 18
-  accuracy: 18
-  dodge: 15
-  tier: 3
 - id: drawable
 - id: drawable_sprite
   anim_data:
@@ -17,7 +7,7 @@ traits:
       frames: [critter5]
       times: 10000
   sprite_data:
-    atlas: critters
+    atlas: npcs
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
     origin: [0.5, 1]

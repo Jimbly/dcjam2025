@@ -33,7 +33,7 @@ tiles:
   stairs_out: [1,4]
   icon_shop1: [3,4]
   icon_shop2: [4,4]
-  icon_moveblocker: [3,4]
+  icon_moveblocker: [5,4]
 
   enemy: [1,5]
   chest: [2,5]
