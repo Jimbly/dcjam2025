@@ -102,7 +102,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "door",
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "solid",
@@ -120,7 +120,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "solid",
         "open",
@@ -201,7 +201,7 @@
       }
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "solid",
         "open",
@@ -261,7 +261,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "door",
@@ -270,7 +270,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "solid",
@@ -279,7 +279,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "open",
@@ -288,7 +288,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "solid",
@@ -297,7 +297,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "solid",
         "solid",
@@ -357,7 +357,7 @@
       }
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "solid",
         "open",
@@ -414,7 +414,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "solid",
@@ -426,7 +426,7 @@
       }
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "solid",
@@ -435,7 +435,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "door",
@@ -444,7 +444,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "open",
         "solid",
@@ -453,7 +453,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_open_sky",
       "walls": [
         "solid",
         "solid",
