@@ -220,6 +220,7 @@ dialogRegister({
       // });
     }
     if (hasItem('key1')) {
+      keySet('metguard');
       return dialogPush({
         custom_render: nameRender(name),
         text: 'I told you to leave!',
@@ -433,6 +434,35 @@ dialogRegister({
     }
     if (!keyGet('metguard') || !keyGet('foundship') || keyGet('solvedescape')) {
       return signWithName(name, 'Let me tell you about how we fought against THE NEW ALLIANCE in the last war...');
+    }
+    if (!keyGet('metcaptain')) {
+      keySet('metcaptain');
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: 'How\'s it going?',
+        buttons: [{
+          label: 'SHINY.  I NEED A FAVOR.',
+          cb: function () {
+            dialogPush({
+              custom_render: nameRender(name),
+              text: '30% cut as usual.',
+              buttons: [{
+                label: '30% SEEMS TOTALLY FAIR, HOWEVER THIS ONE\'S COMPLICATED...',
+                cb: function () {
+                  dialogPush({
+                    custom_render: nameRender(name),
+                    text: 'Just keep my name out of it.',
+                    buttons: [{
+                      label: 'HOW MUCH WILL IT COST ME?',
+                      cb: 'captain',
+                    }],
+                  });
+                },
+              }],
+            });
+          },
+        }],
+      });
     }
     if (myEnt().data.money < COST_ESCAPE) {
       return signWithName(name, `Need some off-the-books transit outta here?  It'll cost you [img=icon-currency]${COST_ESCAPE}.`);

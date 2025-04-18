@@ -1,5 +1,6 @@
 TODO
 * build out levels
+  * switch zone 2 to use ship, and use station on the ships
   * station
   * ships
 * display medkit count on hud and (H)
@@ -10,12 +11,12 @@ TODO
 * Saturday polish
   * zone 2 - put only the item that have a B variety behind secret doors
   * zone 1 - needs some locked doors and keys
+  * use the right enemies on the right floors
   * item descriptions and ensure they all fit reasonably
 
 LEVEL MECHANICS / NPCs TODO
   * station
     * if `soldierdrunk` - find a clue about dazzling gift location near shops
-    * autosave upon returning to the station - just add a "return" event for zones?
     * icon on bay 82 and 47 on the minimap
   * other ships
     * need to return to the right spot
