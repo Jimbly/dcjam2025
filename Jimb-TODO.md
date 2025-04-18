@@ -1,11 +1,7 @@
 TODO
-* title/scores/credits
-  * high score: money accumulated - give big reward for T4s! + time
 * build out levels
-  * put only the items that have a B variety behind secret doors in zones 2 as well!
   * zones - maybe aim for double enemy count (and 4 medkits)
     * zone 0
-    * zone 1 - needs some locked doors and keys
   * station
   * ships
 * display medkit count on hud and (H)
@@ -13,6 +9,9 @@ TODO
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
 * equip stats changes green/red numbers for better/worse, grey the old
+* Saturday polish
+  * zone 2 - put only the item that have a B variety behind secret doors
+  * zone 1 - needs some locked doors and keys
 
 LEVEL MECHANICS / NPCs TODO
   * guard needs option to not give him the gift (so you can manually fight)
