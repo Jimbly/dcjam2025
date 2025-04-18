@@ -1058,7 +1058,7 @@ function inventoryMenu(frame_combat: boolean): void {
     if (item_def.item_type === 'consumable') {
       desired_hp_percent = stats.hp / stats.hp_max;
     } else {
-      stats.hp = clamp(round(desired_hp_percent * stats.hp_max), 1, stats.hp_max);
+      stats.hp = clamp(floor(desired_hp_percent * stats.hp_max), 1, stats.hp_max);
     }
   }
 
@@ -1081,7 +1081,7 @@ function inventoryMenu(frame_combat: boolean): void {
       }
       equip(preview_stats_final, item_def, true);
       if (item_def.item_type !== 'consumable') {
-        preview_stats_final.hp = clamp(round(desired_hp_percent * preview_stats_final.hp_max), 1,
+        preview_stats_final.hp = clamp(floor(desired_hp_percent * preview_stats_final.hp_max), 1,
           preview_stats_final.hp_max);
       }
     }

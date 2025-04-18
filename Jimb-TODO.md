@@ -10,10 +10,7 @@ TODO
 * Saturday polish
   * item descriptions and ensure they all fit reasonably
   * remove debug nooks
-
-COMBAT POLISH
-* B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
-  * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
+  * random NPCs moving around the station
 
 Wrap-up
 * Credits - put in names
@@ -25,7 +22,6 @@ Wrap-up
 * remove DEBUG events / debug nooks
 
 Polish
-* random NPCs moving around the station
 * race game
   * ramp-up period with only a few asteroids
   * slightly bigger minimum gap between them
