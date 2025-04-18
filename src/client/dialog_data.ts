@@ -11,6 +11,7 @@ import {
   CrawlerScriptEventMapIcon,
 } from '../common/crawler_script';
 import { crawlerScriptAPI } from './crawler_play';
+import { creditsGo } from './credits';
 import {
   dialog,
   dialogPush,
@@ -416,10 +417,10 @@ dialogRegister({
     dialogPush({
       text: 'Good choice.  THANKS FOR PLAYING!',
       buttons: [{
-        label: 'RETURN TO TITLE SCREEN',
+        label: 'YOU\'RE WELCOME',
         cb: function () {
           queueTransition();
-          urlhash.go('');
+          creditsGo();
         },
       }]
     });

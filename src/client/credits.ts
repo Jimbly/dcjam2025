@@ -42,11 +42,15 @@ See page on itch.io for links
 
 [c=creditstitle]AI CONTENT[/c]
 No generative AI was used in the creation of this game
+(except the Jam Anthem provided by the jam host)
 
 [c=creditstitle]ENGINE[/c]
 [c=creditsname]GLOV.js + crawler toolkit[/c]
 [c=creditsname]MIT Licensed[/c]
 [c=creditsname]by Jimb Esser[/c]
+
+[c=xp]CREDITS MUSIC[/c]
+[c=sanity]Zooperdan via Suno.ai[/c]
 
 [c=creditstitle]SPECIAL THANKS[/c]
 [c=creditsname]The DungeonCrawlers.org Discord[/c]
@@ -66,7 +70,7 @@ function exit(): void {
   engine.setState(titleInit);
 }
 function doCredits(dt: number): void {
-  tickMusic('menu');
+  tickMusic('dcjamtheme');
 
   titleDrawBG(dt);
 
