@@ -16,7 +16,6 @@ TODO
 
 LEVEL MECHANICS / NPCs TODO
   * other ships
-    * need to return to the right spot
     * need dialog about being locked up tight
 
 COMBAT POLISH

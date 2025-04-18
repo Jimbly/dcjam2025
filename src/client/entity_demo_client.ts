@@ -68,6 +68,8 @@ export type EntityDataClient = {
   score_money: number;
   score_won?: number;
   events_done?: Partial<Record<string, boolean>>;
+  last_ship_pos?: JSVec3;
+  last_ship_floor?: number;
 } & EntityCrawlerDataCommon;
 
 
