@@ -8,10 +8,11 @@ TODO
     * zone 1 - needs some locked doors and keys
   * station
   * ships
+* display medkit count on hud and (H)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
-* use `combat-hit-crit-2` in race game upon death
+* equip stats changes green/red numbers for better/worse, grey the old
 
 LEVEL MECHANICS / NPCs TODO
   * guard needs option to not give him the gift (so you can manually fight)
@@ -22,14 +23,7 @@ LEVEL MECHANICS / NPCs TODO
   * zone 0
     * set up old racer to die upon entering, then can loot
 
-Important art left
-* journal button
-* journal checkmarks / header / bg image
-* minigame space tile
-* player avatar + chicken hat varieties for hud
-* map icons
-
-POLISH
+COMBAT POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
 
@@ -75,9 +69,16 @@ Wrap-up
 * remove DEBUG events
 
 Polish
-* travel game: do a "safe!" thing for a moment so you stop pressing forward at the end
+* race game
+  * ramp-up period with only a few asteroids
+  * slightly bigger minimum gap between them
+  * use `combat-hit-crit-2` in race game upon death
+  * travel game: do a "safe!" thing for a moment so you stop pressing forward at the end?
 * fullscreen map view spread color to full view
 * fade out ent at start of combat
+* critical health draw red
+* show player HP as big colorful text in combat
+* pop-up upon getting any item except medkits, give quick equip option
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * auto-unload auto-atlases that are no longer in use?

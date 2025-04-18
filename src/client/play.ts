@@ -264,27 +264,30 @@ const selbox_display: Partial<SelectionBoxDisplay> = {
   style_down: fontStyleColored(null, 0x000000ff),
 };
 
-function modalBackground(min_w: number, min_h: number, label: Sprite | null): void {
+export function modalBackground(
+  min_w: number, min_h: number, label: Sprite | null, z_override?: number, yoffs?: number
+): void {
+  let z = z_override || Z.MODAL;
   let modal_frame_h = min_h * 825/605;
   let modal_frame_w = max(modal_frame_h / 825 * 657,
     min_w * 657/483);
   modal_frame_h = modal_frame_w / 657 * 825;
   let box = {
     x: (game_width - modal_frame_w) / 2,
-    y: (game_height - modal_frame_h) / 2,
+    y: (game_height - modal_frame_h) / 2 + (yoffs || 0),
     w: modal_frame_w,
     h: modal_frame_h,
-    z: Z.MODAL + 0.3,
+    z: z + 0.3,
   };
   modal_frame.draw(box);
   modal_bg_bottom_add.draw({
     ...box,
-    z: Z.MODAL + 0.1,
+    z: z + 0.1,
     blend: BLEND_ADDITIVE,
   });
   modal_bg_top_mult.draw({
     ...box,
-    z: Z.MODAL + 0.2,
+    z: z + 0.2,
     blend: BLEND_MULTIPLY,
   });
   if (label) {
@@ -292,12 +295,14 @@ function modalBackground(min_w: number, min_h: number, label: Sprite | null): vo
     label.draw({
       x: box.x - 8,
       y: box.y - (label === modal_label_options ? 23 : 32),
-      z: Z.MODAL + 0.4,
+      z: z + 0.4,
       w: label_w,
       h: label_w / label.getAspect(),
     });
   }
-  menuUp();
+  if (!z_override) {
+    menuUp();
+  }
 }
 
 const PAUSE_MENU_W = 120;
