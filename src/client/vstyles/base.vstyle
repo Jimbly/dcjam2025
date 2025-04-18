@@ -6,10 +6,12 @@ background_color: [1.000, 0.929, 0.890]
 background_img: base_sky
 fog_params:
 - 0.0025 # color extinction rate
-- 0.0003 # fog rate
+- 0.0002 # fog rate
 - 450.0
 cell_swaps:
   open: base_open
+  floorswitch: base_open
+  floorswitch_on: base_open
 wall_swaps:
   open: base_open
   door: base_door
@@ -22,4 +24,3 @@ wall_swaps:
   solid: base_solid1
   stairs_in: base_stairs_in
   stairs_out: base_stairs_out
-  # floorswitch: demo_floorswitch
