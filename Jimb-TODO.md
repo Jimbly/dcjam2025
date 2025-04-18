@@ -14,10 +14,6 @@ TODO
   * use the right enemies on the right floors
   * item descriptions and ensure they all fit reasonably
 
-LEVEL MECHANICS / NPCs TODO
-  * other ships
-    * need dialog about being locked up tight
-
 COMBAT POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse

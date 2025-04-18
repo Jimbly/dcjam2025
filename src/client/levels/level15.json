@@ -1194,18 +1194,24 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "station_decal_3",
         "stairs_in",
-        "solid"
+        "station_decal_3"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "door_locked",
+        "station_decal_3",
         "open",
-        "solid"
+        "station_decal_3"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "othership"
+        }
       ]
     },
     {
@@ -1213,7 +1219,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "door_locked",
         "open"
       ]
     },
@@ -2326,7 +2332,7 @@
     }
   ],
   "state": {},
-  "vstyle": "ship",
+  "vstyle": "station",
   "seed": "32845502",
   "props": {
     "title": "DOCKED SHIP",
