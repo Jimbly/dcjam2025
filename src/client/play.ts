@@ -591,6 +591,32 @@ function moveBlockDead(): boolean {
   return true;
 }
 
+const style_stats_better = fontStyle(style_hud_value, {
+  color: 0x008000ff,
+  outline_color: 0x008000ff,
+});
+const style_stats_worse = fontStyle(style_hud_value, {
+  color: 0x800000ff,
+  outline_color: 0x800000ff,
+});
+const style_stats_replaced = fontStyle(style_hud_value, {
+  color: 0x808080ff,
+  outline_color: 0x808080ff,
+});
+
+function betterValue(a: string | number, b: string | number): boolean {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return b > a;
+  }
+  assert(typeof a === 'string' && typeof b === 'string');
+  let aa = a.split('/').map(Number);
+  let bb = b.split('/').map(Number);
+  if (aa[1] !== bb[1]) {
+    return bb[1] > aa[1];
+  }
+  return bb[0] > aa[0];
+}
+
 const STATSPAD = 8;
 function statsLineEx(
   x: number, y: number, z: number, w: number,
@@ -622,18 +648,18 @@ function statsLineEx(
       z,
       w: text_full_w,
       align: ALIGN.HRIGHT,
-      style: style_hud_value,
+      style: style_stats_replaced,
       size: text_height,
       text: String(value),
     });
     let line_start = x + text_full_w - value_w - 1;
-    drawLine(line_start, y+1, x + text_full_w + 1, y+1, z + 0.1, 1, 1, [0,0,0,1]);
+    drawLine(line_start, y+1, x + text_full_w + 1, y+1, z + 0.1, 1, 1, [0.5,0.5,0.5,1]);
     font.draw({
       x: line_start - 2,
       y: y - 3,
       z,
       align: ALIGN.HRIGHT,
-      style: style_hud_value,
+      style: betterValue(value, other_value) ? style_stats_better: style_stats_worse,
       size: text_height,
       text: String(other_value),
     });
