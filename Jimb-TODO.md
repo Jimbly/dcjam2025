@@ -1,14 +1,15 @@
 TODO
 * title/scores/credits
-* don't allow manual moving in fullscreen map
+* build out levels
+  * zones - maybe aim for double enemy count (and 4 medkits)
+    * zone
+  * station
+  * ships
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
 * use `combat-hit-crit-2` in race game upon death
-* build out levels
-  * station
-  * zones - maybe aim for double enemy count (and 4 medkits)
-  * ships
+
 LEVEL MECHANICS / NPCs TODO
   * guard needs option to not give him the gift (so you can manually fight)
   * station
@@ -26,11 +27,8 @@ Important art left
 * map icons
 
 POLISH
-* travel game: do a "safe!" thing so you stop pressing forward at the end
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
-* fullscreen map view spread color to full view
-* fade out ent at start of combat
 
 ZONES
 * respawn all B/C entities
@@ -68,12 +66,16 @@ Wrap-up
 * Credits
 * High Scores
 * Prune unused atlases and tiles from used atlases
+* Check background color / door fade color in each level
 * Copy item descriptions/names from doc
 * Disable `/`
 * Add wander cat and nilo
 * remove DEBUG events
 
 Polish
+* travel game: do a "safe!" thing for a moment so you stop pressing forward at the end
+* fullscreen map view spread color to full view
+* fade out ent at start of combat
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * auto-unload auto-atlases that are no longer in use?

@@ -1645,7 +1645,7 @@ function playCrawl(): void {
       button_w: build_mode ? 6 : BUTTON_W,
       button_sprites: useNoText() ? button_sprites_notext : button_sprites,
       disable_move: moveBlocked() || overlay_menu_up,
-      disable_player_impulse: Boolean(frame_combat || locked_dialog),
+      disable_player_impulse: Boolean(frame_combat || locked_dialog || mapViewActive()),
       show_buttons: !frame_combat && !locked_dialog,
       do_debug_move: engine.defines.LEVEL_GEN || build_mode,
       show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
