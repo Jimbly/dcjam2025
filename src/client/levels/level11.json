@@ -219,6 +219,12 @@
         "open",
         "open",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "oldracer"
+        }
       ]
     },
     {
@@ -9556,6 +9562,14 @@
         18,
         33,
         3
+      ]
+    },
+    {
+      "type": "npc08",
+      "pos": [
+        22,
+        0,
+        2
       ]
     }
   ],

@@ -16,10 +16,10 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [critter-13]
+      frames: [npc-2]
       times: 10000
   sprite_data:
-    atlas: critters
+    atlas: npcs
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
     origin: [0.5, 1]

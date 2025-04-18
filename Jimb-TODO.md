@@ -1,7 +1,5 @@
 TODO
 * build out levels
-  * zones - maybe aim for double enemy count (and 4 medkits)
-    * zone 0
   * station
   * ships
 * display medkit count on hud and (H)
@@ -15,13 +13,13 @@ TODO
   * item descriptions and ensure they all fit reasonably
 
 LEVEL MECHANICS / NPCs TODO
-  * guard needs option to not give him the gift (so you can manually fight)
   * station
     * if `soldierdrunk` - find a clue about dazzling gift location near shops
     * autosave upon returning to the station - just add a "return" event for zones?
     * icon on bay 82 and 47 on the minimap
-  * zone 0
-    * set up old racer to die upon entering, then can loot
+  * other ships
+    * need to return to the right spot
+    * need dialog about being locked up tight
 
 COMBAT POLISH
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level

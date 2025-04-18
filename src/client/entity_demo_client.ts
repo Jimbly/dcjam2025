@@ -67,6 +67,7 @@ export type EntityDataClient = {
   cheat?: number;
   score_money: number;
   score_won?: number;
+  events_done?: Partial<Record<string, boolean>>;
 } & EntityCrawlerDataCommon;
 
 

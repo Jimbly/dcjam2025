@@ -24,6 +24,7 @@ import {
   giveReward,
   itemTier,
   myEnt,
+  myEntOptional,
   queueTransition,
   setScore,
 } from './play';
@@ -78,6 +79,48 @@ function consumeItem(item_id: string): void {
     }
   }
 }
+
+function killEntWhereIStand(type_id: string): void {
+  let api = crawlerScriptAPI();
+  let ents = entitiesAt(entityManager(), api.pos, api.getFloor(), true);
+  ents = ents.filter((ent) => {
+    return ent.type_id === type_id;
+  });
+  if (ents.length) {
+    entityManager().deleteEntity(ents[0].id, 'story');
+  }
+}
+
+function killEntOnFloor(type_id: string): void {
+  let api = crawlerScriptAPI();
+  let { entities } = entityManager();
+  let floor_id = api.getFloor();
+  for (let key in entities) {
+    let ent = entities[key]!;
+    if (!ent.fading_out && ent.type_id === type_id && ent.data.floor === floor_id) {
+      entityManager().deleteEntity(ent.id, 'story');
+    }
+  }
+}
+
+export function onetimeEventForPos(x: number, y: number, query_only?: boolean): boolean {
+  let me = myEntOptional();
+  let events_done = me ? me.data.events_done = me.data.events_done || {} : {};
+  let pos_key = `${crawlerScriptAPI().getFloor()},${x},${y}`;
+  if (events_done[pos_key]) {
+    return false;
+  }
+  if (!query_only) {
+    events_done[pos_key] = true;
+  }
+  return true;
+}
+
+export function onetimeEvent(query_only?: boolean): boolean {
+  let pos = crawlerScriptAPI().pos;
+  return onetimeEventForPos(pos[0], pos[1], query_only);
+}
+
 
 function nameRender(name: string): (param: PanelParam) => void {
   return function (param: PanelParam): void {
@@ -141,11 +184,12 @@ function numMedkitsMessage(): string {
   return `(Med-Kits owned: ${numMedkits()})`;
 }
 
-export function signWithName(name: string, message: string): void {
+export function signWithName(name: string, message: string, transient_long?: boolean): void {
   dialogPush({
     custom_render: nameRender(name),
     text: message,
     transient: true,
+    transient_long,
   });
 }
 
@@ -154,7 +198,7 @@ dialogRegister({
     if (keyGet('rumor1')) {
       return;
     }
-    signWithName('MONOLOGUING', 'There\'s gotta be something coming through this station worth my "talents"...  Let\'s see what the rumor mill has today.');
+    signWithName('MONOLOGUING', 'There\'s gotta be something coming through this station worth my "talents"...  Let\'s see what the rumor mill has today.', true);
   },
 });
 
@@ -163,28 +207,59 @@ dialogRegister({
     if (!keyGet('enteredship')) {
       keySet('foundship');
       keySet('enteredship');
-      return signWithName('MONOLOGUING', 'Ah, this must be **THE ASCENDING SWORD**.  Surely **THE RED DEVASTATION** must be onboard somewhere, locked in a safe, beyond that guard.');
+      return signWithName('MONOLOGUING', 'Ah, this must be **THE ASCENDING SWORD**.  Surely **THE RED DEVASTATION** must be onboard somewhere, locked in a safe, beyond that guard.', true);
     }
   },
   theship2: function () {
     let name = 'THE ESTRANGED GUARD';
     if (keyGet('solvedguard')) {
-      return dialogPush({
-        text: '**THE ESTRANGED GUARD** looks the other way...',
-        transient: true,
-      });
+      return;
+      // return dialogPush({
+      //   text: '**THE ESTRANGED GUARD** looks the other way...',
+      //   transient: true,
+      // });
     }
     if (hasItem('key1')) {
       return dialogPush({
         custom_render: nameRender(name),
-        text: '<give gift for look other way>',
+        text: 'I told you to leave!',
         buttons: [{
-          label: 'YOU CAN HAVE IT',
+          label: 'I HEAD THAT YOU HAVE AN IMPORTANT DAY COMING UP... (give **GIFT**)',
           cb: function () {
-            consumeItem('key1');
-            keySet('solvedguard');
-            dialog('theship2');
+            dialogPush({
+              custom_render: nameRender(name),
+              text: '**THE DAZZLING GIFT**?  How much do you want for it?',
+              buttons: [{
+                label: 'NO MONEY.  I JUST NEED YOU TO BE AWAY FROM THIS SHIP FOR A MOMENT...',
+                cb: function () {
+                  dialogPush({
+                    custom_render: nameRender(name),
+                    text: 'Blast it.  You know I can\'t leave my post.',
+                    buttons: [{
+                      label: 'AND YOU CAN\'T BE EMPTY-HANDED FOR YOUR ANNIVERSARY...',
+                      cb: function () {
+                        consumeItem('key1');
+                        dialogPush({
+                          custom_render: nameRender(name),
+                          text: 'Ugh, this is exactly what I need...',
+                          buttons: [{
+                            label: 'COME ON, NO MONEY.  JUST WALK AWAY.',
+                            cb: function () {
+                              keySet('solvedguard');
+                              killEntOnFloor('enemyT4');
+                              signWithName(name, 'Fine.  Deal.');
+                            },
+                          }],
+                        });
+                      },
+                    }],
+                  });
+                },
+              }],
+            });
           },
+        }, {
+          label: 'I WAS JUST LEAVING...',
         }]
       });
     }
@@ -212,7 +287,7 @@ dialogRegister({
       return;
     }
     if (!keyGet('solvedsafe')) {
-      return signWithName('MONOLOGUING', 'I\'m going to need **THE SAFE COMBINATION** to open this...');
+      return signWithName('MONOLOGUING', 'Locked, of course.  And there\'s no way I\'ll be able to blast things thing open.  Surely someone here knows **THE SAFE COMBINATION**.');
     }
     if (!keyGet('solvedescape')) {
       return signWithName('MONOLOGUING', 'I need a plan of escape before I take this and set off the alarm...');
@@ -261,7 +336,7 @@ dialogRegister({
           cb: function () {
             dialogPush({
               custom_render: nameRender(name),
-              text: "Kid, I'm off the clock. And if you think that I'm gonna give you any info about my work, you're either crazy or stupid.",
+              text: "Kid, I'm off the clock.  And if you think that I'm gonna give you any info about my work, you're either crazy or stupid.",
               buttons: [{
                 label: `BUY HIM A DRINK ([img=icon-currency]${DRINK_COST})`,
                 cb: 'soldierbuydrink',
@@ -290,7 +365,7 @@ dialogRegister({
 
     let list = [
       ['soldierdrink1', '...Stars, this stuff ain\'t bad.'],
-      ['soldierdrink2', 'I could’ve been something. But I had to go into the force.'],
+      ['soldierdrink2', "I could've been something. But I had to go into the force."],
       ['soldierdrink3', 'Being an explorer must be fun. No rules, make your own schedule.'],
     ];
     let did_set = false;
@@ -524,7 +599,7 @@ dialogIconsRegister({
 dialogRegister({
   dockingwander: function () {
     if (!keyGet('foundship')) {
-      signWithName('MONOLOGUING', 'Searching one-by-one will take forever.  Maybe one of the **shiptakers** knows where **THE ASCENDING SWORD** is.');
+      signWithName('MONOLOGUING', 'Searching one-by-one will take forever.  Maybe one of the **shiptakers** knows where **THE ASCENDING SWORD** is.', true);
       keySet('lookedforship');
     }
   },
@@ -548,6 +623,12 @@ dialogIconsRegister({
     }
     return 'icon_question';
   },
+  oldracer: () => {
+    if (keyGet('lookingforship') && !keyGet('racerdied')) {
+      return 'icon_exclamation';
+    }
+    return null;
+  },
 });
 dialogRegister({
   shiptaker: function () {
@@ -564,19 +645,28 @@ dialogRegister({
     if (hasItem('key2')) {
       keySet('foundship');
       keySet('foundshipbyshiptaker');
-      consumeItem('key2');
       return dialogPush({
         custom_render: nameRender(name),
-        text: '<insert story> **THE ASCENDING SWORD** is in Bay **#82**',
+        text: 'You\'ve done it, **THE GOLDEN ROCKET**!',
         buttons: [{
-          label: 'GLAD I COULD HELP.',
+          label: 'YOU CAN KEEP IT, THE WINNER DOESN\'T NEED IT ANYMORE',
+          cb: function () {
+            consumeItem('key2');
+            dialogPush({
+              custom_render: nameRender(name),
+              text: 'Pops is gonna be ecstatic!  You did good, kid.  You want to know about **THE ASCENDING SWORD**? It\'s in Bay **#82**.',
+              buttons: [{
+                label: 'GLAD I COULD HELP...',
+              }],
+            });
+          },
         }],
       });
     }
     if (!keyGet('lookingforship')) {
       return dialogPush({
         custom_render: nameRender(name),
-        text: 'I know every ship that docks or leaves this station.',
+        text: 'I know every ship that docks or departs this station.',
         buttons: [{
           label: `BUY HIM A DRINK ([img=icon-currency]${DRINK_COST})`,
           cb: function () {
@@ -588,7 +678,7 @@ dialogRegister({
 
             dialogPush({
               custom_render: nameRender(name),
-              text: '<insert story: wants THE GOLDEN ROCKET>',
+              text: "Ah, thank you.  You know, I come from a long line of pilots.  When I was younger, my Pops entered into the '86 piloting race on B-23, but he didn't win.  He's always wanted to hold the trophy for the race, **THE GOLDEN ROCKET**, even just for a moment.  After all these years, it's still his dream.  The guy who beat him should still be alive...",
               buttons: [{
                 label: 'MAYBE I CAN HELP HIM WITH THAT...',
               }],
@@ -603,6 +693,23 @@ dialogRegister({
       });
     }
     signWithName(name, 'The pilot who won that race is pretty well-known...');
+  },
+  oldracer: function () {
+    if (keyGet('racerdied')) {
+      return;
+    }
+    dialogPush({
+      custom_render: nameRender('THE OLD RACER'),
+      text: 'Oh, my, a visitor, why I haven\'t had a visitor in years. To what do I... I...',
+      buttons: [{
+        label: 'SIR... ?',
+        cb: function () {
+          killEntWhereIStand('npc08');
+          keySet('racerdied');
+          signWithName('MONOLOGUING', 'Huh, it appears his heart couldn\'t take the shock...');
+        },
+      }],
+    });
   },
 });
 
@@ -813,7 +920,9 @@ dialogRegister({
     });
   },
   mono: function (param: string) {
-    signWithName('MONOLOGUING', param);
+    if (onetimeEvent()) {
+      signWithName('MONOLOGUING', param, true);
+    }
   },
   travelfail: function () {
     let me = myEnt();

@@ -548,10 +548,18 @@ function moveBlockDead(): boolean {
   let z = Z.UI;
 
   y += floor(h/2);
-  font.drawSizedAligned(fontStyleColored(null, 0x000000ff),
-    x + floor(w/2), y - 16, z,
+  let x_mid = x + floor(w/2);
+  let text_w = font.drawSizedAligned(fontStyleColored(null, 0x000000ff),
+    x_mid, y - 16, z,
     uiTextHeight(), ALIGN.HCENTER|ALIGN.VBOTTOM,
     0, 0, 'You have died.');
+  panel({
+    x: x_mid - text_w/2 - 12,
+    y: y - 16 - uiTextHeight() - 6,
+    z,
+    w: text_w + 12*2,
+    h: uiTextHeight() + 6 * 2,
+  });
 
   let slot = urlhash.get('slot') || '1';
   let button_w = uiButtonWidth();
