@@ -1434,6 +1434,12 @@
         "open",
         "open",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "hint1"
+        }
       ]
     },
     {

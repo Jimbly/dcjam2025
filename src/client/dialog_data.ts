@@ -186,7 +186,7 @@ function numMedkitsMessage(): string {
 
 export function signWithName(name: string, message: string, transient_long?: boolean): void {
   dialogPush({
-    custom_render: nameRender(name),
+    custom_render: name ? nameRender(name) : undefined,
     text: message,
     transient: true,
     transient_long,
@@ -559,6 +559,36 @@ dialogRegister({
 //     });
 //   },
 // });
+
+dialogIconsRegister({
+  hint1: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    if (!keyGet('assist2') || hasItem('key3') || keyGet('solvedsafe')) {
+      return null;
+    }
+    if (!keyGet('hint1')) {
+      return 'icon_exclamation';
+    }
+    return 'icon_question';
+  }
+});
+dialogRegister({
+  hint1: function () {
+    if (!keyGet('assist2') || hasItem('key3') || keyGet('solvedsafe')) {
+      return signWithName('', 'Various tourist information and travel brochures litter a table here.');
+    }
+    if (!keyGet('hint1')) {
+      keySet('hint1');
+      return dialogPush({
+        text: 'A old, weathered brochure catches your eye:\n\nCome visit **EPSILON-ALPHA**, the best place to see unique, one-of-a-kind artifacts.\n\nNOTE: Due to security problems, tourism is currently prohibited.',
+        buttons: [{
+          label: 'HMM, MAYBE I CAN FIND **THE TICKET TO PARADISE** THERE...',
+        }],
+      });
+    }
+    signWithName('MONOLOGUING', '**EPSILON-ALPHA** is where I should look for **THE TICKET TO PARADISE**');
+  },
+});
+
 
 dialogIconsRegister({
   assistant: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
