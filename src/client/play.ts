@@ -1261,8 +1261,8 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
     }
   }
 
-  const HERO_Y0 = HUD_Y0 - 20;
-  const HERO_W = 72;
+  const HERO_Y0 = HUD_Y0 - 20 + 6;
+  const HERO_W = 66;
   const HERO_X0 = HUD_X0 - 7 + (76-HERO_W)/2;
   const HERO_H = HERO_W * 504/326;
   let hero_rect = {
