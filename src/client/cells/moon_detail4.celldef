@@ -1,5 +1,5 @@
 ---
-open_move: true
+open_move: false
 open_vis: true
 visuals:
 - pass: bg

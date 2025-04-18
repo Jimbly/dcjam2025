@@ -1,8 +1,11 @@
 TODO
 * title/scores/credits
+  * high score: money accumulated - give big reward for T4s! + time
 * build out levels
+  * put only the items that have a B variety behind secret doors in zones 2 as well!
   * zones - maybe aim for double enemy count (and 4 medkits)
-    * zone
+    * zone 0
+    * zone 1 - needs some locked doors and keys
   * station
   * ships
 * on next combat playtest
@@ -37,11 +40,10 @@ ZONES
 * Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
   doubled: 8 TnAs, 6 TnBs, 6 TnCs
 * Zone 0
-  * key1
+  * key2
   * weapon1, offhand1, torso1, weapon2b (T2), torso4 (T3)
 * Zone 1
-  * key2
-  * offhand2, torso2, weapon2, offhand3b (T3), weapon4 (T3)
+  * weapon4 (T3), med1, med1, offhand2, med1, offhand3b (T3), torso2, med1, weapon2, key3
 * Zone 2
   * offhand4 (T3), med1, med1, offhand3, weapon3, money 3000, torso3, key1
 
