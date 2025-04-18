@@ -58,9 +58,7 @@ ECONOMY
 * Need an extra ~2K for bribes now though! Increased drops by the same
 
 Wrap-up
-* Title screen
-* Credits
-* High Scores
+* Credits - put in names
 * Prune unused atlases and tiles from used atlases
 * Check background color / door fade color in each level
 * Copy item descriptions/names from doc

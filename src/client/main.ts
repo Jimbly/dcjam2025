@@ -29,7 +29,7 @@ import { crawlerRenderSetLODBiasRange } from './crawler_render';
 import { game_height, game_width } from './globals';
 import { playStartup } from './play';
 import { SOUND_DATA } from './sound_data';
-import { titleInit, titleStartup } from './title';
+import { stateHighScores, titleInit, titleStartup } from './title';
 import { travelStartup } from './travelmap';
 
 const { round } = Math;
@@ -255,6 +255,9 @@ export function main(): void {
   playStartup();
   travelStartup();
   engine.setState(titleInit);
+  if (0) {
+    engine.setState(stateHighScores);
+  }
   titleStartup();
   // Preload some atlases
   autoAtlas('test', 'solid1');

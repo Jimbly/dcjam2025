@@ -64,6 +64,9 @@ export type EntityDataClient = {
   money: number;
   last_floor: number;
   inventory: Item[];
+  cheat?: number;
+  score_money: number;
+  score_won?: number;
 } & EntityCrawlerDataCommon;
 
 
@@ -121,6 +124,9 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
       }
       if (!data.money) {
         data.money = 0;
+      }
+      if (data.score_money === undefined) {
+        data.score_money = data.money;
       }
       if (!data.inventory) {
         data.inventory = [{

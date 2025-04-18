@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as camera2d from 'glov/client/camera2d';
 import * as engine from 'glov/client/engine';
-import { ALIGN, fontStyleColored } from 'glov/client/font';
+import { ALIGN, fontStyle, fontStyleColored } from 'glov/client/font';
 import { fscreenAvailable, fscreenEnter } from 'glov/client/fscreen';
-import { inputTouchMode } from 'glov/client/input';
+import { inputTouchMode, keyDownEdge, KEYS } from 'glov/client/input';
 import { localStorageGetJSON } from 'glov/client/local_storage';
 import { netSubs } from 'glov/client/net';
+import { scoresDraw } from 'glov/client/score_ui';
 import { Sprite, spriteCreate } from 'glov/client/sprites';
 import {
   buttonText,
+  drawRect,
   modalDialog,
   print,
   uiButtonHeight,
@@ -33,7 +35,7 @@ import { creditsGo } from './credits';
 import { game_height, game_width } from './globals';
 import * as main from './main';
 import { tickMusic } from './music';
-import { modalBackground, queueTransition } from './play';
+import { getScoreSystem, modalBackground, queueTransition, Score } from './play';
 
 
 export function hasSaveData(slot: number): boolean {
@@ -45,7 +47,7 @@ export function hasSaveData(slot: number): boolean {
 let sprite_bg: Sprite;
 let sprite_name: Sprite;
 
-const { max, random, PI } = Math;
+const { max, min, random, PI } = Math;
 
 type AccountUI = ReturnType<typeof createAccountUI>;
 
@@ -205,7 +207,8 @@ function title(dt: number): void {
     w: w2,
     text: 'HALL OF FAME',
   })) {
-    // TODO
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    engine.setState(stateHighScores);
   }
   y += uiButtonHeight() * 2;
 
@@ -263,6 +266,120 @@ export function titleInit(dt: number): void {
   engine.setState(title);
   title(dt);
 }
+
+const SCORE_COLUMNS = [
+  // widths are just proportional, scaled relative to `width` passed in
+  { name: '', width: 12, align: ALIGN.HFIT | ALIGN.HRIGHT | ALIGN.VCENTER },
+  { name: 'NAME', width: 60, align: ALIGN.HFIT | ALIGN.VCENTER },
+  { name: 'WON', width: 16 },
+  { name: 'WEALTH', width: 32 },
+  { name: 'PLAYTIME', width: 20, align: ALIGN.HRIGHT },
+];
+const style_score = fontStyleColored(null, 0xFFFFFFff);
+const style_me = fontStyleColored(null, 0xffd541ff);
+const style_header = fontStyleColored(null, 0xFFFFFFff);
+function timeformat(seconds: number): string {
+  let ss = seconds % 60;
+  let mm = (seconds - ss) / 60;
+  return `${mm}:${ss < 10 ? '0' : ''}${ss} `;
+}
+function myScoreToRow(row: unknown[], score: Score): void {
+  row.push(score.victory ? 'YES' : 'NO', score.money, timeformat(score.seconds));
+}
+const style_title = fontStyle(null, {
+  color: 0x07d6ffff,
+  outline_color: 0xFFFFFFff,
+  outline_width: 0.6,
+  glow_color: 0x000000dd,
+  glow_inner: 1,
+  glow_outer: 1.5,
+  glow_xoffs: 0,
+  glow_yoffs: 0,
+});
+
+const level_idx = 0;
+export function stateHighScores(dt: number): void {
+  tickMusic('menu');
+  let W = game_width;
+  let H = game_height;
+  // camera2d.setAspectFixed(W, H);
+  titleDrawBG(dt);
+  let font = uiGetFont();
+
+  let y = 8;
+  let pad = 16;
+  let text_height = uiTextHeight();
+  let button_h = uiButtonHeight();
+
+  font.draw({
+    x: 0, w: W, y: y - text_height * 2, align: ALIGN.HCENTER,
+    size: text_height * 4,
+    style: style_title,
+    text: 'Hall of Fame'.toUpperCase(),
+  });
+
+  y += text_height * 2 + 8;
+
+  // let has_score = score_system.getScore(level_idx);
+
+  let button_w = 120;
+
+  if (buttonText({
+    x: (W - button_w)/2, y,
+    w: button_w, h: button_h,
+    text: 'Return to Title'.toUpperCase(),
+  }) || keyDownEdge(KEYS.ESC)) {
+    engine.setState(title);
+  }
+  y += button_h + 2;
+
+  // pad = 8;
+  // let x = pad;
+  // let toggle_y = H - button_h - pad;
+  // if (buttonImage({
+  //   img: sprite_space,
+  //   shrink: 16/button_h,
+  //   frame: settings.volume_sound ? FRAME_SOUND_ON : FRAME_SOUND_OFF,
+  //   x, y: toggle_y, h: button_h, w: button_h,
+  // })) {
+  //   settingsSet('volume_sound', settings.volume_sound ? 0 : 1);
+  // }
+  // x += button_h + pad;
+  // if (buttonImage({
+  //   img: sprite_space,
+  //   shrink: 16/button_h,
+  //   frame: settings.volume_music ? FRAME_MUSIC_ON : FRAME_MUSIC_OFF,
+  //   x, y: toggle_y, h: button_h, w: button_h,
+  // })) {
+  //   settingsSet('volume_music', settings.volume_music ? 0 : 1);
+  // }
+
+  let hpad = 90;
+  pad = 24;
+  scoresDraw<Score>({
+    score_system: getScoreSystem(),
+    allow_rename: true,
+    x: hpad, width: W - hpad * 2,
+    y, height: H - y - 2,
+    z: Z.UI,
+    size: text_height,
+    line_height: text_height+2,
+    level_index: level_idx,
+    columns: SCORE_COLUMNS,
+    scoreToRow: myScoreToRow,
+    style_score,
+    style_me,
+    style_header,
+    color_line: [1,1,1,1],
+    color_me_background: [0.2,0.2,0.2,1],
+  });
+
+  camera2d.push();
+  camera2d.setNormalized();
+  drawRect(0, 0, 1, 1, Z.UI - 20, [0, 0, 0, 0.5]);
+  camera2d.pop();
+}
+
 
 export function titleStartup(): void {
   sprite_bg = spriteCreate({

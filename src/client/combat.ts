@@ -35,7 +35,7 @@ const REWARD_TIERS = [
   75,
   100,
   350,
-  200,
+  5000,
 ];
 
 // return 0...1 weighted around 0.5

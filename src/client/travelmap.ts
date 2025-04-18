@@ -53,6 +53,7 @@ export function stateTravel(dt: number): void {
       autosave();
       if (me.data.money >= SHUTTLE_COST) {
         me.data.money -= SHUTTLE_COST;
+        me.data.score_money -= SHUTTLE_COST;
       }
       queueTransition();
       travelTo(elem.floor, 'stairs_in');
