@@ -12,6 +12,7 @@ TODO
 * Saturday polish
   * zone 2 - put only the item that have a B variety behind secret doors
   * zone 1 - needs some locked doors and keys
+  * item descriptions and ensure they all fit reasonably
 
 LEVEL MECHANICS / NPCs TODO
   * guard needs option to not give him the gift (so you can manually fight)
