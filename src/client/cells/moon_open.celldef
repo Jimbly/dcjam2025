@@ -20,8 +20,8 @@ corners: # pillars and floor/ceiling details
     type: simple_pillar
     opts:
       quadrants: 1
-      radius: 0.125
-      segments: 8
+      radius: 0.1
+      segments: 12
       roundness: 1
       atlas: moon
       tile: pillar1
@@ -39,8 +39,8 @@ corners: # pillars and floor/ceiling details
     type: simple_pillar
     opts:
       quadrants: 2
-      radius: 0.125
-      segments: 8
+      radius: 0.1
+      segments: 12
       roundness: 1
       atlas: moon
       tile: pillar2
@@ -58,8 +58,8 @@ corners: # pillars and floor/ceiling details
     type: simple_pillar
     opts:
       quadrants: 3
-      radius: 0.125
-      segments: 8
+      radius: 0.1
+      segments: 12
       roundness: 1
       atlas: moon
       tile: pillar3
