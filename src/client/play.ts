@@ -1194,6 +1194,22 @@ export function drawHUDPanel(): void {
   });
 }
 
+export function helmetTier(): string {
+  let { inventory } = myEnt().data;
+  for (let ii = 0; ii < inventory.length; ++ii) {
+    let item = inventory[ii];
+    if (!item.equipped) {
+      continue;
+    }
+    let item_def = ITEMS[item.item_id];
+    if (item_def.item_type === 'head') {
+      let tier = itemTier(item);
+      return `hero-helmet-${tier === -1 ? 0 : tier}`;
+    }
+  }
+  return 'hero-helmet-none';
+}
+
 function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): void {
 
   let game_state = crawlerGameState();
@@ -1244,6 +1260,21 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
       panel(subtitle_panel);
     }
   }
+
+  const HERO_Y0 = HUD_Y0 - 20 + 6;
+  const HERO_W = 66;
+  const HERO_X0 = HUD_X0 - 7 + (76-HERO_W)/2;
+  const HERO_H = HERO_W * 504/326;
+  let hero_rect = {
+    x: HERO_X0,
+    y: HERO_Y0,
+    w: HERO_W,
+    h: HERO_H,
+    z: frame_inventory_up ? Z.MODAL + 2 : Z.UI,
+  };
+  autoAtlas('hero', 'hero-bg').draw(hero_rect);
+  hero_rect.z++;
+  autoAtlas('hero', helmetTier()).draw(hero_rect);
 
   const STATS_Y0 = 108;
   let y = STATS_Y0;

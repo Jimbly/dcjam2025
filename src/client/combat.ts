@@ -1,4 +1,6 @@
 import assert from 'assert';
+import { autoAtlas } from 'glov/client/autoatlas';
+import { debugDefineIsSet } from 'glov/client/engine';
 import { ALIGN, Font, fontStyle } from 'glov/client/font';
 import { KEYS, mouseOver, PAD } from 'glov/client/input';
 import {
@@ -24,7 +26,7 @@ import {
   StatsData,
 } from './entity_demo_client';
 import { game_height, game_width } from './globals';
-import { drawHealthBar, giveReward, myEnt, useMedkit } from './play';
+import { drawHealthBar, giveReward, helmetTier, myEnt, useMedkit } from './play';
 
 const { abs, pow, max, min, floor, round, PI } = Math;
 
@@ -234,11 +236,15 @@ const HERO_AVATAR_X = -15;
 const ENEMY_AVATAR_X = 10;
 const FLOATER_W = 120;
 const FLOATER_FONT_SIZE = 32;
-
+const bottom_center = vec2(0.5, 1);
 function drawCombatant(dt: number, ent_in: Entity, x: number, y: number, scale: number, dead: boolean): void {
   let ent = ent_in as unknown as EntityDrawableSprite;
   let frame = ent.updateAnim(dt);
   let { sprite } = ent.drawable_sprite_state;
+  if (ent_in === myEnt()) {
+    sprite = autoAtlas('hero', helmetTier()).withOrigin(bottom_center);
+    frame = 0;
+  }
   let aspect = sprite.uidata && sprite.uidata.aspect ? sprite.uidata.aspect[frame] : 1;
   let w = FRAME_W * ENT_SCALE*scale;
   let h = FRAME_H * ENT_SCALE*scale;
@@ -379,12 +385,14 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   let escale = 1;
   if (state === 'hero' || state === 'enemy') {
     eventIndex(300, 1, function () {
-      if (state === 'hero') {
-        combat_state!.target_hp = max(0, combat_state!.target_hp - combat_state!.dam!.dam);
-      } else {
-        me.data.stats.hp = max(0, me.data.stats.hp - combat_state!.dam!.dam);
-        if (!me.data.stats.hp) {
-          me.not_dead_yet = true;
+      if (!debugDefineIsSet('INVINCIBLE')) {
+        if (state === 'hero') {
+          combat_state!.target_hp = max(0, combat_state!.target_hp - combat_state!.dam!.dam);
+        } else {
+          me.data.stats.hp = max(0, me.data.stats.hp - combat_state!.dam!.dam);
+          if (!me.data.stats.hp) {
+            me.not_dead_yet = true;
+          }
         }
       }
       floaterPush(combat_state!.dam!);
@@ -446,7 +454,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   spriteClipPop();
 
   if (FRAME_Y + 3 + dyh < game_height) {
-    spriteClipPush(z + 0.2, 0, FRAME_Y + 3 + dyh, game_width, FRAME_H - 6);
+    spriteClipPush(z + 0.2, FRAME_HERO_X, FRAME_Y + 3 + dyh, game_width - FRAME_HERO_X, FRAME_H - 6);
     drawCombatant(dt, me, FRAME_HERO_X + HERO_AVATAR_X + dxh_noframe, FRAME_Y, pscale,
       me.data.stats.hp === 0);
     spriteClipPop();

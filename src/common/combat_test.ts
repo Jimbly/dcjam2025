@@ -175,7 +175,7 @@ let CONCISE = 'b' as 'a' | 'b' | false;
 let TEST_TIERS = [0, 4];
 
 const LABEL_TO_SPRITE = {
-  normal: 'critter-11',
+  normal: 'critter6',
   sponge: 'critter-15',
   var: 'critter-14',
   cannon: 'critter-12',

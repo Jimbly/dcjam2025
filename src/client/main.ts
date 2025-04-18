@@ -261,5 +261,5 @@ export function main(): void {
   titleStartup();
   // Preload some atlases
   autoAtlas('test', 'solid1');
-  autoAtlas('critters', 'critter-11');
+  autoAtlas('critters', 'critter6');
 }
