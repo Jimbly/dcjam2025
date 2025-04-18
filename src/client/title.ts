@@ -29,6 +29,7 @@ import {
   crawlerPlayWantNewGame,
   SavedGameData,
 } from './crawler_play';
+import { creditsGo } from './credits';
 import { game_height, game_width } from './globals';
 import * as main from './main';
 import { tickMusic } from './music';
@@ -65,12 +66,7 @@ function fullscreenDid(key: string): boolean {
 
 const label_style = fontStyleColored(null, 0x000000ff);
 
-function title(dt: number): void {
-  tickMusic('menu');
-  main.chat_ui.run({
-    hide: true,
-  });
-
+export function titleDrawBG(dt: number): void {
   camera2d.push();
   camera2d.setNormalized();
   sprite_bg.draw({
@@ -97,6 +93,16 @@ function title(dt: number): void {
       });
     }
   }
+
+}
+
+function title(dt: number): void {
+  tickMusic('menu');
+  main.chat_ui.run({
+    hide: true,
+  });
+
+  titleDrawBG(dt);
 
   const yoffs = 10;
   sprite_name.draw({
@@ -209,7 +215,7 @@ function title(dt: number): void {
     w: BUTTON_W,
     text: 'CREDITS',
   })) {
-    // TODO
+    creditsGo();
   }
   y += uiButtonHeight() * 2;
 
