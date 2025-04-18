@@ -411,7 +411,7 @@ export function titleStartup(): void {
   }
   crawlerCommStartup({
     lobby_state: titleInit,
-    title_func: (value: string) => `Crawler Demo | "${value}"`,
+    title_func: (value: string) => 'NEBULARCENY',
     chat_ui: main.chat_ui,
   });
 }

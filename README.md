@@ -1,7 +1,9 @@
 DCJam2025 - Themes: Heist, Treasure Hunting, Genre Fusion, Sinking Ship
 ============================
 
-Dungeon Crawler Jam 2025 Entry by Jimbly and Team - "Title TBD"
+Dungeon Crawler Jam 2025 Entry by Jimbly and Team - "NEBULARCENY"
+
+Fowl play in orbit.  Plan a daring heist.
 
 * Play here: [dashingstrike.com/LudumDare/DCJ2025/](http://www.dashingstrike.com/LudumDare/DCJ2025/)
 * Using [Javascript libGlov/GLOV.js framework + crawler toolkit](https://github.com/Jimbly/glovjs/tree/crawler)
