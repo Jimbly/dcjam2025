@@ -10,16 +10,16 @@ fog_params:
 - 50.0
 cell_swaps:
   open: moon_open
+  floorswitch: moon_open
 wall_swaps:
   open: moon_open
   door: moon_door
   door_oneway: moon_door
-  # door_locked: demo_door_locked
-  # door_locked_unlocked: demo_door_locked_unlocked
+  door_locked: moon_door_locked
+  door_locked_unlocked: moon_door_unlocked
   entrance: moon_stairs_in
-  # secret_door: demo_secret_door
-  # secret_door_unvisited: demo_secret_door
+  secret_door: moon_door_secret
+  secret_door_unvisited: moon_door_secret
   solid: moon_solid1
   stairs_in: moon_stairs_in
   stairs_out: moon_stairs_out
-  # floorswitch: demo_floorswitch

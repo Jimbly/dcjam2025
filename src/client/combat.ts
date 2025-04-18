@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { ALIGN, Font } from 'glov/client/font';
+import { ALIGN, Font, fontStyle } from 'glov/client/font';
 import { KEYS, mouseOver, PAD } from 'glov/client/input';
 import {
   BLEND_MULTIPLY,
@@ -26,14 +26,14 @@ import {
 import { game_height, game_width } from './globals';
 import { drawHealthBar, giveReward, myEnt, useMedkit } from './play';
 
-const { abs, pow, max, floor, round, PI } = Math;
+const { abs, pow, max, min, floor, round, PI } = Math;
 
 type Entity = EntityDemoClient;
 
 const REWARD_TIERS = [
   50,
   100,
-  200,
+  100,
   350,
   200,
 ];
@@ -130,6 +130,27 @@ let sprite_pow: {
   miss: Sprite;
   crit: Sprite;
 };
+let style_pow_base = {
+  outline_width: 0.8,
+  outline_color: 0xFFFFFFff,
+  glow_color: 0x404040bb,
+  glow_inner: 1.5,
+  glow_outer: 1.9,
+};
+let style_pow = {
+  normal: fontStyle(null, {
+    ...style_pow_base,
+    color: 0xff9900ff,
+  }),
+  miss: fontStyle(null, {
+    ...style_pow_base,
+    color: 0xbcaabcff,
+  }),
+  crit: fontStyle(null, {
+    ...style_pow_base,
+    color: 0xce0d00ff,
+  }),
+};
 
 type CombatFloater = {
   state: string;
@@ -175,7 +196,7 @@ function startState(state: string): void {
       // nothing special
       if (me.data.stats.hp) {
         let tier = combat_state.target.data.stats.tier || 0;
-        if (tier === 4) {
+        if (combat_state.target.theguard) {
           dialog('killedguard');
         } else {
           giveReward({
@@ -211,8 +232,8 @@ const ENT_SCALE = 1.25;
 const FRAME_SLOPE = 171/51;
 const HERO_AVATAR_X = -15;
 const ENEMY_AVATAR_X = 10;
-const FLOATER_W = 60;
-const FLOATER_FONT_SIZE = 14;
+const FLOATER_W = 120;
+const FLOATER_FONT_SIZE = 32;
 
 function drawCombatant(dt: number, ent_in: Entity, x: number, y: number, scale: number, dead: boolean): void {
   let ent = ent_in as unknown as EntityDrawableSprite;
@@ -306,6 +327,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     combatSetSeed(mashString([target.data.floor, numLivingEnemies()].join()));
     playUISound('combat_start');
   }
+
   combat_state.t += dt;
   let { state, t } = combat_state;
   let dxh = 0;
@@ -347,7 +369,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       w: button_w,
       disabled: !numMedkits() || me.data.stats.hp === me.data.stats.hp_max,
       text: 'USE MED-KIT',
-      hotkey: KEYS.SPACE,
+      hotkeys: [KEYS.SPACE, KEYS.H],
       hotpad: PAD.SELECT,
     })) {
       useMedkit();
@@ -466,10 +488,11 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     }
     let float_box = {
       x: (floater.state === 'hero' ? FRAME_ENEMY_X + ENEMY_AVATAR_X : FRAME_HERO_X + HERO_AVATAR_X) + FRAME_W/2,
-      y: FRAME_Y + FRAME_H * 0.55 - easeOut(p, 2) * 50,
+      y: FRAME_Y + FRAME_H * 0.45 - easeOut(p, 2) * 40,
       w: FLOATER_W, h: FLOATER_W,
     };
-    let alpha = easeOut(1 - p, 2);
+    let alpha = min(1, (1 - p) * 2);
+    alpha = easeOut(alpha, 2);
     sprite_pow[floater.dam.style].draw({
       color: [1,1,1, alpha],
       ...float_box,
@@ -477,9 +500,9 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     });
     font.draw({
       x: float_box.x,
-      y: float_box.y + 8,
+      y: float_box.y + 40,
       size: FLOATER_FONT_SIZE,
-      color: 0x000000ff,
+      style: style_pow[floater.dam.style],
       alpha,
       z: z + 4,
       align: ALIGN.HVCENTER,

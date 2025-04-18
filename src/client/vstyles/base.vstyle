@@ -14,11 +14,11 @@ wall_swaps:
   open: base_open
   door: base_door
   door_oneway: base_door
-  # door_locked: demo_door_locked
-  # door_locked_unlocked: demo_door_locked_unlocked
+  door_locked: base_door_locked
+  door_locked_unlocked: base_door_unlocked
   entrance: base_stairs_in
-  # secret_door: demo_secret_door
-  # secret_door_unvisited: demo_secret_door
+  secret_door: base_door_secret
+  secret_door_unvisited: base_door_secret
   solid: base_solid1
   stairs_in: base_stairs_in
   stairs_out: base_stairs_out

@@ -19,6 +19,7 @@ import {
   keyUpEdge,
   PAD,
   padButtonDown,
+  padButtonDownEdge,
   padButtonUpEdge,
 } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
@@ -457,7 +458,7 @@ function engagedEnemy(): Entity | null {
     if (!ent.is_enemy || !ent.isAlive()) {
       return false;
     }
-    if (ent.data.stats?.tier === 4 && crawlerScriptAPI().keyGet('solvedguard')) {
+    if (ent.theguard && crawlerScriptAPI().keyGet('solvedguard')) {
       return false;
     }
     return true;
@@ -707,7 +708,7 @@ function drawEnemyStats(ent: Entity): void {
 
   if (
     isDeadly(myEnt().data.stats, stats) &&
-    !(stats.tier === 4 && crawlerScriptAPI().keyGet('solvedguard'))
+    !(ent.theguard && crawlerScriptAPI().keyGet('solvedguard'))
   ) {
     box.color = color_danger;
   }
@@ -732,9 +733,8 @@ function drawEnemyStats(ent: Entity): void {
     text_height: uiTextHeight() * 0.75,
     z: subtitle_panel.z + 0.1,
     align: ALIGN.HVCENTERFIT,
-    text: stats.tier === 4 ? 'THE ESTRANGED GUARD' :
-      stats.tier === 3 ? 'PATIENT SENTRY' :
-      'HOSTILE',
+    text: ent.name || (stats.tier === 3 ? 'PATIENT SENTRY' :
+    'HOSTILE'),
   });
 
 }
@@ -845,7 +845,7 @@ function journalMenu(): void {
     ['foundship', `Find where **THE ASCENDING SWORD** is docked${api.keyGet('foundship') ? ' (Bay 82)' : ''}`],
     ['solvedguard', api.keyGet('metguard') ? 'Get past **THE ESTRANGED GUARD**' : 'Get past **THE GUARD**'],
     ['solvedsafe', 'Open the safe and grab **THE RED DEVASTATION**'],
-    ['solvedescape', `Disappear into the black${hasItem('key5') ? ' (Bay 42)' : ''}`],
+    ['solvedescape', `Disappear into the black${hasItem('key5') ? ' (Bay 47)' : ''}`],
   ];
   let x = INVENTORY_X;
   let w = INVENTORY_W;
@@ -923,7 +923,7 @@ function itemName(item: Item): string {
   return (item_def.item_type === 'consumable' ? `${item_def.name} (${item.count || 1})` : item_def.name).toUpperCase();
 }
 
-function itemTier(item: Item): number {
+export function itemTier(item: Item): number {
   let item_def = ITEMS[item.item_id];
   if (item_def.item_type === 'key' || item_def.item_type === 'consumable') {
     return -1;
@@ -1578,6 +1578,28 @@ function playCrawl(): void {
     doTravelGame();
   }
 
+  if (!travel_game && !journal_up && !pause_menu_up && !frame_combat && !controller.hasMoveBlocker()) {
+    let { data } = myEnt();
+    if (keyDownEdge(KEYS.H) || padButtonDownEdge(PAD.SELECT)) {
+      if (!hasItem('med1')) {
+        statusPush('I\'m all outta **Med-Kits**.');
+      } else if (data.stats.hp >= data.stats.hp_max) {
+        statusPush('I don\'t need medical attention right now.');
+      } else {
+        let { inventory } = data;
+        let index = -1;
+        for (let ii = 0; ii < inventory.length; ++ii) {
+          if (inventory[ii].item_id === 'med1') {
+            index = ii;
+          }
+        }
+        assert(index !== -1);
+        statusPush('Used **Med-Kit**');
+        useItem(index);
+      }
+    }
+  }
+
   let game_state = crawlerGameState();
   let script_api = crawlerScriptAPI();
   if (frame_map_view) {
@@ -1623,7 +1645,7 @@ function playCrawl(): void {
       button_w: build_mode ? 6 : BUTTON_W,
       button_sprites: useNoText() ? button_sprites_notext : button_sprites,
       disable_move: moveBlocked() || overlay_menu_up,
-      disable_player_impulse: Boolean(frame_combat || locked_dialog),
+      disable_player_impulse: Boolean(frame_combat || locked_dialog || mapViewActive()),
       show_buttons: !frame_combat && !locked_dialog,
       do_debug_move: engine.defines.LEVEL_GEN || build_mode,
       show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,

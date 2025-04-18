@@ -1,16 +1,18 @@
 TODO
-* build out zone 2
-  * put a second copy of the guard guarding an easter egg
-  * test it
 * title/scores/credits
-* don't allow manual moving in fullscreen map
+  * high score: money accumulated - give big reward for T4s! + time
+* build out levels
+  * put only the items that have a B variety behind secret doors in zones 2 as well!
+  * zones - maybe aim for double enemy count (and 4 medkits)
+    * zone 0
+    * zone 1 - needs some locked doors and keys
+  * station
+  * ships
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
-* build out levels
-  * station
-  * zones - maybe aim for double enemy count
-  * ships
+* use `combat-hit-crit-2` in race game upon death
+
 LEVEL MECHANICS / NPCs TODO
   * guard needs option to not give him the gift (so you can manually fight)
   * station
@@ -28,10 +30,8 @@ Important art left
 * map icons
 
 POLISH
-* travel game: do a "safe!" thing so you stop pressing forward at the end
 * B varieties of weapons are uninteresting because by the time you could go and get them, you're powering through the current level, and strong enough for the next level
   * Maybe need to be stats-wise slightly better, or, rather, As slightly worse
-* fullscreen map view spread color to full view
 
 ZONES
 * respawn all B/C entities
@@ -40,11 +40,10 @@ ZONES
 * Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
   doubled: 8 TnAs, 6 TnBs, 6 TnCs
 * Zone 0
-  * key1
+  * key2
   * weapon1, offhand1, torso1, weapon2b (T2), torso4 (T3)
 * Zone 1
-  * key2
-  * offhand2, torso2, weapon2, offhand3b (T3), weapon4 (T3)
+  * weapon4 (T3), med1, med1, offhand2, med1, offhand3b (T3), torso2, med1, weapon2, key3
 * Zone 2
   * offhand4 (T3), med1, med1, offhand3, weapon3, money 3000, torso3, key1
 
@@ -69,9 +68,16 @@ Wrap-up
 * Credits
 * High Scores
 * Prune unused atlases and tiles from used atlases
+* Check background color / door fade color in each level
+* Copy item descriptions/names from doc
 * Disable `/`
+* Add wander cat and nilo
+* remove DEBUG events
 
 Polish
+* travel game: do a "safe!" thing for a moment so you stop pressing forward at the end
+* fullscreen map view spread color to full view
+* fade out ent at start of combat
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * auto-unload auto-atlases that are no longer in use?

@@ -67,6 +67,19 @@ const MAP_CENTER_OFFS = 3;
 
 let build_mode_entity_icons: Partial<Record<string, string>> = {
   def: 'spawner',
+  chest: 'chest', // DCJAM25
+  enemyT0A: 't0',
+  enemyT0B: 't0',
+  enemyT0C: 't0',
+  enemyT1A: 't1',
+  enemyT1B: 't1',
+  enemyT1C: 't1',
+  enemyT2A: 't2',
+  enemyT2B: 't2',
+  enemyT2C: 't2',
+  enemyT3: 't3',
+  enemyT4: 't4',
+  enemyT4opt: 't4',
 };
 
 function crawlerScriptEventsGetIcon(api: CrawlerScriptAPI, events: CrawlerCellEvent[]): CrawlerScriptEventMapIcon {
