@@ -15,8 +15,6 @@ TODO
   * item descriptions and ensure they all fit reasonably
 
 LEVEL MECHANICS / NPCs TODO
-  * station
-    * icon on bay 82 and 47 on the minimap
   * other ships
     * need to return to the right spot
     * need dialog about being locked up tight

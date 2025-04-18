@@ -1328,6 +1328,10 @@
         {
           "id": "sign",
           "param": "(right) Bay **47**"
+        },
+        {
+          "id": "dialog",
+          "param": "bay47"
         }
       ]
     },
@@ -1343,6 +1347,10 @@
         {
           "id": "sign",
           "param": "(left) Bay **82**"
+        },
+        {
+          "id": "dialog",
+          "param": "bay82"
         }
       ]
     },

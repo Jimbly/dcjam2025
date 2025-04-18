@@ -694,6 +694,35 @@ dialogRegister({
   },
 });
 
+dialogIconsRegister({
+  bay82: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    if (keyGet('foundship')) {
+      if (!hasItem('key6') && keyGet('solvedguard') && keyGet('solvedsafe') && keyGet('solvedescape')) {
+        return 'icon_exclamation';
+      }
+      return 'icon_question';
+    }
+    return null;
+  },
+  bay47: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    if (keyGet('solvedescape')) {
+      if (hasItem('key6')) {
+        return 'icon_exclamation';
+      }
+      return 'icon_question';
+    }
+    return null;
+  },
+});
+dialogRegister({
+  bay82: () => {
+    // nothing
+  },
+  bay47: () => {
+    // nothing
+  },
+});
+
 
 dialogIconsRegister({
   tips: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
@@ -750,7 +779,7 @@ dialogRegister({
 
 dialogIconsRegister({
   dockingwander: () => {
-    return !keyGet('lookedforship') ? 'icon_exclamation' : null;
+    return !keyGet('lookedforship') && !keyGet('foundship') ? 'icon_exclamation' : null;
   },
 });
 dialogRegister({
