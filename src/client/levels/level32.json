@@ -1170,7 +1170,7 @@
       "id": "solid",
       "walls": [
         "solid",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -1323,19 +1323,19 @@
       ]
     },
     {
-      "id": "solid",
+      "id": "ship_detail2",
       "walls": [
         "open",
         "open",
-        "open",
-        "open"
+        "solid",
+        "solid"
       ]
     },
     {
-      "id": "solid",
+      "id": "ship_detail1",
       "walls": [
-        "solid",
-        "solid",
+        "open",
+        "open",
         "open",
         "solid"
       ]
@@ -1345,7 +1345,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "open",
         "open"
       ]
     },
@@ -1461,15 +1461,6 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "solid",
         "open",
         "open",
         "open"
@@ -1479,9 +1470,18 @@
       "id": "ship_detail1",
       "walls": [
         "open",
+        "open",
         "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "ship_detail2",
+      "walls": [
+        "open",
         "solid",
-        "solid"
+        "open",
+        "open"
       ]
     },
     {
@@ -1611,11 +1611,11 @@
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
-        "open",
-        "open",
-        "open",
+        "solid",
+        "solid",
+        "solid",
         "open"
       ]
     },
@@ -1624,7 +1624,7 @@
       "walls": [
         "solid",
         "open",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -1760,7 +1760,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
