@@ -382,6 +382,7 @@ export function scoresDraw<ScoreType>({
         z,
         w: width / 2,
         placeholder: 'Anonymous',
+        max_len: 40,
       });
       scores_edit_box.setText(my_name);
     }

@@ -24,6 +24,7 @@ import {
   itemTier,
   myEnt,
   queueTransition,
+  setScore,
 } from './play';
 import { statusPush } from './status';
 import { travelGameFinish } from './travelgame';
@@ -58,9 +59,12 @@ export function hasItem(item_id: string): boolean {
   return false;
 }
 
-function consumeMoney(amount: number): void {
+function consumeMoney(amount: number, deduct_from_wealth: boolean): void {
   statusPush(`Lost [img=icon-currency]${amount}`);
   myEnt().data.money -= amount;
+  if (deduct_from_wealth) {
+    myEnt().data.score_money -= amount;
+  }
 }
 
 function consumeItem(item_id: string): void {
@@ -281,7 +285,7 @@ dialogRegister({
     if (myEnt().data.money < DRINK_COST) {
       return signWithName(name, 'Hah, you can\'t even afford a drink?  Scram, kid.');
     }
-    consumeMoney(DRINK_COST);
+    consumeMoney(DRINK_COST, false);
 
     let list = [
       ['soldierdrink1', '...Stars, this stuff ain\'t bad.'],
@@ -363,7 +367,7 @@ dialogRegister({
       buttons: [{
         label: `HERE YOU GO ([img=icon-currency]${COST_ESCAPE})`,
         cb: function () {
-          consumeMoney(COST_ESCAPE);
+          consumeMoney(COST_ESCAPE, false);
           keySet('solvedescape');
           playUISound('gain_item_quest');
           giveReward({ items: [{ item_id: 'key5' }] });
@@ -385,6 +389,8 @@ dialogRegister({
     if (!hasItem('key6')) {
       return signWithName(name, 'Come back here when you\'re ready to leave in a hurry.');
     }
+    myEnt().data.score_won = 1;
+    setScore();
     autosave();
     dialogPush({
       custom_render: nameRender(name),
@@ -454,7 +460,7 @@ dialogRegister({
         buttons: [{
           label: `HOW'S [img=icon-currency]${COST_ASSIST_BRIBE} SOUND?`,
           cb: function () {
-            consumeMoney(COST_ASSIST_BRIBE);
+            consumeMoney(COST_ASSIST_BRIBE, false);
             keySet('assist1');
             dialog('assistant');
           },
@@ -577,7 +583,7 @@ dialogRegister({
               return signWithName(name, 'Hah, you can\'t even afford a drink?  Well, you know where to find me if you want to learn anything about ships.');
             }
             keySet('lookingforship');
-            consumeMoney(DRINK_COST);
+            consumeMoney(DRINK_COST, false);
 
             dialogPush({
               custom_render: nameRender(name),
@@ -745,6 +751,7 @@ dialogRegister({
   medbuy: function () {
     let { data } = myEnt();
     data.money -= COST_MEDKIT;
+    data.score_money -= COST_MEDKIT;
     playUISound('gain_item_purchase');
     giveReward({ items: [{ item_id: 'med1' }] });
     if (data.money < COST_MEDKIT) {
@@ -810,7 +817,7 @@ dialogRegister({
     let take = money > LOSE_COST;
     if (take) {
       me.data.money -= LOSE_COST;
-      consumeMoney(LOSE_COST);
+      consumeMoney(LOSE_COST, true);
     }
     dialogPush({
       name: '',

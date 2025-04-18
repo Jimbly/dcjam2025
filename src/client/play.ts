@@ -24,6 +24,7 @@ import {
 } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
 import { ClientChannelWorker } from 'glov/client/net';
+import { scoreAlloc, ScoreSystem } from 'glov/client/score';
 import {
   MenuItem,
   selboxDefaultDrawItemBackground,
@@ -116,6 +117,7 @@ import {
 import {
   crawlerBuildModeActivate,
   crawlerController,
+  crawlerCurSavePlayTime,
   crawlerGameState,
   crawlerPlayBottomOfFrame,
   crawlerPlayInitOffline,
@@ -264,27 +266,30 @@ const selbox_display: Partial<SelectionBoxDisplay> = {
   style_down: fontStyleColored(null, 0x000000ff),
 };
 
-function modalBackground(min_w: number, min_h: number, label: Sprite | null): void {
+export function modalBackground(
+  min_w: number, min_h: number, label: Sprite | null, z_override?: number, yoffs?: number
+): void {
+  let z = z_override || Z.MODAL;
   let modal_frame_h = min_h * 825/605;
   let modal_frame_w = max(modal_frame_h / 825 * 657,
     min_w * 657/483);
   modal_frame_h = modal_frame_w / 657 * 825;
   let box = {
     x: (game_width - modal_frame_w) / 2,
-    y: (game_height - modal_frame_h) / 2,
+    y: (game_height - modal_frame_h) / 2 + (yoffs || 0),
     w: modal_frame_w,
     h: modal_frame_h,
-    z: Z.MODAL + 0.3,
+    z: z + 0.3,
   };
   modal_frame.draw(box);
   modal_bg_bottom_add.draw({
     ...box,
-    z: Z.MODAL + 0.1,
+    z: z + 0.1,
     blend: BLEND_ADDITIVE,
   });
   modal_bg_top_mult.draw({
     ...box,
-    z: Z.MODAL + 0.2,
+    z: z + 0.2,
     blend: BLEND_MULTIPLY,
   });
   if (label) {
@@ -292,12 +297,14 @@ function modalBackground(min_w: number, min_h: number, label: Sprite | null): vo
     label.draw({
       x: box.x - 8,
       y: box.y - (label === modal_label_options ? 23 : 32),
-      z: Z.MODAL + 0.4,
+      z: z + 0.4,
       w: label_w,
       h: label_w / label.getAspect(),
     });
   }
-  menuUp();
+  if (!z_override) {
+    menuUp();
+  }
 }
 
 const PAUSE_MENU_W = 120;
@@ -1133,7 +1140,10 @@ export function giveReward(reward: { money?: number; items?: Item[] }): void {
   let msg: string[] = [];
   if (reward.money) {
     me.data.money += reward.money;
+    me.data.score_money += reward.money;
     msg.push(`Gained [img=icon-currency]${reward.money}`);
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    setScore();
   }
   if (reward.items) {
     for (let ii = 0; ii < reward.items.length; ++ii) {
@@ -1154,9 +1164,17 @@ export function giveReward(reward: { money?: number; items?: Item[] }): void {
           me.data.inventory.push(item);
         }
         msg.push(`Gained **${item.count || 1} ${item_def.name}**`);
+        me.data.score_money += 100;
       } else {
         me.data.inventory.push(item);
         msg.push(`Gained **${item_def.name}**`);
+        let tier = itemTier(item);
+        if (tier >= 0) {
+          me.data.score_money += 100 + tier * 100;
+        } else {
+          // key item
+          me.data.score_money += 100;
+        }
       }
     }
   }
@@ -1316,6 +1334,54 @@ export function doMotionForTravelGame(dt: number): void {
     show_hotkeys: !useNoText(),
   });
 }
+
+export type Score = {
+  victory: number;
+  money: number;
+  seconds: number;
+};
+let score_system: ScoreSystem<Score>;
+export function getScoreSystem(): ScoreSystem<Score> {
+  return score_system;
+}
+
+const ENCODE_SEC = 100000;
+const ENCODE_MONEY = 100000;
+function encodeScore(score: Score): number {
+  let spart = max(0, ENCODE_SEC - 1 - score.seconds);
+  let mpart = min(ENCODE_MONEY - 1, score.money) * ENCODE_SEC;
+  let vpart = score.victory * ENCODE_MONEY * ENCODE_SEC;
+  return vpart + mpart + spart;
+}
+
+function parseScore(value: number): Score {
+  let seconds = value % ENCODE_SEC;
+  value = (value - seconds) / ENCODE_SEC;
+  seconds = ENCODE_SEC - 1 - seconds;
+  let money = value % ENCODE_MONEY;
+  value = (value - money) / ENCODE_MONEY;
+  let victory = value;
+  return {
+    victory,
+    money,
+    seconds,
+  };
+}
+
+
+export function setScore(): void {
+  let { data } = myEnt();
+  if (data.cheat) {
+    return;
+  }
+  let score: Score = {
+    seconds: round(crawlerCurSavePlayTime() / 1000),
+    money: data.score_money || 0,
+    victory: data.score_won ? 1 : 0,
+  };
+  score_system.setScore(0, score);
+}
+
 
 function playCrawl(): void {
   profilerStartFunc();
@@ -2061,6 +2127,21 @@ export function playStartup(): void {
   });
 
   controllerOnBumpEntity(bumpEntityCallback);
+
+  const level_def = {
+    name: 'the',
+  };
+  score_system = scoreAlloc({
+    score_to_value: encodeScore,
+    value_to_score: parseScore,
+    level_defs: [level_def],
+    score_key: 'DCJ25',
+    ls_key: 'dcj25',
+    asc: false,
+    rel: 16,
+    num_names: 3,
+    histogram: false,
+  });
 
   renderAppStartup();
   dialogStartup({
