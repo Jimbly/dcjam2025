@@ -16,8 +16,6 @@ TODO
 
 LEVEL MECHANICS / NPCs TODO
   * station
-    * if `soldierdrunk` - find a clue about dazzling gift location near shops - it's on ATLAS-7
-    * if `assist2` - clue about ticket to paradise - it's on EPSILON-ALPHA
     * icon on bay 82 and 47 on the minimap
   * other ships
     * need to return to the right spot

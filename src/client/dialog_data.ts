@@ -202,6 +202,7 @@ dialogRegister({
   },
 });
 
+
 dialogRegister({
   theship1: function () {
     if (!keyGet('enteredship')) {
@@ -352,10 +353,7 @@ dialogRegister({
         }],
       });
     }
-    if (!keyGet('lookedforship')) {
-      return signWithName(name, 'Go check out the dock for **THE ASCENDING SWORD**.');
-    }
-    return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
+    return signWithName(name, 'I\'m so lucky to be on **THE ASCENDING SWORD**, my boss is always working so I don\'t have to...');
   },
   soldierbuydrink: function () {
     let name = 'THE OFF-DUTY SOLDIER';
@@ -699,7 +697,19 @@ dialogRegister({
 
 dialogIconsRegister({
   tips: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
-    return !keyGet('rumor1') ? 'icon_exclamation' : null;
+    if (!keyGet('rumor1')) {
+      return 'icon_exclamation';
+    }
+    if (!keyGet('lookedforship')) {
+      return 'icon_question';
+    }
+    if (keyGet('soldierdrunk') && !hasItem('key1') && !keyGet('solvedguard')) {
+      if (keyGet('hint2')) {
+        return 'icon_question';
+      }
+      return 'icon_exclamation';
+    }
+    return null;
   },
 });
 dialogRegister({
@@ -715,9 +725,24 @@ dialogRegister({
         }],
       });
     }
-    if (!keyGet('lookedforship')) {
+    if (!keyGet('lookedforship') && !keyGet('foundship')) {
       return signWithName(name, 'Go check out the dock for **THE ASCENDING SWORD**.');
     }
+
+    if (keyGet('soldierdrunk') && !hasItem('key1') && !keyGet('solvedguard')) {
+      if (keyGet('hint2')) {
+        return signWithName(name, "Wouldn't it just be *amazing* to have **THE DAZZLING GIFT** found on **ATLAS-7**?");
+      }
+      keySet('hint2');
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: "I heard someone say they saw **THE DAZZLING GIFT** deep in the caves on **ATLAS-7**.  Wouldn't it just be *amazing* to own that?",
+        buttons: [{
+          label: 'NOT MY TASTE, BUT I MIGHT KNOW A DOLL...'
+        }],
+      });
+    }
+
     return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
     // any other tips?
   },
