@@ -812,6 +812,9 @@ dialogRegister({
       transient: true,
     });
   },
+  mono: function (param: string) {
+    signWithName('MONOLOGUING', param);
+  },
   travelfail: function () {
     let me = myEnt();
     let { money } = me.data;

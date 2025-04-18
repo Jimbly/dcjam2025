@@ -34,8 +34,7 @@ ZONES
 * Every Zone: 4 TnAs, 3 TnBs, 3 TnCs, 2 medkits, $2000K
   doubled: 8 TnAs, 6 TnBs, 6 TnCs
 * Zone 0
-  * key2
-  * weapon1, offhand1, torso1, weapon2b (T2), torso4 (T3)
+  * torso4 (T3), med1, med1, weapon1, weapon2b (T2), med1, offhand1, med1, $, $, $, torso1, key2
 * Zone 1
   * weapon4 (T3), med1, med1, offhand2, med1, offhand3b (T3), torso2, med1, weapon2, key3
 * Zone 2
