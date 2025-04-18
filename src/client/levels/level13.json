@@ -630,8 +630,14 @@
         "solid"
       ],
       "props": {
-        "loot": "key1"
-      }
+        "loot": "key3"
+      },
+      "events": [
+        {
+          "id": "dialog",
+          "param": "mono Well look at that beauty.  I bet with that in hand, *anyone* could live *anywhere*..."
+        }
+      ]
     },
     {
       "id": "open",

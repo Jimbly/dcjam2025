@@ -16,7 +16,8 @@ TODO
 
 LEVEL MECHANICS / NPCs TODO
   * station
-    * if `soldierdrunk` - find a clue about dazzling gift location near shops
+    * if `soldierdrunk` - find a clue about dazzling gift location near shops - it's on ATLAS-7
+    * if `assist2` - clue about ticket to paradise - it's on EPSILON-ALPHA
     * icon on bay 82 and 47 on the minimap
   * other ships
     * need to return to the right spot
@@ -65,11 +66,13 @@ Wrap-up
 * remove DEBUG events
 
 Polish
+* random NPCs moving around the station
 * race game
   * ramp-up period with only a few asteroids
   * slightly bigger minimum gap between them
+  * ignore asteroids we can't see when switching lanes? (or, just block/queue the lane switch?)
   * use `combat-hit-crit-2` in race game upon death
-  * travel game: do a "safe!" thing for a moment so you stop pressing forward at the end?
+  * do a "safe!" thing for a moment so you stop pressing forward at the end?
 * fullscreen map view spread color to full view
 * fade out ent at start of combat
 * critical health draw red
@@ -77,6 +80,7 @@ Polish
 * pop-up upon getting any item except medkits, give quick equip option
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
+* escape from travel map is also opening inventory
 * auto-unload auto-atlases that are no longer in use?
 * when interpolating past an NPC, push them farther to their appropriate side so they don't flicker in the camera
 

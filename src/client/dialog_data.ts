@@ -532,16 +532,51 @@ dialogRegister({
   }
 });
 
+// dialogIconsRegister({
+//   student: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+//     if (keyGet('sovledsafe') || hasItem('key4') || keyGet('metassist')) {
+//       return null;
+//     }
+//     if (!keyGet('metstudent')) {
+//       return 'icon_exclamation';
+//     }
+//     return null;
+//   },
+// });
+// dialogRegister({
+//   student: function () {
+//     const name = 'THE STRUGGLING STUDENT';
+//     if (keyGet('metstudent')) {
+//       return signWithName(name, 'My professor should be around here somewhere...');
+//     }
+//     keySet('metstudent');
+//     dialogPush({
+//       custom_render: nameRender(name),
+//       text: "One of my professors has a research obligation with the military.  She's really nice, I wish I could take more of her classes.  She said she'd be on this station today for work...",
+//       buttons: [{
+//         label: 'WORKS WITH THE MILITARY, EH...',
+//       }],
+//     });
+//   },
+// });
+
 dialogIconsRegister({
   assistant: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    let { data } = myEnt();
     if (keyGet('sovledsafe') || hasItem('key4')) {
       return null;
     }
     if (!keyGet('assist1')) {
-      if (myEnt().data.money >= COST_ASSIST_BRIBE) {
+      if (!keyGet('assistintro')) {
         return 'icon_exclamation';
       }
-      return 'icon_question';
+      if (data.money < COST_ASSIST_BRIBE) {
+        return 'icon_question';
+      }
+      return 'icon_exclamation';
+    }
+    if (!keyGet('assist2')) {
+      return 'icon_exclamation';
     }
     if (hasItem('key3')) {
       return 'icon_exclamation';
@@ -554,15 +589,35 @@ dialogRegister({
     const name = 'THE BELEAGUERED ASSISTANT';
     let { data } = myEnt();
     if (keyGet('sovledsafe') || hasItem('key4')) {
-      return signWithName(name, "I'll be gone on the next starliner and never look back...");
+      return;
     }
     if (!keyGet('assist1')) {
+      if (!keyGet('assistintro')) {
+        return dialogPush({
+          custom_render: nameRender(name),
+          text: "Don't tell me you're here to complain about one of the officers...",
+          buttons: [{
+            label: "NO, I'M HERE TO TALK TO YOU.",
+            cb: function () {
+              keySet('assistintro');
+              dialogPush({
+                custom_render: nameRender(name),
+                text: 'About...?',
+                buttons: [{
+                  label: "I HEAR YOU'RE WITH THE SHIP IN **#82**.  DO YOU KNOW ANYTHING ABOUT THE SAFE?",
+                  cb: 'assistant',
+                }],
+              });
+            },
+          }]
+        });
+      }
       if (data.money < COST_ASSIST_BRIBE) {
-        return signWithName(name, 'I won\'t talk to someone shady like you unless you give me a "donation" as a sign of good faith...');
+        return signWithName(name, "Assistants don't get paid very well, you know...");
       }
       return dialogPush({
         custom_render: nameRender(name),
-        text: 'I won\'t talk to someone shady like you unless you give me a "donation" as a sign of good faith...',
+        text: "About that... assistants don't get paid very well, you know...",
         buttons: [{
           label: `HOW'S [img=icon-currency]${COST_ASSIST_BRIBE} SOUND?`,
           cb: function () {
@@ -572,25 +627,42 @@ dialogRegister({
           },
         }, {
           label: 'MAYBE LATER...',
+        }],
+      });
+    }
+    if (!keyGet('assist2')) {
+      keySet('assist2');
+      return dialogPush({
+        custom_render: nameRender(name),
+        text: "Now, if I tell you anything, the heat is going to be **on**, so I'm going to have to live my life far away from here, preferably in paradise...",
+        buttons: [{
+          label: "I'LL SEE WHAT I CAN DO...",
+          cb: function () {
+            if (hasItem('key3')) {
+              dialog('assistant');
+            }
+          },
         }]
       });
     }
     if (hasItem('key3')) {
       return dialogPush({
         custom_render: nameRender(name),
-        text: '<exchange ticket for combination>',
+        text: 'Is that **THE TICKET TO PARADISE**?',
         buttons: [{
-          label: 'JUST WHAT YOU ALWAYS WANTED...',
+          label: "IT'S YOURS, FOR **THE SAFE COMBINATION**.",
           cb: function () {
             consumeItem('key3');
             playUISound('gain_item_quest');
             giveReward({ items: [{ item_id: 'key4' }] });
             keySet('solvedsafe');
+            signWithName(name, 'Deal.  I\'m outta here.');
+            killEntWhereIStand('npc05');
           },
         }],
       });
     }
-    return signWithName(name, '<want THE TICKET TO PARADISE for THE SAFE COMBINATION>');
+    return signWithName(name, 'I\'m going to need to live my life far way from here, preferably in paradise...');
   },
 });
 

@@ -1480,6 +1480,7 @@ function playCrawl(): void {
     dialog_viewport.h = game_height - 3;
   }
   dialogRun(dt, dialog_viewport, false);
+  dialog_viewport.h -= 12; // for name render
 
   let locked_dialog = dialogMoveLocked();
   const overlay_menu_up = pause_menu_up || frame_inventory_up || frame_journal_up;
