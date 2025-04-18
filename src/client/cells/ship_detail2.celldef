@@ -17,8 +17,8 @@ visuals:
   opts:
     atlas: ship
     tile: detail2
-    width: 0.5
-    height: 0.5
+    width: 0.8
+    height: 0.8
     offs: [0, 0, 0]
     face_camera: true # Otherwise faces frustum
     do_alpha: true
