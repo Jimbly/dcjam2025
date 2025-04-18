@@ -11,6 +11,7 @@ fog_params:
 cell_swaps:
   open: moon_open
   floorswitch: moon_open
+  floorswitch_on: moon_open
 wall_swaps:
   open: moon_open
   door: moon_door

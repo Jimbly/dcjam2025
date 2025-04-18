@@ -1105,6 +1105,11 @@ dialogRegister({
       transient: true,
     });
   },
+  onetime: function (param: string) {
+    if (onetimeEvent()) {
+      signWithName('', param, true);
+    }
+  },
   othership: function (param: string) {
     signWithName('MONOLOGUING', "Hmm, this ship's locked up tight, no getting in there, even at my best.");
   },

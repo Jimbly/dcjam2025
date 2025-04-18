@@ -607,8 +607,8 @@
           "param": "zone2doorright"
         },
         {
-          "id": "sign",
-          "param": "Door 2B Unlocked"
+          "id": "dialog",
+          "param": "onetime Unlocked **Door 2B**"
         }
       ]
     },

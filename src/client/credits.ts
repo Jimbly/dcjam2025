@@ -32,7 +32,7 @@ Created in 9 days for [c=creditsname]DUNGEON CRAWLER JAM 2025[/c]
 [c=creditsname]Steve Thompson[/c]
 
 [c=creditstitle]SOUND FX[/c]
-[c=creditsname]Tom Wiley Something[/c]
+[c=creditsname]Tom Wiley Cotton[/c]
 
 [c=creditstitle]MUSIC[/c]
 [c=creditsname]Some Music Guy[/c]

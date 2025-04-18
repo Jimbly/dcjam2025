@@ -7,7 +7,6 @@ TODO
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
 * equip stats changes green/red numbers for better/worse, grey the old
 * Saturday polish
-  * zone 1 - needs some locked doors and keys
   * item descriptions and ensure they all fit reasonably
   * remove debug nooks
 

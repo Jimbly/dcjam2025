@@ -1511,19 +1511,19 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "station_open",
       "walls": [
-        "solid",
+        "station_door",
         "open",
-        "open",
-        "solid"
+        "station_solid2",
+        "station_solid2"
       ]
     },
     {
@@ -1531,9 +1531,12 @@
       "walls": [
         "open",
         "door",
-        "solid",
+        "door_locked",
         "solid"
-      ]
+      ],
+      "props": {
+        "key_cell": "moondoora"
+      }
     },
     {
       "id": "open",
@@ -1736,18 +1739,18 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "station_open",
       "walls": [
-        "solid",
-        "solid",
+        "station_solid1",
         "open",
+        "station_solid1",
         "open"
       ]
     },
@@ -1971,9 +1974,9 @@
       "id": "station_open",
       "walls": [
         "open",
-        "station_door",
+        "station_decal_1",
         "station_solid2",
-        "station_solid1"
+        "open"
       ]
     },
     {
@@ -2204,7 +2207,7 @@
         "open",
         "open",
         "open",
-        "door"
+        "solid"
       ]
     },
     {
@@ -4524,7 +4527,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_open_pillarNE",
       "walls": [
         "open",
         "open",
@@ -4983,7 +4986,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_open_pillarNE",
       "walls": [
         "open",
         "open",
@@ -5202,7 +5205,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "open",
         "solid",
         "open"
       ]
@@ -5417,19 +5420,32 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "floorswitch",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "solid"
+        "solid",
+        "station_decal_5a",
+        "solid",
+        "open"
+      ],
+      "props": {
+        "key_cell": "moondoora"
+      },
+      "events": [
+        {
+          "id": "key_set",
+          "param": "moondoora"
+        },
+        {
+          "id": "dialog",
+          "param": "onetime **DOOR** unlocked."
+        }
       ]
     },
     {
@@ -5437,7 +5453,7 @@
       "walls": [
         "open",
         "open",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -5657,7 +5673,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {

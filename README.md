@@ -21,6 +21,7 @@ Credits
 =======
 
 * Writing - Steve Thompson -  https://steveuschrist.itch.io/
+* Sound FX - Tom Wiley Cotton - https://tom-wiley.itch.io/
 * Kalam Font - https://fonts.google.com/specimen/Kalam
 * Placeholder music - Cursed Kingdoms Twisted Forest Music Pack
 * Placeholder footstep sounds by Alex Hamadey - https://alexhamadey.itch.io/

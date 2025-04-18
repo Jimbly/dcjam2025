@@ -2962,8 +2962,8 @@
           "param": "zone0doora"
         },
         {
-          "id": "sign",
-          "param": "Unlocked **RUIN DOOR**"
+          "id": "dialog",
+          "param": "onetime **RUIN DOOR** unlocked "
         }
       ]
     },
@@ -9143,8 +9143,8 @@
           "param": "zone0doorb"
         },
         {
-          "id": "sign",
-          "param": "Unlocked **CENTRAL DOOR**"
+          "id": "dialog",
+          "param": "onetime **CENTRAL DOOR** unlocked."
         }
       ]
     },
