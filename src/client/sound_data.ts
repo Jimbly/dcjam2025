@@ -23,8 +23,8 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
     file: 'ui/button_click/button_click_04',
     volume: 1,
   }],
+  button_click2: { file: 'ui/button_click/button_click_01', volume: 0.125 }, // touch movement controls - just footsteps
   // menus/general/etc
-  // button_click2: { file: 'button_click2', volume: 1 }, // movement controls
 
   rollover: [{
     file: 'ui/rollover/rollover_01',

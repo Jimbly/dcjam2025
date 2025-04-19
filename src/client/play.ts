@@ -1599,6 +1599,7 @@ function playCrawl(): void {
         toggled_down ? button_sprites_notext_down : button_sprites_notext :
         toggled_down ? button_sprites_down : button_sprites,
       visible_hotkey: useNoText() ? undefined : visible_hotkey,
+      is_movement: false,
     });
     // down_edge[key] += ret.down_edge;
     down[key] += ret.down;

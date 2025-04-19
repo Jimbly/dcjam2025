@@ -1900,6 +1900,7 @@ export class CrawlerController {
         button_sprites,
         touch_hotzone,
         visible_hotkey: show_hotkeys ? visible_hotkey : undefined,
+        is_movement: !(key === 'turn_left' || key === 'turn_right'),
       });
       down_edge[key] += ret.down_edge;
       down[key] += ret.down;

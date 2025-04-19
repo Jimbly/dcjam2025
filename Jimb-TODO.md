@@ -1,6 +1,5 @@
 TODO
 * tweak base fog values
-* no button sounds when using touch controls to move (maybe just turn) - screen and buttons
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;

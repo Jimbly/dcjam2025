@@ -65,6 +65,7 @@ export function crawlerOnScreenButton(param: {
   button_sprites: Record<ButtonStateString, Sprite>;
   touch_hotzone?: Box;
   visible_hotkey: string | undefined;
+  is_movement: boolean;
 }): CrawlerNavButtonRet {
   const {
     x, y, z, w, h,
@@ -74,14 +75,16 @@ export function crawlerOnScreenButton(param: {
     disabled,
     touch_hotzone,
     visible_hotkey,
+    is_movement,
   } = param;
+  let sound_button = is_movement ? 'button_click2' : 'button_click'; // DCJAM
   let button_param: SpotParam & ButtonParam & SpriteDrawParams = {
     def: disabled ? SPOT_DEFAULT_BUTTON_DISABLED : SPOT_DEFAULT_BUTTON,
     // pad_focusable: false,
     frame,
     x, y, z, w, h,
     disabled,
-    // sound_button: 'button_click2', // DCJAM
+    sound_button,
   };
   // Deal with down edge, down time, rollover ourself, combined with key and pad handling
   let state: SpotStateEnum = SPOT_STATE_REGULAR;
@@ -110,7 +113,7 @@ export function crawlerOnScreenButton(param: {
         peek: true,
       })) {
         if (input.mouseDownEdge(touch_hotzone)) {
-          playUISound('button_click');
+          playUISound(sound_button);
           nav_ret.down_edge++;
           nav_ret.down++;
         } else if (input.mouseDownMidClick(touch_hotzone)) {
@@ -129,7 +132,7 @@ export function crawlerOnScreenButton(param: {
         if (do_up_edge && !disabled) {
           nav_ret.up_edge++;
           spotSetPadMode(true);
-          playUISound('button_click');
+          playUISound(sound_button);
         }
       }
     }
@@ -144,7 +147,7 @@ export function crawlerOnScreenButton(param: {
         if (do_up_edge && !disabled) {
           nav_ret.up_edge++;
           spotSetPadMode(true);
-          playUISound('button_click');
+          playUISound(sound_button);
         }
       }
     }
