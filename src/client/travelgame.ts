@@ -72,6 +72,9 @@ class TravelGameState {
   intro = 0;
   hblends: { t: number; d: number }[] = [];
   last_shift = 0;
+  hidden: Record<number, number> = {};
+  lane_block = [0,0,0];
+  total_dist = 0;
   constructor() {
     let entity_manager = crawlerEntityManager();
     let game_state = crawlerGameState();
@@ -158,12 +161,16 @@ export function travelGameFinish(): void {
   queueTransition();
 }
 
+function travelMoveBlocked(lane: number): boolean {
+  return travel_state!.lane_block[lane] > travel_state!.total_dist;
+}
+
 export function travelGameStartMove(dir: DirType): void {
   assert(travel_state);
   let now = getFrameTimestamp();
   let can_shift = now - travel_state.last_shift > 300;
   if (dir === NORTH) {
-    if (travel_state.pos[1] < 2) {
+    if (travel_state.pos[1] < 2 && !travelMoveBlocked(travel_state.pos[1] + 1)) {
       travel_state.pos[1]++;
       travel_state.hblends.push({
         t: 0,
@@ -173,7 +180,7 @@ export function travelGameStartMove(dir: DirType): void {
       playUISound('ship_cannot_move');
     }
   } else if (dir === SOUTH) {
-    if (travel_state.pos[1] > 0) {
+    if (travel_state.pos[1] > 0 && !travelMoveBlocked(travel_state.pos[1] - 1)) {
       travel_state.pos[1]--;
       travel_state.hblends.push({
         t: 0,
@@ -289,19 +296,32 @@ export function doTravelGame(): void {
   } else {
     if (travel_state.speed > 0) {
       let xpos0 = pos[0];
-      let xpos1 = xpos0 + dt * (3 + travel_state.speed * 2) * 0.0008;
-      travel_state.escape += dt * (travel_state.speed - 2.5) * 0.00005;
+      let ddist = dt * (3 + travel_state.speed * 2) * 0.0008;
+      let xpos1 = xpos0 + ddist;
+      travel_state.total_dist += ddist;
+      travel_state.escape += dt * (travel_state.speed - 2.5) * 0.000025;
       travel_state.escape = clamp(travel_state.escape, 0, 1);
 
       let crashed = false;
       for (let ii = 0; ii < asteroids.length; ++ii) {
         let ast = asteroids[ii];
         let astx = ast.pos[0] + 0.32; // 0.4 is visually tightest, but there's hblends...
+        let asthide = ast.pos[0];
         if (ast.pos[1] === pos[1] &&
           xpos0 < astx && xpos1 >= astx
         ) {
+          // if (travel_state.hidden[ii] > travel_state.total_dist) {
+          //   // ignore it
+          // } else {
           playUISound('ship_crash');
           crashed = true;
+          // }
+        }
+        if (ast.pos[1] !== pos[1] &&
+          xpos0 < asthide && xpos1 >= asthide
+        ) {
+          travel_state.lane_block[ii] = travel_state.total_dist + 0.32;
+          travel_state.hidden[ii] = travel_state.total_dist + 1;
         }
       }
 
