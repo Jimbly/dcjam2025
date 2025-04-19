@@ -163,40 +163,221 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   ship_crash: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_failure: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_success: { file: 'ship/ship_accelerate_5', volume: 1 },
+  
+  combat_start: [{ file: 'combat/combat_start_01', volume: 1 }, { file: 'combat/combat_start_02', volume: 1 }],
 
-  combat_start: { file: 'combat/start', volume: 1 },
-
-  combat_hero_hit_miss: { file: 'combat/hit', volume: 1 },
-  combat_hero_hit_normal: { file: 'combat/hit', volume: 1 },
-  combat_hero_hit_crit: { file: 'combat/hit', volume: 1 },
+  combat_hero_hit_miss: { file: 'combat/hero_hit_miss', volume: 1 },
+  combat_hero_hit_normal: { file: 'combat/hero_hit_normal', volume: 1 },
+  combat_hero_hit_crit: { file: 'combat/hero_hit_crit', volume: 1 },
 
   combat_hero_damaged_miss: { file: 'combat/hero_damaged', volume: 1 },
   combat_hero_damaged_normal: { file: 'combat/hero_damaged', volume: 1 },
   combat_hero_damaged_crit: { file: 'combat/hero_damaged', volume: 1 },
 
-  combat_alien_hit_miss: { file: 'combat/hit', volume: 1 },
-  combat_alien_hit_normal: { file: 'combat/hit', volume: 1 },
-  combat_alien_hit_crit: { file: 'combat/hit', volume: 1 },
+  combat_alien_hit_miss: [{
+    file: 'combat/alien_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/alien_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/alien_hit_03',
+    volume: 1,
+  }],
 
-  combat_robot_hit_miss: { file: 'combat/hit', volume: 1 },
-  combat_robot_hit_normal: { file: 'combat/hit', volume: 1 },
-  combat_robot_hit_crit: { file: 'combat/hit', volume: 1 },
+  combat_alien_hit_normal: [{
+    file: 'combat/alien_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/alien_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/alien_hit_03',
+    volume: 1,
+  }],
 
-  combat_worm_hit_miss: { file: 'combat/hit', volume: 1 },
-  combat_worm_hit_normal: { file: 'combat/hit', volume: 1 },
-  combat_worm_hit_crit: { file: 'combat/hit', volume: 1 },
+  combat_alien_hit_crit: [{
+    file: 'combat/alien_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/alien_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/alien_hit_03',
+    volume: 1,
+  }],
 
-  combat_alien_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_alien_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_alien_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_robot_hit_miss: [{
+    file: 'combat/robot_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_03',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_04',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_05',
+    volume: 1,
+  }],
 
-  combat_robot_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_robot_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_robot_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_robot_hit_normal: [{
+    file: 'combat/robot_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_03',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_04',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_05',
+    volume: 1,
+  }],
 
-  combat_worm_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_worm_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_worm_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_robot_hit_crit: [{
+    file: 'combat/robot_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_03',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_04',
+    volume: 1,
+  }, {
+    file: 'combat/robot_hit_05',
+    volume: 1,
+  }],
+
+  combat_worm_hit_miss: [{
+    file: 'combat/worm_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/worm_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/worm_hit_03',
+    volume: 1,
+  }],
+
+  combat_worm_hit_normal: [{
+    file: 'combat/worm_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/worm_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/worm_hit_03',
+    volume: 1,
+  }],
+
+  combat_worm_hit_crit: [{
+    file: 'combat/worm_hit_01',
+    volume: 1,
+  }, {
+    file: 'combat/worm_hit_02',
+    volume: 1,
+  }, {
+    file: 'combat/worm_hit_03',
+    volume: 1,
+  }],
+
+  combat_alien_damaged_miss: [{
+    file: 'combat/alien_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_02',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_03',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_04',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_05',
+    volume: 1,
+  }],
+
+  combat_alien_damaged_normal: [{
+    file: 'combat/alien_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_02',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_03',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_04',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_05',
+    volume: 1,
+  }],
+
+  combat_alien_damaged_crit: [{
+    file: 'combat/alien_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_02',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_03',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_04',
+    volume: 1,
+  }, {
+    file: 'combat/alien_damaged_05',
+    volume: 1,
+  }],
+
+  combat_robot_damaged_miss: { file: 'combat/robot_damaged_01', volume: 1 },
+  combat_robot_damaged_normal: { file: 'combat/robot_damaged_01', volume: 1 },
+  combat_robot_damaged_crit: { file: 'combat/robot_damaged_01', volume: 1 },
+
+  combat_worm_damaged_miss: [{
+    file: 'combat/worm_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/worm_damaged_02',
+    volume: 1,
+  }, {
+    file: 'combat/worm_damaged_03',
+    volume: 1,
+  }],
+
+  combat_worm_damaged_normal: [{
+    file: 'combat/worm_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/worm_damaged_02',
+    volume: 1,
+  }, {
+    file: 'combat/worm_damaged_03',
+    volume: 1,
+  }],
+
+  combat_worm_damaged_crit: [{
+    file: 'combat/worm_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/worm_damaged_02',
+    volume: 1,
+  }, {
+    file: 'combat/worm_damaged_03',
+    volume: 1,
+  }],
 
   // note: not current implemented
   // "enemy" is a generic term for all enemies, including aliens, robots, and worms.
