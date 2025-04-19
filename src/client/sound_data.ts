@@ -166,13 +166,13 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
 
   combat_start: [{ file: 'combat/combat_start_01', volume: 1 }, { file: 'combat/combat_start_02', volume: 1 }],
 
-  combat_hero_hit_miss: { file: 'combat/hero_hit_miss', volume: 1 },
-  combat_hero_hit_normal: { file: 'combat/hero_hit_normal', volume: 1 },
-  combat_hero_hit_crit: { file: 'combat/hero_hit_crit', volume: 1 },
+  combat_hero_hit_miss: { file: 'combat/hero_hit_miss_01', volume: 1 },
+  combat_hero_hit_normal: { file: 'combat/hero_hit_normal_01', volume: 1 },
+  combat_hero_hit_crit: { file: 'combat/hero_hit_crit_01', volume: 1 },
 
-  combat_hero_damaged_miss: { file: 'combat/hero_damaged', volume: 1 },
-  combat_hero_damaged_normal: { file: 'combat/hero_damaged', volume: 1 },
-  combat_hero_damaged_crit: { file: 'combat/hero_damaged', volume: 1 },
+  combat_hero_damaged_miss: { file: 'combat/hero_damaged_01', volume: 1 },
+  combat_hero_damaged_normal: { file: 'combat/hero_damaged_01', volume: 1 },
+  combat_hero_damaged_crit: { file: 'combat/hero_damaged_01', volume: 1 },
 
   combat_alien_hit_miss: [{
     file: 'combat/alien_hit_01',
