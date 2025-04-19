@@ -1,5 +1,4 @@
 TODO
-* tweak base fog values
 * Copy item descriptions/names from doc
 * item descriptions and ensure they all fit reasonably
 * itch.io page
