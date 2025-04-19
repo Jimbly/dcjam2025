@@ -105,6 +105,8 @@ export interface EntityCrawlerClient extends EntityBaseClient {
   delete_reason?: string;
   floaters?: Floater[];
 
+  fade_out_at?: number;
+
   isEnemy(): boolean;
   draw2D(param: EntityDraw2DOpts): void;
   draw?: (param: EntityDrawOpts) => void;
@@ -220,7 +222,7 @@ export function crawlerMyActionSend<T>(param: ActionMessageParam, resp_func?: Ne
 export function crawlerEntitiesAt(cem: ClientEntityManagerInterface<Entity>,
   pos: [number, number] | ROVec2,
   floor_id: number,
-  skip_fading_out:boolean
+  skip_fading_out: boolean
 ): Entity[] {
   return cem.entitiesFind((ent) => entSamePos(ent, pos) && ent.data.floor === floor_id, skip_fading_out);
 }

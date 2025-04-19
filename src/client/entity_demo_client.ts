@@ -100,6 +100,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
   declare theguard?: boolean;
 
   not_dead_yet = false;
+  fade_out_at?: number;
 
   constructor(data_in: DataObject) {
     super(data_in);

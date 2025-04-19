@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { autoAtlas } from 'glov/client/autoatlas';
-import { debugDefineIsSet } from 'glov/client/engine';
+import { debugDefineIsSet, getFrameTimestamp } from 'glov/client/engine';
 import { ALIGN, Font, fontStyle } from 'glov/client/font';
 import { KEYS, mouseOver, PAD } from 'glov/client/input';
 import {
@@ -331,7 +331,8 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     dt = 0;
   }
   let me = myEnt();
-  if (!combat_state) {
+  if (!combat_state || combat_state.target.id !== target.id) {
+    target.fade_out_at = getFrameTimestamp();
     combat_state = {
       target_hp: target.data.stats.hp,
       target,

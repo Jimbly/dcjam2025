@@ -28,7 +28,6 @@ Polish
   * ignore asteroids we can't see when switching lanes? (or, just block/queue the lane switch?)
   * use `combat-hit-crit-2` in race game upon death
   * do a "safe!" thing for a moment so you stop pressing forward at the end?
-* fade out ent at start of combat
 * pop-up upon getting any item except medkits, give quick equip option
 * escape from travel map is also opening inventory
 
