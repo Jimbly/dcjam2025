@@ -207,6 +207,12 @@ dialogRegister({
   },
 });
 
+dialogRegister({
+  nilo: function () {
+    signWithName('NILO', 'What...?  How did I get here?  I saw that weird cat and followed it and ended up here...');
+  }
+});
+
 
 dialogRegister({
   theship1: function () {

@@ -3839,7 +3839,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "secret_door",
+        "ship_door_secret_invisible",
         "solid",
         "open"
       ]
@@ -4049,6 +4049,12 @@
         "open",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "nilo"
+        }
       ]
     },
     {
@@ -5102,6 +5108,22 @@
         11,
         5,
         3
+      ]
+    },
+    {
+      "type": "demo_wander",
+      "pos": [
+        10,
+        18,
+        2
+      ]
+    },
+    {
+      "type": "nilo",
+      "pos": [
+        8,
+        18,
+        0
       ]
     }
   ],
