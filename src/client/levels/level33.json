@@ -4284,7 +4284,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -4293,7 +4293,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -4598,28 +4598,28 @@
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
+        "solid",
+        "solid",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
         "open",
         "open",
+        "station_decal_1",
+        "station_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
         "open",
-        "open"
+        "open",
+        "station_solid3"
       ]
     },
     {
@@ -4627,7 +4627,7 @@
       "walls": [
         "open",
         "solid",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -4913,34 +4913,34 @@
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_shop_medi",
+        "station_decal_1",
+        "station_solid3",
+        "station_decal_1"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "station_shop_medi",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
         "open",
         "open",
         "open"
@@ -4951,7 +4951,7 @@
       "walls": [
         "station_bulkhead",
         "solid",
-        "solid",
+        "open",
         "solid"
       ]
     },
@@ -5246,26 +5246,26 @@
     {
       "id": "solid",
       "walls": [
+        "solid",
         "open",
         "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
         "open",
+        "station_solid3",
+        "station_decal_5",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "station_detail1",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
+        "solid",
+        "station_solid3",
         "open",
         "open"
       ]
@@ -5275,7 +5275,7 @@
       "walls": [
         "solid",
         "open",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -5582,7 +5582,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -5591,7 +5591,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -7236,7 +7236,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "open",
         "open",
         "open"
       ]
@@ -7244,28 +7244,10 @@
     {
       "id": "open",
       "walls": [
-        "station_decal_5",
+        "solid",
         "solid",
         "open",
         "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "solid",
-        "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "door",
-        "solid",
-        "station_bulkhead"
       ]
     },
     {
@@ -7361,6 +7343,24 @@
     {
       "id": "solid",
       "walls": [
+        "solid",
+        "open",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "door",
+        "solid",
+        "station_bulkhead"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
         "open",
         "open",
         "solid",
@@ -7533,16 +7533,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -7551,9 +7542,27 @@
       "id": "solid",
       "walls": [
         "open",
+        "solid",
         "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "solid",
         "open",
         "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "open"
       ]
     },
     {
@@ -7561,16 +7570,7 @@
       "walls": [
         "open",
         "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -7847,8 +7847,44 @@
     {
       "id": "solid",
       "walls": [
+        "solid",
         "open",
         "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "station_shop_hat",
+        "station_decal_2",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "solid",
         "open",
         "open"
       ]
@@ -7858,43 +7894,7 @@
       "walls": [
         "open",
         "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -8171,10 +8171,46 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_decal_1",
+        "station_solid3",
+        "station_decal_1",
+        "station_shop_hat"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "solid"
       ]
     },
     {
@@ -8471,43 +8507,7 @@
         "open",
         "open",
         "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -11681,7 +11681,7 @@
   ],
   "initial_entities": [
     {
-      "type": "enemyT3",
+      "type": "critter5",
       "pos": [
         6,
         11,
@@ -11689,7 +11689,7 @@
       ]
     },
     {
-      "type": "enemyT3",
+      "type": "critter5",
       "pos": [
         9,
         6,
@@ -11713,11 +11713,11 @@
       ]
     },
     {
-      "type": "enemyT3",
+      "type": "critter5",
       "pos": [
         13,
         5,
-        1
+        2
       ]
     },
     {
@@ -11726,6 +11726,38 @@
         8,
         19,
         0
+      ]
+    },
+    {
+      "type": "npc13",
+      "pos": [
+        5,
+        15,
+        0
+      ]
+    },
+    {
+      "type": "critter5",
+      "pos": [
+        6,
+        14,
+        0
+      ]
+    },
+    {
+      "type": "critter5",
+      "pos": [
+        11,
+        22,
+        3
+      ]
+    },
+    {
+      "type": "npc12",
+      "pos": [
+        7,
+        25,
+        3
       ]
     }
   ],
