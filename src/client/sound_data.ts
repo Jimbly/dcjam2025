@@ -165,20 +165,48 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   ship_finish_success: { file: 'ship/ship_accelerate_5', volume: 1 },
 
   combat_start: { file: 'combat/start', volume: 1 },
+
   combat_hero_hit_miss: { file: 'combat/hit', volume: 1 },
   combat_hero_hit_normal: { file: 'combat/hit', volume: 1 },
   combat_hero_hit_crit: { file: 'combat/hit', volume: 1 },
+
   combat_hero_damaged_miss: { file: 'combat/hero_damaged', volume: 1 },
   combat_hero_damaged_normal: { file: 'combat/hero_damaged', volume: 1 },
   combat_hero_damaged_crit: { file: 'combat/hero_damaged', volume: 1 },
-  combat_enemy_hit_miss: { file: 'combat/hit', volume: 1 },
-  combat_enemy_hit_normal: { file: 'combat/hit', volume: 1 },
-  combat_enemy_hit_crit: { file: 'combat/hit', volume: 1 },
+
+  combat_alien_hit_miss: { file: 'combat/hit', volume: 1 },
+  combat_alien_hit_normal: { file: 'combat/hit', volume: 1 },
+  combat_alien_hit_crit: { file: 'combat/hit', volume: 1 },
+
+  combat_robot_hit_miss: { file: 'combat/hit', volume: 1 },
+  combat_robot_hit_normal: { file: 'combat/hit', volume: 1 },
+  combat_robot_hit_crit: { file: 'combat/hit', volume: 1 },
+
+  combat_worm_hit_miss: { file: 'combat/hit', volume: 1 },
+  combat_worm_hit_normal: { file: 'combat/hit', volume: 1 },
+  combat_worm_hit_crit: { file: 'combat/hit', volume: 1 },
+
+  combat_alien_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_alien_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_alien_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+
+  combat_robot_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_robot_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_robot_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+
+  combat_worm_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_worm_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
+  combat_worm_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+
+// "enemy" is a generic term for all enemies, including aliens, robots, and worms. this should play at the same time as a specific enemy sound. This can be a stretch goal if implementation is weird.
   combat_enemy_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+
   combat_hero_death: { file: 'combat/hero_death', volume: 1 },
-  combat_enemy_death: { file: 'combat/enemy_death', volume: 1 },
+  combat_alien_death: { file: 'combat/enemy_death', volume: 1 },
+  combat_robot_death: { file: 'combat/enemy_death', volume: 1 },
+  combat_worm_death: { file: 'combat/enemy_death', volume: 1 },
 
   item_heal: { file: 'item/heal', volume: 1 },
   item_unusable: { file: 'item/unusable', volume: 1 },
