@@ -11,32 +11,32 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
 
   // UI sounds
   button_click: [{
-    file: 'ui/button_click/button_click_01',
+    file: 'ui/button_click_01',
     volume: 1,
   }, {
-    file: 'ui/button_click/button_click_02',
+    file: 'ui/button_click_02',
     volume: 1,
   }, {
-    file: 'ui/button_click/button_click_03',
+    file: 'ui/button_click_03',
     volume: 1,
   }, {
-    file: 'ui/button_click/button_click_04',
+    file: 'ui/button_click_04',
     volume: 1,
   }],
   button_click2: { file: 'ui/button_click/button_click_01', volume: 0.125 }, // touch movement controls - just footsteps
   // menus/general/etc
 
   rollover: [{
-    file: 'ui/rollover/rollover_01',
+    file: 'ui/rollover_01',
     volume: 1,
   }, {
-    file: 'ui/rollover/rollover_02',
+    file: 'ui/rollover_02',
     volume: 1,
   }, {
-    file: 'ui/rollover/rollover_03',
+    file: 'ui/rollover_03',
     volume: 1,
   }, {
-    file: 'ui/rollover/rollover_04',
+    file: 'ui/rollover_04',
     volume: 1,
   }],
 
@@ -163,7 +163,7 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   ship_crash: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_failure: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_success: { file: 'ship/ship_accelerate_5', volume: 1 },
-  
+
   combat_start: [{ file: 'combat/combat_start_01', volume: 1 }, { file: 'combat/combat_start_02', volume: 1 }],
 
   combat_hero_hit_miss: { file: 'combat/hero_hit_miss', volume: 1 },
@@ -387,10 +387,10 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   combat_enemy_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
 
-  combat_hero_death: { file: 'combat/hero_death', volume: 1 },
-  combat_alien_death: { file: 'combat/enemy_death', volume: 1 },
-  combat_robot_death: { file: 'combat/enemy_death', volume: 1 },
-  combat_worm_death: { file: 'combat/enemy_death', volume: 1 },
+  combat_hero_death: { file: 'combat/combat_end_01', volume: 1 },
+  combat_alien_death: { file: 'combat/combat_end_01', volume: 1 },
+  combat_robot_death: { file: 'combat/combat_end_01', volume: 1 },
+  combat_worm_death: { file: 'combat/combat_end_01', volume: 1 },
 
   item_heal: { file: 'item/heal', volume: 1 },
   item_unusable: { file: 'item/unusable', volume: 1 },
