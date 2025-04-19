@@ -750,21 +750,21 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "station_decal_1",
+        "station_solid1"
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
         "open",
         "open",
-        "door"
+        "station_door"
       ],
       "events": [
         {
@@ -774,12 +774,12 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
-        "solid",
+        "station_decal_1",
         "open",
         "open",
-        "solid"
+        "station_solid1"
       ]
     },
     {
@@ -1017,19 +1017,19 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "station_solid1",
+        "station_solid1",
         "open"
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
-        "solid",
+        "station_decal_1",
         "open",
         "open"
       ],
@@ -1038,10 +1038,10 @@
       }
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
-        "solid",
-        "solid",
+        "station_solid1",
+        "station_solid1",
         "open",
         "open"
       ]
@@ -9339,7 +9339,7 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-station",
       "pos": [
         24,
         3,

@@ -601,21 +601,21 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "station_solid1",
+        "station_decal_3"
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
         "open",
         "open",
-        "solid"
+        "station_decal_1"
       ],
       "props": {
         "loot": "key3"
@@ -628,21 +628,21 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
         "open",
         "open",
-        "solid"
+        "station_solid1"
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
-        "solid",
+        "station_solid1",
         "open",
         "open",
-        "solid"
+        "station_decal_1"
       ]
     },
     {
@@ -829,37 +829,37 @@
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "station_decal_1",
+        "station_solid1",
         "open"
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
         "open",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
+        "station_solid1",
         "open",
         "open"
       ]
     },
     {
-      "id": "open",
+      "id": "station_open",
       "walls": [
-        "solid",
-        "door",
+        "open",
+        "station_decal_3",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "station_open",
+      "walls": [
+        "station_solid1",
+        "station_door",
         "open",
         "open"
       ]
@@ -4889,11 +4889,11 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-station",
       "pos": [
         16,
         2,
-        0
+        1
       ]
     },
     {

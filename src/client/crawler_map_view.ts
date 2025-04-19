@@ -69,6 +69,7 @@ const MAP_CENTER_OFFS = 3;
 let build_mode_entity_icons: Partial<Record<string, string>> = {
   def: 'spawner',
   chest: 'chest', // DCJAM25
+  'chest-station': 'chest', // DCJAM25
   enemyT0A: 't0',
   enemyT0B: 't0',
   enemyT0C: 't0',
