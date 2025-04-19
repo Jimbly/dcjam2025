@@ -167,7 +167,7 @@ export function travelGameFinish(): void {
   crawlerController().setControllerType('queued2');
   queueTransition();
   if (destination_key === 'station') {
-    crawlerScriptAPI().floorAbsolute(10, 3, 7, 2);
+    crawlerScriptAPI().floorAbsolute(10, 13, 19, WEST);
   } else {
     crawlerController().goToFloor(destination_floor, destination_key);
   }

@@ -6,11 +6,10 @@ TODO
 * Copy item descriptions/names from doc
 * item descriptions and ensure they all fit reasonably
 * build out levels
-  * station
   * remove DEBUG events / debug nooks
   * random NPCs moving around the station
   * station polish
-    * turn bay arms?
+    * observation deck
     * fix tiling on ceiling
 * Prune unused atlases and tiles from used atlases:
   * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
@@ -22,7 +21,7 @@ TODO
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
 
 Wrap-up
-* Credits - put in names
+* Credits - put in names on main menu
 * Check background color / door fade color in each level
 * Check map tileset
 * Music

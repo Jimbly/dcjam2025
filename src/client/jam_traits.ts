@@ -7,6 +7,7 @@ import {
 } from '../common/crawler_script';
 import { CrawlerCell, DirType, JSVec3 } from '../common/crawler_state';
 import { crawlerEntFactory } from './crawler_entity_client';
+import { crawlerController } from './crawler_play';
 import { signWithName } from './dialog_data';
 import { EntityDemoClient, StatsData } from './entity_demo_client';
 import { autosave, myEnt, queueTransition } from './play';
@@ -43,6 +44,7 @@ crawlerScriptRegisterEvent({
     let { data } = myEnt();
     data.last_ship_floor = data.floor;
     data.last_ship_pos = data.pos.slice(0) as JSVec3;
+    data.last_ship_pos[2] = crawlerController().getMoveFromDir();
     let delta = floor - api.getFloor();
     let idx = 1;
     let special_pos = params[idx++] || (delta < 0 ? 'stairs_out' : 'stairs_in');

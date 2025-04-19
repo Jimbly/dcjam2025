@@ -946,7 +946,7 @@ dialogRegister({
       }
       return signWithName(name, 'THE GOLDEN ROCKET? The \'86 winner retired to Calliope.');
     }
-    signWithName(name, '<insert generic historian dialog>');
+    signWithName(name, 'This area of space has some really interesting creatures...');
   },
 });
 

@@ -5,7 +5,7 @@ import { KEYS, PAD } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
 import { Sprite, spriteCreate } from 'glov/client/sprites';
 import { buttonText, uiTextHeight } from 'glov/client/ui';
-import { NORTH } from '../common/crawler_state';
+import { WEST } from '../common/crawler_state';
 import { crawlerEntityManager } from './crawler_entity_client';
 import { crawlerController } from './crawler_play';
 import { keyClear, SHUTTLE_COST } from './dialog_data';
@@ -67,7 +67,7 @@ export function stateTravel(dt: number): void {
     hotpad: PAD.CANCEL,
   })) {
     queueTransition();
-    crawlerController().forceMove(NORTH);
+    crawlerController().forceMove(WEST);
     setState(play);
   }
 
