@@ -1,5 +1,6 @@
 TODO
 * tweak base fog values
+* no button sounds when using touch controls to move (maybe just turn) - screen and buttons
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
@@ -9,6 +10,7 @@ TODO
 * item descriptions and ensure they all fit reasonably
 * Prune unused atlases and tiles from used atlases:
   * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
+  * probably remove/flag unused : station detail3/4
   * remove test atlas - just need to move chest into another
 * remove debug nooks
 * random NPCs moving around the station
