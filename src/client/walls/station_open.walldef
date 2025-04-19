@@ -5,11 +5,11 @@ build_hide: true
 visuals:
 - type: simple_filler
   opts:
-    atlas: station
-    tile: filler
+    atlas: default
+    tile: unused
 - type: simple_filler
   opts:
-    atlas: station
-    tile: filler
+    atlas: default
+    tile: unused
     offs: [0, 1]
 

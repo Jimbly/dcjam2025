@@ -6,13 +6,13 @@ map_view_wall_frames_from: solid
 visuals:
 - type: simple_wall
   opts:
-    atlas: test
-    tile: solid1
+    atlas: default
+    tile: unused
 - pass: celldetails
   type: simple_wall
   opts:
-    atlas: decals
-    tile: banner-1
+    atlas: default
+    tile: unused
     scale: 0.7
     offs: [0,0]
     detail_layer: 1 # Use a different value for each detail, if more than 1 detail here

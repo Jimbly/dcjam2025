@@ -19,6 +19,7 @@
       "*.mp3",
       "*.ogg",
       "*.wav",
+      "*.kra",
       "package-lock.json",
     ],
     "path": ".",

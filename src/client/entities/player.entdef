@@ -12,6 +12,9 @@ traits:
     idle:
       frames: [hero-helmet-none]
       times: 10000
+    others:
+      frames: [hero-bg, hero-helmet-0, hero-helmet-1, hero-helmet-2, hero-helmet-3, hero-helmet-4]
+      times: 10000
   sprite_data:
     atlas: hero
     filter_min: LINEAR_MIPMAP_LINEAR

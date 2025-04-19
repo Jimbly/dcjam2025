@@ -6,13 +6,13 @@ visuals:
 - pass: bg
   type: simple_floor
   opts:
-    atlas: test
-    tile: floor
+    atlas: default
+    tile: unused
 - pass: bg
   type: simple_ceiling
   opts:
-    atlas: test
-    tile: ceiling
+    atlas: default
+    tile: unused
 
 corners: # pillars and floor/ceiling details
   one:
@@ -23,8 +23,8 @@ corners: # pillars and floor/ceiling details
       radius: 0.125
       segments: 8
       roundness: 0
-      atlas: test
-      tile: pillar1
+      atlas: default
+      tile: unused
       height: 1
       offs: [0,0,0]
   - pass: details
@@ -32,8 +32,8 @@ corners: # pillars and floor/ceiling details
     opts:
       quadrants: 1
       scale: 1
-      atlas: test
-      tile: pillar_floor1
+      atlas: default
+      tile: unused
   two:
   - pass: celldetails
     type: simple_pillar
@@ -42,8 +42,8 @@ corners: # pillars and floor/ceiling details
       radius: 0.125
       segments: 8
       roundness: 0
-      atlas: test
-      tile: pillar2
+      atlas: default
+      tile: unused
       height: 1
       offs: [0,0,0]
   - pass: details
@@ -51,8 +51,8 @@ corners: # pillars and floor/ceiling details
     opts:
       quadrants: 2
       scale: 1
-      atlas: test
-      tile: pillar_floor2
+      atlas: default
+      tile: unused
   three:
   - pass: details
     type: simple_pillar
@@ -61,8 +61,8 @@ corners: # pillars and floor/ceiling details
       radius: 0.125
       segments: 8
       roundness: 0
-      atlas: test
-      tile: pillar3
+      atlas: default
+      tile: unused
       height: 1
       offs: [0,0,0]
   - pass: details
@@ -70,8 +70,8 @@ corners: # pillars and floor/ceiling details
     opts:
       quadrants: 3
       scale: 1
-      atlas: test
-      tile: pillar_floor3
+      atlas: default
+      tile: unused
   # four:
   # - pass: details
   #   type: simple_pillar

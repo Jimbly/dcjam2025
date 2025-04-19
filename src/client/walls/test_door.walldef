@@ -6,5 +6,5 @@ advertise_other_side: true
 visuals:
   type: simple_wall
   opts:
-    atlas: test
-    tile: door
+    atlas: default
+    tile: unused

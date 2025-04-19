@@ -54,7 +54,7 @@ export function renderAppStartup(): void {
       alpha_blend: true,
     }],
     atlas_aliases: {
-      default: 'test',
+      // default: 'test',
     },
     split_dist: 2.8,
     angle_offs: 0, // 9.5,

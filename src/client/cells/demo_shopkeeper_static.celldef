@@ -7,18 +7,18 @@ visuals:
 - pass: bg
   type: simple_floor
   opts:
-    atlas: demo
-    tile: cobble_blood1
+    atlas: default
+    tile: unused
 - pass: bg
   type: simple_ceiling
   opts:
-    atlas: demo
-    tile: grey_dirt0
+    atlas: default
+    tile: unused
 - pass: celldetails
   type: simple_billboard
   opts:
-    atlas: utumno
-    tile: [shopkeep]
+    atlas: default
+    tile: [unused]
     width: 0.62
     height: 0.62 # 0..1
     offs: [0, 0, 0]

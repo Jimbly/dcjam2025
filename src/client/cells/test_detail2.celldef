@@ -6,18 +6,18 @@ visuals:
 - pass: bg
   type: simple_floor
   opts:
-    atlas: test
-    tile: floor
+    atlas: default
+    tile: unused
 - pass: bg
   type: simple_ceiling
   opts:
-    atlas: test
-    tile: ceiling
+    atlas: default
+    tile: unused
 - pass: celldetails
   type: simple_billboard
   opts:
-    atlas: test
-    tile: chest
+    atlas: default
+    tile: unused
     width: 0.5
     height: 0.5
     offs: [0, 0, 0]

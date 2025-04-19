@@ -6,10 +6,10 @@ visuals:
 - type: simple_filler
   opts:
     atlas: ship
-    tile: filler
+    tile: ceiling
 - type: simple_filler
   opts:
     atlas: ship
-    tile: filler
+    tile: floor
     offs: [0, 1]
 

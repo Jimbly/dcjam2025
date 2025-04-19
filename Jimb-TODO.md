@@ -1,5 +1,6 @@
 TODO
 * Prune unused atlases and tiles from used atlases - at least semi-automatic
+  * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
 * remove test atlas - just need to move chest into another
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
@@ -11,6 +12,7 @@ TODO
 * remove debug nooks
 * random NPCs moving around the station
 * final station name into level file
+* hud background texture
 * display medkit count on hud and (H)
 * race game max speed finishes too quickly (it's 3x the other speed? make it 2x?)
 * on next combat playtest

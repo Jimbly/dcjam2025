@@ -8,8 +8,8 @@ visuals:
 - pass: bg
   type: simple_floor
   opts:
-    atlas: whitebox
-    tile: pit_closed
+    atlas: default
+    tile: unused
 - pass: bg
   type: simple_ceiling
   opts:
@@ -19,8 +19,8 @@ visuals_visited:
 - pass: bg
   type: simple_floor
   opts:
-    atlas: whitebox
-    tile: pit_open
+    atlas: default
+    tile: unused
 - pass: bg
   type: simple_ceiling
   opts:

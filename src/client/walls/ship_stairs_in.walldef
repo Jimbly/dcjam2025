@@ -7,4 +7,4 @@ visuals:
   type: simple_wall
   opts:
     atlas: ship
-    tile: stairs_in
+    tile: door
