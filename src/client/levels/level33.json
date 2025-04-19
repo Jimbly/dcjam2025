@@ -1693,8 +1693,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "station_decal_1",
+        "station_decal_1"
       ]
     },
     {
@@ -1730,7 +1730,7 @@
         "station_bulkhead",
         "station_decal_2",
         "open",
-        "station_decal_5"
+        "station_hangar_left"
       ]
     },
     {
@@ -2042,7 +2042,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "station_decal_5",
         "station_shop_window",
         "open",
         "open"
@@ -3014,7 +3014,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "station_hangar_left",
         "open",
         "open",
         "station_shop_window"
@@ -3636,8 +3636,8 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "station_decal_1",
+        "station_decal_1",
         "open"
       ]
     },
@@ -3662,7 +3662,7 @@
     {
       "id": "station_detail1",
       "walls": [
-        "solid",
+        "station_decal_2",
         "station_solid3",
         "open",
         "open"
@@ -4329,7 +4329,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "station_hangar_left",
         "open",
         "station_bulkhead"
       ]
@@ -4347,7 +4347,7 @@
       "id": "open",
       "walls": [
         "station_decal_2",
-        "solid",
+        "station_hangar_left",
         "open",
         "station_bulkhead"
       ]
@@ -4961,7 +4961,7 @@
         "open",
         "open",
         "station_bulkhead",
-        "solid"
+        "station_medbay_right"
       ]
     },
     {
@@ -6580,7 +6580,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "station_decal_5",
         "open"
       ]
     },
@@ -7244,7 +7244,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "station_decal_5",
         "solid",
         "open",
         "open"
@@ -7858,7 +7858,16 @@
       "walls": [
         "open",
         "station_shop_hat",
-        "station_decal_2",
+        "station_decal_chicken",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "station_decal_5",
+        "open",
         "solid"
       ]
     },
@@ -7874,17 +7883,8 @@
     {
       "id": "open",
       "walls": [
-        "open",
         "solid",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "solid",
+        "station_decal_chicken",
         "open",
         "open"
       ]
