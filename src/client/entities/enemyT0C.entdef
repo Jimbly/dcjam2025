@@ -22,7 +22,10 @@ traits:
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
     origin: [0.5, 1]
-  scale: 0.85
+  scale: 0.8
   simple_anim:
     - period: 6851
-      scale: [1, 0.88]
+      scale: [1, 1.03]
+
+  combat_scale: 1
+  combat_offs: 0.05

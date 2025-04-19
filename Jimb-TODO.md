@@ -1,25 +1,26 @@
 TODO
-* battle against shelled critter in moon he's too big
-* play game through once (w/ controller?)
+* Prune unused atlases and tiles from used atlases - at least semi-automatic
+* remove test atlas - just need to move chest into another
+* headers for the plan and high scores
+* play time as smaller label
+* play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
     * second zone; couldn't afford hat, have 1563
 * build out levels
   * station
+* item descriptions and ensure they all fit reasonably
+* remove debug nooks
+* random NPCs moving around the station
+* final station name into level file
 * display medkit count on hud and (H)
 * race game max speed finishes too quickly (it's 3x the other speed? make it 2x?)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
-* Saturday polish
-  * item descriptions and ensure they all fit reasonably
-  * remove debug nooks
-  * random NPCs moving around the station
-  * final station name into level file
 
 Wrap-up
 * Credits - put in names
-* Prune unused atlases and tiles from used atlases
 * Check background color / door fade color in each level
 * Copy item descriptions/names from doc
 * itch.io page
@@ -34,6 +35,7 @@ Polish
   * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
 * pop-up upon getting any item except medkits, give quick equip option
 * escape from travel map is also opening inventory
+* sound hook upon unlocking doors
 
 * auto-unload auto-atlases that are no longer in use? or preload all anyway at start?
 * the pillar to the SW doesn't show up at the right time when rotating the camera

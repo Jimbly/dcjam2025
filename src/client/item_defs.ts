@@ -35,7 +35,7 @@ const ITEM_ROWS: ItemRow[] = [
   ['offhand', 'offhand4', 'T4 Offhand', { dodge: 16, defense: 8 }],
   ['head', 'helmet4', 'Deathclaw', { hp_max: 65, attack: 4 }, 'You have been assured that these are bonefide chicken horns, sharp enough to pierce the strongest foe.'],
 
-  ['consumable', 'med1', 'Med-Kit', { hp: 50 }, 'Press H to heal while exploring.'],
+  ['consumable', 'med1', 'Med-Kit', { hp: 50 }, 'Press H or LT to heal while exploring.'],
 
   ['key', 'key1', 'The Dazzling Gift', undefined, 'Shiny.'],
   ['key', 'key2', 'The Golden Rocket', undefined, 'Shiny.'],

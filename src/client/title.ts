@@ -46,6 +46,7 @@ export function hasSaveData(slot: number): boolean {
 
 let sprite_bg: Sprite;
 let sprite_name: Sprite;
+let sprite_hall_of_fame: Sprite;
 
 const { max, min, random, PI } = Math;
 
@@ -232,7 +233,7 @@ function title(dt: number): void {
     w: subtitle_w,
     h: 400,
     align: ALIGN.HVCENTER|ALIGN.HWRAP,
-    text: 'By Jimb Esser, Nico Something, Tom Wiley Cotton, Some Music Guy, and Steve Thompson',
+    text: 'By Jimb Esser, Humane Tiger, Tom Wiley Cotton, Some Music Guy, and Steve Thompson',
   });
   if (0) {
     uiGetFont().draw({
@@ -306,17 +307,28 @@ export function stateHighScores(dt: number): void {
   titleDrawBG(dt);
   let font = uiGetFont();
 
-  let y = 8;
+  let y = 35;
   let pad = 16;
   let text_height = uiTextHeight();
   let button_h = uiButtonHeight();
 
-  font.draw({
-    x: 0, w: W, y: y - text_height * 2, align: ALIGN.HCENTER,
-    size: text_height * 4,
-    style: style_title,
-    text: 'Hall of Fame'.toUpperCase(),
-  });
+  if (0) {
+    font.draw({
+      x: 0, w: W, y: y - text_height * 2, align: ALIGN.HCENTER,
+      size: text_height * 4,
+      style: style_title,
+      text: 'Hall of Fame'.toUpperCase(),
+    });
+  } else {
+    let imgh = 360/1080*game_height;
+    let imgw = sprite_hall_of_fame.getAspect() * imgh;
+    sprite_hall_of_fame.draw({
+      x: (W - imgw)/2,
+      y: -6,
+      w: imgw,
+      h: imgh,
+    });
+  }
 
   y += text_height * 2 + 8;
 
@@ -324,13 +336,13 @@ export function stateHighScores(dt: number): void {
 
   let button_w = 120;
 
-  if (buttonText({
-    x: (W - button_w)/2, y,
-    w: button_w, h: button_h,
-    text: 'Return to Title'.toUpperCase(),
-  }) || keyDownEdge(KEYS.ESC)) {
-    engine.setState(title);
-  }
+  // if (buttonText({
+  //   x: (W - button_w)/2, y,
+  //   w: button_w, h: button_h,
+  //   text: 'Return to Title'.toUpperCase(),
+  // }) || keyDownEdge(KEYS.ESC)) {
+  //   engine.setState(title);
+  // }
   y += button_h + 2;
 
   // pad = 8;
@@ -356,7 +368,7 @@ export function stateHighScores(dt: number): void {
 
   let hpad = 90;
   pad = 24;
-  scoresDraw<Score>({
+  y = scoresDraw<Score>({
     score_system: getScoreSystem(),
     allow_rename: true,
     x: hpad, width: W - hpad * 2,
@@ -374,6 +386,15 @@ export function stateHighScores(dt: number): void {
     color_me_background: [0.2,0.2,0.2,1],
   });
 
+  if (buttonText({
+    x: W - hpad - 80, y: 227 + text_height * 0.25,
+    w: 80, h: button_h,
+    text: 'Return to Title'.toUpperCase(),
+  }) || keyDownEdge(KEYS.ESC)) {
+    engine.setState(title);
+  }
+
+
   camera2d.push();
   camera2d.setNormalized();
   drawRect(0, 0, 1, 1, Z.UI - 20, [0, 0, 0, 0.5]);
@@ -384,11 +405,19 @@ export function stateHighScores(dt: number): void {
 export function titleStartup(): void {
   sprite_bg = spriteCreate({
     name: 'title-bg',
+    filter_min: gl.LINEAR,
     wrap_s: gl.REPEAT,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
   sprite_name = spriteCreate({
     name: 'title-name',
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  sprite_hall_of_fame = spriteCreate({
+    name: 'hall-of-fame',
+    filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });

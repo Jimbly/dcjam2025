@@ -227,6 +227,7 @@ let modal_bg_top_mult: Sprite;
 let modal_inventory_descr: Sprite;
 let modal_label_inventory: Sprite;
 let modal_label_options: Sprite;
+let modal_label_journal: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -297,7 +298,7 @@ export function modalBackground(
     let label_w = label.texs[0].src_width / 674 * 155;
     label.draw({
       x: box.x - 8,
-      y: box.y - (label === modal_label_options ? 23 : 32),
+      y: box.y - (label === modal_label_options ? 23 : label === modal_label_journal ? 23 : 32),
       z: z + 0.4,
       w: label_w,
       h: label_w / label.getAspect(),
@@ -890,10 +891,10 @@ const MARKER_W = 12;
 function journalMenu(): void {
   let api = crawlerScriptAPI();
   let lines = [
-    ['foundship', `Find where **THE ASCENDING SWORD** is docked${api.keyGet('foundship') ? ' (Bay 82)' : ''}`],
+    ['foundship', `Find where **THE ASCENDING SWORD** is docked${api.keyGet('foundship') ? ' (**Bay 82**)' : ''}`],
     ['solvedguard', api.keyGet('metguard') ? 'Get past **THE ESTRANGED GUARD**' : 'Get past **THE GUARD**'],
-    ['solvedsafe', 'Open the safe and grab **THE RED DEVASTATION**'],
-    ['solvedescape', `Disappear into the black${hasItem('key5') ? ' (Bay 47)' : ''}`],
+    ['solvedsafe', 'Open the safe to get at **THE RED DEVASTATION**'],
+    ['solvedescape', `Disappear into the black${hasItem('key5') ? '\n(**Bay 47**)' : ''}`],
   ];
   let x = INVENTORY_X;
   let w = INVENTORY_W;
@@ -903,12 +904,16 @@ function journalMenu(): void {
   let text_height = uiTextHeight();
   let line_pad = text_height;
 
-  markdownAuto({
-    x, y, z, w,
-    align: ALIGN.HLEFT,
-    text: '**HEIST PLANNING**',
-  });
-  y += text_height * 3;
+  if (0) {
+    markdownAuto({
+      x, y, z, w,
+      align: ALIGN.HLEFT,
+      text: '**HEIST PLANNING**',
+    });
+    y += text_height * 3;
+  } else {
+    y += text_height * 2;
+  }
 
   lines.forEach(function (pair) {
     let solved = api.keyGet(pair[0]);
@@ -930,7 +935,7 @@ function journalMenu(): void {
       text: pair[1]
     }).h + line_pad;
   });
-  modalBackground(INVENTORY_W, INVENTORY_H, null);
+  modalBackground(INVENTORY_W, INVENTORY_H, modal_label_journal);
 }
 
 let temp_inventory: Item[];
@@ -1720,7 +1725,7 @@ function playCrawl(): void {
 
   if (!travel_game && !journal_up && !pause_menu_up && !frame_combat && !controller.hasMoveBlocker()) {
     let { data } = myEnt();
-    if (keyDownEdge(KEYS.H)) {
+    if (keyDownEdge(KEYS.H) || padButtonDownEdge(PAD.LEFT_TRIGGER)) {
       if (!hasItem('med1')) {
         statusPush('I\'m all outta **Med-Kits**.');
       } else if (data.stats.hp >= data.stats.hp_max) {
@@ -2194,6 +2199,13 @@ export function playStartup(): void {
   });
   modal_label_options = spriteCreate({
     name: 'modal-label-options',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  modal_label_journal = spriteCreate({
+    name: 'modal-label-journal',
     filter_mag: gl.LINEAR,
     filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
