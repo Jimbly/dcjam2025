@@ -11,32 +11,32 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
 
   // UI sounds
   button_click: [{
-    file: 'ui/button_click/button_click_01',
+    file: 'ui/button_click_01',
     volume: 1,
   }, {
-    file: 'ui/button_click/button_click_02',
+    file: 'ui/button_click_02',
     volume: 1,
   }, {
-    file: 'ui/button_click/button_click_03',
+    file: 'ui/button_click_03',
     volume: 1,
   }, {
-    file: 'ui/button_click/button_click_04',
+    file: 'ui/button_click_04',
     volume: 1,
   }],
   // menus/general/etc
   // button_click2: { file: 'button_click2', volume: 1 }, // movement controls
 
   rollover: [{
-    file: 'ui/rollover/rollover_01',
+    file: 'ui/rollover_01',
     volume: 1,
   }, {
-    file: 'ui/rollover/rollover_02',
+    file: 'ui/rollover_02',
     volume: 1,
   }, {
-    file: 'ui/rollover/rollover_03',
+    file: 'ui/rollover_03',
     volume: 1,
   }, {
-    file: 'ui/rollover/rollover_04',
+    file: 'ui/rollover_04',
     volume: 1,
   }],
 
@@ -163,7 +163,7 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   ship_crash: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_failure: { file: 'ship/ship_decelerate_1', volume: 1 },
   ship_finish_success: { file: 'ship/ship_accelerate_5', volume: 1 },
-  
+
   combat_start: [{ file: 'combat/combat_start_01', volume: 1 }, { file: 'combat/combat_start_02', volume: 1 }],
 
   combat_hero_hit_miss: { file: 'combat/hero_hit_miss', volume: 1 },
@@ -379,15 +379,18 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
     volume: 1,
   }],
 
-// "enemy" is a generic term for all enemies, including aliens, robots, and worms. this should play at the same time as a specific enemy sound. This can be a stretch goal if implementation is weird.
+  // note: not current implemented
+  // "enemy" is a generic term for all enemies, including aliens, robots, and worms.
+  //  this should play at the same time as a specific enemy sound. This can be a
+  //  stretch goal if implementation is weird.
   combat_enemy_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
 
-  combat_hero_death: { file: 'combat/hero_death', volume: 1 },
-  combat_alien_death: { file: 'combat/enemy_death', volume: 1 },
-  combat_robot_death: { file: 'combat/enemy_death', volume: 1 },
-  combat_worm_death: { file: 'combat/enemy_death', volume: 1 },
+  combat_hero_death: { file: 'combat/combat_end_01', volume: 1 },
+  combat_alien_death: { file: 'combat/combat_end_01', volume: 1 },
+  combat_robot_death: { file: 'combat/combat_end_01', volume: 1 },
+  combat_worm_death: { file: 'combat/combat_end_01', volume: 1 },
 
   item_heal: { file: 'item/heal', volume: 1 },
   item_unusable: { file: 'item/unusable', volume: 1 },
