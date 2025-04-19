@@ -599,6 +599,11 @@ const style_stats_worse = fontStyle(style_hud_value, {
   color: 0x800000ff,
   outline_color: 0x800000ff,
 });
+const COLOR_BAD = 0xBB0000ff;
+const style_stats_bad = fontStyle(style_hud_value, {
+  color: COLOR_BAD,
+  outline_color: COLOR_BAD,
+});
 const style_stats_replaced = fontStyle(style_hud_value, {
   color: 0x808080ff,
   outline_color: 0x808080ff,
@@ -620,18 +625,19 @@ function betterValue(a: string | number, b: string | number): boolean {
 const STATSPAD = 8;
 function statsLineEx(
   x: number, y: number, z: number, w: number,
-  label: string, value: string | number, other_value?: string | number
+  label: string, value: string | number, other_value?: string | number,
+  is_bad?: boolean,
 ): number {
   let text_height = uiTextHeight();
   let text_w = font.draw({
-    color: 0x000000ff,
+    color: is_bad ? COLOR_BAD : 0x000000ff,
     x, y, z,
     size: text_height * 0.75,
     text: label,
   });
   let left = w - text_w;
   font.draw({
-    color: 0x000000ff,
+    color: is_bad ? COLOR_BAD : 0x000000ff,
     x: x + text_w,
     y, z,
     w: left,
@@ -670,7 +676,7 @@ function statsLineEx(
       z,
       w: text_full_w,
       align: ALIGN.HRIGHT,
-      font_style: style_hud_value,
+      font_style: is_bad ? style_stats_bad : style_hud_value,
       text_height: text_height,
       text: String(value),
     });
@@ -1312,10 +1318,10 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
 
   const STATS_Y0 = 108;
   let y = STATS_Y0;
-  function statsLine(label: string, value: string | number, other_value?: string | number): void {
+  function statsLine(label: string, value: string | number, other_value?: string | number, is_bad?: boolean): void {
     let x = HUD_X0 + STATSPAD;
     let z = frame_inventory_up ? Z.MODAL + 2 : Z.UI;
-    y = statsLineEx(x, y, z, HUD_W - STATSPAD * 2, label, value, other_value);
+    y = statsLineEx(x, y, z, HUD_W - STATSPAD * 2, label, value, other_value, is_bad);
   }
 
   let me = myEnt();
@@ -1327,7 +1333,8 @@ function displayHUD(frame_inventory_up: boolean, frame_combat: Entity | null): v
     statsLine('ACCURACY', me.data.stats.accuracy, preview_stats_final.accuracy);
     statsLine('DODGE', me.data.stats.dodge, preview_stats_final.dodge);
   } else {
-    statsLine('HIT POINTS', `${me.data.stats.hp}/${me.data.stats.hp_max}`);
+    statsLine('HIT POINTS', `${me.data.stats.hp}/${me.data.stats.hp_max}`, undefined,
+      me.data.stats.hp < me.data.stats.hp_max * 0.33);
     statsLine('ATTACK', me.data.stats.attack);
     statsLine('DEFENSE', me.data.stats.defense);
     statsLine('ACCURACY', me.data.stats.accuracy);

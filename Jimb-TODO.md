@@ -30,7 +30,6 @@ Polish
   * do a "safe!" thing for a moment so you stop pressing forward at the end?
 * fullscreen map view spread color to full view
 * fade out ent at start of combat
-* critical health draw red
 * show player HP as big colorful text in combat
 * pop-up upon getting any item except medkits, give quick equip option
 * the pillar to the SW doesn't show up at the right time when rotating the camera
