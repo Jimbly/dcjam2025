@@ -1926,9 +1926,9 @@
       ]
     },
     {
-      "id": "moon_detail3",
+      "id": "open",
       "walls": [
-        "solid",
+        "door_locked",
         "door",
         "open",
         "open"
@@ -1939,7 +1939,7 @@
       "walls": [
         "solid",
         "solid",
-        "solid",
+        "door_locked",
         "door"
       ]
     },
