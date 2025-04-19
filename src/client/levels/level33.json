@@ -8235,7 +8235,7 @@
       "id": "open",
       "walls": [
         "open",
-        "station_decal_3",
+        "station_zoo_window",
         "open",
         "solid"
       ]
@@ -8244,7 +8244,7 @@
       "id": "open",
       "walls": [
         "open",
-        "station_shop_window",
+        "station_zoo_window",
         "open",
         "solid"
       ]
@@ -8253,7 +8253,7 @@
       "id": "open",
       "walls": [
         "open",
-        "station_decal_5",
+        "station_zoo_window",
         "open",
         "solid"
       ]
@@ -8271,7 +8271,7 @@
       "id": "open",
       "walls": [
         "open",
-        "station_decal_3",
+        "station_zoo_window",
         "open",
         "solid"
       ]
@@ -8280,7 +8280,7 @@
       "id": "open",
       "walls": [
         "open",
-        "station_shop_window",
+        "station_zoo_window",
         "open",
         "solid"
       ]
@@ -8289,7 +8289,7 @@
       "id": "station_detail1",
       "walls": [
         "station_decal_2",
-        "station_decal_5",
+        "station_zoo_window",
         "open",
         "solid"
       ]
@@ -8561,7 +8561,7 @@
         "open",
         "open",
         "moon_solid1",
-        "solid"
+        "station_zoo_window"
       ]
     },
     {
@@ -8570,16 +8570,16 @@
         "open",
         "open",
         "open",
-        "station_shop_window"
+        "station_zoo_window"
       ]
     },
     {
-      "id": "moon_detail3",
+      "id": "moon_detail1",
       "walls": [
         "moon_solid1",
         "open",
         "open",
-        "solid"
+        "station_zoo_window"
       ]
     },
     {
@@ -8597,7 +8597,7 @@
         "open",
         "open",
         "ship_solid1",
-        "solid"
+        "station_zoo_window"
       ]
     },
     {
@@ -8606,7 +8606,7 @@
         "open",
         "open",
         "open",
-        "station_shop_window"
+        "station_zoo_window"
       ]
     },
     {
@@ -8615,7 +8615,7 @@
         "ship_solid1",
         "open",
         "open",
-        "solid"
+        "station_zoo_window"
       ]
     },
     {
@@ -11812,6 +11812,14 @@
       "type": "critter5",
       "pos": [
         11,
+        26,
+        3
+      ]
+    },
+    {
+      "type": "critter8",
+      "pos": [
+        19,
         26,
         3
       ]
