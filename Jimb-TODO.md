@@ -1,5 +1,9 @@
 TODO
 * battle against shelled critter in moon he's too big
+* Prune unused atlases and tiles from used atlases - at least semi-automatic
+* remove test atlas - just need to move chest into another
+* headers for the plan and high scores
+* play time as smaller label
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
@@ -10,8 +14,6 @@ TODO
 * remove debug nooks
 * random NPCs moving around the station
 * final station name into level file
-* headers for the plan and high scores
-* play time as smaller label
 * display medkit count on hud and (H)
 * race game max speed finishes too quickly (it's 3x the other speed? make it 2x?)
 * on next combat playtest
@@ -20,7 +22,6 @@ TODO
 
 Wrap-up
 * Credits - put in names
-* Prune unused atlases and tiles from used atlases
 * Check background color / door fade color in each level
 * Copy item descriptions/names from doc
 * itch.io page
