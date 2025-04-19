@@ -260,6 +260,11 @@ export function main(): void {
   }
   titleStartup();
   // Preload some atlases
-  autoAtlas('test', 'solid1');
+  autoAtlas('station', 'solid1');
+  autoAtlas('base', 'solid1');
+  autoAtlas('moon', 'solid1');
+  autoAtlas('ship', 'solid1');
   autoAtlas('critters', 'critter6');
+  autoAtlas('npcs', 'npc-1');
+  autoAtlas('decals', 'ship-decal-1');
 }
