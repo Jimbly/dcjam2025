@@ -474,15 +474,9 @@
       "id": "open",
       "walls": [
         "open",
-        "open",
+        "solid",
         "solid",
         "open"
-      ],
-      "events": [
-        {
-          "id": "sign",
-          "param": "Debug T1 Gear Here"
-        }
       ]
     },
     {
@@ -702,18 +696,12 @@
       ]
     },
     {
-      "id": "station_open",
+      "id": "solid",
       "walls": [
-        "station_solid2",
-        "station_solid2",
-        "station_solid2",
-        "open"
-      ],
-      "events": [
-        {
-          "id": "dialog",
-          "param": "debug t1"
-        }
+        "solid",
+        "open",
+        "open",
+        "solid"
       ]
     },
     {
@@ -941,7 +929,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "open"
       ]
     },
     {

@@ -6,7 +6,6 @@ TODO
 * Copy item descriptions/names from doc
 * item descriptions and ensure they all fit reasonably
 * build out levels
-  * remove DEBUG events / debug nooks
   * random NPCs moving around the station
   * station polish
     * observation deck
