@@ -8247,6 +8247,12 @@
         "station_zoo_window",
         "open",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "Creatures from ATLAS 7"
+        }
       ]
     },
     {
@@ -8283,6 +8289,12 @@
         "station_zoo_window",
         "open",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "Guardians from EPSILON-ALPHA"
+        }
       ]
     },
     {
@@ -8571,6 +8583,12 @@
         "open",
         "open",
         "station_zoo_window"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "ATLAS 7"
+        }
       ]
     },
     {

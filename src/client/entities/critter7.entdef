@@ -15,3 +15,6 @@ traits:
     filter_mag: LINEAR
     origin: [0.5, 1]
   scale: 0.62
+  simple_anim:
+    - period: 7780
+      scale: [1, 0.88]
