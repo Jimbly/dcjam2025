@@ -267,11 +267,22 @@ function drawHP(hp: number, ent: Entity, x: number, y: number): void {
   let stats = ent.data.stats;
   let { hp_max } = stats;
   let show_text = false;
-  if (mouseOver({
-    x, y,
-    w: HEALTH_W, h: HEALTH_H,
-  })) {
-    show_text = true;
+  if (ent === myEnt()) {
+    font.draw({
+      size: 20,
+      x, y,
+      w: HEALTH_W,
+      align: ALIGN.VBOTTOM|ALIGN.HCENTER,
+      style: hp < hp_max * 0.33 ? style_pow.crit : style_pow.normal,
+      text: `${hp}/${hp_max}`,
+    });
+  } else {
+    if (mouseOver({
+      x, y,
+      w: HEALTH_W, h: HEALTH_H,
+    })) {
+      show_text = true;
+    }
   }
   drawHealthBar(x, y, Z.UI, HEALTH_W, HEALTH_H, hp, hp_max, show_text);
 }

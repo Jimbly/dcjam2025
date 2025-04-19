@@ -29,12 +29,12 @@ Polish
   * use `combat-hit-crit-2` in race game upon death
   * do a "safe!" thing for a moment so you stop pressing forward at the end?
 * fade out ent at start of combat
-* show player HP as big colorful text in combat
 * pop-up upon getting any item except medkits, give quick equip option
+* escape from travel map is also opening inventory
+
+* auto-unload auto-atlases that are no longer in use? or preload all anyway at start?
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
-* escape from travel map is also opening inventory
-* auto-unload auto-atlases that are no longer in use?
 * when interpolating past an NPC, push them farther to their appropriate side so they don't flicker in the camera
 
 NOTES - ZONES
