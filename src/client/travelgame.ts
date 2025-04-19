@@ -299,7 +299,15 @@ export function doTravelGame(): void {
       let ddist = dt * (3 + travel_state.speed * 2) * 0.0008;
       let xpos1 = xpos0 + ddist;
       travel_state.total_dist += ddist;
-      travel_state.escape += dt * (travel_state.speed - 2.5) * 0.000025;
+      const LOOKUP = [
+        0,
+        -1,
+        -0.5,
+        0.5,
+        1,
+        1.5
+      ];
+      travel_state.escape += dt * LOOKUP[travel_state.speed] * 0.000038;
       travel_state.escape = clamp(travel_state.escape, 0, 1);
 
       let crashed = false;

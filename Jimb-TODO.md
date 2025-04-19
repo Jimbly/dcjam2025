@@ -1,12 +1,14 @@
 TODO
 * tweak base fog values
+* Copy item descriptions/names from doc
+* item descriptions and ensure they all fit reasonably
+* itch.io page
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
     * second zone; couldn't afford hat, have 1563
 * build out levels
   * station
-* item descriptions and ensure they all fit reasonably
 * Prune unused atlases and tiles from used atlases:
   * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
   * probably remove/flag unused : station detail3/4
@@ -16,7 +18,6 @@ TODO
 * final station name into level file
 * hud background texture
 * display medkit count on hud and (H)
-* race game max speed finishes too quickly (it's 3x the other speed? make it 2x?)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
@@ -25,8 +26,6 @@ Wrap-up
 * Credits - put in names
 * Check background color / door fade color in each level
 * Check map tileset
-* Copy item descriptions/names from doc
-* itch.io page
 * Add wander cat and nilo
 * remove DEBUG events / debug nooks
 
