@@ -538,7 +538,7 @@ const FLOOR_DETAIL_Z = 0.025;
 
 const wall_face_right = vec3(0, -1, 0);
 const wall_face_down = vec3(0, 0, -1);
-const wall_detail_offs = vec3(FLOOR_DETAIL_Z, 0, 0);
+const wall_detail_offs = vec3(FLOOR_DETAIL_Z * 2, 0, 0);
 let temp_pos = vec3();
 let temp_pos2 = vec3();
 let temp_right = vec3();

@@ -2,6 +2,7 @@
 export const SHUTTLE_COST = 100;
 import { cmd_parse } from 'glov/client/cmds';
 import { ALIGN, fontStyle } from 'glov/client/font';
+import { inputTouchMode } from 'glov/client/input';
 import { panel, PanelParam, playUISound, sprites as ui_sprites, uiGetFont, uiTextHeight } from 'glov/client/ui';
 import * as urlhash from 'glov/client/urlhash';
 import { ridx } from 'glov/common/util';
@@ -1142,6 +1143,15 @@ dialogRegister({
   onetime: function (param: string) {
     if (onetimeEvent()) {
       signWithName('', param, true);
+    }
+  },
+  kbhintonetime: function (param: string) {
+    if (!inputTouchMode() && onetimeEvent()) {
+      dialogPush({
+        name: '',
+        text: param,
+        transient: true,
+      });
     }
   },
   othership: function (param: string) {

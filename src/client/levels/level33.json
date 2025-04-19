@@ -1,14 +1,14 @@
 {
   "special_pos": {
     "stairs_in": [
-      1,
-      8,
-      0
+      12,
+      17,
+      2
     ],
     "stairs_out": [
-      3,
-      8,
-      2
+      31,
+      23,
+      3
     ]
   },
   "w": 36,
@@ -4992,12 +4992,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5010,12 +5016,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5028,12 +5040,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5046,12 +5064,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5064,12 +5088,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5082,12 +5112,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5100,12 +5136,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5118,12 +5160,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5136,12 +5184,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5154,12 +5208,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -5321,7 +5381,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5339,7 +5399,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5357,7 +5417,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5375,7 +5435,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5393,7 +5453,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5411,7 +5471,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5429,7 +5489,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5447,7 +5507,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5465,7 +5525,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5483,7 +5543,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -5608,7 +5668,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "station_cantina_left",
         "open"
       ]
     },
@@ -5985,7 +6045,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6003,7 +6063,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6021,7 +6081,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6039,7 +6099,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6057,7 +6117,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6075,7 +6135,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6093,7 +6153,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6111,7 +6171,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6129,7 +6189,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -6306,12 +6366,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6324,12 +6390,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6342,12 +6414,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6360,12 +6438,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6378,12 +6462,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6396,12 +6486,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6414,12 +6510,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6432,12 +6534,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -6450,12 +6558,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "door",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7263,25 +7377,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
-        "solid",
-        "station_bulkhead"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "solid",
-        "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7299,7 +7395,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7317,7 +7413,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7335,7 +7431,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7353,7 +7449,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7371,7 +7467,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7389,7 +7485,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7407,7 +7503,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7425,7 +7521,25 @@
       "id": "open",
       "walls": [
         "solid",
-        "door",
+        "stairs_out",
+        "solid",
+        "station_bulkhead"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "stairs_out",
         "solid",
         "station_bulkhead"
       ]
@@ -7524,7 +7638,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -7584,12 +7698,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7602,12 +7722,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7620,12 +7746,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7638,12 +7770,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7656,12 +7794,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7674,12 +7818,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7692,12 +7842,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7710,12 +7866,18 @@
       ]
     },
     {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7728,30 +7890,42 @@
       ]
     },
     {
-      "id": "open",
-      "walls": [
-        "solid",
-        "solid",
-        "solid",
-        "door"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "solid",
-        "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
+      "id": "stairs_out",
       "walls": [
         "solid",
         "solid",
         "solid",
         "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "solid",
+        "open",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "stairs_out",
+      "walls": [
+        "solid",
+        "solid",
+        "solid",
+        "door"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "1"
+        }
       ]
     },
     {
@@ -7760,15 +7934,6 @@
         "open",
         "open",
         "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
         "open"
       ]
     },
@@ -7857,9 +8022,18 @@
       "id": "open",
       "walls": [
         "open",
-        "station_shop_hat",
+        "station_decal_1",
         "station_decal_chicken",
         "station_decal_1"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "open",
+        "solid"
       ]
     },
     {
@@ -7875,7 +8049,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "station_shop_hat",
         "open",
         "solid"
       ]
@@ -8171,45 +8345,45 @@
     {
       "id": "solid",
       "walls": [
+        "open",
+        "open",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
         "solid",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "station_decal_1",
-        "station_solid3",
-        "station_decal_1",
+        "solid",
+        "solid",
+        "solid",
         "station_shop_hat"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
         "open",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -8519,25 +8693,25 @@
         "open",
         "open",
         "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
         "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
       ]
     },
     {
@@ -8630,7 +8804,7 @@
     {
       "id": "ship_detail3",
       "walls": [
-        "ship_solid1",
+        "ship_solid2",
         "open",
         "open",
         "station_zoo_window"
@@ -8938,7 +9112,7 @@
       "walls": [
         "open",
         "ship_solid1",
-        "ship_solid1",
+        "ship_solid2",
         "open"
       ]
     },
@@ -8955,7 +9129,7 @@
       "id": "ship_detail2",
       "walls": [
         "ship_solid1",
-        "ship_door_secret",
+        "ship_solid2",
         "open",
         "open"
       ]
@@ -11771,11 +11945,11 @@
       ]
     },
     {
-      "type": "npc12",
+      "type": "critter5",
       "pos": [
-        7,
-        25,
-        3
+        32,
+        21,
+        2
       ]
     },
     {
@@ -11851,17 +12025,28 @@
       ]
     },
     {
-      "type": "critter5",
+      "type": "npc03",
       "pos": [
-        32,
-        21,
-        2
+        9,
+        25,
+        3
+      ]
+    },
+    {
+      "type": "npc04",
+      "pos": [
+        6,
+        24,
+        0
       ]
     }
   ],
   "state": {},
   "vstyle": "station",
   "seed": "32845502",
-  "props": {},
+  "props": {
+    "title": "STATION 15",
+    "subtitle": "CIVILLIAN DECK"
+  },
   "paths": {}
 }

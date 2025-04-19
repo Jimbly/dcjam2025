@@ -1243,7 +1243,7 @@
       "events": [
         {
           "id": "dialog",
-          "param": "kbhint HINT: Press F11 for Fullscreen"
+          "param": "kbhintonetime HINT: Press F11 for Fullscreen"
         }
       ]
     },

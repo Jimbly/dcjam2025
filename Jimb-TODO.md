@@ -9,7 +9,9 @@ TODO
   * station
   * remove DEBUG events / debug nooks
   * random NPCs moving around the station
-  * final station name into level file
+  * station polish
+    * turn bay arms?
+    * fix tiling on ceiling
 * Prune unused atlases and tiles from used atlases:
   * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
   * probably remove/flag unused : station detail3/4
@@ -23,6 +25,7 @@ Wrap-up
 * Credits - put in names
 * Check background color / door fade color in each level
 * Check map tileset
+* Music
 * Add wander cat and nilo
 
 Polish
