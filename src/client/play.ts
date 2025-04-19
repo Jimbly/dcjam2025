@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import assert from 'assert';
 import { autoResetSkippedFrames } from 'glov/client/auto_reset';
 import { autoAtlas } from 'glov/client/autoatlas';
@@ -169,7 +170,7 @@ import {
 import { hasSaveData } from './title';
 import { doTravelGame, travelGameActive, travelGameCheck } from './travelgame';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { ceil, cos, floor, max, min, round, sin, PI } = Math;
 
 declare module 'glov/client/settings' {
@@ -1872,7 +1873,7 @@ export function play(dt: number): void {
 
   playCrawl();
 
-  crawlerPrepAndRenderFrame(travelGameActive() ? 30/180*PI : 0);
+  crawlerPrepAndRenderFrame(0); // travelGameActive() ? 30/180*PI : 0);
 
   // if (game_state.level && (engagedEnemy() || !crawlerController().controllerIsAnimating(0.75))) {
   //   let target_ent = engagedEnemy() || facingEnemy();

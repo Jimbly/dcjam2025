@@ -289,7 +289,7 @@ export function doTravelGame(): void {
   } else {
     if (travel_state.speed > 0) {
       let xpos0 = pos[0];
-      let xpos1 = xpos0 + dt * (3 + travel_state.speed * 2) * 0.001;
+      let xpos1 = xpos0 + dt * (3 + travel_state.speed * 2) * 0.0008;
       travel_state.escape += dt * (travel_state.speed - 2.5) * 0.00005;
       travel_state.escape = clamp(travel_state.escape, 0, 1);
 
