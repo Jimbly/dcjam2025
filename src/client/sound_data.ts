@@ -342,9 +342,27 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
     volume: 1,
   }],
 
-  combat_robot_damaged_miss: { file: 'combat/robot_damaged_01', volume: 1 },
-  combat_robot_damaged_normal: { file: 'combat/robot_damaged_01', volume: 1 },
-  combat_robot_damaged_crit: { file: 'combat/robot_damaged_01', volume: 1 },
+  combat_robot_damaged_miss: [{
+    file: 'combat/robot_damaged_01',
+    volume: 1
+  }, {
+    file: 'combat/robot_damaged_02',
+    volume: 1,
+  }],
+  combat_robot_damaged_normal: [{
+    file: 'combat/robot_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/robot_damaged_02',
+    volume: 1,
+  }],
+  combat_robot_damaged_crit: [{
+    file: 'combat/robot_damaged_01',
+    volume: 1,
+  }, {
+    file: 'combat/robot_damaged_02',
+    volume: 1,
+  }],
 
   combat_worm_damaged_miss: [{
     file: 'combat/worm_damaged_01',
@@ -387,7 +405,7 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   combat_enemy_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
 
-  combat_hero_death: { file: 'combat/combat_end_01', volume: 1 },
+  combat_hero_death: { file: 'combat/combat_death_01', volume: 1 },
   combat_alien_death: { file: 'combat/combat_end_01', volume: 1 },
   combat_robot_death: { file: 'combat/combat_end_01', volume: 1 },
   combat_worm_death: { file: 'combat/combat_end_01', volume: 1 },
