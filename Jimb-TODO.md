@@ -1,5 +1,4 @@
 TODO
-* Check background color / door fade color in each level
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
@@ -32,6 +31,7 @@ Polish
 * pop-up upon getting any item except medkits, give quick equip option
 * escape from travel map is also opening inventory
 * sound hook upon unlocking doors
+* extra looked door loop on floor 12?
 
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong

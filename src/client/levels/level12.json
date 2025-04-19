@@ -1508,7 +1508,7 @@
     {
       "id": "station_open",
       "walls": [
-        "station_door",
+        "station_door_locked",
         "open",
         "station_solid2",
         "station_solid2"
@@ -5721,7 +5721,7 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-station",
       "pos": [
         15,
         8,

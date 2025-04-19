@@ -1117,7 +1117,7 @@
           "param": "finalsafe"
         }
       ],
-      "h": 0.1875
+      "h": 0.0625
     },
     {
       "id": "open",
@@ -2354,11 +2354,11 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-station",
       "pos": [
         7,
         7,
-        3
+        0
       ]
     }
   ],
