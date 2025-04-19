@@ -198,7 +198,10 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   combat_worm_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
   combat_worm_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
 
-// "enemy" is a generic term for all enemies, including aliens, robots, and worms. this should play at the same time as a specific enemy sound. This can be a stretch goal if implementation is weird.
+  // note: not current implemented
+  // "enemy" is a generic term for all enemies, including aliens, robots, and worms.
+  //  this should play at the same time as a specific enemy sound. This can be a
+  //  stretch goal if implementation is weird.
   combat_enemy_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
   combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },

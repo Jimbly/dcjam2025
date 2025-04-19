@@ -361,6 +361,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   let dxh_noframe = 0;
   let dxe_noframe = 0;
   let viewport = crawlerRenderViewportGet();
+  let enemytype = target.enemytype || 'alien';
   if (state === 'fadein' || state === 'fadeout') {
     let p = t / 500;
     // p = mousePos()[0] / game_width;
@@ -415,8 +416,14 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       }
       floaterPush(combat_state!.dam!);
     });
-    soundIndex(200, 1, `combat_${state}_hit_${combat_state.dam!.style}`);
-    soundIndex(350, 2, `combat_${state === 'hero' ? 'enemy' : 'hero'}_damaged_${combat_state.dam!.style}`);
+    if (state === 'hero') {
+      soundIndex(200, 1, `combat_hero_hit_${combat_state.dam!.style}`);
+      soundIndex(350, 2, `combat_${enemytype}_damaged_${combat_state.dam!.style}`);
+      // soundIndex(350, 3, `combat_enemy_damaged_${combat_state.dam!.style}`);
+    } else {
+      soundIndex(200, 1, `combat_${enemytype}_hit_${combat_state.dam!.style}`);
+      soundIndex(350, 2, `combat_hero_damaged_${combat_state.dam!.style}`);
+    }
     function grow(other: boolean, amt: number): void {
       if (state === 'hero' === !other) {
         pscale *= 1 + amt * (other ? 0 : 0.5);
@@ -437,7 +444,7 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
       if (state === 'hero') {
         if (!combat_state.target_hp) {
           startState('fadeout');
-          playUISound('combat_enemy_death');
+          playUISound(`combat_${enemytype}_death`);
         } else {
           startState('enemy');
         }

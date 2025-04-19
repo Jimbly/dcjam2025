@@ -2,6 +2,7 @@
 properties:
   theguard: true
   name: THE ESTRANGED GUARD
+  enemytype: alien
 traits:
 - id: enemy
 - id: stats_default

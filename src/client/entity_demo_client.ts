@@ -98,6 +98,7 @@ export class EntityDemoClient extends EntityBaseClient implements EntityCrawlerC
   declare ai_move_rand_time: number;
   declare name?: string;
   declare theguard?: boolean;
+  declare enemytype?: string;
 
   not_dead_yet = false;
   fade_out_at?: number;

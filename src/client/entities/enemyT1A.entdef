@@ -1,5 +1,6 @@
 ---
 properties:
+  enemytype: alien
 traits:
 - id: enemy
 - id: stats_default

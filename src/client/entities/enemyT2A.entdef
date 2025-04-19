@@ -1,5 +1,6 @@
 ---
 properties:
+  enemytype: robot
 traits:
 - id: enemy
 - id: stats_default

@@ -1,6 +1,7 @@
 ---
 properties:
   name: ULTIMA GUARD
+  enemytype: robot
 traits:
 - id: enemy
 - id: stats_default

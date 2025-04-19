@@ -1,6 +1,7 @@
 ---
 properties:
   respawns: true
+  enemytype: worm
 traits:
 - id: enemy
 - id: stats_default
