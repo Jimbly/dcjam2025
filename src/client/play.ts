@@ -140,7 +140,7 @@ import {
 import { crawlerScriptAPIDummyServer } from './crawler_script_api_client';
 import { crawlerOnScreenButton } from './crawler_ui';
 import { hasItem } from './dialog_data';
-import { dialogMoveLocked, dialogRun, dialogStartup } from './dialog_system';
+import { dialog, dialogMoveLocked, dialogRun, dialogStartup } from './dialog_system';
 import { entitiesAt, EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_client';
 // import { EntityDemoClient } from './entity_demo_client';
 import {
@@ -1968,6 +1968,7 @@ function initLevel(entity_manager: ClientEntityManagerInterface,
   if (me.data.last_floor === floor_id) {
     return;
   }
+  let first_time_ever = me.data.last_floor === undefined;
   me.data.last_floor = floor_id;
 
   // respawn - remove any respawning entities
@@ -2007,6 +2008,14 @@ function initLevel(entity_manager: ClientEntityManagerInterface,
   //     }
   //   }
   // }
+
+  if (floor_id === 10) {
+    if (first_time_ever) {
+      // dialog('intro');
+    } else {
+      autosave();
+    }
+  }
 }
 
 

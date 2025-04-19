@@ -39,7 +39,15 @@ import {
   VIEWPORT_X0
 } from './globals';
 import { tickLoopingSound } from './music';
-import { doMotionForTravelGame, drawHealthBar, drawHUDPanel, myEnt, queueTransition, useNoText } from './play';
+import {
+  autosave,
+  doMotionForTravelGame,
+  drawHealthBar,
+  drawHUDPanel,
+  myEnt,
+  queueTransition,
+  useNoText,
+} from './play';
 
 const { abs, max, min, PI } = Math;
 
@@ -157,8 +165,12 @@ export function travelGameFinish(): void {
   assert(travel_state);
   travel_state.transitioning = true;
   crawlerController().setControllerType('queued2');
-  crawlerController().goToFloor(destination_floor, destination_key);
   queueTransition();
+  if (destination_key === 'station') {
+    crawlerScriptAPI().floorAbsolute(10, 3, 7, 2);
+  } else {
+    crawlerController().goToFloor(destination_floor, destination_key);
+  }
 }
 
 function travelMoveBlocked(lane: number): boolean {

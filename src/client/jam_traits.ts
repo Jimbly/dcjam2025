@@ -34,10 +34,8 @@ crawlerScriptRegisterEvent({
   key: 'return',
   when: CrawlerScriptWhen.POST,
   func: (api: CrawlerScriptAPI, cell: CrawlerCell, param: string) => {
-    queueTransition();
-    autosave();
-    api.floorAbsolute(10, 3, 7, 2);
-    // signWithName('MONOLOGUING', 'Ah, it feels nice to be back in "friendly" territory.');
+    travelTo(-1, 'station');
+    // do notcheckin autosave();
   },
 });
 

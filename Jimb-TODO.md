@@ -1,21 +1,20 @@
 TODO
-* Copy item descriptions/names from doc
-* item descriptions and ensure they all fit reasonably
-* itch.io page
+* multi-step shuttle rental
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
     * second zone; couldn't afford hat, have 1563
+* Copy item descriptions/names from doc
+* item descriptions and ensure they all fit reasonably
 * build out levels
   * station
+  * remove DEBUG events / debug nooks
+  * random NPCs moving around the station
+  * final station name into level file
 * Prune unused atlases and tiles from used atlases:
   * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
   * probably remove/flag unused : station detail3/4
   * remove test atlas - just need to move chest into another
-* remove debug nooks
-* random NPCs moving around the station
-* final station name into level file
-* hud background texture
 * display medkit count on hud and (H)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
@@ -26,11 +25,9 @@ Wrap-up
 * Check background color / door fade color in each level
 * Check map tileset
 * Add wander cat and nilo
-* remove DEBUG events / debug nooks
 
 Polish
 * race game
-  * minigame to get back to the station too
   * use `combat-hit-crit-2` in race game upon death
   * ramp-up period with only a few asteroids
   * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
