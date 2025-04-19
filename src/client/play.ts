@@ -552,7 +552,7 @@ function moveBlockDead(): boolean {
   let text_w = font.drawSizedAligned(fontStyleColored(null, 0x000000ff),
     x_mid, y - 16, z,
     uiTextHeight(), ALIGN.HCENTER|ALIGN.VBOTTOM,
-    0, 0, 'You have died.');
+    0, 0, 'THE END.');
   panel({
     x: x_mid - text_w/2 - 12,
     y: y - 16 - uiTextHeight() - 6,
