@@ -1,5 +1,4 @@
 TODO
-* battle against shelled critter in moon he's too big
 * Prune unused atlases and tiles from used atlases - at least semi-automatic
 * remove test atlas - just need to move chest into another
 * headers for the plan and high scores

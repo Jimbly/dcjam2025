@@ -119,6 +119,8 @@ export type DrawableSpriteOpts = {
   sprite_near?: Sprite; // assigned at load time
   sprite_hybrid?: Sprite; // assigned at load time
   scale: number;
+  combat_offs?: number; // DCJAM25
+  combat_scale?: number; // DCJAM25
   do_alpha?: boolean;
   tint_colors?: [JSVec4, JSVec4, JSVec4][];
   simple_anim?: {

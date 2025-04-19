@@ -230,7 +230,8 @@ const HEALTH_ENEMY_X = 240;
 const HEALTH_ENEMY_Y = 202;
 const HEALTH_W = 86;
 const HEALTH_H = 17;
-const ENT_SCALE = 1.25;
+const ENT_SCALE_HERO = 1.25;
+const ENT_SCALE_ENEMY = 1;
 const FRAME_SLOPE = 171/51;
 const HERO_AVATAR_X = -15;
 const ENEMY_AVATAR_X = 10;
@@ -241,13 +242,18 @@ function drawCombatant(dt: number, ent_in: Entity, x: number, y: number, scale: 
   let ent = ent_in as unknown as EntityDrawableSprite;
   let frame = ent.updateAnim(dt);
   let { sprite } = ent.drawable_sprite_state;
+  let ent_scale = ENT_SCALE_ENEMY;
   if (ent_in === myEnt()) {
+    ent_scale = ENT_SCALE_HERO;
     sprite = autoAtlas('hero', helmetTier()).withOrigin(bottom_center);
     frame = 0;
   }
+  let sprite_scale = ent.drawable_sprite_opts.combat_scale || ent.drawable_sprite_opts.scale;
+  let combat_offs = ent.drawable_sprite_opts.combat_offs || 0;
+  ent_scale *= sprite_scale;
   let aspect = sprite.uidata && sprite.uidata.aspect ? sprite.uidata.aspect[frame] : 1;
-  let w = FRAME_W * ENT_SCALE*scale;
-  let h = FRAME_H * ENT_SCALE*scale;
+  let w = FRAME_W * ent_scale*scale;
+  let h = FRAME_H * ent_scale*scale;
   if (aspect < 1) {
     w = h * aspect;
   } else {
@@ -257,7 +263,7 @@ function drawCombatant(dt: number, ent_in: Entity, x: number, y: number, scale: 
     color: dead ? [0,0,0,1] : undefined,
     w, h,
     x: x + FRAME_W * 0.5,
-    y: y + FRAME_H + FRAME_H * (ENT_SCALE*scale - 1)/2,
+    y: y + FRAME_H + FRAME_H * (scale - 1)*0.4 + FRAME_H * 0.1 * ent_scale - combat_offs * FRAME_H,
     z: Z.COMBAT + 1,
     frame,
   });

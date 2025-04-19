@@ -25,3 +25,5 @@ traits:
   simple_anim:
     - period: 6386
       scale: [1, 0.88]
+  combat_scale: 1.1
+  combat_offs: -0.1

@@ -35,3 +35,5 @@ traits:
       offs:
         - [0, -0.3]
         - [0, 0]
+  combat_scale: 0.75
+  combat_offs: 0.1
