@@ -34,6 +34,7 @@ Polish
   * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
 * pop-up upon getting any item except medkits, give quick equip option
 * escape from travel map is also opening inventory
+* sound hook upon unlocking doors
 
 * auto-unload auto-atlases that are no longer in use? or preload all anyway at start?
 * the pillar to the SW doesn't show up at the right time when rotating the camera

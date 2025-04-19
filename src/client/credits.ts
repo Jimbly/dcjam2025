@@ -26,7 +26,7 @@ Created in 9 days for [c=creditsname]DUNGEON CRAWLER JAM 2025[/c]
 [c=creditsname]Jimb Esser[/c]
 
 [c=creditstitle]ART - DESIGN[/c]
-[c=creditsname]Nico Something[/c]
+[c=creditsname]Humane Tiger[/c]
 
 [c=creditstitle]WRITING[/c]
 [c=creditsname]Steve Thompson[/c]

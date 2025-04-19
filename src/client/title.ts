@@ -232,7 +232,7 @@ function title(dt: number): void {
     w: subtitle_w,
     h: 400,
     align: ALIGN.HVCENTER|ALIGN.HWRAP,
-    text: 'By Jimb Esser, Nico Something, Tom Wiley Cotton, Some Music Guy, and Steve Thompson',
+    text: 'By Jimb Esser, Humane Tiger, Tom Wiley Cotton, Some Music Guy, and Steve Thompson',
   });
   if (0) {
     uiGetFont().draw({

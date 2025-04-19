@@ -20,6 +20,7 @@ GLOV.js is MIT licensed.
 Credits
 =======
 
+* Art - Humane Tiger - https://humane-tiger.itch.io/
 * Writing - Steve Thompson -  https://steveuschrist.itch.io/
 * Sound FX - Tom Wiley Cotton - https://tom-wiley.itch.io/
 * Kalam Font - https://fonts.google.com/specimen/Kalam
