@@ -37,7 +37,7 @@ const { round } = Math;
 const LOSE_COST = 100;
 const COST_MEDKIT = 100;
 const DRINK_COST = 60;
-const COST_ASSIST_BRIBE = 500;
+const COST_ASSIST_BRIBE = 1500;
 const COST_ESCAPE = 1000;
 
 const NAME_BOX_H = 14;
@@ -226,7 +226,7 @@ dialogRegister({
         custom_render: nameRender(name),
         text: 'I told you to leave!',
         buttons: [{
-          label: 'I HEAD THAT YOU HAVE AN IMPORTANT DAY COMING UP... (give **GIFT**)',
+          label: 'I HEARD THAT YOU HAVE AN IMPORTANT DAY COMING UP... (give **GIFT**)',
           cb: function () {
             dialogPush({
               custom_render: nameRender(name),
@@ -594,6 +594,9 @@ dialogIconsRegister({
     if (keyGet('sovledsafe') || hasItem('key4')) {
       return null;
     }
+    if (!keyGet('foundship')) {
+      return null;
+    }
     if (!keyGet('assist1')) {
       if (!keyGet('assistintro')) {
         return 'icon_exclamation';
@@ -618,6 +621,9 @@ dialogRegister({
     let { data } = myEnt();
     if (keyGet('sovledsafe') || hasItem('key4')) {
       return;
+    }
+    if (!keyGet('foundship')) {
+      return signWithName(name, 'Why am I wasting my time in this port?');
     }
     if (!keyGet('assist1')) {
       if (!keyGet('assistintro')) {

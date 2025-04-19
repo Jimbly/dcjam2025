@@ -7,7 +7,7 @@ traits:
       frames: [critter5]
       times: 10000
   sprite_data:
-    atlas: npcs
+    atlas: critters
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
     origin: [0.5, 1]

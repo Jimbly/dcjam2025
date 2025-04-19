@@ -1,8 +1,13 @@
 TODO
+* battle against shelled critter in moon he's too big
 * play game through once (w/ controller?)
+  * first run:
+    * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
+    * second zone; couldn't afford hat, have 1563
 * build out levels
   * station
 * display medkit count on hud and (H)
+* race game max speed finishes too quickly (it's 3x the other speed? make it 2x?)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
@@ -17,7 +22,6 @@ Wrap-up
 * Prune unused atlases and tiles from used atlases
 * Check background color / door fade color in each level
 * Copy item descriptions/names from doc
-* Disable `/`
 * itch.io page
 * Add wander cat and nilo
 * remove DEBUG events / debug nooks
