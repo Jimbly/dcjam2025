@@ -1,8 +1,6 @@
 TODO
 * Prune unused atlases and tiles from used atlases - at least semi-automatic
 * remove test atlas - just need to move chest into another
-* headers for the plan and high scores
-* play time as smaller label
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
