@@ -28,7 +28,6 @@ Polish
   * ignore asteroids we can't see when switching lanes? (or, just block/queue the lane switch?)
   * use `combat-hit-crit-2` in race game upon death
   * do a "safe!" thing for a moment so you stop pressing forward at the end?
-* fullscreen map view spread color to full view
 * fade out ent at start of combat
 * show player HP as big colorful text in combat
 * pop-up upon getting any item except medkits, give quick equip option
