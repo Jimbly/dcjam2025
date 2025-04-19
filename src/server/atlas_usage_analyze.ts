@@ -94,7 +94,31 @@ delete for_display.whitebox;
 delete for_display.demo; // too small too matter
 delete for_display.decals;
 delete for_display.base;
-console.log(for_display);
+// console.log(for_display);
+
+// next: display the _unused_ ones, then can add an "ignore" filter to autoatlas
+
+let auto_atlases = fs.getFileNames('').filter((a) => a.endsWith('.auat'));
+let unused: TSMap<true> = {};
+auto_atlases.forEach(function (atlas_name) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let data = fs.getFile(atlas_name, 'jsobj') as any;
+  atlas_name = atlas_name.slice(1).slice(0, -5);
+  let at = atlases[atlas_name];
+  if (atlas_name === 'default' || atlas_name === 'pixely' || atlas_name === 'map') {
+    // silently ignore/include all, they're for UI / tiny
+  } else if (!at) {
+    console.log(`UNREFERENCED ATLAS "${atlas_name}"`);
+  } else {
+    for (let ii = 0; ii < data.tiles.length; ++ii) {
+      let tilename = data.tiles[ii][0];
+      if (!at[tilename]) {
+        unused[`${atlas_name}:${tilename}`] = true;
+      }
+    }
+  }
+});
+console.log(Object.keys(unused));
 
 let count = 0;
 for (let key in atlases) {

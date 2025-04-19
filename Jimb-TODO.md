@@ -1,7 +1,5 @@
 TODO
-* Prune unused atlases and tiles from used atlases - at least semi-automatic
-  * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
-* remove test atlas - just need to move chest into another
+* tweak base fog values
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
@@ -9,6 +7,9 @@ TODO
 * build out levels
   * station
 * item descriptions and ensure they all fit reasonably
+* Prune unused atlases and tiles from used atlases:
+  * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
+  * remove test atlas - just need to move chest into another
 * remove debug nooks
 * random NPCs moving around the station
 * final station name into level file
@@ -22,6 +23,7 @@ TODO
 Wrap-up
 * Credits - put in names
 * Check background color / door fade color in each level
+* Check map tileset
 * Copy item descriptions/names from doc
 * itch.io page
 * Add wander cat and nilo
