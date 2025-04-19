@@ -1,6 +1,5 @@
 TODO
 * play game through once (w/ controller?)
-* send message about which floors are ready - also skybox on floor 11/base
 * build out levels
   * station
 * display medkit count on hud and (H)
@@ -11,6 +10,7 @@ TODO
   * item descriptions and ensure they all fit reasonably
   * remove debug nooks
   * random NPCs moving around the station
+  * final station name into level file
 
 Wrap-up
 * Credits - put in names
@@ -18,6 +18,7 @@ Wrap-up
 * Check background color / door fade color in each level
 * Copy item descriptions/names from doc
 * Disable `/`
+* itch.io page
 * Add wander cat and nilo
 * remove DEBUG events / debug nooks
 
