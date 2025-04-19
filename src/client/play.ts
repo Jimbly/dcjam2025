@@ -1720,7 +1720,7 @@ function playCrawl(): void {
 
   if (!travel_game && !journal_up && !pause_menu_up && !frame_combat && !controller.hasMoveBlocker()) {
     let { data } = myEnt();
-    if (keyDownEdge(KEYS.H)) {
+    if (keyDownEdge(KEYS.H) || padButtonDownEdge(PAD.LEFT_TRIGGER)) {
       if (!hasItem('med1')) {
         statusPush('I\'m all outta **Med-Kits**.');
       } else if (data.stats.hp >= data.stats.hp_max) {
