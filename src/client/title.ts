@@ -12,6 +12,7 @@ import {
   buttonText,
   drawRect,
   modalDialog,
+  panel,
   print,
   uiButtonHeight,
   uiButtonWidth,
@@ -161,15 +162,30 @@ function title(dt: number): void {
     }
     yy += uiButtonHeight() + 2;
     if (manual_data.time_played) {
+      let time_text_height = 6;
+      let panel_param = {
+        x: x + BUTTON_W*0.5,
+        y: yy - 2 - 3.4,
+        h: time_text_height + 4,
+        w: BUTTON_W * 0.6,
+        z: Z.UI + 2,
+        eat_clicks: false,
+      };
+      panel(panel_param);
       uiGetFont().draw({
         style: label_style,
+        size: time_text_height,
         // alpha: title_alpha.button,
-        x, y: yy,
-        w: BUTTON_W,
-        align: ALIGN.HCENTER,
+        x: panel_param.x + 2,
+        y: panel_param.y + 2,
+        z: Z.UI + 2,
+        w: panel_param.w - 2*2,
+        h: panel_param.h - 4,
+        align: ALIGN.HVCENTERFIT,
         text: engine.defines.SECONDS ? `${Math.ceil(manual_data.time_played/1000)}` :
-          `(${Math.ceil(manual_data.time_played/(1000*60))} mins)`
+          `${Math.ceil(manual_data.time_played/(1000*60))} MINS`
       });
+
     }
     yy += uiTextHeight() + 2;
     key = `ng${ii}`;

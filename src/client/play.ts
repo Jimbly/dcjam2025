@@ -228,6 +228,7 @@ let modal_inventory_descr: Sprite;
 let modal_label_inventory: Sprite;
 let modal_label_options: Sprite;
 let modal_label_journal: Sprite;
+let modal_bg_journal: Sprite;
 
 const style_text = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -269,7 +270,7 @@ const selbox_display: Partial<SelectionBoxDisplay> = {
 };
 
 export function modalBackground(
-  min_w: number, min_h: number, label: Sprite | null, z_override?: number, yoffs?: number
+  min_w: number, min_h: number, label: Sprite | null, z_override?: number, yoffs?: number, other_bg_img?: Sprite,
 ): void {
   let z = z_override || Z.MODAL;
   let modal_frame_h = min_h * 825/605;
@@ -284,16 +285,23 @@ export function modalBackground(
     z: z + 0.3,
   };
   modal_frame.draw(box);
-  modal_bg_bottom_add.draw({
-    ...box,
-    z: z + 0.1,
-    blend: BLEND_ADDITIVE,
-  });
-  modal_bg_top_mult.draw({
-    ...box,
-    z: z + 0.2,
-    blend: BLEND_MULTIPLY,
-  });
+  if (other_bg_img) {
+    other_bg_img.draw({
+      ...box,
+      z: z + 0.1,
+    });
+  } else {
+    modal_bg_bottom_add.draw({
+      ...box,
+      z: z + 0.1,
+      blend: BLEND_ADDITIVE,
+    });
+    modal_bg_top_mult.draw({
+      ...box,
+      z: z + 0.2,
+      blend: BLEND_MULTIPLY,
+    });
+  }
   if (label) {
     let label_w = label.texs[0].src_width / 674 * 155;
     label.draw({
@@ -935,7 +943,8 @@ function journalMenu(): void {
       text: pair[1]
     }).h + line_pad;
   });
-  modalBackground(INVENTORY_W, INVENTORY_H, modal_label_journal);
+
+  modalBackground(INVENTORY_W, INVENTORY_H, modal_label_journal, undefined, undefined, modal_bg_journal);
 }
 
 let temp_inventory: Item[];
@@ -2178,6 +2187,13 @@ export function playStartup(): void {
   });
   modal_bg_top_mult = spriteCreate({
     name: 'modal-bg-top-mult',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  modal_bg_journal = spriteCreate({
+    name: 'modal-the-plan',
     filter_mag: gl.LINEAR,
     filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
