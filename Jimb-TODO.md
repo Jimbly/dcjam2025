@@ -23,10 +23,10 @@ Wrap-up
 
 Polish
 * race game
-  * ramp-up period with only a few asteroids
-  * slightly bigger minimum gap between them
+  * minigame to get back to the station too
   * use `combat-hit-crit-2` in race game upon death
-  * do a "safe!" thing for a moment so you stop pressing forward at the end?
+  * ramp-up period with only a few asteroids
+  * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
 * pop-up upon getting any item except medkits, give quick equip option
 * escape from travel map is also opening inventory
 

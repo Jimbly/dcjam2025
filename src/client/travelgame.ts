@@ -105,7 +105,7 @@ class TravelGameState {
         floor: floor_id,
         pos: [adist, 2 + asteroid.pos[1], 0],
       });
-      adist += 1 + rand.range(5);
+      adist += 2 + rand.range(5);
     }
 
     // visuals
