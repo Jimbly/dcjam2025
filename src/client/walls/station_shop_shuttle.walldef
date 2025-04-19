@@ -8,5 +8,5 @@ visuals:
   pass: celldetails
   opts:
     atlas: station
-    tile: shop-window-shuttle
+    tile: shop-window-rent
     do_alpha: false
