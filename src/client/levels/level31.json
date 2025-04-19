@@ -1506,7 +1506,7 @@
       "id": "solid",
       "walls": [
         "solid",
-        "open",
+        "solid",
         "solid",
         "open"
       ]
@@ -1640,19 +1640,19 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "secret_door",
         "open",
         "open",
         "solid"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
         "solid",
         "solid",
-        "solid",
-        "open"
+        "secret_door",
+        "solid"
       ]
     },
     {
@@ -2338,6 +2338,14 @@
         3,
         11,
         2
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        1,
+        11,
+        1
       ]
     }
   ],
