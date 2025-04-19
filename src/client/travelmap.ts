@@ -5,10 +5,10 @@ import { KEYS, PAD } from 'glov/client/input';
 import { markdownAuto } from 'glov/client/markdown';
 import { Sprite, spriteCreate } from 'glov/client/sprites';
 import { buttonText, uiTextHeight } from 'glov/client/ui';
-import { WEST } from '../common/crawler_state';
+import { NORTH } from '../common/crawler_state';
 import { crawlerEntityManager } from './crawler_entity_client';
 import { crawlerController } from './crawler_play';
-import { SHUTTLE_COST } from './dialog_data';
+import { keyClear, SHUTTLE_COST } from './dialog_data';
 import { game_height, game_width } from './globals';
 import { autosave, myEnt, play, playStatusTick, queueTransition } from './play';
 import { travelTo } from './travelgame';
@@ -51,10 +51,7 @@ export function stateTravel(dt: number): void {
     })) {
       assert(me);
       autosave();
-      if (me.data.money >= SHUTTLE_COST) {
-        me.data.money -= SHUTTLE_COST;
-        me.data.score_money -= SHUTTLE_COST;
-      }
+      keyClear('shuttlekey');
       queueTransition();
       travelTo(elem.floor, 'stairs_in');
       setState(play);
@@ -70,7 +67,7 @@ export function stateTravel(dt: number): void {
     hotpad: PAD.CANCEL,
   })) {
     queueTransition();
-    crawlerController().forceMove(WEST);
+    crawlerController().forceMove(NORTH);
     setState(play);
   }
 
@@ -80,7 +77,7 @@ export function stateTravel(dt: number): void {
   } else {
     money = 123;
   }
-  if (money >= SHUTTLE_COST) {
+  if (money >= SHUTTLE_COST && false) {
     markdownAuto({
       font_style: fontStyleColored(null, 0x000000ff),
       x: 0, w: game_width,

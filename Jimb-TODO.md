@@ -1,5 +1,4 @@
 TODO
-* multi-step shuttle rental
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
@@ -35,7 +34,6 @@ Polish
 * escape from travel map is also opening inventory
 * sound hook upon unlocking doors
 
-* auto-unload auto-atlases that are no longer in use? or preload all anyway at start?
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * when interpolating past an NPC, push them farther to their appropriate side so they don't flicker in the camera

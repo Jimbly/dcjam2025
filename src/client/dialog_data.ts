@@ -51,6 +51,10 @@ function keySet(name: string): void {
   crawlerScriptAPI().keySet(name);
 }
 
+export function keyClear(name: string): void {
+  crawlerScriptAPI().keyClear(name);
+}
+
 export function hasItem(item_id: string): boolean {
   let { inventory } = myEnt().data;
   for (let ii = 0; ii < inventory.length; ++ii) {
@@ -1077,23 +1081,47 @@ dialogIconsRegister({
 });
 dialogRegister({
   shuttle: function () {
+    let name = 'THE COMPASSIONATE CLERK';
     if (!keyGet('rumor1')) {
       return signWithName('MONOLOGUING', 'I don\'t think I should leave the station just yet.');
+    }
+    if (keyGet('shuttlekey')) {
+      return signWithName(name, 'Just take that door behind you to the shuttle bay.');
     }
     let me = myEnt();
     let { money } = me.data;
     dialogPush({
+      custom_render: nameRender(name),
       name: '',
       text: money >= SHUTTLE_COST ? `Shuttle rentals are [img=icon-currency]${SHUTTLE_COST}.  Watch out for pirates.` : `New around here, eh?  The shuttle normally costs [img=icon-currency]${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Watch out for pirates, and don't crash my shuttle!`,
       buttons: [{
         label: 'OK, I\'LL TAKE ONE',
         cb: function () {
-          startTravel();
+          if (me.data.money >= SHUTTLE_COST) {
+            me.data.money -= SHUTTLE_COST;
+            me.data.score_money -= SHUTTLE_COST;
+          }
+          keySet('shuttlekey');
+          dialog('shuttle');
         },
       }, {
         label: 'MAYBE ANOTHER TIME...',
       }],
     });
+  },
+});
+
+dialogIconsRegister({
+  traveloutside: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    if (keyGet('shuttlekey')) {
+      return 'icon_exclamation';
+    }
+    return null;
+  },
+});
+dialogRegister({
+  traveloutside: function () {
+    // nothing
   },
 });
 

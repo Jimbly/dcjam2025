@@ -6,9 +6,9 @@
       0
     ],
     "stairs_out": [
-      0,
-      8,
-      0
+      5,
+      6,
+      1
     ]
   },
   "w": 16,
@@ -783,7 +783,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -917,10 +917,25 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "solid",
         "solid",
         "open"
+      ]
+    },
+    {
+      "id": "stairs_out",
+      "walls": [
+        "solid",
+        "door_locked",
+        "solid",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "travel",
+          "param": ""
+        }
       ]
     },
     {
@@ -928,16 +943,7 @@
       "walls": [
         "open",
         "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
         "solid",
-        "open",
         "open"
       ]
     },
@@ -1085,7 +1091,16 @@
         "station_decal_3",
         "solid",
         "open",
-        "solid"
+        "door_locked"
+      ],
+      "props": {
+        "key_cell": "shuttlekey"
+      },
+      "events": [
+        {
+          "id": "dialog",
+          "param": "traveloutside"
+        }
       ]
     },
     {

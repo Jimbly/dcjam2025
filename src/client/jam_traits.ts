@@ -11,6 +11,7 @@ import { signWithName } from './dialog_data';
 import { EntityDemoClient, StatsData } from './entity_demo_client';
 import { autosave, myEnt, queueTransition } from './play';
 import { travelTo } from './travelgame';
+import { startTravel } from './travelmap';
 
 type Entity = EntityDemoClient;
 
@@ -18,16 +19,7 @@ crawlerScriptRegisterEvent({
   key: 'travel',
   when: CrawlerScriptWhen.POST,
   func: (api: CrawlerScriptAPI, cell: CrawlerCell, param: string) => {
-    let params = param.split(' ');
-    let floor = Number(params[0]);
-    if (!isFinite(floor)) {
-      api.status('travel', '"travel" event requires a floor number parameter');
-      return;
-    }
-    let delta = floor - api.getFloor();
-    let idx = 1;
-    let special_pos = params[idx++] || (delta < 0 ? 'stairs_out' : 'stairs_in');
-    travelTo(floor, special_pos);
+    startTravel();
   },
 });
 crawlerScriptRegisterEvent({
@@ -35,7 +27,6 @@ crawlerScriptRegisterEvent({
   when: CrawlerScriptWhen.POST,
   func: (api: CrawlerScriptAPI, cell: CrawlerCell, param: string) => {
     travelTo(-1, 'station');
-    // do notcheckin autosave();
   },
 });
 
