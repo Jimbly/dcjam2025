@@ -15,41 +15,41 @@ visuals:
     tile: ceiling
 
 corners: # pillars and floor/ceiling details
-  one:
-  - pass: details
-    type: simple_pillar
-    opts:
-      quadrants: 1
-      radius: 0.125
-      segments: 8
-      roundness: 0
-      atlas: station
-      tile: pillar1
-      height: 1
-      offs: [0,0,0]
-  - pass: details
-    type: simple_corner_floor
-    opts:
-      quadrants: 1
-      scale: 1
-      atlas: station
-      tile: pillar_floor1
-  two:
-  - pass: details
-    type: simple_corner_floor
-    opts:
-      quadrants: 2
-      scale: 1
-      atlas: station
-      tile: pillar_floor2
-  three:
-  - pass: details
-    type: simple_corner_floor
-    opts:
-      quadrants: 3
-      scale: 1
-      atlas: station
-      tile: pillar_floor3
+  # one:
+  # - pass: details
+  #   type: simple_pillar
+  #   opts:
+  #     quadrants: 1
+  #     radius: 0.125
+  #     segments: 8
+  #     roundness: 0
+  #     atlas: station
+  #     tile: pillar1
+  #     height: 1
+  #     offs: [0,0,0]
+  # - pass: details
+  #   type: simple_corner_floor
+  #   opts:
+  #     quadrants: 1
+  #     scale: 1
+  #     atlas: station
+  #     tile: pillar_floor1
+  # two:
+  # - pass: details
+  #   type: simple_corner_floor
+  #   opts:
+  #     quadrants: 2
+  #     scale: 1
+  #     atlas: station
+  #     tile: pillar_floor2
+  # three:
+  # - pass: details
+  #   type: simple_corner_floor
+  #   opts:
+  #     quadrants: 3
+  #     scale: 1
+  #     atlas: station
+  #     tile: pillar_floor3
   # four:
   # - pass: details
   #   type: simple_corner_floor
