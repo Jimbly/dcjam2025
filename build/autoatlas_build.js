@@ -107,6 +107,11 @@ function pngAllocTemp(width, height) {
 }
 
 module.exports = function (opts) {
+  let ignore_list = opts.ignore || [];
+  let ignore = Object.create(null);
+  for (let ii = 0; ii < ignore_list.length; ++ii) {
+    ignore[ignore_list[ii]] = true;
+  }
   let output_cache = {};
   let input_png_cache = {};
   function imgproc(job, done) {
@@ -285,6 +290,9 @@ module.exports = function (opts) {
         let any_error = false;
         for (let ii = 0; ii < file_keys.length; ++ii) {
           let img_name = file_keys[ii];
+          if (ignore[`${name}:${img_name}`]) {
+            continue;
+          }
           let img_data = file_data[img_name];
           let { imgs } = img_data;
           let img0 = imgs[0];
@@ -337,6 +345,9 @@ module.exports = function (opts) {
 
       for (let ii = 0; ii < file_keys.length; ++ii) {
         let img_name = file_keys[ii];
+        if (ignore[`${name}:${img_name}`]) {
+          continue;
+        }
         let img_data = file_data[img_name];
         let { imgs, x, y, ws, hs, padh, padv } = img_data;
         let { width: imgw, height: imgh } = imgs[0];
@@ -519,6 +530,7 @@ module.exports = function (opts) {
       cmpFileKeys,
       parseRow,
       opts,
+      ignore,
     ],
   };
 };
