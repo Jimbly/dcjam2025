@@ -944,13 +944,13 @@ dialogRegister({
         keySet('historian');
         return dialogPush({
           custom_render: nameRender(name),
-          text: 'THE GOLDEN ROCKET? Yes, it\'s a very sought-after trophy. The \'86 winner retired a handful of years ago to Zarenth, a town on Calliope.',
+          text: '**THE GOLDEN ROCKET**? Yes, it\'s a very sought-after trophy. The \'86 winner retired a handful of years ago to Zarenth, a town on **Calliope**.',
           buttons: [{
             label: 'THAT\'S REALLY INTERESTING...',
           }],
         });
       }
-      return signWithName(name, 'THE GOLDEN ROCKET? The \'86 winner retired to Calliope.');
+      return signWithName(name, '**THE GOLDEN ROCKET**? The \'86 winner retired to **Calliope**.');
     }
     signWithName(name, 'This area of space has some really interesting creatures...');
   },
