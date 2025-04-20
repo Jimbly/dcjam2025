@@ -16,8 +16,8 @@ visuals:
 - pass: celldetails
   type: simple_billboard
   opts:
-    atlas: station
-    tile: detail3
+    atlas: default
+    tile: unused
     width: 1
     height: 1
     offs: [0, 0, 0]
