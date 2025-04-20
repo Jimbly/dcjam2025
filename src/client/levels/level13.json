@@ -456,7 +456,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail1",
       "walls": [
         "ship_solid2",
         "open",
@@ -474,7 +474,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "ship_solid2",
         "open",
@@ -510,7 +510,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail1",
       "walls": [
         "open",
         "open",
@@ -543,7 +543,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "open",
         "open",
@@ -601,7 +601,7 @@
       ]
     },
     {
-      "id": "station_open",
+      "id": "station_detail1",
       "walls": [
         "open",
         "open",
@@ -637,7 +637,7 @@
       ]
     },
     {
-      "id": "station_open",
+      "id": "station_detail1",
       "walls": [
         "station_solid1",
         "open",
@@ -919,7 +919,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail2",
       "walls": [
         "ship_solid2",
         "solid",
@@ -937,7 +937,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "ship_solid2",
         "solid",
@@ -1756,7 +1756,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail2",
       "walls": [
         "solid",
         "open",
@@ -1804,7 +1804,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail1",
       "walls": [
         "open",
         "open",
@@ -1858,7 +1858,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "ship_solid2",
         "open",
@@ -2270,7 +2270,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "solid",
         "ship_solid2",
@@ -2387,7 +2387,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "open",
         "open",
@@ -2396,7 +2396,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "ship_solid2",
         "open",
@@ -2615,7 +2615,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "solid",
         "ship_solid2",
@@ -2642,7 +2642,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "open",
         "solid",
@@ -2651,7 +2651,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail1",
       "walls": [
         "solid",
         "ship_solid2",
@@ -3818,7 +3818,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "solid",
         "ship_solid2",
@@ -3854,7 +3854,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "ship_detail3",
       "walls": [
         "ship_solid2",
         "solid",

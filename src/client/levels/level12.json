@@ -480,7 +480,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail1",
       "walls": [
         "open",
         "moon_solid2",
@@ -2226,7 +2226,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_open_pillarNE",
       "walls": [
         "open",
         "open",
@@ -5085,7 +5085,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_open_pillarNE",
       "walls": [
         "open",
         "open",
@@ -5421,7 +5421,7 @@
       "id": "floorswitch",
       "walls": [
         "solid",
-        "station_decal_5a",
+        "ship_decal_1",
         "moon_solid2",
         "open"
       ],
@@ -5548,7 +5548,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail4",
       "walls": [
         "open",
         "moon_solid2",
@@ -5575,7 +5575,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail4",
       "walls": [
         "moon_solid2",
         "solid",

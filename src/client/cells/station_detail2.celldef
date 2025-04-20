@@ -22,3 +22,4 @@ visuals:
     offs: [0, 0, 0]
     face_camera: true # Otherwise faces frustum
     do_alpha: true
+corners:
