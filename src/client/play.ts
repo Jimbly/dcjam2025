@@ -310,6 +310,7 @@ export function modalBackground(
       z: z + 0.4,
       w: label_w,
       h: label_w / label.getAspect(),
+      rot: label === modal_label_inventory && false ? 0.02 : 0,
     });
   }
   if (!z_override) {
@@ -320,12 +321,13 @@ export function modalBackground(
 const PAUSE_MENU_W = 120;
 let pause_menu: SimpleMenu;
 function pauseMenu(disable_saving: boolean): void {
+  let inner_w = PAUSE_MENU_W - 20;
   if (!pause_menu) {
     pause_menu = simpleMenuCreate({
-      x: floor((game_width - PAUSE_MENU_W)/2),
+      x: floor((game_width - inner_w)/2),
       y: 50,
       z: Z.MODAL + 2,
-      width: PAUSE_MENU_W,
+      width: inner_w,
       display: selbox_display,
     });
   }
@@ -391,11 +393,13 @@ function pauseMenu(disable_saving: boolean): void {
   volume_item.value = settings.volume_music;
   volume_item.name = `MUS: ${(settings.volume_music * 100).toFixed(0)}`;
 
-  let modal_contents_h = items.length * uiButtonHeight();
+  let entry_height = 15 * 1.15;
+  let modal_contents_h = items.length * entry_height;
 
   pause_menu.run({
     y: (game_height - modal_contents_h) / 2,
-    slider_w: 58,
+    slider_w: 50,
+    entry_height,
     items,
   });
 
@@ -949,6 +953,7 @@ function journalMenu(): void {
 
 let temp_inventory: Item[];
 function inventoryDrawItemCB(param: SelectionBoxDrawItemParams): void {
+  let eff_h = INVENTORY_ENTRY_H * 1.15;
   selboxDefaultDrawItemBackground(param);
   selboxDefaultDrawItemText({
     ...param,
@@ -961,7 +966,7 @@ function inventoryDrawItemCB(param: SelectionBoxDrawItemParams): void {
   if (item.equipped) {
     autoAtlas('default', 'modal-inventory-marker').draw({
       x: param.x - MARKER_W/2,
-      y: param.y + (INVENTORY_ENTRY_H - MARKER_W) / 2,
+      y: param.y + (eff_h - MARKER_W) / 2,
       z: param.z + 1,
       w: MARKER_W,
       h: MARKER_W,
@@ -969,7 +974,7 @@ function inventoryDrawItemCB(param: SelectionBoxDrawItemParams): void {
   }
   autoAtlas('default', `icon-inventory-${item_def.item_type}`).draw({
     x: param.x + MARKER_W/2,
-    y: param.y + (INVENTORY_ENTRY_H - MARKER_W) / 2,
+    y: param.y + (eff_h - MARKER_W) / 2,
     z: param.z + 1,
     w: MARKER_W,
     h: MARKER_W,
@@ -1051,8 +1056,9 @@ function inventoryMenu(frame_combat: boolean): void {
       y: INVENTORY_Y,
       z,
       width: INVENTORY_W - MARKER_W/2,
+      entry_width: INVENTORY_W - MARKER_W/2 - 4,
       scroll_height: INVENTORY_H,
-      entry_height: INVENTORY_ENTRY_H,
+      entry_height: INVENTORY_ENTRY_H * 1.15,
       display: selbox_display_inventory,
       touch_focuses: true,
     });

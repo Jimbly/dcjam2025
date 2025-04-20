@@ -1,12 +1,15 @@
 FINAL BUILD
 * update and then enable autoatlas ignore config
+* rotate inventory if needed
 
 FOR ART
 * space lane tile - `floor 6` is set up to test this for you.  If not in build mode, you can do `/floor 7` at any time to play the game (if in build mode, it'll error)
 * scrollbar (used in inventory and hall of fame) - test by going to floor 0, getting all the stuff (from the now pink X), opening your inventory
+* I did a detailing pass on detailing the base (floor 11) and ship (floor 13) adventure zones, `floor 12` (moon cave) could use some work if you want to tackle that one
 * if you can remove the title text from the bar and get me a high res version of the text, I can overlay that easy enough to make the title crisper and still work on wider displays
+* Probably unnecessary, but if you want to build out `floor 14` (heist ship) more, feel free - don't touch the lobby, but feel free to remove the chest and place it back somewhere else, I hook up the event if it's moved (note to self: `dialog finalsafe`)
 * if the music guy says his name in the meantime, please update the team image =)
-* I smoothed some sharp tiling artifacts on the station ceiling that were bugging me - I only updated the .png, so if you update the station/combined.png, please grab that file from there first before overwriting
+* I smoothed some sharp tiling artifacts on the station ceiling that were bugging me - I only updated the .png, so if you update station/combined.png from the source file, please grab that tile from there first before overwriting
 * Similarly I fixed the enemy icon in map/map_general, it was off by a couple pixels causing a little red line on the chest icons next to it
 
 TODO
@@ -15,7 +18,7 @@ TODO
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
     * second zone; couldn't afford hat, have 1563
 * build out levels
-  * detail all floors, at least ensure the details are configured right in each tileset
+  * detail moon
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
