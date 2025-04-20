@@ -4775,7 +4775,7 @@
     {
       "id": "open",
       "walls": [
-        "station_decal_3",
+        "station_hangar_left",
         "open",
         "station_decal_1",
         "open"
