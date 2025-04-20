@@ -7,7 +7,7 @@ visuals:
   type: simple_floor
   opts:
     atlas: base
-    tile: floor
+    tile: floor_tree
 # - pass: bg
 #   type: simple_ceiling
 #   opts:
