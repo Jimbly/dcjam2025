@@ -2335,8 +2335,8 @@
   "vstyle": "station",
   "seed": "32845502",
   "props": {
-    "title": "DOCKED SHIP",
-    "subtitle": "PRIVATE PROPERTY"
+    "title": "PRIVATE SHIP",
+    "subtitle": "DOCKING BAY"
   },
   "paths": {}
 }

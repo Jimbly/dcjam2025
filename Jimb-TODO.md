@@ -1,5 +1,4 @@
 TODO
-* check floor case consistency
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
