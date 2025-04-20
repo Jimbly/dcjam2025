@@ -584,7 +584,7 @@
         "solid",
         "open",
         "ship_solid2",
-        "station_decal_5"
+        "ship_decal_1"
       ],
       "props": {
         "key_cell": "zone2doorright"
@@ -2104,7 +2104,7 @@
       "id": "floorswitch",
       "walls": [
         "open",
-        "solid",
+        "ship_decal_1",
         "door_locked",
         "ship_solid2"
       ],
