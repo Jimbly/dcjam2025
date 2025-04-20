@@ -561,7 +561,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "open",
       "walls": [
         "moon_solid2",
         "door",
@@ -750,7 +750,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "open",
@@ -951,7 +951,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "open",
@@ -1041,7 +1041,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "moon_solid2",
@@ -2121,7 +2121,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "open",
@@ -2472,7 +2472,7 @@
       ]
     },
     {
-      "id": "moon_detail1",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "open",
@@ -2754,7 +2754,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "solid",
@@ -2916,7 +2916,7 @@
       ]
     },
     {
-      "id": "moon_detail1",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "solid",
@@ -2952,7 +2952,7 @@
       ]
     },
     {
-      "id": "moon_detail1",
+      "id": "moon_detail5",
       "walls": [
         "moon_solid2",
         "open",
@@ -3612,7 +3612,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "solid",
         "open",
@@ -4455,7 +4455,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "moon_solid2",
@@ -4617,7 +4617,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "moon_solid2",
@@ -4752,7 +4752,7 @@
       ]
     },
     {
-      "id": "moon_detail2",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "open",
@@ -4815,7 +4815,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "open",
@@ -5313,7 +5313,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "open",
@@ -5608,7 +5608,7 @@
       }
     },
     {
-      "id": "moon_detail1",
+      "id": "moon_detail5",
       "walls": [
         "open",
         "moon_solid2",

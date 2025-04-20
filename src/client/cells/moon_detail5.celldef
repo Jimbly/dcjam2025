@@ -1,0 +1,25 @@
+---
+open_move: false
+open_vis: true
+map_view_detail_frame: icon_moveblocker
+visuals:
+- pass: bg
+  type: simple_floor
+  opts:
+    atlas: moon
+    tile: floor
+- pass: bg
+  type: simple_ceiling
+  opts:
+    atlas: moon
+    tile: ceiling
+- pass: celldetails
+  type: simple_billboard
+  opts:
+    atlas: base
+    tile: detail2
+    width: 0.45
+    height: 0.6
+    offs: [0, 0, 0]
+    face_camera: false # Otherwise faces frustum
+    do_alpha: true
