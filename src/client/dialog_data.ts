@@ -616,7 +616,7 @@ dialogIconsRegister({
     if (keyGet('sovledsafe') || hasItem('key4')) {
       return null;
     }
-    if (!keyGet('foundship')) {
+    if (!keyGet('foundship') || !keyGet('solvedguard')) {
       return null;
     }
     if (!keyGet('assist1')) {
@@ -641,7 +641,7 @@ dialogIconsRegister({
     if (keyGet('sovledsafe') || hasItem('key4')) {
       return null;
     }
-    if (!keyGet('foundship')) {
+    if (!keyGet('foundship') || !keyGet('solvedguard')) {
       return null;
     }
     if (!keyGet('assist1')) {
@@ -806,6 +806,7 @@ dialogIconsRegister({
     }
 
     if (keyGet('foundship') &&
+      keyGet('solvedguard') &&
       !hasItem('key3') &&
       !(keyGet('sovledsafe') || hasItem('key4'))
     ) {
@@ -852,6 +853,7 @@ dialogRegister({
     }
 
     if (keyGet('foundship') &&
+      keyGet('solvedguard') &&
       !hasItem('key3') &&
       !(keyGet('sovledsafe') || hasItem('key4'))
     ) {
