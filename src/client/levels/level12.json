@@ -156,7 +156,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail3",
       "walls": [
         "open",
         "moon_solid2",
@@ -174,7 +174,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail1",
       "walls": [
         "solid",
         "moon_solid2",
@@ -426,7 +426,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail2",
       "walls": [
         "open",
         "open",
@@ -435,7 +435,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail4",
       "walls": [
         "moon_solid2",
         "open",
@@ -660,7 +660,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail1",
       "walls": [
         "open",
         "open",
@@ -669,7 +669,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail3",
       "walls": [
         "solid",
         "open",
@@ -840,7 +840,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail2",
       "walls": [
         "moon_solid2",
         "open",
@@ -876,7 +876,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail1",
       "walls": [
         "open",
         "moon_solid2",
@@ -885,7 +885,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail4",
       "walls": [
         "open",
         "solid",
@@ -3369,7 +3369,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail1",
       "walls": [
         "open",
         "open",
@@ -3603,7 +3603,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "moon_detail3",
       "walls": [
         "moon_solid2",
         "moon_solid2",
