@@ -1179,7 +1179,7 @@ function inventoryMenu(frame_combat: boolean): void {
         x: descr_x,
         y: descr_y,
         z: z + 2,
-        w: descr_w,
+        w: descr_w - 2,
         rot: descr_rot,
         align: ALIGN.HWRAP,
         text: item_def.desc,

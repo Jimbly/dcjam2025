@@ -1,12 +1,10 @@
 TODO
+* check floor case consistency
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
     * second zone; couldn't afford hat, have 1563
-* Copy item descriptions/names from doc
-* item descriptions and ensure they all fit reasonably
 * build out levels
-  * Add wander cat and nilo
   * station polish
     * random NPCs moving around the station
     * observation deck
@@ -24,12 +22,12 @@ Wrap-up
 * Music
 
 Polish
+* escape from travel map is also opening pause menu
 * race game
   * use `combat-hit-crit-2` in race game upon death
   * ramp-up period with only a few asteroids
   * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
 * pop-up upon getting any item except medkits, give quick equip option
-* escape from travel map is also opening inventory
 * sound hook upon unlocking doors
 * extra looked door loop on floor 12?
 
