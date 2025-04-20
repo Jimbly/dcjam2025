@@ -7,11 +7,11 @@ visuals:
   opts:
     atlas: base
     tile: floor
-- pass: bg
-  type: simple_ceiling
-  opts:
-    atlas: base
-    tile: ceiling
+# - pass: bg
+#   type: simple_ceiling
+#   opts:
+#     atlas: base
+#     tile: ceiling
 - pass: celldetails
   type: simple_billboard
   opts:
