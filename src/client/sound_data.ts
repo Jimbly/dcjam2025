@@ -412,17 +412,51 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
 
   item_heal: { file: 'item/heal', volume: 1 },
   item_unusable: { file: 'item/unusable', volume: 1 },
-  item_equip_head: { file: 'item/equip', volume: 1 },
-  item_equip_torso: { file: 'item/equip', volume: 1 },
-  item_equip_offhand: { file: 'item/equip', volume: 1 },
-  item_equip_weapon: { file: 'item/equip', volume: 1 },
-  item_unequip_head: { file: 'item/unequip', volume: 1 },
-  item_unequip_torso: { file: 'item/unequip', volume: 1 },
-  item_unequip_offhand: { file: 'item/unequip', volume: 1 },
-  item_unequip_weapon: { file: 'item/unequip', volume: 1 },
 
-  gain_item_purchase: { file: 'item/equip', volume: 1 },
-  gain_item_loot: { file: 'item/equip', volume: 1 },
-  gain_item_quest: { file: 'item/equip', volume: 1 },
+  item_equip_head: [{
+    file: 'item/equip_01', volume: 1,
+  }, {
+    file: 'item/equip_02', volume: 1,
+  }],
+  item_equip_torso: [{
+    file: 'item/equip_01', volume: 1,
+  }, {
+    file: 'item/equip_02', volume: 1,
+  }],
+  item_equip_offhand: [{
+    file: 'item/equip_01', volume: 1,
+  }, {
+    file: 'item/equip_02', volume: 1,
+  }],
+  item_equip_weapon: [{
+    file: 'item/equip_weapon_01', volume: 1,
+  }, {
+    file: 'item/equip_weapon_02', volume: 1,
+  }],
+
+  item_unequip_head: [{
+    file: 'item/unequip_01', volume: 1,
+  }, {
+    file: 'item/unequip_02', volume: 1,
+  }],
+  item_unequip_torso: [{
+    file: 'item/unequip_01', volume: 1,
+  }, {
+    file: 'item/unequip_02', volume: 1,
+  }],
+  item_unequip_offhand: [{
+    file: 'item/unequip_01', volume: 1,
+  }, {
+    file: 'item/unequip_02', volume: 1,
+  }],
+  item_unequip_weapon: [{
+    file: 'item/unequip_weapon_01', volume: 1,
+  }, {
+    file: 'item/unequip_weapon_02', volume: 1,
+  }],
+
+  gain_item_purchase: { file: 'item/equip_01', volume: 1 },
+  gain_item_loot: { file: 'item/equip_01', volume: 1 },
+  gain_item_quest: { file: 'item/equip_01', volume: 1 },
 
 };
