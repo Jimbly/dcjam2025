@@ -2362,7 +2362,8 @@
   "seed": "32845502",
   "props": {
     "title": "STATION 15",
-    "subtitle": "OBSERVATION DECK"
+    "subtitle": "OBSERVATION DECK",
+    "music": "menu"
   },
   "paths": {}
 }

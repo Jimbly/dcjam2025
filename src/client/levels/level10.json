@@ -7116,8 +7116,8 @@
       ],
       "events": [
         {
-          "id": "shipgo",
-          "param": "-15"
+          "id": "floor_delta",
+          "param": "-1"
         }
       ]
     },
