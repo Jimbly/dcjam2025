@@ -46,7 +46,8 @@ export function hasSaveData(slot: number): boolean {
 }
 
 let sprite_bg: Sprite;
-let sprite_name: Sprite;
+let sprite_name_banner: Sprite;
+let sprite_name_label: Sprite;
 let sprite_team: Sprite;
 let sprite_hall_of_fame: Sprite;
 
@@ -110,11 +111,22 @@ function title(dt: number): void {
   titleDrawBG(dt);
 
   const yoffs = 10;
-  sprite_name.draw({
-    x: -game_width/2,
-    y: -60 + yoffs,
-    w: game_width * 2,
-    h: game_width/2,
+  let banner_h = 142;
+  let banner_w = sprite_name_banner.getAspect() * banner_h;
+  sprite_name_banner.draw({
+    x: -(banner_w - game_width)/2,
+    y: -24 + yoffs,
+    w: banner_w,
+    h: banner_h,
+    z: Z.UI + 1,
+  });
+  let label_h = 60;
+  let label_w = sprite_name_label.getAspect() * label_h;
+  sprite_name_label.draw({
+    x: -(label_w - game_width)/2,
+    y: 18 + yoffs,
+    w: label_w,
+    h: label_h,
     z: Z.UI + 1,
   });
 
@@ -436,8 +448,14 @@ export function titleStartup(): void {
     wrap_s: gl.REPEAT,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
-  sprite_name = spriteCreate({
-    name: 'title-name',
+  sprite_name_banner = spriteCreate({
+    name: 'title-name-banner',
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  sprite_name_label = spriteCreate({
+    name: 'title-name-name',
     filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
