@@ -5,5 +5,5 @@ map_view_wall_frames_from: solid
 visuals:
 - type: simple_wall
   opts:
-    atlas: moon
-    tile: solid3
+    atlas: default
+    tile: unused

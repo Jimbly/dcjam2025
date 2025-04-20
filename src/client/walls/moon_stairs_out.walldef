@@ -7,4 +7,4 @@ visuals:
   type: simple_wall
   opts:
     atlas: moon
-    tile: stairs_out
+    tile: door
