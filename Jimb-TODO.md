@@ -5,7 +5,6 @@ TODO
     * second zone; couldn't afford hat, have 1563
 * build out levels
   * station polish
-    * observation deck
     * fix tiling on ceiling
 * Prune unused atlases and tiles from used atlases:
   * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)

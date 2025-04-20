@@ -1968,6 +1968,7 @@ function initLevel(entity_manager: ClientEntityManagerInterface,
   if (me.data.last_floor === floor_id) {
     return;
   }
+  let last_floor = me.data.last_floor;
   let first_time_ever = me.data.last_floor === undefined;
   me.data.last_floor = floor_id;
 
@@ -2010,7 +2011,9 @@ function initLevel(entity_manager: ClientEntityManagerInterface,
   // }
 
   if (floor_id === 10) {
-    if (first_time_ever) {
+    if (last_floor === 9) {
+      // nothing, internal travel
+    } else if (first_time_ever) {
       // dialog('intro');
     } else {
       autosave();

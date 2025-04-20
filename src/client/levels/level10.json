@@ -2733,12 +2733,6 @@
         "open",
         "open",
         "open"
-      ],
-      "events": [
-        {
-          "id": "dialog",
-          "param": "assistant"
-        }
       ]
     },
     {
@@ -6792,7 +6786,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "open",
+        "solid",
         "open",
         "open"
       ]
@@ -6801,7 +6795,7 @@
       "id": "solid",
       "walls": [
         "solid",
-        "open",
+        "solid",
         "open",
         "solid"
       ]
@@ -7106,28 +7100,40 @@
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
         "open",
         "open",
         "open"
+      ]
+    },
+    {
+      "id": "stairs_in",
+      "walls": [
+        "door",
+        "solid",
+        "solid",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "floor_delta",
+          "param": "-1"
+        }
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "station_bulkhead",
+        "solid",
+        "stairs_in",
+        "solid"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "OBERSVATION DECK"
+        }
       ]
     },
     {
@@ -7135,7 +7141,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "station_bulkhead",
         "open"
       ]
     },
@@ -7460,7 +7466,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -7469,7 +7475,7 @@
         "solid",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -12258,11 +12264,11 @@
       ]
     },
     {
-      "type": "npc05",
+      "type": "npc14-wander",
       "pos": [
-        8,
-        8,
-        2
+        11,
+        25,
+        3
       ]
     },
     {
@@ -12303,14 +12309,6 @@
         6,
         6,
         0
-      ]
-    },
-    {
-      "type": "npc14-wander",
-      "pos": [
-        11,
-        25,
-        3
       ]
     }
   ],
