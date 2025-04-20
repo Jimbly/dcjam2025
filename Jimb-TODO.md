@@ -1,3 +1,6 @@
+FINAL BUILD
+* update and then enable autoatlas ignore config
+
 TODO
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
@@ -6,9 +9,6 @@ TODO
 * build out levels
   * station polish
     * fix tiling on ceiling
-* Prune unused atlases and tiles from used atlases:
-  * Final pass, check for pink Xs; identical images (moon stairs in/out maybe unused/identical)
-  * probably remove/flag unused : station detail3/4
 * display medkit count on hud and (H)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
