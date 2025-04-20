@@ -5,7 +5,6 @@ TODO
     * second zone; couldn't afford hat, have 1563
 * build out levels
   * station polish
-    * random NPCs moving around the station
     * observation deck
     * fix tiling on ceiling
 * Prune unused atlases and tiles from used atlases:
