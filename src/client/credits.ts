@@ -42,6 +42,7 @@ const text = `
 [c=creditsname]Music by The Hamster Alliance[/c]
 [c=creditsname]Battle Disco - Cerberus - Funk Track - Lies The Trapper[/c]
 [c=creditsname]www.hamsteralliance.com[/c]
+[c=creditsname]Cartoon Burst Effect by starline[/c]
 [c=creditsother]See page on itch.io for links[/c]
 
 [c=creditstitle]AI CONTENT[/c]
