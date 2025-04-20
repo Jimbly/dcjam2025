@@ -188,7 +188,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -200,7 +200,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -209,7 +209,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -233,7 +233,7 @@
         "open",
         "open",
         "door",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -242,13 +242,13 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "solid"
@@ -259,7 +259,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -429,7 +429,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -438,7 +438,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -447,7 +447,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -455,8 +455,8 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -483,7 +483,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -492,8 +492,8 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "open"
       ]
     },
@@ -520,7 +520,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -680,7 +680,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -691,8 +691,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid3",
+        "base_solid2"
       ]
     },
     {
@@ -701,7 +701,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -710,7 +710,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -719,7 +719,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -727,7 +727,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "solid"
       ]
     },
@@ -746,7 +746,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -787,7 +787,7 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -947,7 +947,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -958,7 +958,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -993,7 +993,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "solid",
         "open"
       ]
@@ -1010,7 +1010,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "door_locked",
         "open",
         "open"
@@ -1051,17 +1051,17 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid3",
+        "base_solid3"
       ]
     },
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -1069,7 +1069,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -1211,7 +1211,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -1259,7 +1259,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -1268,7 +1268,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -1311,16 +1311,16 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -1328,7 +1328,7 @@
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -1339,7 +1339,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -1574,7 +1574,7 @@
         "open",
         "solid",
         "door",
-        "solid"
+        "base_solid3"
       ],
       "events": [
         {
@@ -1600,7 +1600,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -1609,16 +1609,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "base_solid3",
         "open"
       ]
     },
@@ -1635,7 +1626,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "open",
         "open",
         "open"
       ]
@@ -1653,7 +1644,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -1670,8 +1661,17 @@
     {
       "id": "solid",
       "walls": [
+        "open",
         "solid",
-        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "base_solid2",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -1681,7 +1681,7 @@
       "walls": [
         "solid",
         "door",
-        "solid",
+        "base_solid3",
         "solid"
       ],
       "events": [
@@ -1695,8 +1695,26 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "base_solid3",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "base_solid3",
+        "open",
         "open"
       ]
     },
@@ -1713,25 +1731,7 @@
       "id": "solid",
       "walls": [
         "open",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -1748,7 +1748,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -1759,17 +1759,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
+        "base_solid2",
+        "base_solid2"
       ]
     },
     {
@@ -1850,7 +1841,16 @@
         "open",
         "open",
         "open",
-        "solid"
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "base_solid3"
       ]
     },
     {
@@ -1859,13 +1859,13 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -1876,7 +1876,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -1913,7 +1913,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -1940,7 +1940,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -1967,7 +1967,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -1985,32 +1985,32 @@
         "open",
         "open",
         "open",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "base_detail4",
+      "walls": [
+        "base_solid2",
+        "open",
+        "open",
         "solid"
       ]
     },
     {
-      "id": "base_detail4",
-      "walls": [
-        "solid",
-        "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
       "id": "solid",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -2126,7 +2126,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -2153,7 +2153,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -2164,7 +2164,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -2252,7 +2252,7 @@
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -2264,7 +2264,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -2273,7 +2273,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -2387,7 +2387,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -2398,7 +2398,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -2414,8 +2414,8 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -2424,17 +2424,8 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "solid",
-        "open",
+        "base_solid3",
+        "base_solid2",
         "open"
       ]
     },
@@ -2451,7 +2442,16 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -2505,7 +2505,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -2513,7 +2513,7 @@
     {
       "id": "base_detail2",
       "walls": [
-        "solid",
+        "base_solid3",
         "solid",
         "open",
         "open"
@@ -2523,7 +2523,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "door_oneway",
         "open"
       ]
@@ -2532,7 +2532,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -2541,7 +2541,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -2550,7 +2550,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -2613,7 +2613,16 @@
       "id": "base_detail2",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -2631,16 +2640,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -2648,7 +2648,7 @@
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid3",
         "solid",
         "open",
         "open"
@@ -2666,7 +2666,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -2675,10 +2675,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
-        "solid",
-        "solid"
+        "base_solid3",
+        "base_solid3"
       ],
       "props": {
         "loot": "med1"
@@ -2708,13 +2708,13 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "solid"
@@ -2759,7 +2759,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -2771,7 +2771,16 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "base_solid3"
       ]
     },
     {
@@ -2789,7 +2798,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -2798,25 +2807,16 @@
         "open",
         "open",
         "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "base_detail3",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -2824,7 +2824,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -2885,10 +2885,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -2906,16 +2906,16 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "base_detail1",
       "walls": [
         "solid",
-        "solid",
+        "base_solid3",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -2923,7 +2923,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -2939,18 +2939,18 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "door",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
     {
       "id": "floorswitch",
       "walls": [
-        "solid",
+        "base_solid3",
         "station_decal_5a",
-        "solid",
+        "base_solid3",
         "open"
       ],
       "props": {
@@ -2988,7 +2988,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -2999,16 +2999,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "base_solid3",
         "open"
       ]
     },
@@ -3033,7 +3024,16 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -3141,7 +3141,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -3152,7 +3152,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -3177,19 +3177,19 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "door",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
-        "solid",
-        "solid"
+        "base_solid2",
+        "base_solid3"
       ]
     },
     {
@@ -3197,7 +3197,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -3222,7 +3222,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "solid"
@@ -3233,7 +3233,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -3348,7 +3348,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -3447,7 +3447,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -3458,14 +3458,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -3510,7 +3510,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -3555,7 +3555,7 @@
     {
       "id": "base_detail2",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "open",
         "open"
@@ -3565,7 +3565,7 @@
       "id": "base_detail3",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "solid",
         "open"
       ]
@@ -3601,7 +3601,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -3609,8 +3609,8 @@
     {
       "id": "base_detail3",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -3663,7 +3663,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -3674,7 +3674,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -3690,8 +3690,8 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -3699,9 +3699,9 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
-        "solid",
+        "base_solid3",
         "door"
       ]
     },
@@ -3709,8 +3709,8 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "open"
       ],
       "props": {
@@ -3722,7 +3722,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -3748,7 +3748,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -3758,7 +3758,7 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -3766,7 +3766,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -3774,8 +3774,8 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -3785,7 +3785,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -3819,9 +3819,9 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "secret_door",
-        "solid",
+        "base_solid3",
         "solid"
       ],
       "events": [
@@ -3837,16 +3837,16 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -3854,7 +3854,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "door"
       ]
     },
@@ -3872,8 +3872,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid3",
+        "base_solid2"
       ]
     },
     {
@@ -3882,7 +3882,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -3890,7 +3890,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "base_solid2",
         "solid"
       ],
       "props": {
@@ -3902,7 +3902,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -3936,7 +3936,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -3964,8 +3964,8 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "solid"
       ]
     },
@@ -3973,7 +3973,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -3981,7 +3981,7 @@
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "open",
         "solid"
@@ -3992,7 +3992,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -4008,10 +4008,10 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -4038,7 +4038,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -4047,16 +4047,7 @@
         "open",
         "open",
         "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
+        "base_solid2"
       ]
     },
     {
@@ -4080,7 +4071,16 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -4089,9 +4089,9 @@
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
-        "solid",
+        "base_solid2",
         "secret_door"
       ]
     },
@@ -4100,7 +4100,7 @@
       "walls": [
         "open",
         "door",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -4108,7 +4108,7 @@
       "id": "open",
       "walls": [
         "door",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -4117,7 +4117,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "door",
         "open"
       ]
@@ -4126,7 +4126,7 @@
       "id": "open",
       "walls": [
         "door",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -4135,7 +4135,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "door",
         "open"
       ]
@@ -4154,7 +4154,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -4163,16 +4163,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "base_solid3",
         "open"
       ]
     },
@@ -4209,16 +4200,25 @@
         "open",
         "open",
         "open",
-        "solid"
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "base_solid2"
       ]
     },
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -4227,7 +4227,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -4245,7 +4245,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -4269,7 +4269,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -4280,7 +4280,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -4341,7 +4341,7 @@
     {
       "id": "base_detail2",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -4368,10 +4368,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -4380,16 +4380,16 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -4397,8 +4397,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid2",
+        "base_solid2"
       ]
     },
     {
@@ -4413,7 +4413,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "door",
         "open"
@@ -4530,7 +4530,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -4602,7 +4602,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -4611,9 +4611,9 @@
     {
       "id": "open",
       "walls": [
+        "base_solid2",
         "solid",
-        "solid",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -4622,15 +4622,15 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -4639,7 +4639,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "solid",
         "open"
       ]
@@ -4648,7 +4648,7 @@
       "id": "open",
       "walls": [
         "door",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -4666,7 +4666,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -4674,7 +4674,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "solid",
         "open"
@@ -4685,7 +4685,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -4737,7 +4737,7 @@
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -4748,16 +4748,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "base_solid3",
         "open"
       ]
     },
@@ -4791,8 +4782,17 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
-        "solid",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "base_solid3",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -4810,7 +4810,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -4819,7 +4819,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -4828,7 +4828,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -4884,25 +4884,25 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "base_detail2",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "base_detail4",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -4911,7 +4911,7 @@
         "open",
         "door",
         "open",
-        "solid"
+        "base_solid3"
       ],
       "props": {
         "loot": "weapon1"
@@ -4921,9 +4921,9 @@
       "id": "base_detail4",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -4932,7 +4932,7 @@
         "open",
         "solid",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -4941,7 +4941,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5001,25 +5001,7 @@
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
+        "base_solid2",
         "solid",
         "open",
         "open"
@@ -5030,23 +5012,41 @@
       "walls": [
         "open",
         "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
         "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "base_solid3",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "base_solid2",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -5058,7 +5058,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -5067,16 +5067,16 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ],
       "props": {
         "loot": "torso4"
@@ -5087,8 +5087,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid2",
+        "base_solid2"
       ]
     },
     {
@@ -5105,7 +5105,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -5154,7 +5154,7 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -5172,18 +5172,18 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "open",
       "walls": [
         "secret_door",
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "door"
       ]
     },
@@ -5199,10 +5199,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5210,7 +5210,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -5265,7 +5265,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5274,7 +5274,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5282,8 +5282,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid2",
+        "base_solid3"
       ]
     },
     {
@@ -5298,10 +5298,10 @@
     {
       "id": "base_detail3",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5309,14 +5309,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -5326,8 +5326,8 @@
       "id": "base_detail4",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open"
       ]
     },
@@ -5343,10 +5343,109 @@
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid3",
+        "base_solid2",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "door",
+        "base_solid3",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid2",
         "solid",
         "open",
         "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "open",
+        "base_solid2",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "solid",
+        "base_solid3",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "door",
+        "door",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid3",
+        "base_solid3",
+        "door",
+        "base_solid3"
       ]
     },
     {
@@ -5372,106 +5471,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "solid",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "door",
-        "door",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "solid",
-        "door",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "door",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -5532,7 +5532,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "door",
         "open",
         "open"
@@ -5542,7 +5542,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "solid",
         "open"
       ]
@@ -5587,7 +5587,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "solid",
         "solid"
       ]
@@ -5623,9 +5623,9 @@
       "id": "open",
       "walls": [
         "door",
-        "solid",
+        "base_solid3",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5686,9 +5686,9 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "door",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -5704,9 +5704,9 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -5722,9 +5722,9 @@
       "id": "open",
       "walls": [
         "door_locked",
-        "solid",
+        "base_solid2",
         "open",
-        "solid"
+        "base_solid2"
       ],
       "props": {
         "key_cell": "zone0doorb"
@@ -5788,7 +5788,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "door",
         "solid"
       ]
@@ -5808,7 +5808,7 @@
         "open",
         "solid",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -5823,10 +5823,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5834,14 +5834,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -5852,14 +5852,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "solid"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "door"
@@ -5882,7 +5882,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "door"
       ]
     },
@@ -5892,7 +5892,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -5900,7 +5900,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -5954,14 +5954,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "solid"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "door"
@@ -5971,9 +5971,9 @@
       "id": "open",
       "walls": [
         "door",
+        "base_solid3",
         "solid",
-        "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -5991,7 +5991,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -5999,7 +5999,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -6053,14 +6053,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "solid"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "door"
@@ -6071,8 +6071,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid2",
+        "base_solid2"
       ]
     },
     {
@@ -6087,10 +6087,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6098,14 +6098,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -6115,8 +6115,8 @@
       "id": "base_detail1",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open"
       ]
     },
@@ -6142,7 +6142,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "solid",
         "open"
       ]
@@ -6150,8 +6150,8 @@
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -6214,8 +6214,8 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open"
       ]
     },
@@ -6231,26 +6231,26 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "door",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "base_detail3",
       "walls": [
+        "base_solid3",
         "solid",
-        "solid",
         "open",
         "open"
       ]
@@ -6260,16 +6260,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "base_solid3",
         "open"
       ]
     },
@@ -6303,7 +6294,16 @@
     {
       "id": "base_open_sky",
       "walls": [
-        "solid",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -6313,8 +6313,8 @@
       "id": "base_detail1",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "open"
       ]
     },
@@ -6322,7 +6322,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -6331,7 +6331,7 @@
       "id": "base_detail3",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "solid",
         "open"
       ]
@@ -6340,7 +6340,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ],
@@ -6351,7 +6351,7 @@
     {
       "id": "base_detail3",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "open",
         "open"
@@ -6362,7 +6362,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -6381,7 +6381,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6390,16 +6390,16 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6408,7 +6408,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -6417,16 +6417,7 @@
         "open",
         "open",
         "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "base_open_sky",
-      "walls": [
-        "open",
-        "solid",
-        "open",
-        "open"
+        "base_solid2"
       ]
     },
     {
@@ -6443,6 +6434,15 @@
       "walls": [
         "open",
         "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_open_sky",
+      "walls": [
+        "open",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -6463,7 +6463,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -6472,7 +6472,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -6481,9 +6481,9 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6492,7 +6492,7 @@
         "open",
         "solid",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -6501,23 +6501,23 @@
         "open",
         "solid",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "base_detail4",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "base_detail2",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "solid"
       ]
@@ -6526,7 +6526,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -6571,7 +6571,7 @@
       "id": "base_open_sky",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -6588,7 +6588,7 @@
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "solid"
@@ -6599,8 +6599,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid3",
+        "base_solid2"
       ]
     },
     {
@@ -6618,7 +6618,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6670,16 +6670,16 @@
       "id": "base_detail4",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open"
       ]
     },
     {
       "id": "base_detail1_sky",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -6689,14 +6689,14 @@
       "walls": [
         "open",
         "secret_door",
-        "solid",
+        "base_solid2",
         "solid"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "open",
         "solid"
@@ -6737,7 +6737,7 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid2",
         "solid"
       ]
     },
@@ -6747,16 +6747,16 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -6765,7 +6765,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ],
       "props": {
         "loot": "offhand1"
@@ -6777,7 +6777,7 @@
         "open",
         "solid",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6786,14 +6786,14 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid2",
         "open",
         "solid"
       ]
@@ -6803,7 +6803,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid3",
         "solid"
       ]
     },
@@ -6811,7 +6811,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "open",
         "door"
       ]
@@ -6819,10 +6819,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6837,10 +6837,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -6848,15 +6848,15 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
     {
       "id": "base_detail4",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -6866,16 +6866,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "base_solid2",
         "open"
       ]
     },
@@ -6939,22 +6930,31 @@
         "open",
         "open",
         "open",
-        "solid"
+        "open"
       ]
     },
     {
       "id": "solid",
       "walls": [
-        "solid",
         "open",
         "open",
-        "solid"
+        "open",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "base_solid3",
+        "open",
+        "open",
+        "base_solid2"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "solid",
         "secret_door"
@@ -6966,7 +6966,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -7002,7 +7002,7 @@
         "solid",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -7017,10 +7017,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "secret_door",
-        "solid"
+        "base_solid2"
       ],
       "events": [
         {
@@ -7032,9 +7032,9 @@
     {
       "id": "base_detail3",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -7042,9 +7042,9 @@
       "id": "open",
       "walls": [
         "secret_door",
+        "base_solid2",
         "solid",
-        "solid",
-        "solid"
+        "base_solid2"
       ],
       "events": [
         {
@@ -7056,7 +7056,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "secret_door",
         "open"
@@ -7067,14 +7067,14 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "solid"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "open",
         "open"
@@ -7083,58 +7083,58 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
+        "open",
+        "base_solid3",
+        "base_solid2"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
         "open",
         "solid",
+        "solid",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid2",
+        "open",
+        "base_solid3",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "base_solid2",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "open",
+        "open",
+        "open",
         "solid"
       ]
     },
     {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
       "id": "solid",
       "walls": [
         "open",
@@ -7227,9 +7227,9 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -7272,7 +7272,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -7283,7 +7283,7 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -7293,52 +7293,7 @@
         "open",
         "solid",
         "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "open",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -7353,8 +7308,53 @@
     {
       "id": "open",
       "walls": [
+        "open",
+        "base_solid2",
+        "open",
+        "base_solid2"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid2",
+        "base_solid2",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid3",
+        "open",
+        "base_solid2",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "base_solid2",
         "solid",
-        "solid",
+        "base_solid2"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid3",
+        "base_solid3",
         "open",
         "solid"
       ],
@@ -7367,7 +7367,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -7376,7 +7376,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -7385,7 +7385,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -7491,9 +7491,9 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -7501,8 +7501,8 @@
       "id": "base_detail1",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "open"
       ]
     },
@@ -7536,9 +7536,36 @@
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid3",
         "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "solid",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid2",
+        "open",
+        "open",
+        "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "door",
+        "base_solid2",
         "open"
       ]
     },
@@ -7554,10 +7581,28 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "solid"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "base_solid2",
+        "base_solid3",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "solid",
+        "open",
+        "open",
+        "base_solid3"
       ]
     },
     {
@@ -7575,59 +7620,14 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "open",
       "walls": [
         "solid",
-        "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "door",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -7637,7 +7637,7 @@
       "walls": [
         "solid",
         "open",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -7754,25 +7754,25 @@
       "walls": [
         "open",
         "door",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid2",
         "open"
       ]
     },
@@ -7789,7 +7789,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -7799,8 +7799,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid3",
+        "base_solid3"
       ]
     },
     {
@@ -7851,18 +7851,18 @@
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open"
       ]
     },
@@ -7870,7 +7870,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "door"
       ]
@@ -7878,8 +7878,8 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid2",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -7888,7 +7888,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "solid",
         "solid"
       ]
@@ -7896,7 +7896,7 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid2",
         "door",
         "open",
         "open"
@@ -8004,7 +8004,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -8015,34 +8015,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "door"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "door",
-        "open",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "door",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
+        "base_solid3",
         "door"
       ]
     },
@@ -8052,6 +8025,15 @@
         "door",
         "open",
         "open",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "door",
         "solid"
       ]
     },
@@ -8059,7 +8041,25 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "open",
+        "open",
+        "door"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "door",
+        "open",
+        "open",
+        "base_solid2"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "base_solid3",
         "door",
         "open"
       ]
@@ -8113,7 +8113,7 @@
       "id": "open",
       "walls": [
         "door",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -8133,7 +8133,7 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -8142,7 +8142,7 @@
         "door",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
@@ -8151,13 +8151,13 @@
         "open",
         "open",
         "door",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "door"
@@ -8276,15 +8276,15 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -8293,7 +8293,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid2",
         "solid",
         "open"
       ]
@@ -8302,15 +8302,6 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "solid",
         "solid",
         "open",
         "open"
@@ -8320,26 +8311,26 @@
       "id": "open",
       "walls": [
         "solid",
+        "base_solid3",
         "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
         "open"
       ]
     },
     {
       "id": "open",
       "walls": [
+        "base_solid3",
         "open",
+        "base_solid2",
+        "base_solid2"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
         "open",
-        "open",
+        "base_solid2",
+        "solid",
         "open"
       ]
     },
@@ -8364,8 +8355,8 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "open",
+        "open",
         "open",
         "open"
       ]
@@ -8373,26 +8364,8 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "open",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
+        "base_solid2",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -8400,10 +8373,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
         "open",
-        "open"
+        "solid",
+        "base_solid2"
       ]
     },
     {
@@ -8418,18 +8391,36 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "open",
         "solid",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
+      "walls": [
+        "base_solid3",
+        "solid",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
       "walls": [
         "open",
-        "open",
+        "base_solid3",
+        "base_solid2",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
         "solid",
+        "base_solid2",
+        "open",
         "open"
       ]
     },
@@ -8438,7 +8429,7 @@
       "walls": [
         "open",
         "open",
-        "open",
+        "base_solid3",
         "open"
       ]
     },
@@ -8526,7 +8517,16 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "solid",
+      "walls": [
+        "base_solid2",
         "open",
         "open",
         "open"
@@ -8535,10 +8535,10 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "door",
-        "solid",
-        "solid"
+        "base_solid2",
+        "base_solid3"
       ]
     },
     {
@@ -8547,7 +8547,7 @@
         "open",
         "open",
         "solid",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -8556,16 +8556,16 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid2"
       ]
     },
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
+        "base_solid2",
         "solid",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -8573,8 +8573,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
-        "solid"
+        "base_solid3",
+        "base_solid2"
       ]
     },
     {
@@ -8592,7 +8592,7 @@
         "solid",
         "solid",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
@@ -8600,35 +8600,8 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "base_detail3",
-      "walls": [
-        "solid",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "solid",
-        "solid"
       ]
     },
     {
@@ -8643,6 +8616,33 @@
     {
       "id": "base_detail3",
       "walls": [
+        "base_solid3",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "base_solid3",
+        "base_solid2",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "base_detail3",
+      "walls": [
         "solid",
         "open",
         "open",
@@ -8653,8 +8653,8 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "solid"
       ]
     },
@@ -8664,13 +8664,13 @@
         "open",
         "open",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "base_detail1",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "solid"
@@ -8679,9 +8679,9 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
-        "solid",
+        "base_solid3",
         "solid"
       ],
       "props": {
@@ -8801,7 +8801,7 @@
       "walls": [
         "open",
         "door",
-        "solid",
+        "base_solid2",
         "door"
       ]
     },
@@ -8829,6 +8829,33 @@
         "open",
         "solid",
         "door",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "door",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "base_solid2",
+        "door",
         "solid"
       ]
     },
@@ -8844,63 +8871,9 @@
     {
       "id": "open",
       "walls": [
-        "door",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "door",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
         "open",
         "door",
         "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "open"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "door",
-        "solid",
-        "open",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "open",
-        "door",
         "open"
       ]
     },
@@ -8934,7 +8907,34 @@
     {
       "id": "open",
       "walls": [
-        "solid",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "door",
+        "base_solid3",
+        "open",
+        "base_solid3"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "open",
+        "open",
+        "door",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -8954,7 +8954,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -9051,7 +9051,7 @@
     {
       "id": "solid",
       "walls": [
-        "solid",
+        "base_solid3",
         "open",
         "open",
         "open"
@@ -9060,8 +9060,8 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "solid",
         "door"
       ],
@@ -9073,7 +9073,7 @@
       "id": "base_detail1",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "solid",
         "open"
       ]
@@ -9082,7 +9082,7 @@
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -9091,7 +9091,7 @@
       "id": "base_detail1",
       "walls": [
         "solid",
-        "solid",
+        "base_solid3",
         "open",
         "solid"
       ]
@@ -9101,7 +9101,7 @@
       "walls": [
         "open",
         "solid",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
@@ -9117,18 +9117,18 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open",
-        "solid"
+        "base_solid3"
       ]
     },
     {
       "id": "open",
       "walls": [
+        "base_solid2",
         "solid",
-        "solid",
-        "solid",
+        "base_solid3",
         "open"
       ]
     },
@@ -9137,7 +9137,7 @@
       "walls": [
         "solid",
         "station_decal_5a",
-        "solid",
+        "base_solid2",
         "door"
       ],
       "props": {
@@ -9158,7 +9158,7 @@
       "id": "open",
       "walls": [
         "solid",
-        "solid",
+        "base_solid3",
         "solid",
         "open"
       ]
@@ -9168,15 +9168,15 @@
       "walls": [
         "open",
         "solid",
-        "solid",
-        "solid"
+        "base_solid2",
+        "base_solid3"
       ]
     },
     {
       "id": "open",
       "walls": [
         "open",
-        "solid",
+        "base_solid3",
         "open",
         "open"
       ]
@@ -9184,8 +9184,8 @@
     {
       "id": "base_detail3",
       "walls": [
-        "solid",
-        "solid",
+        "base_solid3",
+        "base_solid2",
         "open",
         "open"
       ]
@@ -9195,17 +9195,8 @@
       "walls": [
         "open",
         "solid",
-        "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "open",
-      "walls": [
-        "open",
-        "solid",
-        "open",
-        "open"
+        "base_solid2",
+        "base_solid2"
       ]
     },
     {
@@ -9220,8 +9211,17 @@
     {
       "id": "open",
       "walls": [
-        "solid",
-        "solid",
+        "open",
+        "base_solid3",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "id": "open",
+      "walls": [
+        "base_solid2",
+        "base_solid2",
         "open",
         "door"
       ]
@@ -9231,7 +9231,7 @@
       "walls": [
         "open",
         "open",
-        "solid",
+        "base_solid2",
         "open"
       ]
     },
