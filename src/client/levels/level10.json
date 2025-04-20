@@ -5474,7 +5474,7 @@
     {
       "id": "station_detail1",
       "walls": [
-        "solid",
+        "station_decal_observation",
         "open",
         "open",
         "station_decal_2"
