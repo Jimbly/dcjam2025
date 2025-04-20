@@ -6,6 +6,8 @@ FOR ART
 * scrollbar (used in inventory and hall of fame) - test by going to floor 0, getting all the stuff (from the now pink X), opening your inventory
 * if you can remove the title text from the bar and get me a high res version of the text, I can overlay that easy enough to make the title crisper and still work on wider displays
 * if the music guy says his name in the meantime, please update the team image =)
+* I smoothed some sharp tiling artifacts on the station ceiling that were bugging me - I only updated the .png, so if you update the station/combined.png, please grab that file from there first before overwriting
+* Similarly I fixed the enemy icon in map/map_general, it was off by a couple pixels causing a little red line on the chest icons next to it
 
 TODO
 * play game through once (w/ controller?) - put in some new fallback music first
@@ -13,8 +15,7 @@ TODO
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
     * second zone; couldn't afford hat, have 1563
 * build out levels
-  * station polish
-    * fix tiling on ceiling
+  * detail all floors, at least ensure the details are configured right in each tileset
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
