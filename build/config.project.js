@@ -63,12 +63,11 @@ module.exports = function (config) {
     zip: true,
   }];
 
-  if (0) {
+  if (1) {
     config.autoatlas_ignore =
 [
   'base:door-2-down',
-  // 'base:floor_pillar',
-  // 'base:floor_tree',
+  'base:floor_pillar',
   'decals:arrow-left',
   'decals:arrow-right',
   'decals:banner-1',
