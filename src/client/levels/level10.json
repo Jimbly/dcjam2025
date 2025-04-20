@@ -7513,7 +7513,7 @@
       "walls": [
         "open",
         "station_decal_1",
-        "solid",
+        "station_decal_observation",
         "open"
       ]
     },
