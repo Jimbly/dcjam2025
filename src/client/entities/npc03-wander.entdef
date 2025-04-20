@@ -1,4 +1,7 @@
 ---
+properties:
+  ai_move_min_time: 2000
+  ai_move_rand_time: 5000
 traits:
 - id: wander
 - id: drawable
