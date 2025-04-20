@@ -410,8 +410,19 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   combat_robot_death: { file: 'combat/combat_end_01', volume: 1 },
   combat_worm_death: { file: 'combat/combat_end_01', volume: 1 },
 
-  item_heal: { file: 'item/heal', volume: 1 },
-  item_unusable: { file: 'item/unusable', volume: 1 },
+  item_heal: [{
+    file: 'item/heal_01', volume: 1,
+  }, {
+    file: 'item/heal_02', volume: 1,
+  }],
+
+  item_unusable: [{
+    file: 'item/unusable_01', volume: 1,
+  }, {
+    file: 'item/unusable_02', volume: 1,
+  }, {
+    file: 'item/unusable_03', volume: 1,
+  }],
 
   item_equip_head: [{
     file: 'item/equip_01', volume: 1,
