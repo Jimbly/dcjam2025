@@ -1,6 +1,12 @@
 FINAL BUILD
 * update and then enable autoatlas ignore config
 
+FOR ART
+* space lane tile - `floor 6` is set up to test this for you.  If not in build mode, you can do `/floor 7` at any time to play the game (if in build mode, it'll error)
+* scrollbar (used in inventory and hall of fame) - test by going to floor 0, getting all the stuff (from the now pink X), opening your inventory
+* if you can remove the title text from the bar and get me a high res version of the text, I can overlay that easy enough to make the title crisper and still work on wider displays
+* if the music guy says his name in the meantime, please update the team image =)
+
 TODO
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
@@ -9,25 +15,23 @@ TODO
 * build out levels
   * station polish
     * fix tiling on ceiling
-* display medkit count on hud and (H)
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
-
-Wrap-up
-* Credits - put in names on main menu
 * Music
 
 Polish
 * escape from travel map is also opening pause menu
+* play with inventory/settings padding
 * race game
   * use `combat-hit-crit-2` in race game upon death
   * ramp-up period with only a few asteroids
   * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
-* pop-up upon getting any item except medkits, give quick equip option
 * sound hook upon unlocking doors
 * extra looked door loop on floor 12?
 
+* display medkit count on hud and (H)
+* pop-up upon getting any item except medkits, give quick equip option
 * the pillar to the SW doesn't show up at the right time when rotating the camera
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * when interpolating past an NPC, push them farther to their appropriate side so they don't flicker in the camera

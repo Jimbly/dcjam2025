@@ -47,6 +47,7 @@ export function hasSaveData(slot: number): boolean {
 
 let sprite_bg: Sprite;
 let sprite_name: Sprite;
+let sprite_team: Sprite;
 let sprite_hall_of_fame: Sprite;
 
 const { max, min, random, PI } = Math;
@@ -242,14 +243,24 @@ function title(dt: number): void {
   let subtitle_w = game_width * 0.2;
   let xfactor = 0.88;
   let yfactor = 0.88;
-  uiGetFont().draw({
-    style: label_style,
-    x: game_width * xfactor - subtitle_w/2,
-    y: game_height * yfactor - 200,
-    w: subtitle_w,
-    h: 400,
-    align: ALIGN.HVCENTER|ALIGN.HWRAP,
-    text: 'By Jimb Esser, Humane Tiger, Tom Wiley Cotton, Some Music Guy, and Steve Thompson',
+  if (0) {
+    uiGetFont().draw({
+      style: label_style,
+      x: game_width * xfactor - subtitle_w/2,
+      y: game_height * yfactor - 200,
+      w: subtitle_w,
+      h: 400,
+      align: ALIGN.HVCENTER|ALIGN.HWRAP,
+      text: 'By Jimb Esser, Humane Tiger, Tom Wiley Cotton, Some Music Guy, and Steve Thompson',
+    });
+  }
+  let team_h = 227/1080*game_height;
+  let team_w = team_h * sprite_team.getAspect();
+  sprite_team.draw({
+    x: game_width - team_w - 8,
+    y: game_height - team_h - 8,
+    w: team_w,
+    h: team_h,
   });
   if (0) {
     uiGetFont().draw({
@@ -431,6 +442,12 @@ export function titleStartup(): void {
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
+  sprite_team = spriteCreate({
+    name: 'title-team',
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
   sprite_hall_of_fame = spriteCreate({
     name: 'hall-of-fame',
     filter_min: gl.LINEAR,
@@ -440,7 +457,7 @@ export function titleStartup(): void {
   critters = [];
   for (let ii = 0; ii < 3; ++ii) {
     critters.push({
-      x: [0.2, 0.68, 0.8][ii],
+      x: [0.2, 0.64, 0.8][ii],
       y: [0.6, 0.8, 0.5][ii],
       // dx: random() * 2 - 1,
       // dy: random() * 2 - 1,
