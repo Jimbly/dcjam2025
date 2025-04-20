@@ -257,8 +257,8 @@ function title(dt: number): void {
   let team_h = 227/1080*game_height;
   let team_w = team_h * sprite_team.getAspect();
   sprite_team.draw({
-    x: game_width - team_w - 8,
-    y: game_height - team_h - 8,
+    x: game_width - team_w + 15,
+    y: game_height - team_h - 12,
     w: team_w,
     h: team_h,
   });
