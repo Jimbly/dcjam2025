@@ -1821,7 +1821,10 @@
         "moon_solid2",
         "open",
         "moon_solid2"
-      ]
+      ],
+      "props": {
+        "loot": "money 800"
+      }
     },
     {
       "id": "solid",
@@ -5958,6 +5961,14 @@
         4,
         22,
         0
+      ]
+    },
+    {
+      "type": "chest",
+      "pos": [
+        23,
+        7,
+        2
       ]
     }
   ],

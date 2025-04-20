@@ -33,7 +33,7 @@ const ITEM_ROWS: ItemRow[] = [
 
   ['torso', 'torso4', 'Flak Armor', { defense: 18 }, "I've never felt so secure in my life.\n\nWell, at least not while\nalso in life-or-death\nbattle situations."],
   ['weapon', 'weapon4', 'Lazer Gun', { attack: 20, accuracy: 16 }, 'Disclaimer: contains no\nreal LASERs'],
-  ['offhand', 'offhand4', 'Zoom Shield', { dodge: 16, defense: 8 }, "Whatever it is, it's making me feel like I can run forever!\n\nGives me a real case of the zoomies."],
+  ['offhand', 'offhand4', 'Zoom Shield', { dodge: 16, defense: 8 }, "Whatever it is, it's making me feel like I can run forever!\n\nGives me a real case of the zoomies, and extra defense against teleconferencing."],
   ['head', 'helmet4', 'Deathclaw', { hp_max: 65, attack: 4 }, 'You have been assured\nthat these are bonefide chicken horns, sharp enough to pierce the strongest foe.'],
 
   ['consumable', 'med1', 'Med-Kit', { hp: 50 }, 'This should get me healed up.\n\nPress H or LT to heal while exploring.\n\nWARNING: Known to the empire of Kali4nia to\ncause cancer.'],
@@ -41,7 +41,7 @@ const ITEM_ROWS: ItemRow[] = [
   ['key', 'key1', 'The Dazzling Gift', undefined, 'Shiny.\n\nEven I would be tempted to get back with my last ex in exchange for this.'],
   ['key', 'key2', 'The Golden Rocket', undefined, "The B-23 '86 first place trophy.\n\nThere is no record of what happened to its rightful owner."],
   ['key', 'key3', 'The Ticket to Paradise', undefined, "I wish this were for me instead...\n\nJust imagine who I could be, with this..."],
-  ['key', 'key4', 'The Safe Combination', undefined, '4, 8, 15, 16, 23, 42\n\nTHE ASSISTANT insists that, if asked, you claim you just found this on the ground, someone must have Lost it.'],
+  ['key', 'key4', 'The Safe Combination', undefined, '4, 8, 15, 16, 23, 42\n\nTHE ASSISTANT insists that, if asked, I claim that I just found this on the ground, someone must have Lost it.'],
   ['key', 'key5', 'The Ticket Outtahere', undefined, "My lifeline after pulling this thing off."],
   ['key', 'key6', 'The Red Devastation', undefined, 'Probably goes boom.'],
 ];

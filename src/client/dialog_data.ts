@@ -591,13 +591,15 @@ dialogIconsRegister({
 });
 dialogRegister({
   hint1: function () {
+    let name = 'THE AGED AI';
     if (!keyGet('assist2') || hasItem('key3') || keyGet('solvedsafe')) {
-      return signWithName('', 'Various tourist information and travel brochures litter a table here.');
+      return signWithName(name, 'My data banks may be outdated, but I once knew all of the interesting tourist spots!');
     }
     if (!keyGet('hint1')) {
       keySet('hint1');
       return dialogPush({
-        text: 'A old, weathered brochure catches your eye:\n\nCome visit **EPSILON-ALPHA**, the best place to see unique, one-of-a-kind artifacts.\n\nNOTE: Due to security problems, tourism is currently prohibited.',
+        custom_render: nameRender(name),
+        text: 'Ooh, I know what you would like!\n\nYou should visit **EPSILON-ALPHA**, the best place to see unique, one-of-a-kind artifacts.\n\nPlease note, due to security problems, tourism there is currently prohibited.',
         buttons: [{
           label: 'HMM, MAYBE I CAN FIND **THE TICKET TO PARADISE** THERE...',
         }],
@@ -667,7 +669,7 @@ dialogRegister({
         });
       }
       if (data.money < COST_ASSIST_BRIBE) {
-        return signWithName(name, "Assistants don't get paid very well, you know...");
+        return signWithName(name, `Assistants don't get paid very well, you know... (come back with [img=icon-currency]${COST_ASSIST_BRIBE})`);
       }
       return dialogPush({
         custom_render: nameRender(name),
@@ -746,6 +748,16 @@ dialogRegister({
   },
   bay47: () => {
     // nothing
+  },
+  bay47outer: () => {
+    if (keyGet('solvedescape')) {
+      dialog('sign', 'BAY #47');
+    }
+  },
+  bay82outer: () => {
+    if (keyGet('foundship')) {
+      dialog('sign', 'BAY #82');
+    }
   },
 });
 
@@ -1109,6 +1121,9 @@ dialogRegister({
     let name = 'THE COMPASSIONATE CLERK';
     if (!keyGet('rumor1')) {
       return signWithName('MONOLOGUING', 'I don\'t think I should leave the station just yet.');
+    }
+    if (!hasItem('helmetfree')) {
+      return signWithName('MONOLOGUING', 'I don\'t feel properly equipped to leave just yet.');
     }
     if (keyGet('shuttlekey')) {
       return signWithName(name, 'Just take that door behind you to the shuttle bay.');

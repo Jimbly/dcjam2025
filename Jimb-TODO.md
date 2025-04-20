@@ -14,16 +14,8 @@ FOR ART
 * Similarly I fixed the enemy icon in map/map_general, it was off by a couple pixels causing a little red line on the chest icons next to it
 
 TODO
-* guard fight - LT should use medkit, not fast forward
-* play game through once (w/ controller?) - put in some new fallback music first
-  * first run:
-    * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
-    * second zone; couldn't afford hat, have 1563
 * build out levels
   * detail moon
-* on next combat playtest
-  * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
-  * when first entering zone 1+, save once, then tweak each fight to be a little harder
 
 Polish
 * escape from travel map is also opening pause menu

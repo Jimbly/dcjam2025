@@ -4554,6 +4554,12 @@
         "open",
         "station_bulkhead",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "bay82outer"
+        }
       ]
     },
     {
@@ -7527,6 +7533,12 @@
         "station_decal_5",
         "open",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "hint1"
+        }
       ]
     },
     {
@@ -10677,6 +10689,12 @@
         "open",
         "station_bulkhead",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "bay47outer"
+        }
       ]
     },
     {
@@ -12342,7 +12360,8 @@
   "props": {
     "title": "STATION 15",
     "subtitle": "CIVILLIAN DECK",
-    "music": "THA-funktrack"
+    "music": "THA-funktrack",
+    "noexplore": "1"
   },
   "paths": {}
 }

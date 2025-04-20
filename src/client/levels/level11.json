@@ -2513,7 +2513,7 @@
     {
       "id": "base_detail2",
       "walls": [
-        "base_solid3",
+        "solid",
         "solid",
         "open",
         "open"

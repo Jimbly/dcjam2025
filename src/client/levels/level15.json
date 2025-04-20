@@ -2337,7 +2337,8 @@
   "props": {
     "title": "PRIVATE SHIP",
     "subtitle": "DOCKING BAY",
-    "music": "THA-funktrack"
+    "music": "THA-funktrack",
+    "noexplore": "1"
   },
   "paths": {}
 }

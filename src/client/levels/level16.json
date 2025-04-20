@@ -493,7 +493,8 @@
   "props": {
     "title": "THE TRANQUILITY",
     "subtitle": "LIGHTNING BUG CLASS FREIGHTER",
-    "music": "THA-funktrack"
+    "music": "THA-funktrack",
+    "noexplore": "1"
   },
   "paths": {}
 }

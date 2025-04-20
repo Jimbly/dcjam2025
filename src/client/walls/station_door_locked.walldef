@@ -9,3 +9,6 @@ visuals:
   opts:
     atlas: station
     tile: door-locked
+replace:
+  - func: KEY
+    name: station_door_unlocked

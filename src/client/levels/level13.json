@@ -795,7 +795,7 @@
     {
       "id": "open",
       "walls": [
-        "ship_solid2",
+        "solid",
         "open",
         "open",
         "open"
@@ -5071,7 +5071,7 @@
       ]
     },
     {
-      "type": "enemyT2C",
+      "type": "enemyT2A",
       "pos": [
         9,
         11,

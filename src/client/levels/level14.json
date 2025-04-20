@@ -2368,7 +2368,8 @@
   "props": {
     "title": "THE ASCENDING SWORD",
     "subtitle": "MAIN DECK",
-    "music": "THA-battledisco"
+    "music": "THA-battledisco",
+    "noexplore": "1"
   },
   "paths": {}
 }

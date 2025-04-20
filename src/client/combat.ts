@@ -2,7 +2,7 @@ import assert from 'assert';
 import { autoAtlas } from 'glov/client/autoatlas';
 import { debugDefineIsSet, getFrameTimestamp } from 'glov/client/engine';
 import { ALIGN, Font, fontStyle } from 'glov/client/font';
-import { KEYS, mouseOver, PAD } from 'glov/client/input';
+import { KEYS, mouseOver, PAD, padButtonDownEdge } from 'glov/client/input';
 import {
   BLEND_MULTIPLY,
   Sprite,
@@ -388,15 +388,16 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
     }
   } else {
     let button_w = uiButtonWidth();
+    let disabled = !numMedkits() || me.data.stats.hp === me.data.stats.hp_max;
     if (target.data.stats.tier === 4 && me.isAlive() && buttonText({
       x: viewport.x + floor(viewport.w/2 - button_w/2),
       y: viewport.y + viewport.h * 0.9,
       w: button_w,
-      disabled: !numMedkits() || me.data.stats.hp === me.data.stats.hp_max,
+      disabled,
       text: 'USE MED-KIT',
       hotkeys: [KEYS.SPACE, KEYS.H],
       hotpad: PAD.SELECT,
-    })) {
+    }) || !disabled && padButtonDownEdge(PAD.LEFT_TRIGGER)) {
       useMedkit();
     }
   }
