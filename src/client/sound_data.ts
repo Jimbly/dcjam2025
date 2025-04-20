@@ -166,9 +166,9 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   }, {
     file: 'item/unusable_03', volume: 1,
   }],
-  ship_crash: { file: 'ship/ship_decelerate_1', volume: 1 },
+  ship_crash: { file: 'ship/ship_finish_failure_01', volume: 1 },
   ship_finish_failure: { file: 'ship/ship_decelerate_1', volume: 1 },
-  ship_finish_success: { file: 'ship/ship_accelerate_5', volume: 1 },
+  ship_finish_success: { file: 'ship/ship_finish_success_01', volume: 1 },
 
   combat_start: [{ file: 'combat/combat_start_01', volume: 1 }, { file: 'combat/combat_start_02', volume: 1 }],
 
