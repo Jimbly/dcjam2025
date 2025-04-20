@@ -1,4 +1,5 @@
 FINAL BUILD
+* push a build before sleeping
 * update and then enable autoatlas ignore config
 * rotate inventory if needed
 
@@ -7,12 +8,14 @@ FOR ART
 * scrollbar (used in inventory and hall of fame) - test by going to floor 0, getting all the stuff (from the now pink X), opening your inventory
 * I did a detailing pass on detailing the base (floor 11) and ship (floor 13) adventure zones, `floor 12` (moon cave) could use some work if you want to tackle that one
 * if you can remove the title text from the bar and get me a high res version of the text, I can overlay that easy enough to make the title crisper and still work on wider displays
-* Probably unnecessary, but if you want to build out `floor 14` (heist ship) more, feel free - don't touch the lobby, but feel free to remove the chest and place it back somewhere else, I hook up the event if it's moved (note to self: `dialog finalsafe`)
+* Probably unnecessary, but if you want to build out `floor 14` (heist ship) more, feel free - probably don't move the lobby (first 4 tiles), but feel free to move the chest and place it back somewhere else, I hook up the event if it's moved (note to self: `dialog finalsafe`).  It'll be an empty ship with no NPCs or enemies though, so not maybe doesn't need to be any bigger, although maybe also fine to let the player spend a while finally getting to the loot :laughing:
 * if the music guy says his name in the meantime, please update the team image =)
 * I smoothed some sharp tiling artifacts on the station ceiling that were bugging me - I only updated the .png, so if you update station/combined.png from the source file, please grab that tile from there first before overwriting
 * Similarly I fixed the enemy icon in map/map_general, it was off by a couple pixels causing a little red line on the chest icons next to it
 
 TODO
+* 100% original recordings and sound design
+* Music
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:
     * first zone; bought hat, have 843 + 3 medkits, didn't have to go back to heal; afforded all bribes, 163 left;
@@ -22,15 +25,14 @@ TODO
 * on next combat playtest
   * decrease A varieties further - I didn't feel I needed the B varieties, or even remembered to go find them
   * when first entering zone 1+, save once, then tweak each fight to be a little harder
-* Music
 
 Polish
 * escape from travel map is also opening pause menu
+* extra locked door loop on floor 12?
 * race game
   * use `combat-hit-crit-2` in race game upon death
   * ramp-up period with only a few asteroids
   * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
-* extra looked door loop on floor 12?
 
 * display medkit count on hud and (H)
 * pop-up upon getting any item except medkits, give quick equip option

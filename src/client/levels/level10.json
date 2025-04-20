@@ -5121,8 +5121,8 @@
       ],
       "events": [
         {
-          "id": "floor_delta",
-          "param": "1"
+          "id": "shipgo",
+          "param": "15"
         }
       ]
     },
@@ -5145,8 +5145,8 @@
       ],
       "events": [
         {
-          "id": "floor_delta",
-          "param": "1"
+          "id": "shipgo",
+          "param": "15"
         }
       ]
     },
@@ -5169,8 +5169,8 @@
       ],
       "events": [
         {
-          "id": "floor_delta",
-          "param": "1"
+          "id": "shipgo",
+          "param": "15"
         }
       ]
     },
@@ -5193,8 +5193,8 @@
       ],
       "events": [
         {
-          "id": "floor_delta",
-          "param": "1"
+          "id": "shipgo",
+          "param": "15"
         }
       ]
     },
@@ -5788,7 +5788,7 @@
       "events": [
         {
           "id": "sign",
-          "param": "51-100"
+          "param": "DOCKING BAYS 51-100"
         }
       ]
     },
@@ -7116,8 +7116,8 @@
       ],
       "events": [
         {
-          "id": "floor_delta",
-          "param": "-1"
+          "id": "shipgo",
+          "param": "-15"
         }
       ]
     },
