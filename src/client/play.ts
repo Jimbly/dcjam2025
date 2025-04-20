@@ -1682,7 +1682,7 @@ function playCrawl(): void {
   button_x0 = MOVE_BUTTONS_X0;
   button_y0 = MOVE_BUTTONS_Y0;
 
-  if (keyUpEdge(KEYS.B)) {
+  if (engine.DEBUG && keyUpEdge(KEYS.B)) {
     crawlerBuildModeActivate(!build_mode);
     if (crawlerCommWant()) {
       return profilerStopFunc();
