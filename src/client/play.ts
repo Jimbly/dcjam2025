@@ -310,7 +310,7 @@ export function modalBackground(
       z: z + 0.4,
       w: label_w,
       h: label_w / label.getAspect(),
-      rot: label === modal_label_inventory && false ? 0.02 : 0,
+      rot: label === modal_label_inventory && true ? 0.02 : 0,
     });
   }
   if (!z_override) {

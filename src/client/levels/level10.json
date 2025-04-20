@@ -7156,7 +7156,11 @@
       "events": [
         {
           "id": "sign",
-          "param": "OBERSVATION DECK"
+          "param": "OBSERVATION DECK"
+        },
+        {
+          "id": "dialog",
+          "param": "observation"
         }
       ]
     },
