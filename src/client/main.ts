@@ -12,6 +12,7 @@ import { Font, fontCreate, fontStyle, fontStyleColored } from 'glov/client/font'
 import {
   markdown_default_renderables,
   markdownImageRegisterAutoAtlas,
+  markdownSetColorStyle,
 } from 'glov/client/markdown_renderables';
 import { netInit } from 'glov/client/net';
 import * as settings from 'glov/client/settings';
@@ -26,6 +27,7 @@ import { crawlerBuildModeStartup } from './crawler_build_mode';
 import { drawableSpriteLoadNear } from './crawler_entity_client';
 import { crawlerOnPixelyChange, crawlerRenderSetUIClearColor } from './crawler_play.js';
 import { crawlerRenderSetLODBiasRange } from './crawler_render';
+import { creditsGo } from './credits';
 import { game_height, game_width } from './globals';
 import { playStartup } from './play';
 import { SOUND_DATA } from './sound_data';
@@ -247,6 +249,32 @@ export function main(): void {
 
   markdownImageRegisterAutoAtlas('demo');
   markdownImageRegisterAutoAtlas('default');
+  markdownSetColorStyle('creditsother', fontStyle(null, {
+    color: 0xFFFFFFff,
+    glow_color: 0x00000020,
+    glow_inner: 1,
+    glow_outer: 2,
+    glow_xoffs: -0.2,
+    glow_yoffs: 2.5,
+  }));
+  markdownSetColorStyle('creditsname', fontStyle(null, {
+    color: 0xFFFFFFff,
+    glow_color: 0x000000dd,
+    glow_inner: 1,
+    glow_outer: 1.5,
+    glow_xoffs: -0.2,
+    glow_yoffs: 2.5,
+  }));
+  markdownSetColorStyle('creditstitle', fontStyle(null, {
+    color: 0xFFFFFFff,
+    outline_color: 0xFFFFFFff,
+    outline_width: 0.5,
+    glow_color: 0x000000dd,
+    glow_inner: 1,
+    glow_outer: 2,
+    glow_xoffs: -0.2,
+    glow_yoffs: 2.5,
+  }));
 
   crawlerBuildModeStartup({
     font: build_font,
@@ -257,6 +285,9 @@ export function main(): void {
   engine.setState(titleInit);
   if (0) {
     engine.setState(stateHighScores);
+  }
+  if (0) {
+    creditsGo();
   }
   titleStartup();
   // Preload some atlases

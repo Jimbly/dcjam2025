@@ -1,5 +1,5 @@
 FINAL BUILD
-* push a build before sleeping
+* push a build before sleeping - also to dashingstrike.com
 * update and then enable autoatlas ignore config
 * rotate inventory if needed
 
@@ -14,7 +14,6 @@ FOR ART
 * Similarly I fixed the enemy icon in map/map_general, it was off by a couple pixels causing a little red line on the chest icons next to it
 
 TODO
-* 100% original recordings and sound design
 * Music
 * play game through once (w/ controller?) - put in some new fallback music first
   * first run:

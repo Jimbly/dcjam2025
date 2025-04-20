@@ -10,16 +10,15 @@ import { tickMusic } from './music';
 import { titleDrawBG, titleInit } from './title';
 
 const text = `
-
-Thanks for playing!
-
+[c=creditstitle]Thanks for playing![/c]
 
 
 
-[c=creditstitle]NAME OF GAME[/c]
+
+[c=creditstitle]NEBULARCENY[/c]
 [c=creditsname] (c)2025 Jimb Esser, et al, All rights reserved[/c]
 
-Created in 9 days for [c=creditsname]DUNGEON CRAWLER JAM 2025[/c]
+[c=creditsother]Created in 9 days for [/c][c=creditsname]DUNGEON CRAWLER JAM 2025[/c]
 
 
 [c=creditstitle]LEAD - CODING - DESIGN[/c]
@@ -33,24 +32,28 @@ Created in 9 days for [c=creditsname]DUNGEON CRAWLER JAM 2025[/c]
 
 [c=creditstitle]SOUND FX[/c]
 [c=creditsname]Tom Wiley Cotton[/c]
+[c=creditsname] (100% original recordings and design) [/c]
 
 [c=creditstitle]MUSIC[/c]
 [c=creditsname]Some Music Guy[/c]
+[c=creditsother] (Didn't give us a name...) [/c]
 
 [c=creditstitle]OTHER ASSETS BY[/c]
-See page on itch.io for links
+[c=creditsname]Music by The Hamster Alliance[/c]
+[c=creditsname]www.hamsteralliance.com[/c]
+[c=creditsother]See page on itch.io for links[/c]
 
 [c=creditstitle]AI CONTENT[/c]
-No generative AI was used in the creation of this game
-(except the Jam Anthem provided by the jam host)
+[c=creditsother]No generative AI was used in the creation of this game[/c]
+[c=creditsother] (except the Jam Anthem provided by the jam host) [/c]
 
 [c=creditstitle]ENGINE[/c]
 [c=creditsname]GLOV.js + crawler toolkit[/c]
 [c=creditsname]MIT Licensed[/c]
 [c=creditsname]by Jimb Esser[/c]
 
-[c=xp]CREDITS MUSIC[/c]
-[c=sanity]Zooperdan via Suno.ai[/c]
+[c=creditstitle]CREDITS MUSIC[/c]
+[c=creditsname]Zooperdan via Suno.ai[/c]
 
 [c=creditstitle]SPECIAL THANKS[/c]
 [c=creditsname]The DungeonCrawlers.org Discord[/c]
