@@ -1,4 +1,5 @@
 /* eslint prefer-template:off, @stylistic/max-len:off, @typescript-eslint/no-unused-vars:off */
+import { playUISound } from 'glov/client/ui';
 import { clone } from 'glov/common/util';
 import {
   CrawlerScriptAPI,
@@ -15,6 +16,26 @@ import { travelTo } from './travelgame';
 import { startTravel } from './travelmap';
 
 type Entity = EntityDemoClient;
+
+crawlerScriptRegisterEvent({
+  key: 'key_set',
+  when: CrawlerScriptWhen.PRE, // Must be PRE so that the if happens before the server applies it
+  // map_icon: CrawlerScriptEventMapIcons.EXCLAMATION,
+  func: (api: CrawlerScriptAPI, cell: CrawlerCell, param: string) => {
+    if (!param && cell.props?.key_cell) {
+      param = cell.props?.key_cell;
+    }
+    if (!param) {
+      api.status('key_pickup', '"key_set" event requires a string parameter');
+    } else {
+      if (!api.keyGet(param)) {
+        api.keySet(param);
+        playUISound('unlock_door'); // DCJAM25
+        //api.status('key_pickup', `Acquired key "${param}"`);
+      }
+    }
+  },
+});
 
 crawlerScriptRegisterEvent({
   key: 'travel',

@@ -26,12 +26,10 @@ TODO
 
 Polish
 * escape from travel map is also opening pause menu
-* play with inventory/settings padding
 * race game
   * use `combat-hit-crit-2` in race game upon death
   * ramp-up period with only a few asteroids
   * do a "safe!" thing for a moment so you stop pressing forward at the end? (and so if you're about to hit an asteroid you see it)
-* sound hook upon unlocking doors
 * extra looked door loop on floor 12?
 
 * display medkit count on hud and (H)

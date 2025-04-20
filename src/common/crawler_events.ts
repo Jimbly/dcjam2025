@@ -51,24 +51,24 @@ crawlerScriptRegisterFunc('KEY', function (
 });
 
 
-crawlerScriptRegisterEvent({
-  key: 'key_set',
-  when: CrawlerScriptWhen.PRE, // Must be PRE so that the if happens before the server applies it
-  // map_icon: CrawlerScriptEventMapIcons.EXCLAMATION,
-  func: (api: CrawlerScriptAPI, cell: CrawlerCell, param: string) => {
-    if (!param && cell.props?.key_cell) {
-      param = cell.props?.key_cell;
-    }
-    if (!param) {
-      api.status('key_pickup', '"key_set" event requires a string parameter');
-    } else {
-      if (!api.keyGet(param)) {
-        api.keySet(param);
-        //api.status('key_pickup', `Acquired key "${param}"`);
-      }
-    }
-  },
-});
+// crawlerScriptRegisterEvent({
+//   key: 'key_set',
+//   when: CrawlerScriptWhen.PRE, // Must be PRE so that the if happens before the server applies it
+//   // map_icon: CrawlerScriptEventMapIcons.EXCLAMATION,
+//   func: (api: CrawlerScriptAPI, cell: CrawlerCell, param: string) => {
+//     if (!param && cell.props?.key_cell) {
+//       param = cell.props?.key_cell;
+//     }
+//     if (!param) {
+//       api.status('key_pickup', '"key_set" event requires a string parameter');
+//     } else {
+//       if (!api.keyGet(param)) {
+//         api.keySet(param);
+//         //api.status('key_pickup', `Acquired key "${param}"`);
+//       }
+//     }
+//   },
+// });
 
 crawlerScriptRegisterEvent({
   key: 'key_clear',

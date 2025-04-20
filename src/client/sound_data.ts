@@ -476,4 +476,5 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   gain_item_loot: { file: 'item/equip_01', volume: 1 },
   gain_item_quest: { file: 'item/equip_01', volume: 1 },
 
+  unlock_door: { file: 'item/equip_weapon_01', volume: 1 },
 };
