@@ -611,6 +611,31 @@ dialogRegister({
 
 
 dialogIconsRegister({
+  observation: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
+    let { data } = myEnt();
+    if (keyGet('sovledsafe') || hasItem('key4')) {
+      return null;
+    }
+    if (!keyGet('foundship')) {
+      return null;
+    }
+    if (!keyGet('assist1')) {
+      if (!keyGet('assistintro')) {
+        return 'icon_exclamation';
+      }
+      if (data.money < COST_ASSIST_BRIBE) {
+        return null;
+      }
+      return 'icon_exclamation';
+    }
+    if (!keyGet('assist2')) {
+      return 'icon_exclamation';
+    }
+    if (hasItem('key3')) {
+      return 'icon_exclamation';
+    }
+    return 'icon_question';
+  },
   assistant: (param: string, script_api: CrawlerScriptAPI): CrawlerScriptEventMapIcon => {
     let { data } = myEnt();
     if (keyGet('sovledsafe') || hasItem('key4')) {
@@ -638,6 +663,9 @@ dialogIconsRegister({
   },
 });
 dialogRegister({
+  observation: function () {
+    // nothing
+  },
   assistant: function () {
     const name = 'THE BELEAGUERED ASSISTANT';
     let { data } = myEnt();
@@ -776,6 +804,19 @@ dialogIconsRegister({
       }
       return 'icon_exclamation';
     }
+
+    if (keyGet('foundship') &&
+      !hasItem('key3') &&
+      !(keyGet('sovledsafe') || hasItem('key4'))
+    ) {
+      if (!keyGet('assist1')) {
+        if (!keyGet('assistintro') && !keyGet('hint3')) {
+          return 'icon_exclamation';
+        }
+        return 'icon_question';
+      }
+    }
+
     return null;
   },
 });
@@ -808,6 +849,26 @@ dialogRegister({
           label: 'NOT MY TASTE, BUT I MIGHT KNOW A DOLL...'
         }],
       });
+    }
+
+    if (keyGet('foundship') &&
+      !hasItem('key3') &&
+      !(keyGet('sovledsafe') || hasItem('key4'))
+    ) {
+      if (!keyGet('assist1')) {
+        // haven't yet done the bribe
+        if (!keyGet('hint3')) {
+          keySet('hint3');
+          return dialogPush({
+            custom_render: nameRender(name),
+            text: 'I heard **THE BELEAGUERED ASSISTANT** talking to herself up in **THE OBSERVATION DECK**, something about being worried she was going to misplace **THE SAFE COMBINATION**.',
+            buttons: [{
+              label: 'THAT WOULD BE A SHAME...'
+            }],
+          });
+        }
+        return signWithName(name, '**THE BELEAGUERED ASSISTANT** up in **THE OBSERVATION DECK** might have **THE SAFE COMBINATION** you need.');
+      }
     }
 
     return signWithName(name, 'Whatever you\'re looking for, someone in this place can probably help you.');
