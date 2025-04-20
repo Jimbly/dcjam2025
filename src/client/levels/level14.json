@@ -2367,7 +2367,8 @@
   "seed": "32845502",
   "props": {
     "title": "THE ASCENDING SWORD",
-    "subtitle": "MAIN DECK"
+    "subtitle": "MAIN DECK",
+    "music": "THA-battledisco"
   },
   "paths": {}
 }

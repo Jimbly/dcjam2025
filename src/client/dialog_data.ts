@@ -294,9 +294,17 @@ dialogIconsRegister({
     return null; // has treasure instead from entity 'icon_exclamation';
   },
 });
+let did_safe_this_session = false;
+export function didSafeThisSession(): boolean {
+  return did_safe_this_session;
+}
+export function clearSafeThisSession(): void {
+  did_safe_this_session = false;
+}
 dialogRegister({
   finalsafe: function () {
     if (hasItem('key6')) {
+      did_safe_this_session = true;
       return;
     }
     if (!keyGet('solvedsafe')) {
@@ -305,6 +313,7 @@ dialogRegister({
     if (!keyGet('solvedescape')) {
       return signWithName('MONOLOGUING', 'I need a plan of escape before I take this and set off the alarm...');
     }
+    did_safe_this_session = true;
     playUISound('gain_item_loot');
     giveReward({ items: [{ item_id: 'key6' }] });
     let api = crawlerScriptAPI();
@@ -1027,6 +1036,15 @@ dialogRegister({
         label: 'MAYBE LATER...',
       }]
     });
+  },
+});
+
+dialogRegister({
+  bayguard1: function () {
+    signWithName('THE TRUSTING DOCKMAN', "You don't look the type that would poke in other people's ships, right?");
+  },
+  bayguard2: function () {
+    signWithName('THE LAZY DOCKMAN', "You look like you're the type to poke in other people's ships, but... please don't.");
   },
 });
 

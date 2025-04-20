@@ -3307,6 +3307,12 @@
         "open",
         "door",
         "open"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": "**HINT**: Don't forget to save your game!"
+        }
       ]
     },
     {
@@ -4102,6 +4108,12 @@
         "door",
         "base_solid2",
         "open"
+      ],
+      "events": [
+        {
+          "id": "sign",
+          "param": ""
+        }
       ]
     },
     {

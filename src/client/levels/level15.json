@@ -2336,7 +2336,8 @@
   "seed": "32845502",
   "props": {
     "title": "PRIVATE SHIP",
-    "subtitle": "DOCKING BAY"
+    "subtitle": "DOCKING BAY",
+    "music": "THA-funktrack"
   },
   "paths": {}
 }

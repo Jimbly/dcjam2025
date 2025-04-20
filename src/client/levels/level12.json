@@ -5966,7 +5966,8 @@
   "seed": "40249805",
   "props": {
     "title": "ATLAS 7",
-    "subtitle": "UNDERGROUND CAVERNS"
+    "subtitle": "UNDERGROUND CAVERNS",
+    "music": "THA-cerberus"
   },
   "paths": {}
 }

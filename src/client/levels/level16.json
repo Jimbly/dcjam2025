@@ -492,7 +492,8 @@
   "seed": "32845502",
   "props": {
     "title": "THE TRANQUILITY",
-    "subtitle": "LIGHTNING BUG CLASS FREIGHTER"
+    "subtitle": "LIGHTNING BUG CLASS FREIGHTER",
+    "music": "THA-funktrack"
   },
   "paths": {}
 }

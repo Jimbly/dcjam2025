@@ -21,7 +21,7 @@ const text = `
 [c=creditsother]Created in 9 days for [/c][c=creditsname]DUNGEON CRAWLER JAM 2025[/c]
 
 
-[c=creditstitle]LEAD - CODING - DESIGN[/c]
+[c=creditstitle]LEAD - CODING - DESIGN - WRITING[/c]
 [c=creditsname]Jimb Esser[/c]
 
 [c=creditstitle]ART - DESIGN[/c]
@@ -40,6 +40,7 @@ const text = `
 
 [c=creditstitle]OTHER ASSETS BY[/c]
 [c=creditsname]Music by The Hamster Alliance[/c]
+[c=creditsname]Battle Disco - Cerberus - Funk Track - Lies The Trapper[/c]
 [c=creditsname]www.hamsteralliance.com[/c]
 [c=creditsother]See page on itch.io for links[/c]
 

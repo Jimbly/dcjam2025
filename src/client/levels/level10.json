@@ -2397,6 +2397,12 @@
         "open",
         "open",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "mono I don't think I should be drinking right now, I need a clear head..."
+        }
       ]
     },
     {
@@ -2733,6 +2739,12 @@
         "open",
         "open",
         "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "mono I don't think I should be drinking right now, I need a clear head..."
+        }
       ]
     },
     {
@@ -5808,6 +5820,12 @@
         "station_shop_window",
         "open",
         "station_bulkhead"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "bayguard1"
+        }
       ]
     },
     {
@@ -7185,6 +7203,12 @@
         "station_bulkhead",
         "open",
         "station_shop_window"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "bayguard2"
+        }
       ]
     },
     {
@@ -12317,7 +12341,8 @@
   "seed": "32845502",
   "props": {
     "title": "STATION 15",
-    "subtitle": "CIVILLIAN DECK"
+    "subtitle": "CIVILLIAN DECK",
+    "music": "THA-funktrack"
   },
   "paths": {}
 }

@@ -139,7 +139,7 @@ import {
 } from './crawler_render_entities';
 import { crawlerScriptAPIDummyServer } from './crawler_script_api_client';
 import { crawlerOnScreenButton } from './crawler_ui';
-import { hasItem } from './dialog_data';
+import { clearSafeThisSession, didSafeThisSession, hasItem } from './dialog_data';
 import { dialog, dialogMoveLocked, dialogRun, dialogStartup } from './dialog_system';
 import { entitiesAt, EntityDemoClient, entityManager, Item, StatsData } from './entity_demo_client';
 // import { EntityDemoClient } from './entity_demo_client';
@@ -1875,7 +1875,11 @@ export function play(dt: number): void {
   let overlay_menu_up = Boolean(pause_menu_up || dialogMoveLocked() || inventory_up || journal_up ||
     !myEntOptional()?.isAlive() || engagedEnemy());
 
-  tickMusic(game_state.level?.props.music || 'bgm01');
+  if (hasItem('key6') && didSafeThisSession()) {
+    tickMusic('THA-battledisco');
+  } else {
+    tickMusic(game_state.level?.props.music || 'bgm01');
+  }
   crawlerPlayTopOfFrame(overlay_menu_up);
 
   if (keyDownEdge(KEYS.F3)) {
@@ -1934,6 +1938,7 @@ function playInitShared(online: boolean): void {
   pause_menu_up = false;
   inventory_up = false;
   journal_up = false;
+  clearSafeThisSession();
   travelGameCheck(true);
 }
 
@@ -2017,7 +2022,7 @@ function initLevel(entity_manager: ClientEntityManagerInterface,
   // }
 
   if (floor_id === 10) {
-    if (last_floor === 9) {
+    if (last_floor === 9 || last_floor === 14 || last_floor === 15 || last_floor === 16) {
       // nothing, internal travel
     } else if (first_time_ever) {
       // dialog('intro');
