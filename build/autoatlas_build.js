@@ -92,7 +92,11 @@ function pngAllocTemp(width, height) {
     if (!png_cache[ii].used && png_cache[ii].width === width && png_cache[ii].height === height) {
       png_cache[ii].used = true;
       png_cache[ii].index = ++used_index;
-      return png_cache[ii].img;
+      let ret = png_cache[ii].img;
+      for (let jj = 0; jj < ret.data.length; ++jj) {
+        ret.data[jj] = 0;
+      }
+      return ret;
     }
   }
   let img = pngAlloc({ width, height, byte_depth: 4 });
