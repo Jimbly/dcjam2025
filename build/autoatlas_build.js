@@ -87,7 +87,7 @@ function pngAllocTempReset() {
   }
 }
 
-function pngAllocTemp(width, height) {
+function pngAllocTemp(width, height, comment) {
   for (let ii = 0; ii < png_cache.length; ++ii) {
     if (!png_cache[ii].used && png_cache[ii].width === width && png_cache[ii].height === height) {
       png_cache[ii].used = true;
@@ -96,10 +96,11 @@ function pngAllocTemp(width, height) {
       for (let jj = 0; jj < ret.data.length; ++jj) {
         ret.data[jj] = 0;
       }
+      // console.log('pngAllocTemp', width, height, comment || 'unknown');
       return ret;
     }
   }
-  let img = pngAlloc({ width, height, byte_depth: 4 });
+  let img = pngAlloc({ width, height, byte_depth: 4, comment: comment || 'pngAllocTemp' });
   png_cache.push({
     width,
     height,
@@ -183,19 +184,6 @@ module.exports = function (opts) {
         continue;
       }
       seen_png[img_file.relative] = true;
-      let img;
-      if (!is_dirty && input_png_cache[img_file.relative]) {
-        img = input_png_cache[img_file.relative];
-      } else {
-        let err;
-        ({ err, img } = pngRead(img_file.contents));
-        if (err) {
-          job.error(img_file, `Error reading ${img_file.relative}: ${err}`);
-          continue;
-        }
-        input_png_cache[img_file.relative] = img;
-      }
-      img.source_name = img_file.relative;
       let do_9patch = img_name.endsWith('.9');
       if (do_9patch) {
         img_name = img_name.slice(0, -2);
@@ -207,29 +195,58 @@ module.exports = function (opts) {
         idx = Number(m[2]);
       }
       atlas_data.num_layers = max(atlas_data.num_layers, idx + 1);
-      let img_data = atlas_data.file_data[img_name] = atlas_data.file_data[img_name] || { imgs: [] };
-      let ws = [img.width];
-      let hs = [img.height];
-      did_error = false;
-      if (do_9patch) {
-        ws = parseRow(job, img, 1, 0, 1, 0);
-        hs = parseRow(job, img, 0, 1, 0, 1);
-        if (idx === 0) {
-          // currently unused, but can parse the padding values from the 9-patch as well
-          img_data.padh = parseRow(job, img, 1, img.height - 1, 1, 0);
-          img_data.padv = parseRow(job, img, img.width - 1, 1, 0, 1);
-          if (img_data.padh.length === 1 && img_data.padv.length === 1) {
-            delete img_data.padh;
-            delete img_data.padv;
-          }
+
+      let img;
+      let ws;
+      let hs;
+      let padh;
+      let padv;
+      if (!is_dirty && input_png_cache[img_file.relative]) {
+        img = input_png_cache[img_file.relative];
+        ({ ws, hs, padh, padv } = img.cached_data);
+      } else {
+        let err;
+        ({ err, img } = pngRead(img_file.contents));
+        if (err) {
+          job.error(img_file, `Error reading ${img_file.relative}: ${err}`);
+          continue;
         }
-        let new_img = pngAlloc({ width: img.width - 2, height: img.height - 2, byte_depth: 4 });
-        img.bitblt(new_img, 1, 1, img.width - 2, img.height - 2, 0, 0);
-        img = new_img;
+        ws = [img.width];
+        hs = [img.height];
+        if (do_9patch) {
+          did_error = false;
+          ws = parseRow(job, img, 1, 0, 1, 0);
+          hs = parseRow(job, img, 0, 1, 0, 1);
+          if (idx === 0) {
+            // currently unused, but can parse the padding values from the 9-patch as well
+            padh = parseRow(job, img, 1, img.height - 1, 1, 0);
+            padv = parseRow(job, img, img.width - 1, 1, 0, 1);
+            if (padh.length === 1 && padv.length === 1) {
+              padh = undefined;
+              padv = undefined;
+            }
+          }
+          let new_img = pngAlloc({ width: img.width - 2, height: img.height - 2, byte_depth: 4, comment: `9-patch:${img_name}` });
+          img.bitblt(new_img, 1, 1, img.width - 2, img.height - 2, 0, 0);
+          img = new_img;
+        }
+        img.cached_data = {
+          ws,
+          hs,
+          padh,
+          padv,
+        };
+        input_png_cache[img_file.relative] = img;
+        img.source_name = img_file.relative;
       }
+      let img_data = atlas_data.file_data[img_name] = atlas_data.file_data[img_name] || { imgs: [] };
       if (idx === 0) {
         img_data.ws = ws;
         img_data.hs = hs;
+        if (padh) {
+          img_data.padh = padh;
+          img_data.padv = padv;
+        }
       }
       img.filename = img_file.relative;
       if (img_data.imgs[idx]) {
@@ -355,7 +372,7 @@ module.exports = function (opts) {
       let height = nextHighestPowerOfTwo(maxy);
       let pngouts = [];
       for (let ii = 0; ii < atlas_data.num_layers; ++ii) {
-        pngouts.push(pngAllocTemp(width, height));
+        pngouts.push(pngAllocTemp(width, height, `output:${name}`));
       }
       runtime_data.w = width;
       runtime_data.h = height;
@@ -506,6 +523,7 @@ module.exports = function (opts) {
         let img_out = pngAllocTemp(
           source[2],
           source[3],
+          `splitting:${img_file.relative}:${key}`
         );
         try {
           img.bitblt(img_out, source[0], source[1], source[2], source[3], 0, 0);

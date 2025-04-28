@@ -101,7 +101,8 @@ function pngRead(file_contents) {
 exports.pngRead = pngRead;
 
 
-function pngAlloc({ width, height, byte_depth }) {
+function pngAlloc({ width, height, byte_depth, comment }) {
+  // console.log('pngAlloc', width, height, comment || 'unknown');
   let colorType = byte_depth === 3 ? PNG_RGB : PNG_RGBA;
   let ret = new PNG({ width, height, colorType });
   let num_bytes = width * height * 4;
