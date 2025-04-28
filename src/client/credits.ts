@@ -35,8 +35,7 @@ const text = `
 [c=creditsname] (100% original recordings and design) [/c]
 
 [c=creditstitle]MUSIC[/c]
-[c=creditsname]Some Music Guy[/c]
-[c=creditsother] (Didn't give us a name...) [/c]
+[c=creditsname]nudsmachado[/c]
 
 [c=creditstitle]OTHER ASSETS BY[/c]
 [c=creditsname]Music by The Hamster Alliance[/c]
