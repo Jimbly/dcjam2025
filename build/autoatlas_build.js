@@ -66,24 +66,25 @@ function parseRow(job, img, x0, y0, dx, dy) {
 
 
 let png_cache = [];
-let used_index = 0;
+let used_generation = 0;
+const PNG_GENERATIONS = 4;
 function pngAllocTempReset() {
   let any_used = false;
-  let oldest_unused = -1;
   for (let ii = 0; ii < png_cache.length; ++ii) {
     if (png_cache[ii].used) {
       png_cache[ii].used = false;
       any_used = true;
-    } else {
-      if (oldest_unused === -1 || png_cache[ii].index < png_cache[oldest_unused].index) {
-        oldest_unused = ii;
-      }
     }
   }
   if (any_used) {
-    // just free one
-    png_cache[oldest_unused] = png_cache[png_cache.length - 1];
-    png_cache.pop();
+    ++used_generation;
+    for (let ii = png_cache.length - 1; ii >= 0; --ii) {
+      if (!png_cache[ii].used && png_cache[ii].generation < used_generation - PNG_GENERATIONS) {
+        // console.log('pngAllocTemp freeing');
+        png_cache[ii] = png_cache[png_cache.length - 1];
+        png_cache.pop();
+      }
+    }
   }
 }
 
@@ -91,7 +92,7 @@ function pngAllocTemp(width, height, comment) {
   for (let ii = 0; ii < png_cache.length; ++ii) {
     if (!png_cache[ii].used && png_cache[ii].width === width && png_cache[ii].height === height) {
       png_cache[ii].used = true;
-      png_cache[ii].index = ++used_index;
+      png_cache[ii].generation = used_generation;
       let ret = png_cache[ii].img;
       for (let jj = 0; jj < ret.data.length; ++jj) {
         ret.data[jj] = 0;
@@ -106,7 +107,7 @@ function pngAllocTemp(width, height, comment) {
     height,
     img,
     used: true,
-    index: ++used_index,
+    generate: used_generation,
   });
   return img;
 }
