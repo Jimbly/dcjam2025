@@ -306,6 +306,19 @@ module.exports = function (opts) {
 
       let file_keys = Object.keys(file_data);
       file_keys.sort(cmpFileKeys);
+      let file_keys_for_packing = file_keys.slice(0);
+      file_keys_for_packing.sort(function (a, b) {
+        let imga = file_data[a];
+        assert(imga);
+        let imgb = file_data[b];
+        assert(imgb);
+        // pack tallest first
+        let d = (imgb.imgs[0]?.height || 0) - (imga.imgs[0]?.height || 0);
+        if (d) {
+          return d;
+        }
+        return cmpFileKeys(a, b);
+      });
 
       let runtime_data = {
         // name,
@@ -323,8 +336,8 @@ module.exports = function (opts) {
         let y = 0;
         let row_height = 0;
         let any_error = false;
-        for (let ii = 0; ii < file_keys.length; ++ii) {
-          let img_name = file_keys[ii];
+        for (let ii = 0; ii < file_keys_for_packing.length; ++ii) {
+          let img_name = file_keys_for_packing[ii];
           if (ignore[`${name}:${img_name}`]) {
             continue;
           }
