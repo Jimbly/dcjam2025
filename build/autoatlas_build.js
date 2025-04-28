@@ -239,6 +239,19 @@ module.exports = function (opts) {
       img_data.imgs[idx] = img;
     }
 
+    // Flag atlases as dirty for deleted files
+    for (let ii = 0; ii < changed_files.length; ++ii) {
+      let img_file = changed_files[ii];
+      if (!img_file.contents) {
+        let m = img_file.relative.match(/^(?:.*\/)?([^/]+)\/([^/]+)\.(png|ya?ml)$/);
+        let atlas_name = m[1].toLowerCase();
+        let atlas_data = atlases[atlas_name];
+        if (atlas_data) {
+          atlas_data.dirty = true;
+        }
+      }
+    }
+
     for (let key in input_png_cache) {
       if (!seen_png[key]) {
         delete input_png_cache[key];
