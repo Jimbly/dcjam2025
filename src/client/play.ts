@@ -915,6 +915,14 @@ function journalMenu(): void {
   let z = Z.MODAL + 3;
   let text_height = uiTextHeight();
   let line_pad = text_height;
+  let do_checkboxes = true;
+  if (!crawlerScriptAPI().keyGet('rumor1')) {
+    do_checkboxes = false;
+    y += text_height * 2;
+    lines = [
+      ['null', 'Check the CANTINA for rumors of something to "acquire".'],
+    ];
+  }
 
   if (0) {
     markdownAuto({
@@ -929,13 +937,15 @@ function journalMenu(): void {
 
   lines.forEach(function (pair) {
     let solved = api.keyGet(pair[0]);
-    autoAtlas('default', `icon-checkbox-${solved ? 'checked' : 'empty'}`).draw({
-      x,
-      y: y - text_height * 0.5,
-      z,
-      w: text_height * 2,
-      h: text_height * 2,
-    });
+    if (do_checkboxes) {
+      autoAtlas('default', `icon-checkbox-${solved ? 'checked' : 'empty'}`).draw({
+        x,
+        y: y - text_height * 0.5,
+        z,
+        w: text_height * 2,
+        h: text_height * 2,
+      });
+    }
 
     let xx = x + text_height + 8;
     y += markdownAuto({
@@ -1510,7 +1520,7 @@ function playCrawl(): void {
   if (!frame_combat && !crawlerController().controllerIsAnimating(0.5)) {
     checkLoot();
   }
-  let allow_journal = crawlerScriptAPI().keyGet('rumor1');
+  let allow_journal = true; // crawlerScriptAPI().keyGet('rumor1');
   if (!allow_journal) {
     journal_up = false;
   }
