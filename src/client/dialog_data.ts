@@ -1264,9 +1264,9 @@ dialogRegister({
     signWithName('MONOLOGUING', "Hmm, this ship's locked up tight, no getting in there, even at my best.");
   },
   mono: function (param: string) {
-    if (onetimeEvent()) {
-      signWithName('MONOLOGUING', param, true);
-    }
+    // if (onetimeEvent()) {
+    signWithName('MONOLOGUING', param, true);
+    // }
   },
   travelfail: function () {
     let me = myEnt();
