@@ -880,14 +880,18 @@ dialogRegister({
 
 dialogIconsRegister({
   dockingwander: () => {
-    return !keyGet('lookedforship') && !keyGet('foundship') ? 'icon_exclamation' : null;
+    return keyGet('rumor1') && !keyGet('lookedforship') && !keyGet('foundship') ? 'icon_exclamation' : null;
   },
 });
 dialogRegister({
   dockingwander: function () {
     if (!keyGet('foundship')) {
-      signWithName('MONOLOGUING', 'Searching one-by-one will take forever.  Maybe one of the **shiptakers** knows where **THE ASCENDING SWORD** is.', true);
-      keySet('lookedforship');
+      if (!keyGet('rumor1')) {
+        signWithName('MONOLOGUING', 'What am I doing wandering the hangars?  I bet someone in the **CANTINA** knows about something worth my time.', true);
+      } else {
+        signWithName('MONOLOGUING', 'Searching one-by-one will take forever.  Maybe one of the **shiptakers** knows where **THE ASCENDING SWORD** is.', true);
+        keySet('lookedforship');
+      }
     }
   },
 });
