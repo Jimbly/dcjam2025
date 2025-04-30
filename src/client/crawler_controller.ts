@@ -1889,13 +1889,6 @@ export class CrawlerController {
       touch_hotzone?: Box,
     ): void {
       let z;
-      let visible_hotkey: string | undefined;
-      if (keys.length) {
-        let idx = keys[0];
-        if (idx >= KEYS.A && idx <= KEYS.Z) {
-          visible_hotkey = String.fromCharCode(idx);
-        }
-      }
       let ret = crawlerOnScreenButton({
         x: button_x0 + (button_w + 2) * rx,
         y: button_y0 + (button_w + 2) * ry,
@@ -1909,8 +1902,8 @@ export class CrawlerController {
         disabled,
         button_sprites,
         touch_hotzone,
-        visible_hotkey: show_hotkeys ? visible_hotkey : undefined,
         is_movement: !(key === 'turn_left' || key === 'turn_right'),
+        show_hotkeys,
       });
       down_edge[key] += ret.down_edge;
       down[key] += ret.down;

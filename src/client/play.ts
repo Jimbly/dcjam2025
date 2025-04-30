@@ -1434,7 +1434,7 @@ export function doMotionForTravelGame(dt: number): void {
     show_buttons: true,
     do_debug_move: false,
     show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 } : null,
-    show_hotkeys: !useNoText(),
+    show_hotkeys: true,
   });
 }
 
@@ -1579,7 +1579,6 @@ function playCrawl(): void {
     keys: number[],
     pads: number[],
     toggled_down: boolean,
-    visible_hotkey: string,
   ): void {
     let z;
     let no_visible_ui = frame_map_view;
@@ -1614,8 +1613,8 @@ function playCrawl(): void {
       button_sprites: useNoText() ?
         toggled_down ? button_sprites_notext_down : button_sprites_notext :
         toggled_down ? button_sprites_down : button_sprites,
-      visible_hotkey: useNoText() ? undefined : visible_hotkey,
       is_movement: false,
+      show_hotkeys: true,
     });
     // down_edge[key] += ret.down_edge;
     down[key] += ret.down;
@@ -1633,17 +1632,17 @@ function playCrawl(): void {
     menu_pads.push(PAD.B, PAD.BACK);
   }
   if (!travel_game) {
-    button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads, false, 'ESC');
+    button(0, 0, menu_up ? 10 : 6, 'menu', menu_keys, menu_pads, false);
   }
   if (!build_mode && !travel_game) {
-    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up || journal_up, 'I');
+    button(0, 1, 7, 'inventory', [KEYS.I], [PAD.Y], inventory_up || journal_up);
     if (up_edge.inventory) {
       inventory_up = !inventory_up;
       journal_up = false;
       sortInventory();
     }
     if (allow_journal) {
-      button(0, 2, 8, 'journal', [KEYS.J], [PAD.X], inventory_up || journal_up, 'J');
+      button(0, 2, 8, 'journal', [KEYS.J], [PAD.X], inventory_up || journal_up);
       if (up_edge.journal) {
         journal_up = !journal_up;
         inventory_up = false;
@@ -1820,7 +1819,7 @@ function playCrawl(): void {
       show_buttons: !frame_combat && !locked_dialog,
       do_debug_move: engine.defines.LEVEL_GEN || build_mode,
       show_debug: settings.show_fps ? { x: VIEWPORT_X0, y: VIEWPORT_Y0 + (build_mode ? 3 : 0) } : null,
-      show_hotkeys: !useNoText(),
+      show_hotkeys: true,
     });
   }
 

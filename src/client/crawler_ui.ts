@@ -3,8 +3,11 @@ import { fontStyle } from 'glov/client/font';
 import { Box } from 'glov/client/geom_types';
 import * as input from 'glov/client/input';
 import {
+  inputPadMode,
+  inputTouchMode,
   keyDown,
   keyDownEdge,
+  KEYS,
   keyUpEdge,
   padButtonDown,
   padButtonDownEdge,
@@ -43,10 +46,31 @@ const SPOT_STATE_TO_UI_BUTTON_STATE: Record<SpotStateEnum, ButtonStateString> = 
 // TODO: allow overriding
 let hotkey_font_style = fontStyle(null, {
   color: 0x000000ff,
+  outline_color: 0xFFFFFFff,
+  outline_width: 3,
 });
 let hotkey_font_size = 6;
 let hotkey_font_pad_h = 2;
 let hotkey_font_pad_v = 3.2;
+
+const PADNAMES = [
+  'A',
+  'B',
+  'X',
+  'Y',
+  'LB',
+  'RB',
+  'LT',
+  'RT',
+  'BACK',
+  'START',
+  'LS',
+  'RS',
+  // '↑', // don't show these, should be obvious from the buttons
+  // '↓',
+  // '←',
+  // '→',
+];
 
 export type CrawlerNavButtonRet = {
   down_edge: number;
@@ -64,8 +88,8 @@ export function crawlerOnScreenButton(param: {
   disabled: boolean;
   button_sprites: Record<ButtonStateString, Sprite>;
   touch_hotzone?: Box;
-  visible_hotkey: string | undefined;
   is_movement: boolean;
+  show_hotkeys: boolean;
 }): CrawlerNavButtonRet {
   const {
     x, y, z, w, h,
@@ -74,9 +98,32 @@ export function crawlerOnScreenButton(param: {
     do_up_edge,
     disabled,
     touch_hotzone,
-    visible_hotkey,
     is_movement,
+    show_hotkeys,
   } = param;
+
+  let visible_hotkey: string | undefined;
+  if (show_hotkeys) {
+    if (inputTouchMode()) {
+      // No hotkeys
+    } else if (inputPadMode()) {
+      if (pads && pads.length) {
+        let pad = pads[0];
+        visible_hotkey = PADNAMES[pad];
+      }
+    } else {
+      // keyboard hotkeys (note: removed show_hotkeys from parent here)
+      if (keys.length) {
+        let idx = keys[0];
+        if (idx >= KEYS.A && idx <= KEYS.Z) {
+          visible_hotkey = String.fromCharCode(idx);
+        } else if (idx === KEYS.ESC) {
+          visible_hotkey = 'ESC';
+        }
+      }
+    }
+  }
+
   let sound_button = is_movement ? 'button_click2' : 'button_click'; // DCJAM
   let button_param: SpotParam & ButtonParam & SpriteDrawParams = {
     def: disabled ? SPOT_DEFAULT_BUTTON_DISABLED : SPOT_DEFAULT_BUTTON,
