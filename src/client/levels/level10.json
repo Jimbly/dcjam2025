@@ -5567,7 +5567,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -6884,7 +6884,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -6902,7 +6902,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -6920,7 +6920,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -6938,7 +6938,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
@@ -6956,7 +6956,7 @@
         "solid",
         "station_bulkhead",
         "solid",
-        "door"
+        "stairs_out"
       ]
     },
     {
