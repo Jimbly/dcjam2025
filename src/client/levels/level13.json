@@ -4284,7 +4284,7 @@
       "events": [
         {
           "id": "sign",
-          "param": "You will gain nothing by fighting me, I'm just here for you to test your might."
+          "param": "You will gain nothing by fighting me, I'm just here for you to test your might.\n**HINT:** You can use Med-Kits in this battle."
         }
       ]
     },
