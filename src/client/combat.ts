@@ -4,6 +4,7 @@ import { debugDefineIsSet, getFrameTimestamp } from 'glov/client/engine';
 import { ALIGN, Font, fontStyle } from 'glov/client/font';
 import { KEYS, mouseOver, PAD, padButtonDownEdge } from 'glov/client/input';
 import {
+  BLEND_ADDITIVE,
   BLEND_MULTIPLY,
   Sprite,
   spriteClipPop,
@@ -125,8 +126,10 @@ export function isDeadly(player: StatsData, enemy: StatsData): boolean {
 
 let font: Font;
 let battle_frame: Sprite;
-let battle_frame_hero_bg: Sprite;
-let battle_frame_enemy_bg: Sprite;
+let battle_frame_hero_bg_top: Sprite;
+let battle_frame_hero_bg_bot: Sprite;
+let battle_frame_enemy_bg_top: Sprite;
+let battle_frame_enemy_bg_bot: Sprite;
 let sprite_pow: {
   normal: Sprite;
   miss: Sprite;
@@ -461,20 +464,36 @@ export function doCombat(target: Entity, dt: number, paused: boolean): void {
   }
   let z = Z.COMBAT;
   spriteClipPush(z, viewport.x, viewport.y, viewport.w, viewport.h);
-  battle_frame_hero_bg.draw({
+  battle_frame_hero_bg_bot.draw({
     x: FRAME_HERO_X + dxh,
     y: FRAME_Y + dyh,
     w: FRAME_W,
     h: FRAME_H,
     z: z,
+    blend: BLEND_ADDITIVE,
+  });
+  battle_frame_hero_bg_top.draw({
+    x: FRAME_HERO_X + dxh,
+    y: FRAME_Y + dyh,
+    w: FRAME_W,
+    h: FRAME_H,
+    z: z + 0.01,
     blend: BLEND_MULTIPLY,
   });
-  battle_frame_enemy_bg.draw({
+  battle_frame_enemy_bg_bot.draw({
     x: FRAME_ENEMY_X + dxe,
     y: FRAME_Y + dye,
     w: FRAME_W,
     h: FRAME_H,
     z: z,
+    blend: BLEND_ADDITIVE,
+  });
+  battle_frame_enemy_bg_top.draw({
+    x: FRAME_ENEMY_X + dxe,
+    y: FRAME_Y + dye,
+    w: FRAME_W,
+    h: FRAME_H,
+    z: z + 0.01,
     blend: BLEND_MULTIPLY,
   });
   spriteClipPop();
@@ -556,15 +575,29 @@ export function combatStartup(): void {
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
-  battle_frame_hero_bg = spriteCreate({
-    name: 'battle-frame-hero-bg',
+  battle_frame_hero_bg_top = spriteCreate({
+    name: 'battle-frame-hero-bg-top-mult',
     filter_mag: gl.LINEAR,
     filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
     wrap_t: gl.CLAMP_TO_EDGE,
   });
-  battle_frame_enemy_bg = spriteCreate({
-    name: 'battle-frame-enemy-bg',
+  battle_frame_hero_bg_bot = spriteCreate({
+    name: 'battle-frame-hero-bg-bottom-add',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  battle_frame_enemy_bg_top = spriteCreate({
+    name: 'battle-frame-enemy-bg-top-mult',
+    filter_mag: gl.LINEAR,
+    filter_min: gl.LINEAR,
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  battle_frame_enemy_bg_bot = spriteCreate({
+    name: 'battle-frame-enemy-bg-bottom-add',
     filter_mag: gl.LINEAR,
     filter_min: gl.LINEAR,
     wrap_s: gl.CLAMP_TO_EDGE,
