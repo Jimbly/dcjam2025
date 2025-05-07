@@ -1,3 +1,6 @@
+// import { getFrameIndex } from 'glov/client/engine';
+// import { fontStyleColored } from 'glov/client/font';
+// import { print } from 'glov/client/ui';
 import {
   easeIn,
   lerp,
@@ -7,6 +10,7 @@ import {
   v2addScale,
   v2copy,
   v2iNormalize,
+  v2iScale,
   v2lengthSq,
   v2sub,
   Vec2,
@@ -83,16 +87,25 @@ export function billboardBias(draw_pos: Vec2, pos: ROVec2, opts: Partial<Billboa
   bias_view = lerp(bweight_in, biasIn[1], bias_view);
   let bias_in_offs = lerp(bweight_in, biasIn[2], 0);
   let bias_in_sign = lerp(abs(view_vec[0]), -1, 1);
+  // // @ts-expect-error debug
   // if (billboardBias.debug !== getFrameIndex()) {
+  //   // @ts-expect-error debug
   //   billboardBias.debug = getFrameIndex();
+  //   // @ts-expect-error debug
   //   billboardBias.debug_idx = 0;
   // }
-  // print(null, 100, 100 + (billboardBias.debug_idx++) * 16, 1000,
-  //   `${bweight.toFixed(5)} ${bias_phys.toFixed(5)} ${bias_view.toFixed(5)} ${pos}`);
+  // // @ts-expect-error debug
+  // print(fontStyleColored(null, 0x000000ff), 100, 100 + (billboardBias.debug_idx++) * 16, 1000,
+  //   `bw:${bweight.toFixed(3)} bwi:${bweight_in.toFixed(3)} bii:${bias_in_offs.toFixed(3)}` +
+  //   ` ${bias_phys.toFixed(5)} ${bias_view.toFixed(5)} ${pos}`);
 
   // Offset `bias_phys` towards player
   v2sub(v2temp, draw_pos, renderCamPos());
-  v2iNormalize(v2temp);
+  // Only normalize if relatively large, otherwise "towards the player" snaps as the player passes through the cell
+  v2iScale(v2temp, 2/DIM);
+  if (v2lengthSq(v2temp) > 1) {
+    v2iNormalize(v2temp);
+  }
   v2addScale(draw_pos, draw_pos, v2temp, bias_phys * DIM);
   // Offset `bias_vew` towards view plane
   v2addScale(draw_pos, draw_pos, view_vec, bias_view * DIM);
