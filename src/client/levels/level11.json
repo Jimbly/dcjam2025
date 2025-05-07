@@ -2687,7 +2687,7 @@
     {
       "id": "open",
       "walls": [
-        "door",
+        "door_locked",
         "open",
         "solid",
         "solid"
@@ -2698,9 +2698,12 @@
       "walls": [
         "open",
         "open",
-        "door",
+        "door_locked",
         "solid"
-      ]
+      ],
+      "props": {
+        "key_cell": "zone0doorc"
+      }
     },
     {
       "id": "open",
@@ -5984,8 +5987,21 @@
       "walls": [
         "door",
         "base_solid3",
-        "solid",
+        "station_decal_5",
         "base_solid3"
+      ],
+      "props": {
+        "key_cell": "zone0doorc"
+      },
+      "events": [
+        {
+          "id": "key_set",
+          "param": "zone0doorc"
+        },
+        {
+          "id": "dialog",
+          "param": "onetime **SOUTH DOOR** unlocked "
+        }
       ]
     },
     {
