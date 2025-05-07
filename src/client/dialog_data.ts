@@ -3,8 +3,16 @@ export const SHUTTLE_COST = 100;
 import { cmd_parse } from 'glov/client/cmds';
 import { ALIGN, fontStyle } from 'glov/client/font';
 import { inputTouchMode } from 'glov/client/input';
-import { panel, PanelParam, playUISound, sprites as ui_sprites, uiGetFont, uiTextHeight } from 'glov/client/ui';
+import {
+  panel,
+  PanelParam,
+  playUISound,
+  sprites as ui_sprites,
+  uiGetFont,
+  uiTextHeight,
+} from 'glov/client/ui';
 import * as urlhash from 'glov/client/urlhash';
+import { WithRequired } from 'glov/common/types';
 import { ridx } from 'glov/common/util';
 import { dialogIconsRegister } from '../common/crawler_events';
 import {
@@ -15,10 +23,14 @@ import { crawlerScriptAPI } from './crawler_play';
 import { creditsGo } from './credits';
 import {
   dialog,
+  DialogParam,
   dialogPush,
   dialogRegister,
 } from './dialog_system';
-import { entitiesAt, entityManager } from './entity_demo_client';
+import {
+  entitiesAt,
+  entityManager,
+} from './entity_demo_client';
 import { ITEMS } from './item_defs';
 import {
   autosave,
@@ -126,30 +138,28 @@ export function onetimeEvent(query_only?: boolean): boolean {
   return onetimeEventForPos(pos[0], pos[1], query_only);
 }
 
-
-function nameRender(name: string): (param: PanelParam) => void {
-  return function (param: PanelParam): void {
-    let name_panel = {
-      x: param.x + NAME_BOX_H/2,
-      w: 0,
-      y: param.y - NAME_BOX_H * 0.8,
-      h: NAME_BOX_H,
-      z: (param.z || Z.UI) + 0.1,
-      color: param.color,
-      eat_clicks: false,
-    };
-    let text_w = uiGetFont().draw({
-      ...name_panel,
-      x: name_panel.x + NAME_BOX_PAD,
-      color: round((param.color?.[3] || 1) * 255),
-      size: uiTextHeight() * 0.75,
-      z: name_panel.z + 0.2,
-      align: ALIGN.VCENTER,
-      text: name,
-    });
-    name_panel.w = text_w + NAME_BOX_PAD * 2;
-    panel(name_panel);
+export function dialogNameRender(dialog_param: WithRequired<DialogParam, 'name'>, param: PanelParam): void {
+  let { name } = dialog_param;
+  let name_panel = {
+    x: param.x + NAME_BOX_H/2,
+    w: 0,
+    y: param.y - NAME_BOX_H * 0.8,
+    h: NAME_BOX_H,
+    z: (param.z || Z.UI) + 0.1,
+    color: param.color,
+    eat_clicks: false,
   };
+  let text_w = uiGetFont().draw({
+    ...name_panel,
+    x: name_panel.x + NAME_BOX_PAD,
+    color: round((param.color?.[3] || 1) * 255),
+    size: uiTextHeight() * 0.75,
+    z: name_panel.z + 0.2,
+    align: ALIGN.VCENTER,
+    text: name,
+  });
+  name_panel.w = text_w + NAME_BOX_PAD * 2;
+  panel(name_panel);
 }
 
 function nextHatCost(): { next: string; hat_cost: number } {
@@ -191,7 +201,7 @@ function numMedkitsMessage(): string {
 
 export function signWithName(name: string, message: string, transient_long?: boolean): void {
   dialogPush({
-    custom_render: name ? nameRender(name) : undefined,
+    name,
     text: message,
     transient: true,
     transient_long,
@@ -234,26 +244,26 @@ dialogRegister({
     if (hasItem('key1')) {
       keySet('metguard');
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'I told you to leave!',
         buttons: [{
           label: 'I HEARD THAT YOU HAVE AN IMPORTANT DAY COMING UP... (give **GIFT**)',
           cb: function () {
             dialogPush({
-              custom_render: nameRender(name),
+              name,
               text: '**THE DAZZLING GIFT**?  How much do you want for it?',
               buttons: [{
                 label: 'NO MONEY.  I JUST NEED YOU TO BE AWAY FROM THIS SHIP FOR A MOMENT...',
                 cb: function () {
                   dialogPush({
-                    custom_render: nameRender(name),
+                    name,
                     text: 'Blast it.  You know I can\'t leave my post.',
                     buttons: [{
                       label: 'AND YOU CAN\'T BE EMPTY-HANDED FOR YOUR ANNIVERSARY...',
                       cb: function () {
                         consumeItem('key1');
                         dialogPush({
-                          custom_render: nameRender(name),
+                          name,
                           text: 'Ugh, this is exactly what I need...',
                           buttons: [{
                             label: 'COME ON, NO MONEY.  JUST WALK AWAY.',
@@ -351,13 +361,13 @@ dialogRegister({
         return signWithName(name, "**THE ESTRANGED GUARD** wants **THE DAZZLING GIFT** his wife, that's all you'll get from me.");
       }
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'Whatcha want, kid?',
         buttons: [{
           label: 'JUST SOME INFO ABOUT YOUR BOSS ON **THE SWORD**',
           cb: function () {
             dialogPush({
-              custom_render: nameRender(name),
+              name,
               text: "Kid, I'm off the clock.  And if you think that I'm gonna give you any info about my work, you're either crazy or stupid.",
               buttons: [{
                 label: `BUY HIM A DRINK ([img=icon-currency]${DRINK_COST})`,
@@ -396,7 +406,7 @@ dialogRegister({
           did_set = true;
         } else {
           return dialogPush({
-            custom_render: nameRender(name),
+            name,
             text: elem[1],
             buttons: [{
               label: `LET'S GET YOU ANOTHER ([img=icon-currency]${DRINK_COST})`,
@@ -412,13 +422,13 @@ dialogRegister({
       }
     }
     dialogPush({
-      custom_render: nameRender(name),
+      name,
       text: '*hiccup*',
       buttons: [{
         label: 'NOW, CAN YOU TELL ME ABOUT **THE ESTRANGED GUARD**?',
         cb: function () {
           dialogPush({
-            custom_render: nameRender(name),
+            name,
             text: 'Alright, **THE ESTRANGED GUARD** is looking for **THE DAZZLING GIFT** for his wife for their anniversary.  He\'d do anything to get her something real pretty.',
             buttons: [{
               label: 'THANKS',
@@ -456,19 +466,19 @@ dialogRegister({
     if (!keyGet('metcaptain')) {
       keySet('metcaptain');
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'How\'s it going?',
         buttons: [{
           label: 'SHINY.  I NEED A FAVOR.',
           cb: function () {
             dialogPush({
-              custom_render: nameRender(name),
+              name,
               text: '30% cut as usual.',
               buttons: [{
                 label: '30% SEEMS TOTALLY FAIR, HOWEVER THIS ONE\'S COMPLICATED...',
                 cb: function () {
                   dialogPush({
-                    custom_render: nameRender(name),
+                    name,
                     text: 'Just keep my name out of it.',
                     buttons: [{
                       label: 'HOW MUCH WILL IT COST ME?',
@@ -486,7 +496,7 @@ dialogRegister({
       return signWithName(name, `Need some off-the-books transit outta here?  It'll cost you [img=icon-currency]${COST_ESCAPE}.`);
     }
     dialogPush({
-      custom_render: nameRender(name),
+      name,
       text: `Need some off-the-books transit outta here?  It'll cost you [img=icon-currency]${COST_ESCAPE}.`,
       buttons: [{
         label: `HERE YOU GO ([img=icon-currency]${COST_ESCAPE})`,
@@ -517,7 +527,7 @@ dialogRegister({
     setScore();
     autosave();
     dialogPush({
-      custom_render: nameRender(name),
+      name,
       text: 'That\'s a lot of commotion back there... Ready to go?',
       buttons: [{
         label: 'TAKE ME OUT INTO THE BLACK, WHERE NO ONE CAN FOLLOW...',
@@ -569,7 +579,7 @@ dialogRegister({
 //     }
 //     keySet('metstudent');
 //     dialogPush({
-//       custom_render: nameRender(name),
+//       name,
 //       text: "One of my professors has a research obligation with the military.  She's really nice, I wish I could take more of her classes.  She said she'd be on this station today for work...",
 //       buttons: [{
 //         label: 'WORKS WITH THE MILITARY, EH...',
@@ -598,7 +608,7 @@ dialogRegister({
     if (!keyGet('hint1')) {
       keySet('hint1');
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'Ooh, I know what you would like!\n\nYou should visit **EPSILON-ALPHA**, the best place to see unique, one-of-a-kind artifacts.\n\nPlease note, due to security problems, tourism there is currently prohibited.',
         buttons: [{
           label: 'HMM, MAYBE I CAN FIND **THE TICKET TO PARADISE** THERE...',
@@ -678,14 +688,14 @@ dialogRegister({
     if (!keyGet('assist1')) {
       if (!keyGet('assistintro')) {
         return dialogPush({
-          custom_render: nameRender(name),
+          name,
           text: "Don't tell me you're here to complain about one of the officers...",
           buttons: [{
             label: "NO, I'M HERE TO TALK TO YOU.",
             cb: function () {
               keySet('assistintro');
               dialogPush({
-                custom_render: nameRender(name),
+                name,
                 text: 'About...?',
                 buttons: [{
                   label: "I HEAR YOU'RE WITH THE SHIP IN **#82**.  DO YOU KNOW ANYTHING ABOUT THE SAFE?",
@@ -700,7 +710,7 @@ dialogRegister({
         return signWithName(name, `Assistants don't get paid very well, you know... (come back with [img=icon-currency]${COST_ASSIST_BRIBE})`);
       }
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: "About that... assistants don't get paid very well, you know...",
         buttons: [{
           label: `HOW'S [img=icon-currency]${COST_ASSIST_BRIBE} SOUND?`,
@@ -717,7 +727,7 @@ dialogRegister({
     if (!keyGet('assist2')) {
       keySet('assist2');
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: "Now, if I tell you anything, the heat is going to be **on**, so I'm going to have to live my life far away from here, preferably in paradise...",
         buttons: [{
           label: "I'LL SEE WHAT I CAN DO...",
@@ -731,7 +741,7 @@ dialogRegister({
     }
     if (hasItem('key3')) {
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'Is that **THE TICKET TO PARADISE**?',
         buttons: [{
           label: "IT'S YOURS, FOR **THE SAFE COMBINATION**.",
@@ -827,7 +837,7 @@ dialogRegister({
     if (!keyGet('rumor1')) {
       keySet('rumor1');
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'I heard that **THE ASCENDING SWORD** is transporting **THE RED DEVASTATION** through the station today.',
         buttons: [{
           label: 'THAT SEEMS LIKE SOMETHING SAFEST IN *MY* HANDS...'
@@ -844,7 +854,7 @@ dialogRegister({
       }
       keySet('hint2');
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: "I heard someone say they saw **THE DAZZLING GIFT** deep in the caves on **ATLAS-7**.  Wouldn't it just be *amazing* to own that?",
         buttons: [{
           label: 'NOT MY TASTE, BUT I MIGHT KNOW A DOLL...'
@@ -862,7 +872,7 @@ dialogRegister({
         if (!keyGet('hint3')) {
           keySet('hint3');
           return dialogPush({
-            custom_render: nameRender(name),
+            name,
             text: 'I heard **THE BELEAGUERED ASSISTANT** talking to herself up in **THE OBSERVATION DECK**, something about being worried she was going to misplace **THE SAFE COMBINATION**.',
             buttons: [{
               label: 'THAT WOULD BE A SHAME...'
@@ -937,14 +947,14 @@ dialogRegister({
       keySet('foundship');
       keySet('foundshipbyshiptaker');
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'You\'ve done it, **THE GOLDEN ROCKET**!',
         buttons: [{
           label: 'YOU CAN KEEP IT, THE WINNER DOESN\'T NEED IT ANYMORE',
           cb: function () {
             consumeItem('key2');
             dialogPush({
-              custom_render: nameRender(name),
+              name,
               text: 'Pops is gonna be ecstatic!  You did good, kid.  You want to know about **THE ASCENDING SWORD**? It\'s in Bay **#82**.',
               buttons: [{
                 label: 'GLAD I COULD HELP...',
@@ -956,7 +966,7 @@ dialogRegister({
     }
     if (!keyGet('lookingforship')) {
       return dialogPush({
-        custom_render: nameRender(name),
+        name,
         text: 'I know every ship that docks or departs this station.',
         buttons: [{
           label: `BUY HIM A DRINK ([img=icon-currency]${DRINK_COST})`,
@@ -968,7 +978,7 @@ dialogRegister({
             consumeMoney(DRINK_COST, false);
 
             dialogPush({
-              custom_render: nameRender(name),
+              name,
               text: "Ah, thank you.  You know, I come from a long line of pilots.  When I was younger, my Pops entered into the '86 piloting race on B-23, but he didn't win.  He's always wanted to hold the trophy for the race, **THE GOLDEN ROCKET**, even just for a moment.  After all these years, it's still his dream.  The guy who beat him should still be alive...",
               buttons: [{
                 label: 'MAYBE I CAN HELP HIM WITH THAT...',
@@ -990,7 +1000,7 @@ dialogRegister({
       return;
     }
     dialogPush({
-      custom_render: nameRender('THE OLD RACER'),
+      name: 'THE OLD RACER',
       text: 'Oh, my, a visitor, why I haven\'t had a visitor in years. To what do I... I...',
       buttons: [{
         label: 'SIR... ?',
@@ -1031,7 +1041,7 @@ dialogRegister({
       if (!keyGet('historian')) {
         keySet('historian');
         return dialogPush({
-          custom_render: nameRender(name),
+          name,
           text: '**THE GOLDEN ROCKET**? Yes, it\'s a very sought-after trophy. The \'86 winner retired a handful of years ago to Zarenth, a town on **Calliope**.',
           buttons: [{
             label: 'THAT\'S REALLY INTERESTING...',
@@ -1055,16 +1065,16 @@ dialogIconsRegister({
 });
 dialogRegister({
   hats: function () {
-    let custom_render = nameRender('THE ENTERPRISING NUTRITIONIST');
+    const name = 'THE ENTERPRISING NUTRITIONIST';
     if (!keyGet('helmetfree')) {
       return dialogPush({
-        custom_render,
+        name,
         text: 'Psst... Over here...',
         buttons: [{
           label: 'HULLO THERE!',
           cb: function () {
             dialogPush({
-              custom_render,
+              name,
               text: 'I got the freshest "hats" around.  Here, take this, first one\'s free.',
               buttons: [{
                 label: 'UH, OKAY...',
@@ -1083,7 +1093,7 @@ dialogRegister({
 
     if (!next) {
       return dialogPush({
-        custom_render,
+        name,
         transient: true,
         text: 'Rest easy, and know that you have the most majestic of head accoutrements.'
       });
@@ -1094,14 +1104,14 @@ dialogRegister({
 
     if (money < hat_cost) {
       return dialogPush({
-        custom_render,
+        name,
         transient: true,
         text: `I've got another one saved for ya.  Come back when you have [img=icon-currency]${hat_cost}.`
       });
     }
 
     return dialogPush({
-      custom_render,
+      name,
       text: `This one will fit you perfectly.  I call it The ${ITEMS[next].name}.  Only [img=icon-currency]${hat_cost}.`,
       buttons: [{
         label: 'YES, PLEASE!',
@@ -1146,7 +1156,7 @@ dialogRegister({
       return signWithName('THE UNDERPAID NURSE', `${prefix}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.`);
     }
     dialogPush({
-      custom_render: nameRender('THE UNDERPAID NURSE'),
+      name: 'THE UNDERPAID NURSE',
       text: `${prefix || 'You\'re right as rain.  '}Portable Med-Kits cost [img=icon-currency]${COST_MEDKIT}.  Want one?\n${numMedkitsMessage()}`,
       buttons: [{
         label: `YES, PLEASE! ([img=icon-currency]${COST_MEDKIT})`,
@@ -1166,7 +1176,7 @@ dialogRegister({
       return signWithName('THE UNDERPAID NURSE', 'Thank you, come again!');
     }
     dialogPush({
-      custom_render: nameRender('THE UNDERPAID NURSE'),
+      name: 'THE UNDERPAID NURSE',
       text: `There you go!  Want another?\n${numMedkitsMessage()}`,
       buttons: [{
         label: `THANK YOU SIR, MAY I HAVE ANOTHER! ([img=icon-currency]${COST_MEDKIT})`,
@@ -1198,8 +1208,7 @@ dialogRegister({
     let me = myEnt();
     let { money } = me.data;
     dialogPush({
-      custom_render: nameRender(name),
-      name: '',
+      name,
       text: money >= SHUTTLE_COST ? `Shuttle rentals are [img=icon-currency]${SHUTTLE_COST}.  Watch out for pirates.` : `New around here, eh?  The shuttle normally costs [img=icon-currency]${SHUTTLE_COST}, but you look a little down on your luck, so just this once I'll rent you one for free.  Watch out for pirates, and don't crash my shuttle!`,
       buttons: [{
         label: 'OK, I\'LL TAKE ONE',

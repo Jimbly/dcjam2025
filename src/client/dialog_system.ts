@@ -36,6 +36,7 @@ import {
   uiTextHeight,
 } from 'glov/client/ui';
 import { dataError } from 'glov/common/data_error';
+import { WithRequired } from 'glov/common/types';
 import { merge } from 'glov/common/util';
 import {
   v2same,
@@ -89,6 +90,9 @@ function dialogDefaultTextStyle(param: DialogParam): FontStyle {
 type DialogTextStyleCB = (dialog: DialogParam) => FontStyle;
 let text_style_cb: DialogTextStyleCB = dialogDefaultTextStyle;
 
+
+type DialogNameRenderCB = (dialog: WithRequired<DialogParam, 'name'>, panel: PanelParam) => void;
+let name_render_cb: DialogNameRenderCB | null = null;
 
 function ff(): boolean {
   return keyDown(KEYS.SPACE) || keyDown(KEYS.ENTER) ||
@@ -209,7 +213,9 @@ export function dialogRun(dt: number, viewport: UIBox & { pad_top: number; pad_b
     return false;
   }
   if (name) {
-    text = `${name}: ${text}`;
+    if (!name_render_cb) {
+      text = `${name}: ${text}`;
+    }
   }
   active_state.counter += dt;
   let { buttons_vis, counter } = active_state;
@@ -281,6 +287,7 @@ export function dialogRun(dt: number, viewport: UIBox & { pad_top: number; pad_b
   });
   yy = y + dims.h + BUTTON_HEAD;
 
+  let active_dialog_non_null = active_dialog;
   if (text_full && !active_state.ff_down) {
     for (let ii = 0; ii < num_buttons; ++ii) {
       let button = buttons![ii];
@@ -330,6 +337,9 @@ export function dialogRun(dt: number, viewport: UIBox & { pad_top: number; pad_b
       color: temp_color,
       sprite: panel_sprite,
     };
+  }
+  if (name) {
+    name_render_cb?.(active_dialog_non_null as WithRequired<DialogParam, 'name'>, panel_param);
   }
   custom_render?.(panel_param);
   panel(panel_param);
@@ -399,6 +409,8 @@ export function dialog(id: string, param?: string): void {
 export function dialogStartup(param: {
   font: Font;
   text_style_cb?: DialogTextStyleCB;
+  name_render_cb?: DialogNameRenderCB;
 }): void {
   text_style_cb = param.text_style_cb || dialogDefaultTextStyle;
+  name_render_cb = param.name_render_cb || null;
 }
