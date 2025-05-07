@@ -3542,36 +3542,42 @@
     {
       "id": "open",
       "walls": [
-        "moon_solid2",
+        "door_locked",
         "open",
         "moon_solid2",
         "open"
+      ],
+      "props": {
+        "key_cell": "moondoorb"
+      }
+    },
+    {
+      "id": "station_open",
+      "walls": [
+        "open",
+        "station_solid2",
+        "station_door",
+        "station_solid2"
       ]
+    },
+    {
+      "id": "station_open",
+      "walls": [
+        "station_solid1",
+        "station_decal_1",
+        "open",
+        "station_decal_1"
+      ],
+      "props": {
+        "loot": "money 1000"
+      }
     },
     {
       "id": "solid",
       "walls": [
-        "open",
-        "open",
         "solid",
-        "solid"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "open",
-        "open",
-        "open",
-        "moon_solid2"
-      ]
-    },
-    {
-      "id": "solid",
-      "walls": [
-        "moon_solid2",
         "solid",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -3780,18 +3786,18 @@
       "id": "solid",
       "walls": [
         "open",
-        "moon_solid2",
-        "moon_solid2",
-        "open"
+        "solid",
+        "solid",
+        "solid"
       ]
     },
     {
       "id": "solid",
       "walls": [
         "solid",
-        "moon_solid2",
+        "solid",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -4007,7 +4013,7 @@
         "open",
         "open",
         "open",
-        "moon_solid2"
+        "solid"
       ]
     },
     {
@@ -4016,7 +4022,7 @@
         "open",
         "open",
         "open",
-        "moon_solid2"
+        "solid"
       ]
     },
     {
@@ -5048,7 +5054,7 @@
         "open"
       ],
       "props": {
-        "loot": "money 2000"
+        "loot": "money 1000"
       }
     },
     {
@@ -5082,7 +5088,7 @@
       "id": "solid",
       "walls": [
         "moon_solid2",
-        "open",
+        "solid",
         "open",
         "moon_solid2"
       ]
@@ -5297,19 +5303,32 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "floorswitch",
       "walls": [
-        "moon_solid2",
         "open",
-        "open",
-        "open"
+        "solid",
+        "ship_decal_1",
+        "solid"
+      ],
+      "props": {
+        "key_cell": "moondoorb"
+      },
+      "events": [
+        {
+          "id": "key_set",
+          "param": "moondoorb"
+        },
+        {
+          "id": "dialog",
+          "param": "onetime **CENTRAL DOOR** unlocked."
+        }
       ]
     },
     {
@@ -5317,7 +5336,7 @@
       "walls": [
         "open",
         "open",
-        "moon_solid2",
+        "open",
         "open"
       ]
     },
@@ -5438,7 +5457,7 @@
         },
         {
           "id": "dialog",
-          "param": "onetime **DOOR** unlocked."
+          "param": "onetime **SOUTH DOOR** unlocked."
         }
       ]
     },
@@ -5547,7 +5566,7 @@
         "moon_solid2",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -5968,6 +5987,14 @@
       "pos": [
         23,
         7,
+        2
+      ]
+    },
+    {
+      "type": "chest-station",
+      "pos": [
+        15,
+        15,
         2
       ]
     }
