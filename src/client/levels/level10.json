@@ -1,9 +1,9 @@
 {
   "special_pos": {
     "stairs_in": [
-      8,
-      13,
-      0
+      11,
+      7,
+      3
     ],
     "stairs_out": [
       21,
@@ -1755,9 +1755,15 @@
       "id": "open",
       "walls": [
         "open",
-        "station_decal_1a",
+        "open",
         "station_bulkhead",
-        "station_decal_5a"
+        "station_decal_1a"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "intro"
+        }
       ]
     },
     {
@@ -2081,19 +2087,25 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "solid",
         "solid"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
+        "station_solid1a",
         "open",
-        "open",
-        "open",
-        "solid"
+        "station_cantina_lefta",
+        "open"
+      ],
+      "events": [
+        {
+          "id": "dialog",
+          "param": "kbhint HINT: Press F11 for Fullscreen"
+        }
       ]
     },
     {
@@ -2101,7 +2113,7 @@
       "walls": [
         "solid",
         "open",
-        "open",
+        "solid",
         "solid"
       ]
     },
@@ -2417,18 +2429,18 @@
     {
       "id": "solid",
       "walls": [
-        "open",
+        "solid",
         "open",
         "solid",
         "open"
       ]
     },
     {
-      "id": "solid",
+      "id": "open",
       "walls": [
-        "open",
-        "open",
-        "open",
+        "station_decal_3a",
+        "station_decal_5a",
+        "station_decal_3a",
         "open"
       ]
     },
@@ -2437,7 +2449,7 @@
       "walls": [
         "solid",
         "open",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -2771,7 +2783,7 @@
         "open",
         "open",
         "open",
-        "open"
+        "solid"
       ]
     },
     {
@@ -4406,16 +4418,10 @@
     {
       "id": "open",
       "walls": [
-        "open",
+        "door_oneway",
         "solid",
         "open",
         "station_decal_5"
-      ],
-      "events": [
-        {
-          "id": "dialog",
-          "param": "kbhint HINT: Press F11 for Fullscreen"
-        }
       ]
     },
     {
@@ -4423,14 +4429,8 @@
       "walls": [
         "open",
         "open",
-        "open",
+        "solid",
         "station_cantina_left"
-      ],
-      "events": [
-        {
-          "id": "dialog",
-          "param": "intro"
-        }
       ]
     },
     {
@@ -12158,11 +12158,11 @@
       ]
     },
     {
-      "type": "critter5",
+      "type": "npc03-wander",
       "pos": [
-        13,
-        5,
-        2
+        6,
+        6,
+        0
       ]
     },
     {
@@ -12350,11 +12350,11 @@
       ]
     },
     {
-      "type": "npc03-wander",
+      "type": "critter5",
       "pos": [
-        6,
-        6,
-        0
+        13,
+        13,
+        3
       ]
     }
   ],
