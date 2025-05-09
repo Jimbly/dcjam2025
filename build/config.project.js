@@ -67,6 +67,7 @@ module.exports = function (config) {
     config.autoatlas_ignore =
 [
   'base:door-2-down',
+  'base:station-door-2',
   'base:floor_pillar',
   'decals:arrow-left',
   'decals:arrow-right',

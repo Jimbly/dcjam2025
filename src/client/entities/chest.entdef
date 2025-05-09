@@ -7,6 +7,7 @@ traits:
   biasL: [-0.15, 0.25]
   biasF: [0, -0.25]
   biasR: [-0.15, 0.25]
+  biasIn: [0,0.01,0.01]
 - id: drawable_sprite
   anim_data:
     idle:

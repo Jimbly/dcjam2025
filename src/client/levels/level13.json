@@ -4863,11 +4863,11 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         2,
         10,
-        0
+        3
       ]
     },
     {
@@ -4879,7 +4879,7 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         1,
         15,
@@ -4911,7 +4911,7 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         18,
         7,
@@ -5095,7 +5095,7 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         8,
         11,

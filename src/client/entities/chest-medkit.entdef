@@ -11,7 +11,7 @@ traits:
 - id: drawable_sprite
   anim_data:
     idle:
-      frames: [detail2]
+      frames: [medkit]
       times: 10000
   sprite_data:
     atlas: station

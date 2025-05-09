@@ -501,7 +501,7 @@
       "id": "open",
       "walls": [
         "open",
-        "door",
+        "base_door_station",
         "open",
         "open"
       ]
@@ -2952,7 +2952,7 @@
       "id": "floorswitch",
       "walls": [
         "base_solid3",
-        "station_decal_5a",
+        "base_switch_locked",
         "base_solid3",
         "open"
       ],
@@ -4111,12 +4111,6 @@
         "door",
         "base_solid2",
         "open"
-      ],
-      "events": [
-        {
-          "id": "sign",
-          "param": ""
-        }
       ]
     },
     {
@@ -5987,7 +5981,7 @@
       "walls": [
         "door",
         "base_solid3",
-        "station_decal_5",
+        "base_switch_locked",
         "base_solid3"
       ],
       "props": {
@@ -8363,7 +8357,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_detail3",
       "walls": [
         "open",
         "open",
@@ -8381,7 +8375,7 @@
       ]
     },
     {
-      "id": "open",
+      "id": "base_detail3",
       "walls": [
         "open",
         "open",
@@ -8624,7 +8618,7 @@
       ]
     },
     {
-      "id": "base_detail3",
+      "id": "open",
       "walls": [
         "open",
         "open",
@@ -8636,13 +8630,13 @@
       "id": "open",
       "walls": [
         "open",
-        "open",
+        "door",
         "open",
         "open"
       ]
     },
     {
-      "id": "base_detail3",
+      "id": "open",
       "walls": [
         "base_solid3",
         "open",
@@ -8890,7 +8884,7 @@
     {
       "id": "open",
       "walls": [
-        "open",
+        "solid",
         "open",
         "open",
         "open"
@@ -8899,10 +8893,10 @@
     {
       "id": "open",
       "walls": [
+        "solid",
         "open",
-        "door",
-        "open",
-        "open"
+        "solid",
+        "door"
       ]
     },
     {
@@ -8910,7 +8904,7 @@
       "walls": [
         "open",
         "open",
-        "open",
+        "solid",
         "open"
       ]
     },
@@ -9164,9 +9158,9 @@
       "id": "floorswitch",
       "walls": [
         "solid",
-        "station_decal_5a",
+        "base_switch_locked",
         "base_solid2",
-        "door"
+        "open"
       ],
       "props": {
         "key_cell": "zone0doorb"
@@ -9319,11 +9313,11 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         3,
         22,
-        1
+        3
       ]
     },
     {
@@ -9343,19 +9337,19 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         1,
         10,
-        1
+        0
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         17,
         14,
-        1
+        3
       ]
     },
     {
@@ -9399,11 +9393,11 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         7,
         25,
-        2
+        3
       ]
     },
     {

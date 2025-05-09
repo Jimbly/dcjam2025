@@ -3556,7 +3556,7 @@
       "walls": [
         "open",
         "station_solid2",
-        "station_door",
+        "station_door_locked",
         "station_solid2"
       ]
     },
@@ -5314,7 +5314,7 @@
       "walls": [
         "open",
         "solid",
-        "ship_decal_1",
+        "moon_monitor",
         "solid"
       ],
       "props": {
@@ -5443,7 +5443,7 @@
       "id": "floorswitch",
       "walls": [
         "solid",
-        "ship_decal_1",
+        "moon_monitor",
         "moon_solid2",
         "open"
       ],
@@ -5719,7 +5719,7 @@
   ],
   "initial_entities": [
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         10,
         6,
@@ -5735,18 +5735,18 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         24,
         5,
-        2
+        3
       ]
     },
     {
       "type": "chest-station",
       "pos": [
         15,
-        8,
+        15,
         2
       ]
     },
@@ -5767,7 +5767,7 @@
       ]
     },
     {
-      "type": "chest",
+      "type": "chest-medkit",
       "pos": [
         1,
         19,
@@ -5991,10 +5991,10 @@
       ]
     },
     {
-      "type": "chest-station",
+      "type": "chest-medkit",
       "pos": [
         15,
-        15,
+        8,
         2
       ]
     }
