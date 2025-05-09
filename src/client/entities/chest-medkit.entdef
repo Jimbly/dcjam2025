@@ -14,7 +14,7 @@ traits:
       frames: [medkit]
       times: 10000
   sprite_data:
-    atlas: station
+    atlas: base
     filter_min: LINEAR_MIPMAP_LINEAR
     filter_mag: LINEAR
     origin: [0.5, 1]
