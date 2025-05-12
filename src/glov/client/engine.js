@@ -242,7 +242,7 @@ const postprocessing_reset_version = '5';
 export let postprocessing = local_storage.get('glov_no_postprocessing') !== postprocessing_reset_version || true;
 export function postprocessingAllow(allow) {
   //local_storage.set('glov_no_postprocessing', allow ? undefined : postprocessing_reset_version);
-  //postprocessing = allow;
+  //postprocessing = allow; // DCJAM25
 }
 
 export function glCheckError() {
