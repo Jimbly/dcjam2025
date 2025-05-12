@@ -1,12 +1,20 @@
+OTHER PEOPLE'S GAMES TO PLAY
+* Chicken Hacker 64 (rail shooter) - Jacob Marks
+* Runeweaver - camsha - Yahtzee combat
+* The Fatal Error - Clockwork Chaos
+* Wolfheat - Dungeon of Dreams II - Bomberman?!
+* Indis - https://shitsurei.itch.io/party-animals
+* RedComputer - https://iamernesto.itch.io/specimen
+* DarkDes - https://darkdes.itch.io/drawngeon-tutoretta-easy-quest
+* GiantDwarf - https://redbottom.itch.io/eggtravaganza
+
 FINAL BUILD
 * update and then enable autoatlas ignore config
 
 TODO
-* Nothing
 
 Polish
 * escape from travel map is also opening pause menu
-* extra locked door loop on floor 12?
 * race game
   * use `combat-hit-crit-2` in race game upon death
   * ramp-up period with only a few asteroids
@@ -14,8 +22,6 @@ Polish
 * display medkit count on hud and (H)
 * pop-up upon getting any item except medkits, give quick equip option
 * the pillar to the SW doesn't show up at the right time when rotating the camera
-* face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
-* when interpolating past an NPC, push them farther to their appropriate side so they don't flicker in the camera
 
 NOTES - ZONES
 * respawn all B/C entities
@@ -50,8 +56,9 @@ Post-game fixes / polish
 * (2024) add support for multiple fonts with different heights to dialog system and/or markdown - handwriting font would be cool
 * (2024) Simple way to do dialog as pure text data, and then just add code callbacks the get ran beyond the go-to-dialog
 * Deleting/renaming any .entdef (and wall and cell) crashes
+* face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * Things to merge into base toolkit:
   * sound_data.ts
   * music ticking and pulling music from level props
   * onetime event
-  * make intrinsic name render callback, use the name parameter instead of how it's done now
+  * onscreen button hotkeys
