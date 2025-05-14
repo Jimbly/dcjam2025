@@ -299,10 +299,9 @@ class SelectionBoxBase {
     // Run-time intra-frame state
     this.ctx = {};
     if (this.is_dropdown || this.scroll_height) {
-      this.sa = scrollAreaCreate({
+      this.sa = scrollAreaCreate(params.scroll_area_opts || {
         //focusable_elem: this,
-        background_color: null, // DCJAM
-        clip_horiz_xpad: 8, // DCJAM
+        //background_color: null,
       });
     }
   }

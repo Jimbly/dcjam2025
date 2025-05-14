@@ -1071,6 +1071,10 @@ function inventoryMenu(frame_combat: boolean): void {
       entry_height: INVENTORY_ENTRY_H * 1.15,
       display: selbox_display_inventory,
       touch_focuses: true,
+      scroll_area_opts: {
+        background_color: null,
+        clip_horiz_xpad: 8,
+      },
     });
   }
   let items: MenuItem[] = [];
