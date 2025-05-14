@@ -267,6 +267,7 @@ export function main(): void {
   markdownSetColorStyle('creditsother', fontStyle(style_credits_name, {
     glow_color: 0x00000060,
   }));
+  engine.postprocessNeverDisable();
 
   crawlerBuildModeStartup({
     font: build_font,
