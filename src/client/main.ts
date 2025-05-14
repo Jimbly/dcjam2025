@@ -288,6 +288,7 @@ export function main(): void {
   autoAtlas('base', 'solid1');
   autoAtlas('moon', 'solid1');
   autoAtlas('ship', 'solid1');
+  autoAtlas('space', 'floor');
   autoAtlas('critters', 'critter6');
   autoAtlas('npcs', 'npc-1');
   autoAtlas('decals', 'ship-decal-1');

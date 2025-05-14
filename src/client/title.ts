@@ -423,6 +423,8 @@ export function stateHighScores(dt: number): void {
     style_header,
     color_line: [1,1,1,1],
     color_me_background: [0.2,0.2,0.2,1],
+    rename_edit_width: (W - hpad*2) / 3,
+    rename_button_offset: 0,
   });
 
   if (buttonText({
