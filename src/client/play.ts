@@ -1813,7 +1813,7 @@ function playCrawl(): void {
     }
     crawlerMapViewDraw(game_state,
       minimap_display_x, MINIMAP_Y,
-      MINIMAP_W, minimap_display_h, compass_h, COMPASS_W, Z.MAP,
+      MINIMAP_W, minimap_display_h, COMPASS_W, compass_h, Z.MAP,
       false, script_api, overlay_menu_up || controller.hasMoveBlocker(),
       COMPASS_X, COMPASS_Y);
   }
