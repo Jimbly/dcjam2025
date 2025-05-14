@@ -23,7 +23,7 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
     file: 'ui/button_click_04',
     volume: 1,
   }],
-  button_click2: { file: 'ui/button_click/button_click_01', volume: 0.125 }, // touch movement controls - just footsteps
+  button_click2: { file: 'ui/button_click_01', volume: 0.125 }, // touch movement controls - just footsteps
   // menus/general/etc
 
   rollover: [{
@@ -407,9 +407,9 @@ export const SOUND_DATA: Partial<Record<string, UISoundID | string | string[] | 
   // "enemy" is a generic term for all enemies, including aliens, robots, and worms.
   //  this should play at the same time as a specific enemy sound. This can be a
   //  stretch goal if implementation is weird.
-  combat_enemy_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_enemy_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
-  combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
+  // combat_enemy_damaged_miss: { file: 'combat/enemy_damaged', volume: 1 },
+  // combat_enemy_damaged_normal: { file: 'combat/enemy_damaged', volume: 1 },
+  // combat_enemy_damaged_crit: { file: 'combat/enemy_damaged', volume: 1 },
 
   combat_hero_death: { file: 'combat/combat_death_01', volume: 1 },
   combat_alien_death: { file: 'combat/combat_end_01', volume: 1 },
