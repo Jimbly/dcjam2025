@@ -21,7 +21,7 @@ import {
   settingsSet,
 } from 'glov/client/settings';
 import { shadersSetInternalDefines } from 'glov/client/shaders';
-import { textureDefaultFilters } from 'glov/client/textures';
+import { textureDefaultFilters, textureLoad } from 'glov/client/textures';
 import { uiSetPanelColor } from 'glov/client/ui';
 import * as ui from 'glov/client/ui';
 import { v4set } from 'glov/common/vmath';
@@ -301,4 +301,20 @@ export function main(): void {
   autoAtlas('critters', 'critter6');
   autoAtlas('npcs', 'npc-1');
   autoAtlas('decals', 'ship-decal-1');
+
+  textureLoad({
+    url: 'img/base_sky.png',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  textureLoad({
+    url: 'img/minigame/crawler_sky.png',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
+  textureLoad({
+    url: 'img/station/skybox-wide.png',
+    wrap_s: gl.CLAMP_TO_EDGE,
+    wrap_t: gl.CLAMP_TO_EDGE,
+  });
 }
