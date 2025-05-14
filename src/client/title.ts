@@ -132,7 +132,7 @@ function title(dt: number): void {
 
   let y0 = 70 + yoffs;
   let y = y0;
-  if (engine.DEBUG && false) {
+  if (engine.DEBUG) {
     let next_y = account_ui.showLogin({
       x: 10,
       y: 10,
