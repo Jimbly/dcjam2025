@@ -16,7 +16,10 @@ import {
 } from 'glov/client/markdown_renderables';
 import { netInit } from 'glov/client/net';
 import * as settings from 'glov/client/settings';
-import { settingsSet } from 'glov/client/settings';
+import {
+  settingsRunTimeDefault,
+  settingsSet,
+} from 'glov/client/settings';
 import { shadersSetInternalDefines } from 'glov/client/shaders';
 import { textureDefaultFilters } from 'glov/client/textures';
 import { uiSetPanelColor } from 'glov/client/ui';
@@ -152,6 +155,7 @@ export function main(): void {
   }
   font = { info: font_info_kalam, texture: 'font/kalam' };
   settingsSet('use_fbos', use_fbos); // Needed for our effects
+  settingsRunTimeDefault('volume_music', 0.32);
 
   autoAtlasTextureOpts('whitebox', { force_mipmaps: true });
   autoAtlasTextureOpts('utumno', { force_mipmaps: true });

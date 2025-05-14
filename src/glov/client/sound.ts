@@ -189,7 +189,7 @@ settingsRegister({
     range: [0,1],
   },
   volume_music: {
-    default_value: 0.32, // DCJAM25
+    default_value: 1,
     type: cmd_parse.TYPE_FLOAT,
     range: [0,1],
   },
