@@ -1912,8 +1912,8 @@ export class CrawlerController {
 
     // Check for intentional events
     // v2add(temp_pos, last_dest_pos, DXY[this.last_dest_rot]);
-    let forward_frame = entityBlocks(game_state.floor_id, temp_pos, true) ? 11 : 1; // DCJAM
-    // let forward_frame = 1; // DCJAM
+    // Old: forward attacks: let forward_frame = entityBlocks(game_state.floor_id, temp_pos, true) ? 11 : 1;
+    let forward_frame = 1;
     if (show_buttons) {
       let keys_turn_left = [KEYS.Q];
       let keys_forward = [KEYS.W];
