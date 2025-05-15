@@ -228,7 +228,7 @@ function startMove(
     } else if (!is_facing_ent) {
       script_api.status('move_blocked', 'Something blocks your way.');
     } else {
-      on_bump_entity(blocked_ent_id!);
+      on_bump_entity?.(blocked_ent_id!);
     }
   }
   return {
