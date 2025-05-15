@@ -2305,6 +2305,7 @@ export function playStartup(): void {
     style_map_info: fontStyleColored(null, 0x000000ff),
     // compass_border_w: 6,
     hide_name_on_minimap: true,
+    ents_visible_outside_fog_of_war: true,
   });
   combatStartup();
 }

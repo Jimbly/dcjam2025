@@ -162,6 +162,7 @@ let moved_since_fullscreen = false;
 let color_rollover = rovec4(0,0,0,0.25); // DCJAM25
 let color_path = rovec4(1,0.5,0,1);
 
+let ents_visible_outside_fog_of_war = false;
 let hide_name_on_minimap = false;
 let style_map_name: FontStyle | null = fontStyle(null, {
   color: 0xFFFFFFff,
@@ -580,7 +581,7 @@ export function crawlerMapViewDraw(
           if (!cell || cell.visible_frame === engine.frame_index - 1 && cell.visible_bits) {
             vis = true;
           }
-          if (cell?.visible_bits) { // DCJAM25
+          if (ents_visible_outside_fog_of_war && cell?.visible_bits) {
             vis = true;
           }
         }
@@ -682,10 +683,12 @@ export function crawlerMapViewStartup(param: {
   style_map_name?: FontStyle | null;
   style_map_info?: FontStyle | null;
   hide_name_on_minimap?: boolean;
+  ents_visible_outside_fog_of_war?: boolean;
   compass_border_w?: number;
 }): void {
   allow_pathfind = param.allow_pathfind ?? true;
   hide_name_on_minimap = param.hide_name_on_minimap ?? false;
+  ents_visible_outside_fog_of_war = param.ents_visible_outside_fog_of_war ?? false;
   color_rollover = param.color_rollover || color_rollover;
   if (param.style_map_name !== undefined) {
     style_map_name = param.style_map_name;
