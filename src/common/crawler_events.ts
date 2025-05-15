@@ -51,7 +51,7 @@ crawlerScriptRegisterFunc('KEY', function (
 });
 
 
-// crawlerScriptRegisterEvent({
+// crawlerScriptRegisterEvent({ // DCJAM25?
 //   key: 'key_set',
 //   when: CrawlerScriptWhen.PRE, // Must be PRE so that the if happens before the server applies it
 //   // map_icon: CrawlerScriptEventMapIcons.EXCLAMATION,
@@ -100,10 +100,10 @@ crawlerScriptRegisterEvent({
     } else {
       if (api.keyGet(param)) {
         api.keyClear(param);
-        //api.status('key_pickup', `Cleared key "${param}"`);
+        //api.status('key_pickup', `Cleared key "${param}"`); // DCJAM25
       } else {
         api.keySet(param);
-        //api.status('key_pickup', `Acquired key "${param}"`);
+        //api.status('key_pickup', `Acquired key "${param}"`); // DCJAM25
       }
     }
   },
@@ -117,8 +117,8 @@ crawlerScriptRegisterEvent({
     let params = param.split(' ');
     let delta = Number(params[0]);
     if (api.getFloor() + delta < 0) {
-      // api.status('stairs', 'This is where you came in, try to find the stairs down instead.'); // DCJAM
-      api.status('stairs', 'These stairs appear to be out of order.');
+      // api.status('stairs', 'This is where you came in, try to find the stairs down instead.'); // DCJAM25
+      api.status('stairs', 'These stairs appear to be out of order.'); // DCJAM25
       return;
     }
     let idx = 1;

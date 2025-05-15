@@ -315,12 +315,12 @@ export function simpleFormat(): GeomFormatElem[] {
 
 let fog_params = vec4(0.003, 0.001, 800.0, 0.0);
 let fog_color = vec4(0, 0, 0, 0);
-let fog_ex_color = vec4(0, 0, 0, 0);
+let fog_ex_color = vec4(0, 0, 0, 0); // DCJAM25
 
 export function crawlerSetFogColor(v: ROVec3): void {
   v3copy(fog_color, v);
 }
-export function crawlerSetFogExColor(v: ROVec4): void {
+export function crawlerSetFogExColor(v: ROVec4): void { // DCJAM25
   v3scale(fog_ex_color, v, v.length === 3 ? 1 : v[3]);
 }
 
@@ -339,7 +339,7 @@ export function crawlerRenderStartup(): void {
   shadersAddGlobal('debug_color', unit_vec); // default color if not provided per-drawcall
   shadersAddGlobal('fog_params', fog_params);
   shadersAddGlobal('fog_color', fog_color);
-  shadersAddGlobal('fog_ex_color', fog_ex_color);
+  shadersAddGlobal('fog_ex_color', fog_ex_color); // DCJAM25
 
   render_shaders = {
     fsprite: shaderCreate('shaders/crawler_sprite3d.fp'),

@@ -1483,7 +1483,7 @@ export function crawlerBuildModeUI(frame: Box & { map_view: boolean }): void {
   const x1 = x + w;
   // const y0 = y;
   let z = Z.UI;
-  drawRect(x, y, x + w, y + h, z - 1, [0,0,0,0.3]);
+  drawRect(x, y, x + w, y + h, z - 1, [0,0,0,0.3]); // DCJAM25
 
   const num_columns = 3;
   const col_width = floor((w - num_columns + 1) / num_columns);
