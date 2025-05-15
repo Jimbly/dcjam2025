@@ -230,7 +230,7 @@ export function drawableSpriteDrawSub(this: EntityDrawableSprite, param: EntityD
       scale *= 1 + easeIn(1 - t, 2) * 0.5;
     }
   }
-  if (ent.fade_out_at) { // DCJAM25
+  if (ent.fade_out_at) {
     v4copy(color_temp2, color);
     color_temp2[3] *= Math.max(0, 1 - (getFrameTimestamp() - ent.fade_out_at)/400);
     color = color_temp2;
