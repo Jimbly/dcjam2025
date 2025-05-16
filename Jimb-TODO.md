@@ -58,8 +58,5 @@ Post-game fixes / polish
 * Deleting/renaming any .entdef (and wall and cell) crashes
 * face_camera sprites should sort by their farther Z (or somehow total distance, not frustum distance) - two trees at the same Z are drawing the farther (to the side) one first and it looks wrong
 * Things to merge into base toolkit:
-  * entity position blending improvements
-  * sound_data.ts
-  * music ticking and pulling music from level props
-  * onetime event
-  * onscreen button hotkeys
+  * map_general and map_build_mode atlas split
+  * healthbar as 9-patch?

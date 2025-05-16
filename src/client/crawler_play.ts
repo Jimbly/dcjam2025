@@ -879,7 +879,7 @@ export function crawlerRenderFramePrep(fov_hack: number): void { // DCJAM
   let { level } = game_state;
   let clear = default_bg_color;
   let fog = default_bg_color;
-  let fog_ex_color = zero_vec;
+  let fog_ex_color = zero_vec; // DCJAM25
   let fog_params = default_fog_params;
   let vstyle: VstyleDesc | null = null;
   if (level) {
@@ -888,13 +888,13 @@ export function crawlerRenderFramePrep(fov_hack: number): void { // DCJAM
   if (vstyle) {
     clear = vstyle.background_color;
     fog = vstyle.fog_color;
-    fog_ex_color = vstyle.fog_ex_color || fog_ex_color;
+    fog_ex_color = vstyle.fog_ex_color || fog_ex_color; // DCJAM25
     fog_params = vstyle.fog_params;
   }
   opts_3d.clear_color = [clear[0], clear[1], clear[2], 0];
   gl.clearColor(clear[0], clear[1], clear[2], 0);
   crawlerSetFogColor(fog);
-  crawlerSetFogExColor(fog_ex_color);
+  crawlerSetFogExColor(fog_ex_color); // DCJAM25
   crawlerSetFogParams(fog_params);
   engine.start3DRendering(opts_3d);
   if (vstyle && vstyle.background_img) {
@@ -918,9 +918,8 @@ export function crawlerRenderFramePrep(fov_hack: number): void { // DCJAM
       if (voffs) {
         let viewport_save = engine.viewport.slice(0);
         if (setting_pixely) {
-          // TODO: support hsize
           let cv = crawlerRenderViewportGet();
-          engine.setViewport([cv.w * (1 - voffs), 0, cv.w * voffs, cv.h]);
+          engine.setViewport([cv.w * (1 - voffs) * hsize, 0, cv.w * voffs * hsize, cv.h]);
         } else {
           let viewport = crawlerCalc3DViewport();
           engine.setViewport([
@@ -1044,7 +1043,7 @@ export function crawlerRenderFrame(): void {
   }
 }
 
-export function crawlerPrepAndRenderFrame(fov_hack: number): void { // DCJAM
+export function crawlerPrepAndRenderFrame(fov_hack: number): void { // DCJAM25
   crawlerRenderFramePrep(fov_hack);
   crawlerRenderFrame();
 }

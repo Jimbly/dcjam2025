@@ -61,7 +61,7 @@ export function pathFind(
     cx: number,
     cy: number,
   ): void {
-    if (cell.desc.special_pos) { // DCJAM25 - don't path through special tiles, they'll exit!
+    if (cell.desc.special_pos) { // probably always valid: don't path through special tiles, they'll exit!
       return;
     }
     let wall = getEffWall(script_api, cell, dir);

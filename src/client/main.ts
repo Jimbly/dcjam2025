@@ -24,7 +24,7 @@ import { shadersSetInternalDefines } from 'glov/client/shaders';
 import { textureDefaultFilters, textureLoad } from 'glov/client/textures';
 import { uiSetPanelColor } from 'glov/client/ui';
 import * as ui from 'glov/client/ui';
-import { v4set } from 'glov/common/vmath';
+import { v4copy, vec4 } from 'glov/common/vmath';
 // import './client_cmds.js'; // for side effects
 import { crawlerBuildModeStartup } from './crawler_build_mode';
 import { drawableSpriteLoadNear } from './crawler_entity_client';
@@ -59,6 +59,8 @@ crawlerOnPixelyChange(function (new_value: number): void {
   assert(fonts);
   engine.setFonts(fonts[new_value] || fonts[2]);
 });
+
+const clear_color = vec4(1, 1, 1, 1);
 
 export let chat_ui: ReturnType<typeof chatUICreate>;
 
@@ -208,10 +210,10 @@ export function main(): void {
 
   let build_font = fonts[0];
 
-  gl.clearColor(1, 1, 1, 1);
-  v4set(engine.border_clear_color, 1, 1, 1, 1);
-  v4set(engine.border_color, 1, 1, 1, 1);
-  crawlerRenderSetUIClearColor([1, 1, 1, 1]);
+  gl.clearColor(clear_color[0], clear_color[1], clear_color[2], clear_color[3]);
+  v4copy(engine.border_clear_color, clear_color);
+  v4copy(engine.border_color, clear_color);
+  crawlerRenderSetUIClearColor(clear_color);
 
   // Actually not too bad:
   if (settings.filter === 1) {

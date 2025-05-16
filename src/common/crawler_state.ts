@@ -89,7 +89,7 @@ export type VstyleDesc = {
   wall_swaps: Partial<Record<string, string>>;
   fog_params: Vec3; // extinction rate, inscattering rate, initial distance
   fog_color: Vec3;
-  fog_ex_color?: Vec4; // extinction color, default black; [3] is a scalar multiplier
+  fog_ex_color?: Vec4; // DCJAM25 extinction color, default black; [3] is a scalar multiplier
   background_color: Vec3;
   background_img?: string;
   background_size?: number;

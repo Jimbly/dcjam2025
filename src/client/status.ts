@@ -97,14 +97,6 @@ export function statusTick(viewport: UIBox & { pad_top: number; pad_bottom: numb
       text: msg.text,
       alpha,
     });
-    // font.draw({
-    //   style: msg.style,
-    //   size,
-    //   x, y, z, w,
-    //   align: font.ALIGN.HCENTER|font.ALIGN.HWRAP,
-    //   text: msg.text,
-    //   alpha,
-    // });
     let text_w = dims.w;
     text_w += 6;
     temp_color[3] = alpha;
